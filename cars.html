@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Fleet | AutoElite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff1616",
+              secondary: "#1a1a1a",
+              light: "#f7f8fd",
+              dark: "#0a0a0a",
+            },
+            fontFamily: {
+              poppins: ["Poppins", "sans-serif"],
+            },
+            animation: {
+              "fade-in": "fadeIn 0.8s ease-in-out",
+              "slide-up": "slideUp 0.6s ease-out",
+              "slide-in-left": "slideInLeft 0.7s ease-out",
+              "slide-in-right": "slideInRight 0.7s ease-out",
+              "pulse-slow": "pulse 3s infinite",
+              "zoom-in": "zoomIn 0.5s ease-out",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(30px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+              slideInLeft: {
+                "0%": { transform: "translateX(-50px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              slideInRight: {
+                "0%": { transform: "translateX(50px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              zoomIn: {
+                "0%": { transform: "scale(0.9)", opacity: "0" },
+                "100%": { transform: "scale(1)", opacity: "1" },
+              },
+            },
+          },
+        },
+      };
+
+      // Car data
+      const carsData = [
+        {
+          id: 1,
+          name: "Tesla Model 3",
+          category: "Electric Luxury",
+          price: 95,
+          image:
+            "https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 5,
+          transmission: "Automatic",
+          fuel: "Electric",
+          features: ["Autopilot", "Premium Audio", "Glass Roof"],
+          available: true,
+          rating: 4.8,
+          popular: true,
+          tags: ["electric", "luxury", "automatic"],
+        },
+        {
+          id: 2,
+          name: "BMW X5",
+          category: "Premium SUV",
+          price: 129,
+          image:
+            "https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 7,
+          transmission: "Automatic",
+          fuel: "Petrol",
+          features: ["Panoramic Roof", "Parking Assistant", "Premium Sound"],
+          available: true,
+          rating: 4.7,
+          popular: true,
+          tags: ["suv", "luxury", "automatic"],
+        },
+        {
+          id: 3,
+          name: "Toyota Camry",
+          category: "Executive Sedan",
+          price: 49,
+          image:
+            "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 5,
+          transmission: "Automatic",
+          fuel: "Hybrid",
+          features: ["Safety Sense", "Apple CarPlay", "Dual Zone"],
+          available: true,
+          rating: 4.5,
+          popular: false,
+          tags: ["sedan", "economy", "hybrid"],
+        },
+        {
+          id: 5,
+          name: "Range Rover Sport",
+          category: "Luxury SUV",
+          price: 159,
+          image:
+            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 5,
+          transmission: "Automatic",
+          fuel: "Diesel",
+          features: ["Terrain Response", "Panoramic Roof", "Climate Seats"],
+          available: false,
+          rating: 4.9,
+          popular: false,
+          tags: ["suv", "luxury", "offroad"],
+        },
+        {
+          id: 7,
+          name: "Audi e-tron GT",
+          category: "Electric Sports",
+          price: 149,
+          image:
+            "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 4,
+          transmission: "Automatic",
+          fuel: "Electric",
+          features: ["Quattro AWD", "Virtual Cockpit", "Bang & Olufsen"],
+          available: true,
+          rating: 4.9,
+          popular: true,
+          tags: ["electric", "sports", "luxury"],
+        },
+        {
+          id: 8,
+          name: "Porsche 911",
+          category: "Sports Car",
+          price: 199,
+          image:
+            "https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 4,
+          transmission: "Automatic",
+          fuel: "Petrol",
+          features: ["Sport Chrono", "PDK Transmission", "Sport Exhaust"],
+          available: true,
+          rating: 4.9,
+          popular: false,
+          tags: ["sports", "luxury", "performance"],
+        },
+        {
+          id: 9,
+          name: "Hyundai i20",
+          category: "Compact Hatchback",
+          price: 32,
+          image:
+            "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 5,
+          transmission: "Manual",
+          fuel: "Petrol",
+          features: ["Touchscreen", "Rear Camera", "Wireless Charging"],
+          available: true,
+          rating: 4.3,
+          popular: false,
+          tags: ["compact", "economy", "manual"],
+        },
+        {
+          id: 11,
+          name: "Ford Mustang",
+          category: "Muscle Car",
+          price: 89,
+          image:
+            "https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 4,
+          transmission: "Automatic",
+          fuel: "Petrol",
+          features: ["V8 Engine", "Convertible", "Premium Sound"],
+          available: true,
+          rating: 4.7,
+          popular: true,
+          tags: ["sports", "muscle", "convertible"],
+        },
+        {
+          id: 12,
+          name: "Volvo XC90",
+          category: "Family SUV",
+          price: 109,
+          image:
+            "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 7,
+          transmission: "Automatic",
+          fuel: "Hybrid",
+          features: ["Pilot Assist", "Bowers & Wilkins", "Air Suspension"],
+          available: true,
+          rating: 4.8,
+          popular: false,
+          tags: ["suv", "family", "safety"],
+        },
+      ];
+
+      let currentCars = [...carsData];
+      let currentFilters = {
+        category: "all",
+        transmission: "all",
+        fuel: "all",
+        seats: "all",
+        priceRange: [0, 200],
+        sortBy: "default",
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize theme
+        if (
+          localStorage.getItem("color-theme") === "dark" ||
+          (!("color-theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+          document
+            .getElementById("theme-toggle-icon")
+            .classList.remove("fa-moon");
+          document.getElementById("theme-toggle-icon").classList.add("fa-sun");
+        } else {
+          document.documentElement.classList.remove("dark");
+          document
+            .getElementById("theme-toggle-icon")
+            .classList.remove("fa-sun");
+          document.getElementById("theme-toggle-icon").classList.add("fa-moon");
+        }
+
+        // Initialize price slider
+        initPriceSlider();
+
+        // Load initial cars
+        renderCars();
+
+        // Initialize event listeners
+        initEventListeners();
+
+        // Update car count
+        updateCarCount();
+      });
+
+      // Toggle theme
+      function toggleTheme() {
+        const themeToggleIcon = document.getElementById("theme-toggle-icon");
+
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("color-theme", "light");
+          themeToggleIcon.classList.remove("fa-sun");
+          themeToggleIcon.classList.add("fa-moon");
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("color-theme", "dark");
+          themeToggleIcon.classList.remove("fa-moon");
+          themeToggleIcon.classList.add("fa-sun");
+        }
+      }
+
+      // Initialize price slider
+      function initPriceSlider() {
+        const priceSlider = document.getElementById("price-slider");
+        const priceValue = document.getElementById("price-value");
+
+        priceSlider.addEventListener("input", function () {
+          priceValue.textContent = `Up to $${this.value}/day`;
+          currentFilters.priceRange = [0, parseInt(this.value)];
+          applyFilters();
+        });
+      }
+
+      // Initialize event listeners
+      function initEventListeners() {
+        // Category filter
+        document.querySelectorAll(".category-filter").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            document
+              .querySelectorAll(".category-filter")
+              .forEach((b) => b.classList.remove("active"));
+            this.classList.add("active");
+            currentFilters.category = this.dataset.category;
+            applyFilters();
+          });
+        });
+
+        // Transmission filter
+        document
+          .querySelectorAll('input[name="transmission"]')
+          .forEach((radio) => {
+            radio.addEventListener("change", function () {
+              currentFilters.transmission = this.value;
+              applyFilters();
+            });
+          });
+
+        // Fuel filter
+        document.querySelectorAll('input[name="fuel"]').forEach((radio) => {
+          radio.addEventListener("change", function () {
+            currentFilters.fuel = this.value;
+            applyFilters();
+          });
+        });
+
+        // Seats filter
+        document.querySelectorAll('input[name="seats"]').forEach((radio) => {
+          radio.addEventListener("change", function () {
+            currentFilters.seats = this.value;
+            applyFilters();
+          });
+        });
+
+        // Sort by
+        document
+          .getElementById("sort-select")
+          .addEventListener("change", function () {
+            currentFilters.sortBy = this.value;
+            applyFilters();
+          });
+
+        // Search
+        document
+          .getElementById("search-input")
+          .addEventListener("input", function () {
+            applyFilters();
+          });
+
+        // Reset filters
+        document
+          .getElementById("reset-filters")
+          .addEventListener("click", function () {
+            resetFilters();
+          });
+
+        // Toggle filter sidebar on mobile
+        document
+          .getElementById("toggle-filters")
+          .addEventListener("click", function () {
+            document
+              .getElementById("filter-sidebar")
+              .classList.toggle("hidden");
+          });
+      }
+
+      // Apply filters
+      function applyFilters() {
+        let filteredCars = [...carsData];
+        const searchQuery = document
+          .getElementById("search-input")
+          .value.toLowerCase();
+
+        // Search filter
+        if (searchQuery) {
+          filteredCars = filteredCars.filter(
+            (car) =>
+              car.name.toLowerCase().includes(searchQuery) ||
+              car.category.toLowerCase().includes(searchQuery)
+          );
+        }
+
+        // Category filter
+        if (currentFilters.category !== "all") {
+          if (currentFilters.category === "popular") {
+            filteredCars = filteredCars.filter((car) => car.popular);
+          } else if (currentFilters.category === "electric") {
+            filteredCars = filteredCars.filter(
+              (car) => car.fuel.toLowerCase() === "electric"
+            );
+          } else {
+            filteredCars = filteredCars.filter((car) =>
+              car.tags.includes(currentFilters.category)
+            );
+          }
+        }
+
+        // Transmission filter
+        if (currentFilters.transmission !== "all") {
+          filteredCars = filteredCars.filter(
+            (car) =>
+              car.transmission.toLowerCase() === currentFilters.transmission
+          );
+        }
+
+        // Fuel filter
+        if (currentFilters.fuel !== "all") {
+          filteredCars = filteredCars.filter(
+            (car) => car.fuel.toLowerCase() === currentFilters.fuel
+          );
+        }
+
+        // Seats filter
+        if (currentFilters.seats !== "all") {
+          filteredCars = filteredCars.filter(
+            (car) => parseInt(currentFilters.seats) <= car.seats
+          );
+        }
+
+        // Price filter
+        filteredCars = filteredCars.filter(
+          (car) =>
+            car.price >= currentFilters.priceRange[0] &&
+            car.price <= currentFilters.priceRange[1]
+        );
+
+        // Sort
+        if (currentFilters.sortBy === "price-low") {
+          filteredCars.sort((a, b) => a.price - b.price);
+        } else if (currentFilters.sortBy === "price-high") {
+          filteredCars.sort((a, b) => b.price - a.price);
+        } else if (currentFilters.sortBy === "rating") {
+          filteredCars.sort((a, b) => b.rating - a.rating);
+        } else if (currentFilters.sortBy === "name") {
+          filteredCars.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        currentCars = filteredCars;
+        renderCars();
+        updateCarCount();
+      }
+
+      // Reset filters
+      function resetFilters() {
+        document.querySelectorAll(".category-filter").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        document.getElementById("category-all").classList.add("active");
+
+        document
+          .querySelectorAll('input[name="transmission"]')
+          .forEach((radio) => {
+            radio.checked = false;
+          });
+        document.getElementById("transmission-all").checked = true;
+
+        document.querySelectorAll('input[name="fuel"]').forEach((radio) => {
+          radio.checked = false;
+        });
+        document.getElementById("fuel-all").checked = true;
+
+        document.querySelectorAll('input[name="seats"]').forEach((radio) => {
+          radio.checked = false;
+        });
+        document.getElementById("seats-all").checked = true;
+
+        document.getElementById("price-slider").value = 200;
+        document.getElementById("price-value").textContent = "Up to $200/day";
+
+        document.getElementById("sort-select").value = "default";
+        document.getElementById("search-input").value = "";
+
+        currentFilters = {
+          category: "all",
+          transmission: "all",
+          fuel: "all",
+          seats: "all",
+          priceRange: [0, 200],
+          sortBy: "default",
+        };
+
+        currentCars = [...carsData];
+        renderCars();
+        updateCarCount();
+      }
+
+      // Render cars
+      function renderCars() {
+        const container = document.getElementById("cars-container");
+        container.innerHTML = "";
+
+        if (currentCars.length === 0) {
+          container.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fas fa-car text-6xl text-gray-400 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">No cars found</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Try adjusting your filters or search term</p>
+                        <button onclick="resetFilters()" class="btn-primary px-6 py-3 rounded-full font-bold mt-4">
+                            Reset All Filters
+                        </button>
+                    </div>
+                `;
+          return;
+        }
+
+        currentCars.forEach((car, index) => {
+          const carCard = document.createElement("div");
+          carCard.className =
+            "bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 animate-slide-up";
+          carCard.style.animationDelay = `${index * 0.05}s`;
+          carCard.innerHTML = `
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${car.image}" alt="${
+            car.name
+          }" class="w-full h-full object-cover">
+                        ${
+                          car.popular
+                            ? '<div class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-bold">Popular</div>'
+                            : ""
+                        }
+                        ${
+                          !car.available
+                            ? '<div class="absolute top-4 right-4 bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-bold">Booked</div>'
+                            : ""
+                        }
+                        <div class="absolute top-4 right-4 ${
+                          car.available
+                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+                            : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+                        } px-3 py-1 rounded-full text-sm font-bold">
+                            ${car.available ? "Available" : "Unavailable"}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold mb-1">${
+                                  car.name
+                                }</h3>
+                                <p class="text-gray-500 dark:text-gray-400">${
+                                  car.category
+                                }</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-primary">$${
+                                  car.price
+                                }<span class="text-sm font-normal">/day</span></div>
+                                <div class="flex items-center justify-end mt-1">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <span class="ml-1 text-sm">${
+                                      car.rating
+                                    }</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between text-gray-600 dark:text-gray-400 mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-user-friends mr-2"></i>
+                                <span>${car.seats} Seats</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-gas-pump mr-2"></i>
+                                <span>${car.fuel}</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-cogs mr-2"></i>
+                                <span>${car.transmission}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            ${car.features
+                              .slice(0, 2)
+                              .map(
+                                (feature) => `
+                                <span class="px-3 py-1 bg-gray-100 dark:bg-gray-900 rounded-full text-sm">${feature}</span>
+                            `
+                              )
+                              .join("")}
+                            ${
+                              car.features.length > 2
+                                ? '<span class="px-3 py-1 bg-gray-100 dark:bg-gray-900 rounded-full text-sm">+' +
+                                  (car.features.length - 2) +
+                                  " more</span>"
+                                : ""
+                            }
+                        </div>
+                        
+                        <div class="flex space-x-3">
+                            <a href="car-details.html?id=${
+                              car.id
+                            }" class="btn-primary flex-1 py-3 rounded-xl font-bold text-center">
+                                View Details
+                            </a>
+                            ${
+                              car.available
+                                ? `
+                                <button onclick="quickBook(${car.id})" class="px-6 py-3 rounded-xl font-bold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+                                    Book Now
+                                </button>
+                            `
+                                : `
+                                <button disabled class="px-6 py-3 rounded-xl font-bold border-2 border-gray-400 text-gray-400 cursor-not-allowed">
+                                    Unavailable
+                                </button>
+                            `
+                            }
+                        </div>
+                    </div>
+                `;
+          container.appendChild(carCard);
+        });
+      }
+
+      // Update car count
+      function updateCarCount() {
+        document.getElementById("car-count").textContent = currentCars.length;
+        document.getElementById("total-cars").textContent = carsData.length;
+      }
+
+      // Quick book function
+      function quickBook(carId) {
+        const car = carsData.find((c) => c.id === carId);
+        if (car) {
+          // In a real app, this would redirect to booking page with car pre-selected
+          alert(
+            `Quick booking for ${car.name} - $${car.price}/day\nRedirecting to booking page...`
+          );
+          // window.location.href = `booking.html?car=${carId}`;
+        }
+      }
+
+      // Toggle favorite
+      function toggleFavorite(icon) {
+        if (icon.classList.contains("far")) {
+          icon.classList.remove("far");
+          icon.classList.add("fas", "text-red-500");
+        } else {
+          icon.classList.remove("fas", "text-red-500");
+          icon.classList.add("far");
+        }
+      }
+
+      // Toggle grid/list view
+      function toggleView(view) {
+        const container = document.getElementById("cars-container");
+        if (view === "list") {
+          container.classList.remove(
+            "grid-cols-1",
+            "md:grid-cols-2",
+            "lg:grid-cols-3"
+          );
+          container.classList.add("grid-cols-1");
+        } else {
+          container.classList.remove("grid-cols-1");
+          container.classList.add(
+            "grid-cols-1",
+            "md:grid-cols-2",
+            "lg:grid-cols-3"
+          );
+        }
+
+        // Update active view buttons
+        document.querySelectorAll(".view-btn").forEach((btn) => {
+          btn.classList.remove("bg-primary", "text-white");
+          btn.classList.add(
+            "bg-gray-200",
+            "dark:bg-gray-800",
+            "text-gray-700",
+            "dark:text-gray-300"
+          );
+        });
+        document
+          .getElementById(`view-${view}`)
+          .classList.remove(
+            "bg-gray-200",
+            "dark:bg-gray-800",
+            "text-gray-700",
+            "dark:text-gray-300"
+          );
+        document
+          .getElementById(`view-${view}`)
+          .classList.add("bg-primary", "text-white");
+      }
+    </script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .dark .glass-effect {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .gradient-text {
+        background: linear-gradient(45deg, #ff1616, #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .btn-primary {
+        background: linear-gradient(45deg, #ff1616, #ff5252);
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(255, 22, 22, 0.3);
+      }
+
+      .dark .btn-primary:hover {
+        box-shadow: 0 10px 20px rgba(255, 22, 22, 0.5);
+      }
+
+      .filter-btn.active {
+        background: linear-gradient(45deg, #ff1616, #ff5252);
+        color: white;
+      }
+
+      .category-filter.active {
+        background: linear-gradient(45deg, #ff1616, #ff5252);
+        color: white;
+      }
+
+      /* Custom checkbox */
+      .custom-checkbox input:checked + span {
+        background-color: #ff1616;
+        border-color: #ff1616;
+      }
+
+      .custom-checkbox input:checked + span svg {
+        display: block;
+      }
+
+      /* Price slider */
+      input[type="range"] {
+        -webkit-appearance: none;
+        height: 6px;
+        background: #e5e7eb;
+        border-radius: 5px;
+        outline: none;
+      }
+
+      .dark input[type="range"] {
+        background: #4b5563;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #ff1616;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #ff1616;
+        border-radius: 50%;
+        cursor: pointer;
+        border: none;
+      }
+
+      /* Car card hover effect */
+      .car-card:hover {
+        transform: translateY(-10px);
+      }
+
+      /* Scrollbar for filters */
+      .filter-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      .filter-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .dark .filter-scrollbar::-webkit-scrollbar-track {
+        background: #2d2d2d;
+      }
+
+      .filter-scrollbar::-webkit-scrollbar-thumb {
+        background: #ff1616;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body
+    class="font-poppins bg-light dark:bg-dark text-gray-800 dark:text-gray-200 transition-colors duration-500"
+  >
+    <!-- Header  -->
+    <header class="sticky top-0 w-full z-50 py-4 px-6">
+      <!-- Navigation -->
+      <nav>
+        <div class="container mx-auto">
+          <div
+            class="flex justify-between items-center glass-effect rounded-2xl px-6 py-3 backdrop-blur-lg shadow-xl animate-slide-in-top"
+          >
+            <div class="flex items-center space-x-3">
+              <img src="assets/images/logo.png" alt="" class="h-12 w-auto" />
+            </div>
+
+            <div class="hidden lg:flex space-x-8">
+              <a
+                href="index.html"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                Home
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
+              <a
+                href="about.html"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                About
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
+              <a
+                href="cars.html"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                Our Cars
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
+              <a
+                href="#booking"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                Booking
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
+              <a
+                href="#servicing"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                Servicing
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
+            </div>
+            <div class="flex items-center space-x-4">
+              <button
+                id="theme-toggle"
+                onclick="toggleTheme()"
+                class="w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:bg-primary/20 transition-colors"
+              >
+                <i id="theme-toggle-icon" class="fas fa-moon"></i>
+              </button>
+              <button
+                onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})"
+                class="btn-primary px-6 py-3 rounded-full font-bold shadow-lg"
+              >
+                <i class="fas fa-calendar-alt mr-2"></i> Book Now
+              </button>
+              <button class="lg:hidden">
+                <i class="fas fa-bars text-xl"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section
+      class="relative py-16 bg-gradient-to-br from-gray-900 to-black dark:from-gray-900 dark:to-black text-white overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-20"
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-3xl mx-auto text-center animate-fade-in">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+            Explore Our <span class="gradient-text">Premium Fleet</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-8">
+            Choose from our extensive collection of luxury, economy, and
+            electric vehicles
+          </p>
+
+          <!-- Search Bar -->
+          <div class="max-w-2xl mx-auto">
+            <div class="relative">
+              <i class="fas fa-search absolute left-6 top-5 text-gray-400"></i>
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search cars by name or category..."
+                class="w-full pl-14 pr-6 py-4 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+              <button
+                class="absolute right-3 top-3 btn-primary px-6 py-2 rounded-full"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-8">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row gap-8">
+          <!-- Filters Sidebar -->
+          <div id="filter-sidebar" class="lg:w-1/4 hidden lg:block">
+            <div class="sticky top-24 space-y-8">
+              <!-- Filter Header -->
+              <div class="flex justify-between items-center">
+                <h3 class="text-2xl font-bold">Filters</h3>
+                <button
+                  id="reset-filters"
+                  class="text-primary hover:underline font-medium"
+                >
+                  Reset All
+                </button>
+              </div>
+
+              <!-- Categories -->
+              <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                <h4 class="font-bold text-lg mb-4">Categories</h4>
+                <div class="space-y-2">
+                  <button
+                    class="category-filter active w-full text-left px-4 py-3 rounded-lg"
+                    data-category="all"
+                    id="category-all"
+                  >
+                    All Cars (<span id="total-cars">12</span>)
+                  </button>
+                  <button
+                    class="category-filter w-full text-left px-4 py-3 rounded-lg"
+                    data-category="popular"
+                  >
+                    Popular <i class="fas fa-fire text-primary ml-2"></i>
+                  </button>
+                  <button
+                    class="category-filter w-full text-left px-4 py-3 rounded-lg"
+                    data-category="electric"
+                  >
+                    Electric Vehicles
+                    <i class="fas fa-bolt text-primary ml-2"></i>
+                  </button>
+                  <button
+                    class="category-filter w-full text-left px-4 py-3 rounded-lg"
+                    data-category="luxury"
+                  >
+                    Luxury Cars
+                  </button>
+                  <button
+                    class="category-filter w-full text-left px-4 py-3 rounded-lg"
+                    data-category="suv"
+                  >
+                    SUVs
+                  </button>
+                  <button
+                    class="category-filter w-full text-left px-4 py-3 rounded-lg"
+                    data-category="sedan"
+                  >
+                    Sedans
+                  </button>
+                  <button
+                    class="category-filter w-full text-left px-4 py-3 rounded-lg"
+                    data-category="sports"
+                  >
+                    Sports Cars
+                  </button>
+                  <button
+                    class="category-filter w-full text-left px-4 py-3 rounded-lg"
+                    data-category="economy"
+                  >
+                    Economy
+                  </button>
+                </div>
+              </div>
+
+              <!-- Price Range -->
+              <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                <h4 class="font-bold text-lg mb-4">Price Range</h4>
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600 dark:text-gray-400">$0</span>
+                    <span id="price-value" class="font-bold"
+                      >Up to $200/day</span
+                    >
+                  </div>
+                  <input
+                    type="range"
+                    id="price-slider"
+                    min="0"
+                    max="200"
+                    value="200"
+                    class="w-full"
+                  />
+                </div>
+              </div>
+
+              <!-- Transmission -->
+              <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                <h4 class="font-bold text-lg mb-4">Transmission</h4>
+                <div class="space-y-3">
+                  <label class="flex items-center">
+                    <input
+                      type="radio"
+                      name="transmission"
+                      value="all"
+                      id="transmission-all"
+                      class="mr-3"
+                      checked
+                    />
+                    <span>All</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input
+                      type="radio"
+                      name="transmission"
+                      value="automatic"
+                      class="mr-3"
+                    />
+                    <span>Automatic</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input
+                      type="radio"
+                      name="transmission"
+                      value="manual"
+                      class="mr-3"
+                    />
+                    <span>Manual</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Fuel Type -->
+              <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                <h4 class="font-bold text-lg mb-4">Fuel Type</h4>
+                <div class="space-y-3">
+                  <label class="flex items-center">
+                    <input
+                      type="radio"
+                      name="fuel"
+                      value="all"
+                      id="fuel-all"
+                      class="mr-3"
+                      checked
+                    />
+                    <span>All</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input
+                      type="radio"
+                      name="fuel"
+                      value="electric"
+                      class="mr-3"
+                    />
+                    <span>Electric</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input
+                      type="radio"
+                      name="fuel"
+                      value="petrol"
+                      class="mr-3"
+                    />
+                    <span>Petrol</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input
+                      type="radio"
+                      name="fuel"
+                      value="diesel"
+                      class="mr-3"
+                    />
+                    <span>Diesel</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input
+                      type="radio"
+                      name="fuel"
+                      value="hybrid"
+                      class="mr-3"
+                    />
+                    <span>Hybrid</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Seating Capacity -->
+              <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                <h4 class="font-bold text-lg mb-4">Seating Capacity</h4>
+                <div class="space-y-3">
+                  <label class="flex items-center">
+                    <input
+                      type="radio"
+                      name="seats"
+                      value="all"
+                      id="seats-all"
+                      class="mr-3"
+                      checked
+                    />
+                    <span>All</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" name="seats" value="2" class="mr-3" />
+                    <span>2+ Seats</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" name="seats" value="4" class="mr-3" />
+                    <span>4+ Seats</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" name="seats" value="5" class="mr-3" />
+                    <span>5+ Seats</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" name="seats" value="7" class="mr-3" />
+                    <span>7+ Seats</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cars Grid -->
+          <div class="lg:w-3/4">
+            <!-- Results Header -->
+            <div
+              class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 space-y-4 md:space-y-0"
+            >
+              <div>
+                <h2 class="text-2xl font-bold">
+                  Available Cars (<span id="car-count">12</span>)
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400">
+                  Select from our premium collection
+                </p>
+              </div>
+
+              <div class="flex items-center space-x-4">
+                <!-- View Toggle -->
+                <div class="flex bg-gray-200 dark:bg-gray-800 rounded-lg p-1">
+                  <button
+                    id="view-grid"
+                    onclick="toggleView('grid')"
+                    class="view-btn bg-primary text-white px-4 py-2 rounded-lg"
+                  >
+                    <i class="fas fa-th-large"></i>
+                  </button>
+                  <button
+                    id="view-list"
+                    onclick="toggleView('list')"
+                    class="view-btn bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg"
+                  >
+                    <i class="fas fa-list"></i>
+                  </button>
+                </div>
+
+                <!-- Sort -->
+                <div class="flex items-center space-x-2">
+                  <span class="text-gray-600 dark:text-gray-400">Sort by:</span>
+                  <select
+                    id="sort-select"
+                    class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2"
+                  >
+                    <option value="default">Default</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Rating</option>
+                    <option value="name">Name</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cars Grid -->
+            <div
+              id="cars-container"
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            ></div>
+
+            <!-- Load More (if needed) -->
+            <div class="mt-12 text-center">
+              <button
+                class="px-8 py-3 rounded-full font-bold text-lg border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+              >
+                Load More Cars <i class="fas fa-arrow-down ml-2"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-primary to-red-600 text-white">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-4xl font-bold mb-6">
+          Can't Find What You're Looking For?
+        </h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+          Contact our team for special requests, custom packages, or corporate
+          rates.
+        </p>
+        <a
+          href="contact.html"
+          class="inline-flex items-center btn-primary px-10 py-4 rounded-full font-bold text-lg"
+        >
+          <i class="fas fa-phone mr-3"></i> Contact Our Team
+        </a>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-900">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Why Choose AutoElite?
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            We make car rental simple, reliable, and premium
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i class="fas fa-shield-alt text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Fully Insured</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Comprehensive coverage on all rentals
+            </p>
+          </div>
+
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i class="fas fa-bolt text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Quick Pickup</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Ready in 15 minutes or less
+            </p>
+          </div>
+
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i class="fas fa-headset text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">24/7 Support</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Always available to help
+            </p>
+          </div>
+
+          <div class="text-center p-6">
+            <div
+              class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i class="fas fa-leaf text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Eco-Friendly</h3>
+            <p class="text-gray-600 dark:text-gray-400">40% electric fleet</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 relative overflow-hidden">
+      <!-- Animated elements -->
+      <div
+        class="absolute top-0 left-0 w-64 h-64 bg-primary rounded-full opacity-5 -translate-x-32 -translate-y-32"
+      ></div>
+      <div
+        class="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full opacity-5 translate-x-48 translate-y-48"
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-6">
+              <img
+                src="assets/images/logo-white.png"
+                class="w-auto h-12"
+                alt=""
+              />
+            </div>
+            <p class="text-gray-400 mb-6">
+              Premium car rental and servicing solutions for modern travelers.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="#"
+                class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="#"
+                class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#home"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#cars"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Our Fleet</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#booking"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Book Now</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#servicing"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Servicing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Our Services</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Short Term Rental</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Long Term Rental</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Corporate Leasing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Car Maintenance</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >24/7 Roadside</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Contact Info</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt text-primary mr-3 mt-1"></i>
+                <span class="text-gray-400">
+                  29 Foxwood Way, Langford WA 6147
+                </span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone text-primary mr-3"></i>
+                <span class="text-gray-400">0497790788</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-envelope text-primary mr-3"></i>
+                <span class="text-gray-400">info@aspireauto.com.au</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-clock text-primary mr-3"></i>
+                <span class="text-gray-400">24/7 Service Available</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 text-center">
+          <p class="text-gray-500">
+            &copy; 2025 Aspire Automotive. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

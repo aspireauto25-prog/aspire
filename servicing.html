@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Servicing | AutoElite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff1616",
+              secondary: "#1a1a1a",
+              light: "#f7f8fd",
+              dark: "#0a0a0a",
+            },
+            fontFamily: {
+              poppins: ["Poppins", "sans-serif"],
+            },
+            animation: {
+              "fade-in": "fadeIn 0.8s ease-in-out",
+              "slide-up": "slideUp 0.6s ease-out",
+              "slide-in-left": "slideInLeft 0.7s ease-out",
+              "slide-in-right": "slideInRight 0.7s ease-out",
+              "pulse-slow": "pulse 3s infinite",
+              float: "float 6s ease-in-out infinite",
+              wiggle: "wiggle 1s ease-in-out infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(30px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+              slideInLeft: {
+                "0%": { transform: "translateX(-50px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              slideInRight: {
+                "0%": { transform: "translateX(50px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
+              wiggle: {
+                "0%, 100%": { transform: "rotate(-3deg)" },
+                "50%": { transform: "rotate(3deg)" },
+              },
+            },
+          },
+        },
+      };
+
+      // Service packages data
+      const servicePackages = [
+        {
+          id: 1,
+          name: "Basic Service",
+          price: 99,
+          duration: "1-2 hours",
+          popular: false,
+          features: [
+            "Oil & Filter Change",
+            "Tire Pressure Check",
+            "Brake Inspection",
+            "Fluid Level Check",
+            "Battery Check",
+            "Exterior Lights Check",
+          ],
+          recommendedFor: "Regular maintenance every 5,000 miles",
+        },
+        {
+          id: 2,
+          name: "Premium Service",
+          price: 199,
+          duration: "3-4 hours",
+          popular: true,
+          features: [
+            "Everything in Basic Service",
+            "Air Filter Replacement",
+            "Cabin Air Filter",
+            "Wiper Blades Replacement",
+            "Fuel System Cleaning",
+            "30-Point Inspection",
+            "Brake Fluid Flush",
+            "Computer Diagnostics",
+          ],
+          recommendedFor: "Comprehensive service every 10,000 miles",
+        },
+        {
+          id: 3,
+          name: "Full Service",
+          price: 299,
+          duration: "5-6 hours",
+          popular: false,
+          features: [
+            "Everything in Premium Service",
+            "Spark Plugs Replacement",
+            "Transmission Fluid",
+            "Coolant Flush",
+            "Power Steering Fluid",
+            "Suspension Check",
+            "AC System Service",
+            "Wheel Alignment",
+            "Comprehensive Report",
+          ],
+          recommendedFor: "Complete overhaul every 30,000 miles",
+        },
+      ];
+
+      // Maintenance schedule
+      const maintenanceSchedule = [
+        {
+          mileage: "Every 5,000 miles",
+          services: ["Oil Change", "Tire Rotation", "Brake Inspection"],
+        },
+        {
+          mileage: "Every 10,000 miles",
+          services: ["Air Filter", "Cabin Filter", "Fuel System Cleaning"],
+        },
+        {
+          mileage: "Every 20,000 miles",
+          services: ["Spark Plugs", "Transmission Fluid", "Coolant Check"],
+        },
+        {
+          mileage: "Every 30,000 miles",
+          services: [
+            "Wheel Alignment",
+            "Suspension Check",
+            "Complete Inspection",
+          ],
+        },
+        {
+          mileage: "Every 50,000 miles",
+          services: ["Timing Belt", "Water Pump", "Major Service"],
+        },
+      ];
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize theme
+        if (
+          localStorage.getItem("color-theme") === "dark" ||
+          (!("color-theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+          document
+            .getElementById("theme-toggle-icon")
+            .classList.remove("fa-moon");
+          document.getElementById("theme-toggle-icon").classList.add("fa-sun");
+        } else {
+          document.documentElement.classList.remove("dark");
+          document
+            .getElementById("theme-toggle-icon")
+            .classList.remove("fa-sun");
+          document.getElementById("theme-toggle-icon").classList.add("fa-moon");
+        }
+
+        // Initialize service packages
+        initServicePackages();
+
+        // Initialize maintenance schedule
+        initMaintenanceSchedule();
+
+        // Initialize booking form
+        initBookingForm();
+
+        // Initialize FAQ
+        initFAQ();
+      });
+
+      // Toggle theme
+      function toggleTheme() {
+        const themeToggleIcon = document.getElementById("theme-toggle-icon");
+
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("color-theme", "light");
+          themeToggleIcon.classList.remove("fa-sun");
+          themeToggleIcon.classList.add("fa-moon");
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("color-theme", "dark");
+          themeToggleIcon.classList.remove("fa-moon");
+          themeToggleIcon.classList.add("fa-sun");
+        }
+      }
+
+      // Initialize service packages
+      function initServicePackages() {
+        const container = document.getElementById("service-packages");
+        servicePackages.forEach((pkg, index) => {
+          const packageDiv = document.createElement("div");
+          packageDiv.className = `service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 animate-slide-up ${
+            pkg.popular ? "border-2 border-primary" : ""
+          }`;
+          packageDiv.style.animationDelay = `${index * 0.1}s`;
+          packageDiv.innerHTML = `
+                    ${
+                      pkg.popular
+                        ? `
+                        <div class="bg-primary text-white py-2 text-center font-bold">
+                            <i class="fas fa-crown mr-2"></i> Most Popular
+                        </div>
+                    `
+                        : ""
+                    }
+                    
+                    <div class="p-8">
+                        <div class="text-center mb-6">
+                            <h3 class="text-2xl font-bold mb-2">${pkg.name}</h3>
+                            <div class="flex items-center justify-center text-gray-600 dark:text-gray-400">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span>${pkg.duration}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mb-8">
+                            <div class="text-5xl font-bold text-primary">$${
+                              pkg.price
+                            }</div>
+                            <p class="text-gray-600 dark:text-gray-400">One-time service</p>
+                        </div>
+                        
+                        <ul class="space-y-3 mb-8">
+                            ${pkg.features
+                              .map(
+                                (feature) => `
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-primary mr-3"></i>
+                                    <span>${feature}</span>
+                                </li>
+                            `
+                              )
+                              .join("")}
+                        </ul>
+                        
+                        <div class="mb-6 p-4 bg-gray-100 dark:bg-gray-900 rounded-xl">
+                            <p class="text-sm text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-info-circle text-primary mr-2"></i>
+                                ${pkg.recommendedFor}
+                            </p>
+                        </div>
+                        
+                        <button onclick="selectPackage(${
+                          pkg.id
+                        })" class="w-full ${
+            pkg.popular
+              ? "btn-primary"
+              : "border-2 border-primary text-primary hover:bg-primary hover:text-white"
+          } py-3 rounded-xl font-bold transition-colors">
+                            <i class="fas fa-calendar-check mr-2"></i> Book This Service
+                        </button>
+                    </div>
+                `;
+          container.appendChild(packageDiv);
+        });
+      }
+
+      // Initialize maintenance schedule
+      function initMaintenanceSchedule() {
+        const container = document.getElementById("maintenance-schedule");
+        maintenanceSchedule.forEach((item, index) => {
+          const scheduleItem = document.createElement("div");
+          scheduleItem.className =
+            "bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg animate-slide-up";
+          scheduleItem.style.animationDelay = `${index * 0.1}s`;
+          scheduleItem.innerHTML = `
+                    <div class="flex items-start mb-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-tachometer-alt text-primary"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">${item.mileage}</h4>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                ${item.services
+                                  .map(
+                                    (service) => `
+                                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-900 rounded-full text-sm">${service}</span>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="bookMileageService('${
+                      item.mileage
+                    }')" class="text-primary hover:underline font-medium">
+                        <i class="fas fa-tools mr-2"></i> Schedule Service
+                    </button>
+                `;
+          container.appendChild(scheduleItem);
+        });
+      }
+
+      // Initialize booking form
+      function initBookingForm() {
+        const form = document.getElementById("service-booking-form");
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          bookService();
+        });
+
+        // Set minimum date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById("service-date").min = tomorrow
+          .toISOString()
+          .split("T")[0];
+      }
+
+      // Initialize FAQ
+      function initFAQ() {
+        const faqData = [
+          {
+            question: "How long does a typical service take?",
+            answer:
+              "Basic service takes 1-2 hours, premium service takes 3-4 hours, and full service takes 5-6 hours. We offer express service options for basic maintenance.",
+          },
+          {
+            question: "Do you provide loaner cars during servicing?",
+            answer:
+              "Yes, we provide complimentary loaner cars for services taking more than 4 hours. Luxury vehicles and SUVs may have a small additional charge.",
+          },
+          {
+            question: "What is your warranty on servicing work?",
+            answer:
+              "All our servicing work comes with a 12-month/12,000-mile warranty. Parts are covered by manufacturer warranties, and labor is guaranteed.",
+          },
+          {
+            question: "Can I wait while my car is being serviced?",
+            answer:
+              "Yes! We have a comfortable waiting lounge with free WiFi, refreshments, and workstations. You can also track progress through our mobile app.",
+          },
+        ];
+
+        const container = document.getElementById("faq-container");
+        faqData.forEach((item, index) => {
+          const faqItem = document.createElement("div");
+          faqItem.className =
+            "bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg";
+          faqItem.innerHTML = `
+                    <button onclick="toggleServiceFAQ(${index})" class="w-full flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-left">${item.question}</h3>
+                        <i id="service-faq-icon-${index}" class="fas fa-plus text-primary"></i>
+                    </button>
+                    <div id="service-faq-answer-${index}" class="hidden mt-4">
+                        <p class="text-gray-600 dark:text-gray-300">${item.answer}</p>
+                    </div>
+                `;
+          container.appendChild(faqItem);
+        });
+      }
+
+      // Select service package
+      function selectPackage(packageId) {
+        const pkg = servicePackages.find((p) => p.id === packageId);
+        if (!pkg) return;
+
+        // Update form
+        document.getElementById("service-type").value = pkg.name;
+        document.getElementById("estimated-price").value = `$${pkg.price}`;
+
+        // Show success message
+        showNotification(`${pkg.name} selected! Fill out the form to book.`);
+
+        // Scroll to booking form
+        document
+          .getElementById("booking-form")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+
+      // Book mileage-based service
+      function bookMileageService(mileage) {
+        document.getElementById("service-type").value = `${mileage} Service`;
+        document.getElementById("estimated-price").value = `From $99`;
+        showNotification(
+          `Scheduling ${mileage} service. Fill out the form to continue.`
+        );
+        document
+          .getElementById("booking-form")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+
+      // Book service
+      function bookService() {
+        const form = document.getElementById("service-booking-form");
+        const requiredFields = [
+          "name",
+          "phone",
+          "email",
+          "car-model",
+          "service-type",
+          "service-date",
+          "service-time",
+        ];
+        let isValid = true;
+
+        // Validate required fields
+        requiredFields.forEach((fieldId) => {
+          const field = document.getElementById(fieldId);
+          if (!field.value.trim()) {
+            field.classList.add("border-red-500");
+            isValid = false;
+          } else {
+            field.classList.remove("border-red-500");
+          }
+        });
+
+        if (!isValid) {
+          showNotification("Please fill all required fields", "error");
+          return;
+        }
+
+        // Show loading
+        const submitBtn = document.getElementById("service-submit-btn");
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin mr-2"></i> Booking...';
+        submitBtn.disabled = true;
+
+        // Simulate booking
+        setTimeout(() => {
+          // Show success
+          const confirmation = document.getElementById("booking-confirmation");
+          const serviceType = document.getElementById("service-type").value;
+          const serviceDate = document.getElementById("service-date").value;
+          const serviceTime = document.getElementById("service-time").value;
+
+          confirmation.innerHTML = `
+                    <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-800 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-green-600 dark:text-green-300 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xl">Service Booked Successfully!</h3>
+                                <p class="text-gray-600 dark:text-gray-300">We'll send confirmation details to your email.</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Service Type:</span>
+                                <span class="font-bold">${serviceType}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Date & Time:</span>
+                                <span class="font-bold">${serviceDate} at ${serviceTime}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Car Model:</span>
+                                <span class="font-bold">${
+                                  document.getElementById("car-model").value
+                                }</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+          confirmation.classList.remove("hidden");
+
+          // Reset button
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+
+          // Reset form
+          form.reset();
+
+          // Scroll to confirmation
+          confirmation.scrollIntoView({ behavior: "smooth" });
+        }, 1500);
+      }
+
+      // Toggle FAQ
+      function toggleServiceFAQ(index) {
+        const answer = document.getElementById(`service-faq-answer-${index}`);
+        const icon = document.getElementById(`service-faq-icon-${index}`);
+
+        if (answer.classList.contains("hidden")) {
+          answer.classList.remove("hidden");
+          icon.classList.remove("fa-plus");
+          icon.classList.add("fa-minus");
+        } else {
+          answer.classList.add("hidden");
+          icon.classList.remove("fa-minus");
+          icon.classList.add("fa-plus");
+        }
+      }
+
+      // Show notification
+      function showNotification(message, type = "success") {
+        const notification = document.createElement("div");
+        notification.className = `fixed top-6 right-6 ${
+          type === "success" ? "bg-green-600" : "bg-red-600"
+        } text-white px-6 py-4 rounded-xl shadow-2xl animate-slide-in-right z-50`;
+        notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                      type === "success"
+                        ? "fa-check-circle"
+                        : "fa-exclamation-circle"
+                    } text-xl mr-3"></i>
+                    <span class="font-medium">${message}</span>
+                </div>
+            `;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.classList.add(
+            "opacity-0",
+            "transition-opacity",
+            "duration-300"
+          );
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+
+      // Emergency service
+      function requestEmergencyService() {
+        document.getElementById("emergency-modal").classList.remove("hidden");
+      }
+
+      function closeEmergencyModal() {
+        document.getElementById("emergency-modal").classList.add("hidden");
+      }
+
+      function submitEmergencyRequest() {
+        const phone = document.getElementById("emergency-phone").value;
+        const location = document.getElementById("emergency-location").value;
+        const problem = document.getElementById("emergency-problem").value;
+
+        if (!phone || !location || !problem) {
+          showNotification("Please fill all emergency details", "error");
+          return;
+        }
+
+        showNotification(
+          "Emergency service dispatched! Help is on the way.",
+          "success"
+        );
+        closeEmergencyModal();
+
+        // Simulate call
+        setTimeout(() => {
+          alert(
+            `Emergency service technician will call ${phone} within 5 minutes. Stay safe!`
+          );
+        }, 1000);
+      }
+    </script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .dark .glass-effect {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .gradient-text {
+        background: linear-gradient(45deg, #ff1616, #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .service-card {
+        transition: all 0.3s ease;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(45deg, #ff1616, #ff5252);
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(255, 22, 22, 0.3);
+      }
+
+      .dark .btn-primary:hover {
+        box-shadow: 0 10px 20px rgba(255, 22, 22, 0.5);
+      }
+
+      .feature-icon {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1);
+        color: #ff1616;
+      }
+
+      .maintenance-timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background: linear-gradient(to bottom, #ff1616, transparent);
+      }
+
+      @media (min-width: 768px) {
+        .maintenance-timeline::before {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="font-poppins bg-light dark:bg-dark text-gray-800 dark:text-gray-200 transition-colors duration-500"
+  >
+    <!-- Navigation -->
+    <nav
+      class="sticky top-0 z-40 py-4 px-6 bg-light/90 dark:bg-dark/90 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800"
+    >
+      <div class="container mx-auto">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <a href="index.html" class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center animate-pulse-slow"
+              >
+                <i class="fas fa-car text-white"></i>
+              </div>
+              <span class="text-2xl font-bold"
+                >Auto<span class="text-primary">Elite</span></span
+              >
+            </a>
+          </div>
+
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="index.html"
+              class="font-medium hover:text-primary transition-colors"
+              >Home</a
+            >
+            <a
+              href="cars.html"
+              class="font-medium hover:text-primary transition-colors"
+              >Cars</a
+            >
+            <a
+              href="about.html"
+              class="font-medium hover:text-primary transition-colors"
+              >About</a
+            >
+            <a href="servicing.html" class="font-medium text-primary"
+              >Servicing</a
+            >
+            <a
+              href="contact.html"
+              class="font-medium hover:text-primary transition-colors"
+              >Contact</a
+            >
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <button
+              onclick="toggleTheme()"
+              class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center hover:bg-primary/20 transition-colors"
+            >
+              <i id="theme-toggle-icon" class="fas fa-moon"></i>
+            </button>
+            <button
+              onclick="requestEmergencyService()"
+              class="px-6 py-3 rounded-full font-bold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+            >
+              <i class="fas fa-exclamation-triangle mr-2"></i> Emergency
+            </button>
+            <button class="md:hidden">
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="relative py-20 bg-gradient-to-br from-gray-900 to-black dark:from-gray-900 dark:to-black text-white overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-20"
+      ></div>
+      <div
+        class="absolute top-0 left-0 w-64 h-64 bg-primary rounded-full opacity-10 -translate-x-32 -translate-y-32"
+      ></div>
+      <div
+        class="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full opacity-10 translate-x-48 translate-y-48"
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-3xl mx-auto text-center animate-fade-in">
+          <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            Expert Car <span class="gradient-text">Servicing</span> &
+            Maintenance
+          </h1>
+          <p class="text-xl text-gray-300 mb-8">
+            Keep your vehicle in perfect condition with our certified
+            technicians and state-of-the-art equipment.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-6 justify-center">
+            <a
+              href="#booking-form"
+              class="btn-primary px-10 py-4 rounded-full font-bold text-lg"
+            >
+              <i class="fas fa-calendar-check mr-3"></i> Book Service
+            </a>
+            <button
+              onclick="requestEmergencyService()"
+              class="px-10 py-4 rounded-full font-bold text-lg border-2 border-white hover:bg-white hover:text-dark transition-all duration-300"
+            >
+              <i class="fas fa-exclamation-triangle mr-3"></i> Emergency Service
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Packages -->
+    <section class="py-16">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Service Packages</h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Choose from our comprehensive service packages designed for optimal
+            vehicle performance.
+          </p>
+        </div>
+
+        <div
+          id="service-packages"
+          class="grid grid-cols-1 md:grid-cols-3 gap-8"
+        ></div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-900">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">
+            Why Choose Our Servicing?
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            We provide exceptional service with certified expertise and
+            cutting-edge technology.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            class="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i
+                class="feature-icon fas fa-user-check text-primary text-2xl"
+              ></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Certified Technicians</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Factory-trained experts with 10+ years experience
+            </p>
+          </div>
+
+          <div
+            class="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i class="feature-icon fas fa-tools text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Modern Equipment</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Latest diagnostic tools and technology
+            </p>
+          </div>
+
+          <div
+            class="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i
+                class="feature-icon fas fa-shield-alt text-primary text-2xl"
+              ></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Warranty Protected</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              12-month service warranty on all work
+            </p>
+          </div>
+
+          <div
+            class="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i class="feature-icon fas fa-bolt text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Quick Service</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Most services completed same day
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Maintenance Schedule -->
+    <section class="py-16">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">
+            Recommended Maintenance Schedule
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Follow our maintenance guide to keep your vehicle running smoothly
+            and efficiently.
+          </p>
+        </div>
+
+        <div
+          id="maintenance-schedule"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        ></div>
+      </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section id="booking-form" class="py-16 bg-gray-100 dark:bg-gray-900">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+          <div
+            class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl animate-slide-up"
+          >
+            <h2 class="text-3xl font-bold mb-6">
+              Book Your Service Appointment
+            </h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-8">
+              Fill out the form below and we'll confirm your appointment within
+              1 business hour.
+            </p>
+
+            <form id="service-booking-form" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="name"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Full Name *</label
+                  >
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    for="phone"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Phone Number *</label
+                  >
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="email"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Email Address *</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    for="car-model"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Car Model *</label
+                  >
+                  <input
+                    type="text"
+                    id="car-model"
+                    name="car-model"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <label
+                    for="service-type"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Service Type *</label
+                  >
+                  <select
+                    id="service-type"
+                    name="service-type"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">Select service</option>
+                    <option value="Basic Service">Basic Service</option>
+                    <option value="Premium Service">Premium Service</option>
+                    <option value="Full Service">Full Service</option>
+                    <option value="Oil Change">Oil Change</option>
+                    <option value="Brake Service">Brake Service</option>
+                    <option value="Tire Service">Tire Service</option>
+                    <option value="Diagnostics">Computer Diagnostics</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    for="service-date"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Preferred Date *</label
+                  >
+                  <input
+                    type="date"
+                    id="service-date"
+                    name="service-date"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    for="service-time"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Preferred Time *</label
+                  >
+                  <select
+                    id="service-time"
+                    name="service-time"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">Select time</option>
+                    <option value="08:00 AM">08:00 AM</option>
+                    <option value="09:00 AM">09:00 AM</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="11:00 AM">11:00 AM</option>
+                    <option value="12:00 PM">12:00 PM</option>
+                    <option value="01:00 PM">01:00 PM</option>
+                    <option value="02:00 PM">02:00 PM</option>
+                    <option value="03:00 PM">03:00 PM</option>
+                    <option value="04:00 PM">04:00 PM</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="estimated-price"
+                  class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                  >Estimated Price</label
+                >
+                <input
+                  type="text"
+                  id="estimated-price"
+                  readonly
+                  class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-gray-100 dark:bg-gray-900"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="special-requests"
+                  class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                  >Special Requests</label
+                >
+                <textarea
+                  id="special-requests"
+                  name="special-requests"
+                  rows="3"
+                  class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                id="service-submit-btn"
+                class="btn-primary w-full py-4 rounded-xl font-bold text-lg"
+              >
+                <i class="fas fa-paper-plane mr-3"></i> Book Service Appointment
+              </button>
+            </form>
+
+            <!-- Confirmation -->
+            <div id="booking-confirmation" class="hidden mt-6"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-16">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Servicing FAQs</h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Common questions about our car servicing and maintenance
+          </p>
+        </div>
+
+        <div id="faq-container" class="max-w-3xl mx-auto space-y-6"></div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 bg-gradient-to-r from-primary to-red-600 text-white">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-4xl font-bold mb-6">Need Immediate Assistance?</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+          Our emergency service team is available 24/7 for roadside assistance
+          and urgent repairs.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <button
+            onclick="requestEmergencyService()"
+            class="bg-white text-primary px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors"
+          >
+            <i class="fas fa-exclamation-triangle mr-3"></i> Emergency Service
+          </button>
+          <a
+            href="tel:+15551230000"
+            class="px-10 py-4 rounded-full font-bold text-lg border-2 border-white hover:bg-white hover:text-primary transition-colors"
+          >
+            <i class="fas fa-phone mr-3"></i> Call Now: +1 (555) 123-0000
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <div class="flex items-center space-x-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center"
+              >
+                <i class="fas fa-car text-white"></i>
+              </div>
+              <span class="text-2xl font-bold"
+                >Auto<span class="text-primary">Elite</span></span
+              >
+            </div>
+            <p class="text-gray-400">
+              Premium car rental and servicing solutions.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="index.html"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="cars.html"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Cars</a
+                >
+              </li>
+              <li>
+                <a
+                  href="about.html"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  href="servicing.html"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Servicing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="contact.html"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Services</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Basic Service</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Premium Service</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Full Service</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Emergency Repair</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Contact</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt text-primary mr-3 mt-1"></i>
+                <span class="text-gray-400">123 Auto Street, Car City</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone text-primary mr-3"></i>
+                <span class="text-gray-400">+1 (555) 123-4567</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-envelope text-primary mr-3"></i>
+                <span class="text-gray-400">service@autoelite.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500"
+        >
+          <p>&copy; 2023 AutoElite. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Emergency Service Modal -->
+    <div
+      id="emergency-modal"
+      class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
+    >
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full animate-slide-up"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-bold text-red-600">
+            <i class="fas fa-exclamation-triangle mr-3"></i> Emergency Service
+          </h3>
+          <button
+            onclick="closeEmergencyModal()"
+            class="text-gray-500 hover:text-gray-700"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+          We'll dispatch a technician immediately. Please provide your details:
+        </p>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 mb-2"
+              >Phone Number *</label
+            >
+            <input
+              type="tel"
+              id="emergency-phone"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 mb-2"
+              >Current Location *</label
+            >
+            <input
+              type="text"
+              id="emergency-location"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 mb-2"
+              >Problem Description *</label
+            >
+            <textarea
+              id="emergency-problem"
+              rows="3"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="mt-8 flex space-x-4">
+          <button
+            onclick="submitEmergencyRequest()"
+            class="flex-1 bg-red-600 text-white py-3 rounded-xl font-bold hover:bg-red-700 transition-colors"
+          >
+            <i class="fas fa-paper-plane mr-2"></i> Request Help
+          </button>
+          <a
+            href="tel:+15551230000"
+            class="flex-1 bg-primary text-white py-3 rounded-xl font-bold text-center hover:bg-red-700 transition-colors"
+          >
+            <i class="fas fa-phone mr-2"></i> Call Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

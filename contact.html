@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | AutoElite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff1616",
+              secondary: "#1a1a1a",
+              light: "#f7f8fd",
+              dark: "#0a0a0a",
+            },
+            fontFamily: {
+              poppins: ["Poppins", "sans-serif"],
+            },
+            animation: {
+              "fade-in": "fadeIn 0.8s ease-in-out",
+              "slide-up": "slideUp 0.6s ease-out",
+              "slide-in-left": "slideInLeft 0.7s ease-out",
+              "slide-in-right": "slideInRight 0.7s ease-out",
+              "pulse-slow": "pulse 3s infinite",
+              float: "float 6s ease-in-out infinite",
+              "bounce-slow": "bounce 2s infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(30px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+              slideInLeft: {
+                "0%": { transform: "translateX(-50px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              slideInRight: {
+                "0%": { transform: "translateX(50px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
+            },
+          },
+        },
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize theme
+        if (
+          localStorage.getItem("color-theme") === "dark" ||
+          (!("color-theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+          document
+            .getElementById("theme-toggle-icon")
+            .classList.remove("fa-moon");
+          document.getElementById("theme-toggle-icon").classList.add("fa-sun");
+        } else {
+          document.documentElement.classList.remove("dark");
+          document
+            .getElementById("theme-toggle-icon")
+            .classList.remove("fa-sun");
+          document.getElementById("theme-toggle-icon").classList.add("fa-moon");
+        }
+
+        // Initialize contact form
+        initContactForm();
+
+        // Initialize map
+        initMap();
+
+        // Initialize FAQ
+        initFAQ();
+      });
+
+      // Toggle theme
+      function toggleTheme() {
+        const themeToggleIcon = document.getElementById("theme-toggle-icon");
+
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("color-theme", "light");
+          themeToggleIcon.classList.remove("fa-sun");
+          themeToggleIcon.classList.add("fa-moon");
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("color-theme", "dark");
+          themeToggleIcon.classList.remove("fa-moon");
+          themeToggleIcon.classList.add("fa-sun");
+        }
+      }
+
+      // Initialize contact form
+      function initContactForm() {
+        const form = document.getElementById("contact-form");
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          submitContactForm();
+        });
+
+        // Form validation
+        const inputs = form.querySelectorAll("input, textarea, select");
+        inputs.forEach((input) => {
+          input.addEventListener("blur", function () {
+            validateField(this);
+          });
+        });
+      }
+
+      // Validate field
+      function validateField(field) {
+        const errorElement = document.getElementById(`${field.id}-error`);
+
+        if (!field.value.trim()) {
+          field.classList.add("border-red-500");
+          if (errorElement) errorElement.textContent = "This field is required";
+          return false;
+        }
+
+        // Email validation
+        if (field.type === "email") {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(field.value)) {
+            field.classList.add("border-red-500");
+            if (errorElement)
+              errorElement.textContent = "Please enter a valid email";
+            return false;
+          }
+        }
+
+        // Phone validation
+        if (field.id === "phone") {
+          const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+          if (!phoneRegex.test(field.value.replace(/\D/g, ""))) {
+            field.classList.add("border-red-500");
+            if (errorElement)
+              errorElement.textContent = "Please enter a valid phone number";
+            return false;
+          }
+        }
+
+        field.classList.remove("border-red-500");
+        if (errorElement) errorElement.textContent = "";
+        return true;
+      }
+
+      // Submit contact form
+      function submitContactForm() {
+        const form = document.getElementById("contact-form");
+        const fields = ["name", "email", "phone", "subject", "message"];
+        let isValid = true;
+
+        // Validate all fields
+        fields.forEach((fieldId) => {
+          const field = document.getElementById(fieldId);
+          if (!validateField(field)) {
+            isValid = false;
+          }
+        });
+
+        if (!isValid) {
+          showNotification(
+            "Please fill all required fields correctly",
+            "error"
+          );
+          return;
+        }
+
+        // Show loading
+        const submitBtn = document.getElementById("submit-btn");
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+        submitBtn.disabled = true;
+
+        // Simulate API call
+        setTimeout(() => {
+          // Success message
+          showNotification(
+            "Thank you! Your message has been sent successfully.",
+            "success"
+          );
+
+          // Reset form
+          form.reset();
+
+          // Reset button
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+
+          // Show confirmation
+          document.getElementById("confirmation").classList.remove("hidden");
+          document
+            .getElementById("confirmation")
+            .scrollIntoView({ behavior: "smooth" });
+        }, 1500);
+      }
+
+      // Initialize map
+      function initMap() {
+        // This would be replaced with actual Google Maps API
+        // For now, we'll use a static image with interactive markers
+        const locations = [
+          {
+            id: 1,
+            name: "Main Office",
+            address: "123 Auto Street, Downtown",
+            phone: "+1 (555) 123-4567",
+            lat: 40.7128,
+            lng: -74.006,
+          },
+          {
+            id: 2,
+            name: "Airport Branch",
+            address: "Airport Terminal A, Gate 3",
+            phone: "+1 (555) 123-4568",
+            lat: 40.6413,
+            lng: -73.7781,
+          },
+          {
+            id: 3,
+            name: "Northside",
+            address: "456 North Avenue, Northside",
+            phone: "+1 (555) 123-4569",
+            lat: 40.7589,
+            lng: -73.9851,
+          },
+        ];
+
+        const mapContainer = document.getElementById("map-container");
+        locations.forEach((location) => {
+          const marker = document.createElement("div");
+          marker.className =
+            "absolute w-8 h-8 bg-primary rounded-full cursor-pointer transform -translate-x-1/2 -translate-y-1/2 hover:scale-125 transition-transform";
+          marker.style.left = `${30 + Math.random() * 40}%`;
+          marker.style.top = `${30 + Math.random() * 40}%`;
+          marker.innerHTML =
+            '<div class="w-full h-full rounded-full bg-primary border-2 border-white flex items-center justify-center"><i class="fas fa-map-marker-alt text-white"></i></div>';
+
+          // Tooltip
+          const tooltip = document.createElement("div");
+          tooltip.className =
+            "absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block";
+          tooltip.innerHTML = `
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-xl min-w-64">
+                        <h4 class="font-bold text-lg mb-2">${location.name}</h4>
+                        <p class="text-gray-600 dark:text-gray-300 mb-1">${location.address}</p>
+                        <p class="text-primary font-medium">${location.phone}</p>
+                    </div>
+                `;
+
+          marker.appendChild(tooltip);
+          marker.classList.add("group");
+
+          marker.addEventListener("mouseenter", () => {
+            tooltip.classList.remove("hidden");
+          });
+
+          marker.addEventListener("mouseleave", () => {
+            tooltip.classList.add("hidden");
+          });
+
+          mapContainer.appendChild(marker);
+        });
+      }
+
+      // Initialize FAQ
+      function initFAQ() {
+        const faqData = [
+          {
+            question: "What are your business hours?",
+            answer:
+              "Our main office is open Monday to Friday from 8:00 AM to 8:00 PM, and Saturday to Sunday from 9:00 AM to 6:00 PM. For 24/7 emergency roadside assistance, call our support line.",
+          },
+          {
+            question: "How quickly can I expect a response to my inquiry?",
+            answer:
+              "We typically respond to all inquiries within 1-2 business hours. For urgent matters, please call our support line directly for immediate assistance.",
+          },
+          {
+            question: "Do you offer corporate or fleet services?",
+            answer:
+              "Yes, we provide specialized corporate solutions including fleet management, customized billing, and dedicated account managers. Contact our corporate team for tailored solutions.",
+          },
+          {
+            question: "Can I visit your location without an appointment?",
+            answer:
+              "Yes, walk-ins are welcome at all our locations. However, we recommend booking an appointment for vehicle viewings or detailed consultations to ensure immediate service.",
+          },
+        ];
+
+        const container = document.getElementById("faq-container");
+        faqData.forEach((item, index) => {
+          const faqItem = document.createElement("div");
+          faqItem.className =
+            "bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg faq-item";
+          faqItem.innerHTML = `
+                    <button onclick="toggleFAQItem(${index})" class="w-full flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-left">${item.question}</h3>
+                        <i id="faq-icon-${index}" class="fas fa-plus text-primary"></i>
+                    </button>
+                    <div id="faq-answer-${index}" class="hidden mt-4">
+                        <p class="text-gray-600 dark:text-gray-300">${item.answer}</p>
+                    </div>
+                `;
+          container.appendChild(faqItem);
+        });
+      }
+
+      // Toggle FAQ item
+      function toggleFAQItem(index) {
+        const answer = document.getElementById(`faq-answer-${index}`);
+        const icon = document.getElementById(`faq-icon-${index}`);
+
+        if (answer.classList.contains("hidden")) {
+          answer.classList.remove("hidden");
+          icon.classList.remove("fa-plus");
+          icon.classList.add("fa-minus");
+        } else {
+          answer.classList.add("hidden");
+          icon.classList.remove("fa-minus");
+          icon.classList.add("fa-plus");
+        }
+      }
+
+      // Show notification
+      function showNotification(message, type = "success") {
+        const notification = document.createElement("div");
+        notification.className = `fixed top-6 right-6 ${
+          type === "success" ? "bg-green-600" : "bg-red-600"
+        } text-white px-6 py-4 rounded-xl shadow-2xl animate-slide-in-right z-50`;
+        notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                      type === "success"
+                        ? "fa-check-circle"
+                        : "fa-exclamation-circle"
+                    } text-xl mr-3"></i>
+                    <span class="font-medium">${message}</span>
+                </div>
+            `;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.classList.add(
+            "opacity-0",
+            "transition-opacity",
+            "duration-300"
+          );
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+
+      // Open chat widget
+      function openChat() {
+        const chatWidget = document.getElementById("chat-widget");
+        chatWidget.classList.remove("hidden");
+      }
+
+      function closeChat() {
+        const chatWidget = document.getElementById("chat-widget");
+        chatWidget.classList.add("hidden");
+      }
+
+      function sendChatMessage() {
+        const input = document.getElementById("chat-input");
+        const message = input.value.trim();
+
+        if (!message) return;
+
+        const messagesContainer = document.getElementById("chat-messages");
+
+        // User message
+        const userMessage = document.createElement("div");
+        userMessage.className = "flex justify-end mb-4";
+        userMessage.innerHTML = `
+                <div class="bg-primary text-white p-3 rounded-xl max-w-xs">
+                    ${message}
+                </div>
+            `;
+        messagesContainer.appendChild(userMessage);
+
+        // Clear input
+        input.value = "";
+
+        // Auto reply after delay
+        setTimeout(() => {
+          const replies = [
+            "Thanks for your message! How can I help you today?",
+            "One of our agents will respond shortly. Is there anything specific you'd like to know?",
+            "We're here to help! Could you provide more details about your inquiry?",
+          ];
+          const reply = replies[Math.floor(Math.random() * replies.length)];
+
+          const botMessage = document.createElement("div");
+          botMessage.className = "flex justify-start mb-4";
+          botMessage.innerHTML = `
+                    <div class="bg-gray-200 dark:bg-gray-700 p-3 rounded-xl max-w-xs">
+                        <span class="font-bold text-primary">AutoElite Support:</span> ${reply}
+                    </div>
+                `;
+          messagesContainer.appendChild(botMessage);
+          messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 1000);
+
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+    </script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .dark .glass-effect {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .gradient-text {
+        background: linear-gradient(45deg, #ff1616, #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .contact-card {
+        transition: all 0.3s ease;
+      }
+
+      .contact-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(255, 22, 22, 0.15);
+      }
+
+      .dark .contact-card:hover {
+        box-shadow: 0 20px 40px rgba(255, 22, 22, 0.25);
+      }
+
+      .map-container {
+        position: relative;
+        height: 400px;
+        background-image: url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .faq-item {
+        transition: all 0.3s ease;
+      }
+
+      .faq-item:hover {
+        transform: translateX(5px);
+      }
+
+      /* Chat widget */
+      .chat-widget {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Custom scrollbar */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .dark .custom-scrollbar::-webkit-scrollbar-track {
+        background: #2d2d2d;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #ff1616;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body
+    class="font-poppins bg-light dark:bg-dark text-gray-800 dark:text-gray-200 transition-colors duration-500"
+  >
+    <!-- Navigation -->
+    <nav
+      class="sticky top-0 z-40 py-4 px-6 bg-light/90 dark:bg-dark/90 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800"
+    >
+      <div class="container mx-auto">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <a href="index.html" class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center animate-pulse-slow"
+              >
+                <i class="fas fa-car text-white"></i>
+              </div>
+              <span class="text-2xl font-bold"
+                >Auto<span class="text-primary">Elite</span></span
+              >
+            </a>
+          </div>
+
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="index.html"
+              class="font-medium hover:text-primary transition-colors"
+              >Home</a
+            >
+            <a
+              href="cars.html"
+              class="font-medium hover:text-primary transition-colors"
+              >Cars</a
+            >
+            <a
+              href="about.html"
+              class="font-medium hover:text-primary transition-colors"
+              >About</a
+            >
+            <a
+              href="servicing.html"
+              class="font-medium hover:text-primary transition-colors"
+              >Servicing</a
+            >
+            <a href="contact.html" class="font-medium text-primary">Contact</a>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <button
+              onclick="toggleTheme()"
+              class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center hover:bg-primary/20 transition-colors"
+            >
+              <i id="theme-toggle-icon" class="fas fa-moon"></i>
+            </button>
+            <a
+              href="booking.html"
+              class="btn-primary px-6 py-3 rounded-full font-bold"
+            >
+              <i class="fas fa-calendar-alt mr-2"></i> Book Now
+            </a>
+            <button class="md:hidden">
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="relative py-20 bg-gradient-to-br from-gray-900 to-black dark:from-gray-900 dark:to-black text-white overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-20"
+      ></div>
+      <div
+        class="absolute top-0 left-0 w-64 h-64 bg-primary rounded-full opacity-10 -translate-x-32 -translate-y-32"
+      ></div>
+      <div
+        class="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full opacity-10 translate-x-48 translate-y-48"
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-3xl mx-auto text-center animate-fade-in">
+          <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            Get In <span class="gradient-text">Touch</span> With Us
+          </h1>
+          <p class="text-xl text-gray-300 mb-8">
+            We're here to help with all your car rental and servicing needs.
+            Reach out anytime!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="py-16">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div
+            class="contact-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-xl animate-slide-up"
+            style="animation-delay: 0.1s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i class="fas fa-phone text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">Call Us</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              Speak directly with our team
+            </p>
+            <a
+              href="tel:+15551234567"
+              class="text-primary text-2xl font-bold hover:underline"
+              >+1 (555) 123-4567</a
+            >
+            <p class="text-gray-500 dark:text-gray-400 mt-2">
+              24/7 Emergency Support Available
+            </p>
+          </div>
+
+          <div
+            class="contact-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-xl animate-slide-up"
+            style="animation-delay: 0.2s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i class="fas fa-envelope text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">Email Us</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              Send us your queries
+            </p>
+            <a
+              href="mailto:info@autoelite.com"
+              class="text-primary text-xl font-bold hover:underline"
+              >info@autoelite.com</a
+            >
+            <p class="text-gray-500 dark:text-gray-400 mt-2">
+              Response within 1-2 business hours
+            </p>
+          </div>
+
+          <div
+            class="contact-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-xl animate-slide-up"
+            style="animation-delay: 0.3s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center"
+            >
+              <i class="fas fa-clock text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">Visit Us</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              Come see us in person
+            </p>
+            <p class="text-gray-800 dark:text-gray-200 font-medium">
+              123 Auto Street, Car City
+            </p>
+            <p class="text-gray-500 dark:text-gray-400 mt-2">
+              Mon-Fri: 8AM-8PM | Sat-Sun: 9AM-6PM
+            </p>
+          </div>
+        </div>
+
+        <!-- Contact Form & Map -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <!-- Contact Form -->
+          <div class="animate-slide-in-left">
+            <h2 class="text-3xl font-bold mb-6">Send Us a Message</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-8">
+              Fill out the form below and we'll get back to you as soon as
+              possible.
+            </p>
+
+            <form id="contact-form" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="name"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Full Name *</label
+                  >
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <div id="name-error" class="text-red-500 text-sm mt-1"></div>
+                </div>
+
+                <div>
+                  <label
+                    for="email"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Email Address *</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <div id="email-error" class="text-red-500 text-sm mt-1"></div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="phone"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Phone Number</label
+                  >
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <div id="phone-error" class="text-red-500 text-sm mt-1"></div>
+                </div>
+
+                <div>
+                  <label
+                    for="subject"
+                    class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                    >Subject *</label
+                  >
+                  <select
+                    id="subject"
+                    name="subject"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">Select a subject</option>
+                    <option value="rental">Car Rental Inquiry</option>
+                    <option value="servicing">Car Servicing</option>
+                    <option value="support">Technical Support</option>
+                    <option value="corporate">Corporate/Business</option>
+                    <option value="feedback">Feedback/Suggestion</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div
+                    id="subject-error"
+                    class="text-red-500 text-sm mt-1"
+                  ></div>
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="message"
+                  class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                  >Message *</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="6"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                ></textarea>
+                <div id="message-error" class="text-red-500 text-sm mt-1"></div>
+              </div>
+
+              <button
+                type="submit"
+                id="submit-btn"
+                class="btn-primary w-full py-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300"
+              >
+                <i class="fas fa-paper-plane mr-3"></i> Send Message
+              </button>
+            </form>
+
+            <!-- Confirmation Message -->
+            <div
+              id="confirmation"
+              class="hidden mt-6 bg-green-50 dark:bg-green-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800"
+            >
+              <div class="flex items-center">
+                <div
+                  class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-800 flex items-center justify-center mr-4"
+                >
+                  <i
+                    class="fas fa-check text-green-600 dark:text-green-300 text-xl"
+                  ></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg">Message Sent Successfully!</h3>
+                  <p class="text-gray-600 dark:text-gray-300">
+                    We'll get back to you within 1-2 business hours.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map & Locations -->
+          <div class="animate-slide-in-right">
+            <h2 class="text-3xl font-bold mb-6">Our Locations</h2>
+
+            <!-- Interactive Map -->
+            <div
+              class="map-container rounded-2xl overflow-hidden shadow-2xl mb-8 relative"
+            >
+              <div id="map-container" class="absolute inset-0"></div>
+              <div
+                class="absolute bottom-4 left-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg"
+              >
+                <h4 class="font-bold mb-2">Click on markers for details</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  3 locations across the city
+                </p>
+              </div>
+            </div>
+
+            <!-- Locations List -->
+            <div class="space-y-6">
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <div class="flex items-start">
+                  <div
+                    class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4"
+                  >
+                    <i class="fas fa-building text-primary"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-lg mb-2">Main Office</h4>
+                    <p class="text-gray-600 dark:text-gray-300 mb-2">
+                      123 Auto Street, Downtown, Car City, CC 10101
+                    </p>
+                    <p class="text-primary font-medium">+1 (555) 123-4567</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <div class="flex items-start">
+                  <div
+                    class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4"
+                  >
+                    <i class="fas fa-plane text-primary"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-lg mb-2">Airport Branch</h4>
+                    <p class="text-gray-600 dark:text-gray-300 mb-2">
+                      Airport Terminal A, Gate 3, Car City International Airport
+                    </p>
+                    <p class="text-primary font-medium">+1 (555) 123-4568</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <div class="flex items-start">
+                  <div
+                    class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4"
+                  >
+                    <i class="fas fa-store text-primary"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-lg mb-2">Northside Branch</h4>
+                    <p class="text-gray-600 dark:text-gray-300 mb-2">
+                      456 North Avenue, Northside District, Car City
+                    </p>
+                    <p class="text-primary font-medium">+1 (555) 123-4569</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-900">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">
+            Frequently Asked Questions
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Find quick answers to common questions about contacting us
+          </p>
+        </div>
+
+        <div id="faq-container" class="max-w-3xl mx-auto space-y-6"></div>
+      </div>
+    </section>
+
+    <!-- Emergency Support -->
+    <section class="py-16 bg-gradient-to-r from-primary to-red-600 text-white">
+      <div class="container mx-auto px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+          <div
+            class="w-20 h-20 mx-auto mb-6 rounded-full bg-white/20 flex items-center justify-center animate-bounce-slow"
+          >
+            <i class="fas fa-phone-alt text-2xl"></i>
+          </div>
+          <h2 class="text-4xl font-bold mb-4">
+            24/7 Emergency Roadside Assistance
+          </h2>
+          <p class="text-xl mb-8">
+            Need immediate help? Our emergency support line is available round
+            the clock for all customers.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-6 justify-center">
+            <a
+              href="tel:+15551230000"
+              class="bg-white text-primary px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors"
+            >
+              <i class="fas fa-phone mr-3"></i> Call Emergency: +1 (555)
+              123-0000
+            </a>
+            <button
+              onclick="openChat()"
+              class="px-10 py-4 rounded-full font-bold text-lg border-2 border-white hover:bg-white hover:text-primary transition-colors"
+            >
+              <i class="fas fa-comment-alt mr-3"></i> Live Chat Support
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Media -->
+    <section class="py-16">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Connect With Us</h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Follow us on social media for updates, offers, and car care tips
+          </p>
+        </div>
+
+        <div class="flex justify-center space-x-6">
+          <a
+            href="#"
+            class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+          >
+            <i class="fab fa-facebook-f text-2xl"></i>
+          </a>
+          <a
+            href="#"
+            class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+          >
+            <i class="fab fa-twitter text-2xl"></i>
+          </a>
+          <a
+            href="#"
+            class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+          >
+            <i class="fab fa-instagram text-2xl"></i>
+          </a>
+          <a
+            href="#"
+            class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+          >
+            <i class="fab fa-linkedin-in text-2xl"></i>
+          </a>
+          <a
+            href="#"
+            class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+          >
+            <i class="fab fa-youtube text-2xl"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <div class="flex items-center space-x-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center"
+              >
+                <i class="fas fa-car text-white"></i>
+              </div>
+              <span class="text-2xl font-bold"
+                >Auto<span class="text-primary">Elite</span></span
+              >
+            </div>
+            <p class="text-gray-400">
+              Premium car rental and servicing solutions.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="index.html"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="cars.html"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Cars</a
+                >
+              </li>
+              <li>
+                <a
+                  href="about.html"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  href="servicing.html"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Servicing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="contact.html"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Services</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Car Rental</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Long Term Lease</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Car Servicing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Roadside Assistance</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Contact</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt text-primary mr-3 mt-1"></i>
+                <span class="text-gray-400">123 Auto Street, Car City</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone text-primary mr-3"></i>
+                <span class="text-gray-400">+1 (555) 123-4567</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-envelope text-primary mr-3"></i>
+                <span class="text-gray-400">info@autoelite.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500"
+        >
+          <p>&copy; 2023 AutoElite. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="hidden fixed bottom-6 right-6 z-50">
+      <div
+        class="chat-widget bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-96"
+      >
+        <!-- Chat Header -->
+        <div
+          class="bg-primary text-white p-4 rounded-t-2xl flex justify-between items-center"
+        >
+          <div class="flex items-center">
+            <div
+              class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3"
+            >
+              <i class="fas fa-headset"></i>
+            </div>
+            <div>
+              <h4 class="font-bold">AutoElite Support</h4>
+              <p class="text-sm opacity-90">Typically replies in 5 minutes</p>
+            </div>
+          </div>
+          <button onclick="closeChat()" class="text-white hover:text-gray-200">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Chat Messages -->
+        <div
+          id="chat-messages"
+          class="p-4 h-96 overflow-y-auto custom-scrollbar"
+        >
+          <div class="flex justify-start mb-4">
+            <div class="bg-gray-200 dark:bg-gray-700 p-3 rounded-xl max-w-xs">
+              <span class="font-bold text-primary">AutoElite Support:</span> Hi
+              there! 👋 How can I help you today?
+            </div>
+          </div>
+          <div class="flex justify-start mb-4">
+            <div class="bg-gray-200 dark:bg-gray-700 p-3 rounded-xl max-w-xs">
+              We're here to assist with car rentals, servicing, or any questions
+              you might have!
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+          <div class="flex space-x-2">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Type your message..."
+              class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+              onkeypress="if(event.key === 'Enter') sendChatMessage()"
+            />
+            <button
+              onclick="sendChatMessage()"
+              class="btn-primary px-6 rounded-xl"
+            >
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Button -->
+    <button
+      onclick="openChat()"
+      class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform animate-bounce-slow"
+    >
+      <i class="fas fa-comment-alt text-xl"></i>
+    </button>
+  </body>
+</html>
