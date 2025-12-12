@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Brands Marquee | AutoElite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff1616",
+              secondary: "#1a1a1a",
+              light: "#f7f8fd",
+              dark: "#0a0a0a",
+            },
+            fontFamily: {
+              poppins: ["Poppins", "sans-serif"],
+            },
+            animation: {
+              marquee: "marquee 25s linear infinite",
+              "marquee-reverse": "marquee-reverse 30s linear infinite",
+              "marquee-fast": "marquee 15s linear infinite",
+              "marquee-slow": "marquee 40s linear infinite",
+              float: "float 6s ease-in-out infinite",
+              "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+              "slide-up": "slideUp 0.8s ease-out",
+            },
+            keyframes: {
+              marquee: {
+                "0%": { transform: "translateX(0%)" },
+                "100%": { transform: "translateX(-100%)" },
+              },
+              "marquee-reverse": {
+                "0%": { transform: "translateX(-100%)" },
+                "100%": { transform: "translateX(0%)" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
+              "pulse-glow": {
+                "0%, 100%": { opacity: "1" },
+                "50%": { opacity: "0.7" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(30px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Glass morphism effect */
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .dark .glass-effect {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Gradient text */
+      .gradient-text {
+        background: linear-gradient(45deg, #ff1616, #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      .dark ::-webkit-scrollbar-track {
+        background: #1a1a1a;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #ff1616;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #e01212;
+      }
+
+      /* Pause marquee on hover */
+      .marquee-container:hover .marquee-content {
+        animation-play-state: paused;
+      }
+
+      /* Brand card hover effect */
+      .brand-card {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .brand-card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 20px 40px rgba(255, 22, 22, 0.2);
+      }
+
+      .dark .brand-card:hover {
+        box-shadow: 0 20px 40px rgba(255, 22, 22, 0.3);
+      }
+
+      /* Shine effect on brand logos */
+      .shine-effect {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .shine-effect::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.1) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        transform: rotate(30deg);
+        transition: transform 0.6s;
+      }
+
+      .brand-card:hover .shine-effect::after {
+        transform: rotate(30deg) translate(20%, 20%);
+      }
+    </style>
+  </head>
+  <body
+    class="font-poppins bg-light dark:bg-dark text-gray-800 dark:text-gray-200 transition-colors duration-500"
+  >
+    <!-- Navigation -->
+    <nav
+      class="sticky top-0 z-50 py-4 px-6 bg-light/90 dark:bg-dark/90 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800"
+    >
+      <div class="container mx-auto">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-10 h-10 rounded-full bg-primary flex items-center justify-center animate-pulse-glow"
+            >
+              <i class="fas fa-car text-white"></i>
+            </div>
+            <span class="text-2xl font-bold"
+              >Auto<span class="text-primary">Elite</span></span
+            >
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <button
+              id="theme-toggle"
+              onclick="toggleTheme()"
+              class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center hover:bg-primary/20 transition-colors"
+            >
+              <i id="theme-toggle-icon" class="fas fa-moon"></i>
+            </button>
+            <button class="btn-primary px-6 py-3 rounded-full font-bold">
+              <i class="fas fa-phone mr-2"></i> Contact
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="py-20 bg-gradient-to-br from-gray-900 to-black dark:from-gray-900 dark:to-black text-white relative overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-20"
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-3xl mx-auto text-center animate-slide-up">
+          <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            Trusted by <span class="gradient-text">World's Best</span> Car
+            Brands
+          </h1>
+          <p class="text-xl text-gray-300 mb-8">
+            We partner with leading automotive manufacturers to bring you the
+            finest selection of vehicles for rent and servicing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee Car Brands Section -->
+    <section
+      class="py-16 bg-gradient-to-b from-light to-gray-100 dark:from-dark dark:to-gray-900"
+    >
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-slide-up">
+          <div class="inline-block px-6 py-2 rounded-full bg-primary/10 mb-4">
+            <span class="text-primary font-bold">OUR PARTNERS</span>
+          </div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            Premium Car <span class="text-primary">Brands</span>
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            We offer vehicles from the world's most prestigious and reliable
+            automotive manufacturers.
+          </p>
+        </div>
+
+        <!-- Marquee Section 1 - Primary Brands -->
+        <div class="mb-12">
+          <h3
+            class="text-2xl font-bold mb-6 text-center text-gray-700 dark:text-gray-300"
+          >
+            Luxury & Premium
+          </h3>
+          <div class="marquee-container overflow-hidden relative">
+            <div class="marquee-content flex animate-marquee">
+              <!-- Brand Cards - First Set -->
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Mercedes-Benz</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  German Luxury
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">BMW</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Ultimate Driving
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-red-800 to-red-600 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Audi</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Vorsprung durch Technik
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-bolt text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Tesla</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Electric Innovation
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-yellow-700 to-yellow-500 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-horse-head text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Ferrari</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Italian Excellence
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-green-800 to-green-600 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Jaguar</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  British Luxury
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Porsche</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  German Engineering
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-800 to-blue-600 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Land Rover</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Go Anywhere
+                </p>
+              </div>
+
+              <!-- Duplicate set for seamless loop -->
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Mercedes-Benz</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  German Luxury
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">BMW</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Ultimate Driving
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-red-800 to-red-600 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Audi</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Vorsprung durch Technik
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-bolt text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Tesla</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Electric Innovation
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Marquee Section 2 - Reverse Direction -->
+        <div class="mb-12">
+          <h3
+            class="text-2xl font-bold mb-6 text-center text-gray-700 dark:text-gray-300"
+          >
+            Mainstream & Economy
+          </h3>
+          <div class="marquee-container overflow-hidden relative">
+            <div class="marquee-content flex animate-marquee-reverse">
+              <!-- Brand Cards - First Set -->
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-red-600 to-red-400 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Toyota</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Reliability First
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-gray-800 to-gray-600 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Honda</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Power of Dreams
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Ford</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Built Tough
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-800 to-blue-600 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Hyundai</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  New Thinking
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Nissan</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Innovation that Excites
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-500 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Volkswagen</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Das Auto
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-purple-700 to-purple-500 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Mazda</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Zoom-Zoom
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-green-700 to-green-500 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Kia</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Movement that Inspires
+                </p>
+              </div>
+
+              <!-- Duplicate set for seamless loop -->
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-red-600 to-red-400 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Toyota</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Reliability First
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-gray-800 to-gray-600 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Honda</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Power of Dreams
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Ford</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  Built Tough
+                </p>
+              </div>
+
+              <div
+                class="brand-card flex-shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg"
+              >
+                <div
+                  class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-800 to-blue-600 flex items-center justify-center mb-4 shine-effect"
+                >
+                  <i class="fas fa-car text-3xl text-white"></i>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Hyundai</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm text-center">
+                  New Thinking
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compact Marquee Section 3 - Faster Speed -->
+        <div class="mb-12">
+          <h3
+            class="text-2xl font-bold mb-6 text-center text-gray-700 dark:text-gray-300"
+          >
+            Specialty & Performance
+          </h3>
+          <div class="marquee-container overflow-hidden relative">
+            <div class="marquee-content flex animate-marquee-fast">
+              <!-- Simple brand logos without cards -->
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-300 flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-horse-head text-xl text-black"></i>
+                </div>
+                <span class="font-bold text-lg">Lamborghini</span>
+              </div>
+
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-red-700 to-red-500 flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-flag text-xl text-white"></i>
+                </div>
+                <span class="font-bold text-lg">Ferrari</span>
+              </div>
+
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-car text-xl text-white"></i>
+                </div>
+                <span class="font-bold text-lg">Porsche</span>
+              </div>
+
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-800 to-blue-600 flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-car text-xl text-white"></i>
+                </div>
+                <span class="font-bold text-lg">Aston Martin</span>
+              </div>
+
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-green-700 to-green-500 flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-leaf text-xl text-white"></i>
+                </div>
+                <span class="font-bold text-lg">Polestar</span>
+              </div>
+
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-gray-700 to-gray-500 flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-car text-xl text-white"></i>
+                </div>
+                <span class="font-bold text-lg">McLaren</span>
+              </div>
+
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-bolt text-xl text-white"></i>
+                </div>
+                <span class="font-bold text-lg">Rivian</span>
+              </div>
+
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-orange-600 to-orange-400 flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-car text-xl text-white"></i>
+                </div>
+                <span class="font-bold text-lg">Bugatti</span>
+              </div>
+
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-red-800 to-red-600 flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-car text-xl text-white"></i>
+                </div>
+                <span class="font-bold text-lg">Maserati</span>
+              </div>
+
+              <!-- Duplicate for seamless loop -->
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-300 flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-horse-head text-xl text-black"></i>
+                </div>
+                <span class="font-bold text-lg">Lamborghini</span>
+              </div>
+
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-red-700 to-red-500 flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-flag text-xl text-white"></i>
+                </div>
+                <span class="font-bold text-lg">Ferrari</span>
+              </div>
+
+              <div
+                class="flex-shrink-0 mx-8 flex flex-col items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center mb-2"
+                >
+                  <i class="fas fa-car text-xl text-white"></i>
+                </div>
+                <span class="font-bold text-lg">Porsche</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi-directional Marquee (Grid Style) -->
+        <div class="mt-20">
+          <h3
+            class="text-2xl font-bold mb-10 text-center text-gray-700 dark:text-gray-300"
+          >
+            Global Automotive Partners
+          </h3>
+
+          <!-- Grid with multiple marquees -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Left Column - Vertical Marquee -->
+            <div class="h-96 overflow-hidden rounded-2xl glass-effect p-6">
+              <h4 class="text-xl font-bold mb-6 text-center">
+                Asian Manufacturers
+              </h4>
+              <div class="vertical-marquee h-64 overflow-hidden">
+                <div class="animate-marquee-slow flex flex-col space-y-6">
+                  <!-- Brand items -->
+                  <div
+                    class="flex items-center space-x-4 p-4 bg-white/10 dark:bg-black/20 rounded-xl"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center"
+                    >
+                      <span class="font-bold text-white">T</span>
+                    </div>
+                    <div>
+                      <h5 class="font-bold">Toyota</h5>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Japan
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="flex items-center space-x-4 p-4 bg-white/10 dark:bg-black/20 rounded-xl"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center"
+                    >
+                      <span class="font-bold text-white">H</span>
+                    </div>
+                    <div>
+                      <h5 class="font-bold">Honda</h5>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Japan
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="flex items-center space-x-4 p-4 bg-white/10 dark:bg-black/20 rounded-xl"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center"
+                    >
+                      <span class="font-bold text-white">H</span>
+                    </div>
+                    <div>
+                      <h5 class="font-bold">Hyundai</h5>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        South Korea
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="flex items-center space-x-4 p-4 bg-white/10 dark:bg-black/20 rounded-xl"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center"
+                    >
+                      <span class="font-bold text-white">K</span>
+                    </div>
+                    <div>
+                      <h5 class="font-bold">Kia</h5>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        South Korea
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Duplicate for seamless loop -->
+                  <div
+                    class="flex items-center space-x-4 p-4 bg-white/10 dark:bg-black/20 rounded-xl"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center"
+                    >
+                      <span class="font-bold text-white">T</span>
+                    </div>
+                    <div>
+                      <h5 class="font-bold">Toyota</h5>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Japan
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column - Vertical Marquee -->
+            <div class="h-96 overflow-hidden rounded-2xl glass-effect p-6">
+              <h4 class="text-xl font-bold mb-6 text-center">
+                European Excellence
+              </h4>
+              <div class="vertical-marquee h-64 overflow-hidden">
+                <div class="animate-marquee-slow flex flex-col space-y-6">
+                  <!-- Brand items -->
+                  <div
+                    class="flex items-center space-x-4 p-4 bg-white/10 dark:bg-black/20 rounded-xl"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center"
+                    >
+                      <span class="font-bold text-white">MB</span>
+                    </div>
+                    <div>
+                      <h5 class="font-bold">Mercedes-Benz</h5>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Germany
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="flex items-center space-x-4 p-4 bg-white/10 dark:bg-black/20 rounded-xl"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-blue-900 flex items-center justify-center"
+                    >
+                      <span class="font-bold text-white">BMW</span>
+                    </div>
+                    <div>
+                      <h5 class="font-bold">BMW</h5>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Germany
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="flex items-center space-x-4 p-4 bg-white/10 dark:bg-black/20 rounded-xl"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-red-800 flex items-center justify-center"
+                    >
+                      <span class="font-bold text-white">A</span>
+                    </div>
+                    <div>
+                      <h5 class="font-bold">Audi</h5>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Germany
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="flex items-center space-x-4 p-4 bg-white/10 dark:bg-black/20 rounded-xl"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-yellow-600 flex items-center justify-center"
+                    >
+                      <span class="font-bold text-white">V</span>
+                    </div>
+                    <div>
+                      <h5 class="font-bold">Volvo</h5>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Sweden
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Duplicate for seamless loop -->
+                  <div
+                    class="flex items-center space-x-4 p-4 bg-white/10 dark:bg-black/20 rounded-xl"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center"
+                    >
+                      <span class="font-bold text-white">MB</span>
+                    </div>
+                    <div>
+                      <h5 class="font-bold">Mercedes-Benz</h5>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Germany
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Brand Counter -->
+        <div class="mt-16 text-center">
+          <div
+            class="inline-block px-8 py-6 rounded-2xl glass-effect backdrop-blur-sm"
+          >
+            <div class="flex flex-wrap justify-center items-center space-x-8">
+              <div class="text-center">
+                <div class="text-5xl font-bold text-primary mb-2">30+</div>
+                <div class="text-gray-600 dark:text-gray-400">Car Brands</div>
+              </div>
+              <div class="hidden md:block">
+                <div class="w-px h-12 bg-gray-300 dark:bg-gray-700"></div>
+              </div>
+              <div class="text-center">
+                <div class="text-5xl font-bold text-primary mb-2">200+</div>
+                <div class="text-gray-600 dark:text-gray-400">
+                  Vehicle Models
+                </div>
+              </div>
+              <div class="hidden md:block">
+                <div class="w-px h-12 bg-gray-300 dark:bg-gray-700"></div>
+              </div>
+              <div class="text-center">
+                <div class="text-5xl font-bold text-primary mb-2">15</div>
+                <div class="text-gray-600 dark:text-gray-400">Countries</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-primary to-red-600 text-white">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Ready to Drive Your Dream Car?
+        </h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+          Choose from our extensive collection of premium vehicles from
+          world-renowned brands.
+        </p>
+        <button
+          class="px-10 py-4 bg-white text-primary rounded-full font-bold text-lg shadow-2xl hover:scale-105 transition-transform"
+        >
+          <i class="fas fa-calendar-alt mr-3"></i> Book Your Ride Now
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="container mx-auto px-6">
+        <div class="text-center">
+          <div class="flex items-center justify-center space-x-3 mb-6">
+            <div
+              class="w-10 h-10 rounded-full bg-primary flex items-center justify-center"
+            >
+              <i class="fas fa-car text-white"></i>
+            </div>
+            <span class="text-2xl font-bold"
+              >Auto<span class="text-primary">Elite</span></span
+            >
+          </div>
+          <p class="text-gray-400 mb-6">
+            Premium car rental and servicing solutions
+          </p>
+          <div class="flex justify-center space-x-6 mb-8">
+            <a
+              href="#"
+              class="text-gray-400 hover:text-primary transition-colors"
+            >
+              <i class="fab fa-facebook-f text-xl"></i>
+            </a>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-primary transition-colors"
+            >
+              <i class="fab fa-twitter text-xl"></i>
+            </a>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-primary transition-colors"
+            >
+              <i class="fab fa-instagram text-xl"></i>
+            </a>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-primary transition-colors"
+            >
+              <i class="fab fa-linkedin-in text-xl"></i>
+            </a>
+          </div>
+          <p class="text-gray-500 text-sm">
+            &copy; 2023 AutoElite. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Theme toggle function
+      function toggleTheme() {
+        const html = document.documentElement;
+        const themeToggleIcon = document.getElementById("theme-toggle-icon");
+
+        if (html.classList.contains("dark")) {
+          html.classList.remove("dark");
+          localStorage.setItem("color-theme", "light");
+          themeToggleIcon.classList.remove("fa-sun");
+          themeToggleIcon.classList.add("fa-moon");
+        } else {
+          html.classList.add("dark");
+          localStorage.setItem("color-theme", "dark");
+          themeToggleIcon.classList.remove("fa-moon");
+          themeToggleIcon.classList.add("fa-sun");
+        }
+      }
+
+      // Initialize theme
+      document.addEventListener("DOMContentLoaded", function () {
+        if (
+          localStorage.getItem("color-theme") === "dark" ||
+          (!("color-theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+          document
+            .getElementById("theme-toggle-icon")
+            .classList.remove("fa-moon");
+          document.getElementById("theme-toggle-icon").classList.add("fa-sun");
+        } else {
+          document.documentElement.classList.remove("dark");
+          document
+            .getElementById("theme-toggle-icon")
+            .classList.remove("fa-sun");
+          document.getElementById("theme-toggle-icon").classList.add("fa-moon");
+        }
+
+        // Add vertical marquee animation
+        const style = document.createElement("style");
+        style.textContent = `
+                @keyframes vertical-marquee {
+                    0% { transform: translateY(0); }
+                    100% { transform: translateY(-50%); }
+                }
+                
+                .vertical-marquee > div {
+                    animation: vertical-marquee 20s linear infinite;
+                }
+                
+                .vertical-marquee:hover > div {
+                    animation-play-state: paused;
+                }
+            `;
+        document.head.appendChild(style);
+      });
+
+      // Pause marquee on hover
+      document.querySelectorAll(".marquee-container").forEach((container) => {
+        container.addEventListener("mouseenter", () => {
+          container.querySelector(".marquee-content").style.animationPlayState =
+            "paused";
+        });
+
+        container.addEventListener("mouseleave", () => {
+          container.querySelector(".marquee-content").style.animationPlayState =
+            "running";
+        });
+      });
+    </script>
+  </body>
+</html>
