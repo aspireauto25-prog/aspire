@@ -502,3 +502,59 @@ document.getElementById("pickup-date").value = today;
 document.getElementById("pickup-date").min = today;
 document.getElementById("dropoff-date").value = tomorrowStr;
 document.getElementById("dropoff-date").min = tomorrowStr;
+
+// Back to top button
+const backToTopButton = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+  if (window.pageYOffset > 300) {
+    backToTopButton.classList.remove("hidden");
+  } else {
+    backToTopButton.classList.add("hidden");
+  }
+});
+
+backToTopButton.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Initialize all functionality
+document.addEventListener("DOMContentLoaded", function () {
+  // Animate elements on scroll
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("animate-slide-up");
+      }
+    });
+  }, observerOptions);
+
+  // Observe elements to animate on scroll
+  document.querySelectorAll(".card-3d, .detailed-car-card").forEach((el) => {
+    observer.observe(el);
+  });
+
+  // Initialize counters when in view
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCounters();
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  });
+
+  counterObserver.observe(document.querySelector(".video-background"));
+});
+
+// Close modal with escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeDetailedCarModal();
+  }
+});
