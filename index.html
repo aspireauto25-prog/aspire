@@ -429,5 +429,241 @@
         ></div>
       </div>
     </section>
+
+    <!-- Floating Action Button -->
+    <div class="fixed bottom-6 right-6 z-40 space-y-4">
+      <button
+        id="backToTop"
+        class="hidden w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
+      >
+        <i class="fas fa-arrow-up text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 relative overflow-hidden">
+      <!-- Animated elements -->
+      <div
+        class="absolute top-0 left-0 w-64 h-64 bg-primary rounded-full opacity-5 -translate-x-32 -translate-y-32"
+      ></div>
+      <div
+        class="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full opacity-5 translate-x-48 translate-y-48"
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-6">
+              <img
+                src="assets/images/logo-white.png"
+                class="w-auto h-12"
+                alt=""
+              />
+            </div>
+            <p class="text-gray-400 mb-6">
+              Premium car rental and servicing solutions for modern travelers.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="#"
+                class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="#"
+                class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#home"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#cars"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Our Fleet</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#booking"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Book Now</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#servicing"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Servicing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Our Services</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Short Term Rental</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Long Term Rental</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Corporate Leasing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Car Maintenance</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >24/7 Roadside</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Contact Info</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt text-primary mr-3 mt-1"></i>
+                <span class="text-gray-400">
+                  29 Foxwood Way, Langford WA 6147
+                </span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone text-primary mr-3"></i>
+                <span class="text-gray-400">0497790788</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-envelope text-primary mr-3"></i>
+                <span class="text-gray-400">info@aspireauto.com.au</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-clock text-primary mr-3"></i>
+                <span class="text-gray-400">24/7 Service Available</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 text-center">
+          <p class="text-gray-500">
+            &copy; 2025 Aspire Automotive. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Back to top button
+      const backToTopButton = document.getElementById("backToTop");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.remove("hidden");
+        } else {
+          backToTopButton.classList.add("hidden");
+        }
+      });
+
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Initialize all functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        // Animate elements on scroll
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate-slide-up");
+            }
+          });
+        }, observerOptions);
+
+        // Observe elements to animate on scroll
+        document
+          .querySelectorAll(".card-3d, .detailed-car-card")
+          .forEach((el) => {
+            observer.observe(el);
+          });
+
+        // Initialize counters when in view
+        const counterObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animateCounters();
+              counterObserver.unobserve(entry.target);
+            }
+          });
+        });
+
+        counterObserver.observe(document.querySelector(".video-background"));
+      });
+
+      // Close modal with escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeDetailedCarModal();
+        }
+      });
+    </script>
   </body>
 </html>
