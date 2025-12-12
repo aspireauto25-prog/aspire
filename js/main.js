@@ -316,11 +316,9 @@ function initializeCarDetails() {
                         </div>
                         
                         <div class="flex space-x-3">
-                            <button onclick="openDetailedCarModal(${
-                              car.id
-                            })" class="btn-primary flex-1 py-3 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300">
+                            <a href="car-details.html" class="text-center btn-primary flex-1 py-3 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300">
                                 <i class="fas fa-info-circle mr-2"></i> Details
-                            </button>
+                            </a>
                             <button onclick="quickBookCar(${
                               car.id
                             })" class="px-6 py-3 rounded-xl font-bold text-lg border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300">
@@ -331,68 +329,6 @@ function initializeCarDetails() {
                 `;
     container.appendChild(carElement);
   });
-}
-
-// Open detailed car modal
-function openDetailedCarModal(carId) {
-  const car = cars.find((c) => c.id === carId);
-  if (!car) return;
-
-  // Populate modal
-  document.getElementById("detailed-car-name").textContent = car.name;
-  document.getElementById("detailed-car-category").textContent = car.category;
-  document.getElementById(
-    "detailed-car-price"
-  ).innerHTML = `$${car.price}<span class="text-lg">/day</span>`;
-  document.getElementById("detailed-car-image").src = car.detailedImage;
-  document.getElementById("detailed-car-description").textContent =
-    car.description;
-  document.getElementById("detailed-car-engine").textContent = car.engine;
-  document.getElementById("detailed-car-horsepower").textContent =
-    car.horsepower;
-  document.getElementById("detailed-car-fuel-efficiency").textContent =
-    car.fuelEfficiency;
-  document.getElementById("detailed-car-seats").textContent = car.seats;
-  document.getElementById("detailed-car-transmission").textContent =
-    car.transmission;
-  document.getElementById("detailed-car-fuel").textContent = car.fuel;
-  document.getElementById(
-    "detailed-car-rating"
-  ).innerHTML = `${car.rating} <i class="fas fa-star text-yellow-400"></i>`;
-
-  // Populate features
-  const featuresContainer = document.getElementById("detailed-car-features");
-  featuresContainer.innerHTML = "";
-  car.features.forEach((feature) => {
-    const featureElement = document.createElement("div");
-    featureElement.className = "flex items-center mb-3";
-    featureElement.innerHTML = `
-                    <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center mr-3">
-                        <i class="fas fa-check text-primary"></i>
-                    </div>
-                    <span>${feature}</span>
-                `;
-    featuresContainer.appendChild(featureElement);
-  });
-
-  // Show modal with animation
-  const modal = document.getElementById("detailed-car-modal");
-  modal.classList.remove("hidden");
-  modal.classList.add("flex");
-  document.body.style.overflow = "hidden";
-
-  // Trigger animation
-  setTimeout(() => {
-    modal.querySelector(".modal-content").classList.add("animate-zoom-in");
-  }, 10);
-}
-
-// Close detailed car modal
-function closeDetailedCarModal() {
-  const modal = document.getElementById("detailed-car-modal");
-  modal.classList.add("hidden");
-  modal.classList.remove("flex");
-  document.body.style.overflow = "auto";
 }
 
 // Quick book car
@@ -536,6 +472,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Observe elements to animate on scroll
   document.querySelectorAll(".card-3d, .detailed-car-card").forEach((el) => {
+    observer.observe(el);
+  });
+
+  document.querySelectorAll(".service-card").forEach((el) => {
     observer.observe(el);
   });
 

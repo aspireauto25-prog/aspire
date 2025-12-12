@@ -2,6 +2,10 @@
   --primary: #ff1616;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
