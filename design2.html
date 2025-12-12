@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DriveEasy | Premium Car Rental & Servicing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff1616",
+              light: "#f7f8fd",
+              dark: "#000000",
+            },
+            animation: {
+              "fade-in": "fadeIn 0.8s ease-in-out",
+              "slide-up": "slideUp 0.6s ease-out",
+              "slide-in-left": "slideInLeft 0.7s ease-out",
+              "slide-in-right": "slideInRight 0.7s ease-out",
+              "pulse-slow": "pulse 3s infinite",
+              "bounce-slow": "bounce 2s infinite",
+              float: "float 6s ease-in-out infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(30px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+              slideInLeft: {
+                "0%": { transform: "translateX(-30px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              slideInRight: {
+                "0%": { transform: "translateX(30px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
+            },
+          },
+        },
+      };
+
+      // Initialize theme based on user preference or default to light
+      document.addEventListener("DOMContentLoaded", function () {
+        if (
+          localStorage.getItem("color-theme") === "dark" ||
+          (!("color-theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+          document
+            .getElementById("theme-toggle-icon")
+            .classList.remove("fa-moon");
+          document.getElementById("theme-toggle-icon").classList.add("fa-sun");
+        } else {
+          document.documentElement.classList.remove("dark");
+          document
+            .getElementById("theme-toggle-icon")
+            .classList.remove("fa-sun");
+          document.getElementById("theme-toggle-icon").classList.add("fa-moon");
+        }
+
+        // Initialize booking date pickers with current date
+        const today = new Date().toISOString().split("T")[0];
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+        document.getElementById("pickup-date").value = today;
+        document.getElementById("pickup-date").min = today;
+        document.getElementById("dropoff-date").value = tomorrowStr;
+        document.getElementById("dropoff-date").min = tomorrowStr;
+      });
+
+      // Toggle dark/light mode
+      function toggleTheme() {
+        const themeToggleIcon = document.getElementById("theme-toggle-icon");
+
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("color-theme", "light");
+          themeToggleIcon.classList.remove("fa-sun");
+          themeToggleIcon.classList.add("fa-moon");
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("color-theme", "dark");
+          themeToggleIcon.classList.remove("fa-moon");
+          themeToggleIcon.classList.add("fa-sun");
+        }
+      }
+
+      // Car booking data
+      const cars = [
+        {
+          id: 1,
+          name: "Tesla Model 3",
+          category: "Luxury Electric",
+          price: 89,
+          image:
+            "https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 5,
+          transmission: "Automatic",
+          fuel: "Electric",
+          description:
+            "Experience the future of driving with the Tesla Model 3. This all-electric sedan combines impressive performance with zero emissions. With instant torque, autopilot capabilities, and a minimalist interior featuring a 15-inch touchscreen, the Model 3 offers a truly modern driving experience. Perfect for both city commuting and long-distance travel with up to 353 miles of range.",
+          features: [
+            "Autopilot",
+            "Premium Audio",
+            "Glass Roof",
+            "Wireless Charging",
+            "Keyless Entry",
+          ],
+          available: true,
+          popularity: "high",
+        },
+        {
+          id: 2,
+          name: "BMW X5",
+          category: "Premium SUV",
+          price: 129,
+          image:
+            "https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 7,
+          transmission: "Automatic",
+          fuel: "Petrol",
+          description:
+            "The BMW X5 combines luxury, performance, and versatility in a premium SUV package. With its powerful engine, advanced xDrive all-wheel-drive system, and luxurious interior featuring leather upholstery and advanced infotainment, the X5 is perfect for family trips or business travel. Enjoy a smooth ride with cutting-edge safety features and ample cargo space.",
+          features: [
+            "Panoramic Roof",
+            "Heated Seats",
+            "Parking Assistant",
+            "Harman Kardon Audio",
+            "LED Headlights",
+          ],
+          available: true,
+          popularity: "medium",
+        },
+        {
+          id: 3,
+          name: "Toyota Camry",
+          category: "Economy Sedan",
+          price: 49,
+          image:
+            "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 5,
+          transmission: "Automatic",
+          fuel: "Hybrid",
+          description:
+            "The Toyota Camry Hybrid offers exceptional fuel efficiency without compromising on comfort or reliability. With its spacious interior, smooth ride, and advanced safety features including Toyota Safety Sense, the Camry is ideal for daily commuting and long drives. Enjoy premium comfort with available features like heated seats and a 9-inch touchscreen display.",
+          features: [
+            "Hybrid Engine",
+            "Safety Sense",
+            "Apple CarPlay",
+            "Dual Zone Climate",
+            "Backup Camera",
+          ],
+          available: true,
+          popularity: "high",
+        },
+        {
+          id: 4,
+          name: "Mercedes-Benz C-Class",
+          category: "Executive Sedan",
+          price: 99,
+          image:
+            "https://images.unsplash.com/photo-1563720223486-3294265d5a5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 5,
+          transmission: "Automatic",
+          fuel: "Petrol",
+          description:
+            "The Mercedes-Benz C-Class represents the perfect balance of luxury, performance, and technology. With its elegant design, premium materials, and advanced MBUX infotainment system, this executive sedan offers a truly refined driving experience. Features include ambient lighting, wireless charging, and a comprehensive suite of driver assistance systems.",
+          features: [
+            "MBUX System",
+            "Ambient Lighting",
+            "Burmester Audio",
+            "Memory Seats",
+            "360° Camera",
+          ],
+          available: true,
+          popularity: "medium",
+        },
+        {
+          id: 5,
+          name: "Range Rover Sport",
+          category: "Luxury SUV",
+          price: 159,
+          image:
+            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 5,
+          transmission: "Automatic",
+          fuel: "Diesel",
+          description:
+            "The Range Rover Sport combines rugged capability with sophisticated luxury. With its powerful engine options, advanced Terrain Response system, and sumptuous interior featuring Windsor leather and premium wood veneers, this SUV is equally at home in the city or off-road. Enjoy commanding views with the elevated driving position and panoramic roof.",
+          features: [
+            "Terrain Response",
+            "Panoramic Roof",
+            "Meridian Audio",
+            "Climate Seats",
+            "Head-up Display",
+          ],
+          available: false,
+          popularity: "medium",
+        },
+        {
+          id: 6,
+          name: "Honda Civic",
+          category: "Compact Car",
+          price: 39,
+          image:
+            "https://images.unsplash.com/photo-1593941707882-a5bba5338fe2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          seats: 5,
+          transmission: "Manual",
+          fuel: "Petrol",
+          description:
+            "The Honda Civic offers exceptional value with its reliable performance, fuel efficiency, and modern features. With its responsive handling, comfortable interior, and comprehensive safety features including Honda Sensing, the Civic is perfect for urban driving and weekend getaways. The spacious trunk and flexible seating make it practical for various needs.",
+          features: [
+            "Honda Sensing",
+            "Apple CarPlay",
+            "LED Lights",
+            "Remote Start",
+            "Lane Watch",
+          ],
+          available: true,
+          popularity: "high",
+        },
+      ];
+
+      // Pricing plans
+      const pricingPlans = [
+        {
+          name: "Economy",
+          price: 39,
+          period: "day",
+          cars: ["Toyota Camry", "Honda Civic", "Hyundai Elantra"],
+          features: [
+            "Basic Insurance",
+            "Unlimited Mileage",
+            "24/7 Roadside Assistance",
+            "Free Cancellation",
+          ],
+          bestValue: false,
+        },
+        {
+          name: "Premium",
+          price: 89,
+          period: "day",
+          cars: ["Tesla Model 3", "Mercedes C-Class", "BMW 3 Series"],
+          features: [
+            "Comprehensive Insurance",
+            "Unlimited Mileage",
+            "Premium Support",
+            "Free Upgrades",
+            "Early Pickup",
+          ],
+          bestValue: true,
+        },
+        {
+          name: "Luxury",
+          price: 159,
+          period: "day",
+          cars: ["Range Rover Sport", "Porsche 911", "Mercedes S-Class"],
+          features: [
+            "Premium Insurance",
+            "Chauffeur Service",
+            "Airport Delivery",
+            "Concierge Service",
+            "Flexible Terms",
+          ],
+          bestValue: false,
+        },
+      ];
+
+      // Initialize car details modal
+      function openCarDetails(carId) {
+        const car = cars.find((c) => c.id === carId);
+        if (!car) return;
+
+        // Populate modal with car details
+        document.getElementById("car-detail-name").textContent = car.name;
+        document.getElementById("car-detail-category").textContent =
+          car.category;
+        document.getElementById(
+          "car-detail-price"
+        ).innerHTML = `$${car.price}<span class="text-lg font-normal">/day</span>`;
+        document.getElementById("car-detail-image").src = car.image;
+        document.getElementById("car-detail-description").textContent =
+          car.description;
+
+        // Populate features
+        const featuresContainer = document.getElementById(
+          "car-detail-features"
+        );
+        featuresContainer.innerHTML = "";
+        car.features.forEach((feature) => {
+          const featureElement = document.createElement("div");
+          featureElement.className = "flex items-center mb-2";
+          featureElement.innerHTML = `
+                    <i class="fas fa-check text-primary mr-3"></i>
+                    <span>${feature}</span>
+                `;
+          featuresContainer.appendChild(featureElement);
+        });
+
+        // Populate specifications
+        document.getElementById("car-detail-seats").textContent = car.seats;
+        document.getElementById("car-detail-transmission").textContent =
+          car.transmission;
+        document.getElementById("car-detail-fuel").textContent = car.fuel;
+        document.getElementById("car-detail-availability").textContent =
+          car.available ? "Available" : "Unavailable";
+        document.getElementById("car-detail-availability").className =
+          car.available
+            ? "px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+            : "px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+
+        // Set car ID for booking
+        document.getElementById("booking-car-id").value = carId;
+        document.getElementById("booking-car-name").textContent = car.name;
+
+        // Show modal
+        document.getElementById("car-details-modal").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeCarDetails() {
+        document.getElementById("car-details-modal").classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }
+
+      // Handle booking form submission
+      function submitBooking() {
+        const pickupDate = document.getElementById("pickup-date").value;
+        const dropoffDate = document.getElementById("dropoff-date").value;
+        const carId = document.getElementById("booking-car-id").value;
+        const carName = document.getElementById("booking-car-name").textContent;
+
+        if (!pickupDate || !dropoffDate) {
+          alert("Please select both pickup and dropoff dates");
+          return;
+        }
+
+        // Calculate days
+        const pickup = new Date(pickupDate);
+        const dropoff = new Date(dropoffDate);
+        const diffTime = Math.abs(dropoff - pickup);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        const car = cars.find((c) => c.id === parseInt(carId));
+        const totalPrice = diffDays * car.price;
+
+        // Show confirmation
+        document.getElementById("booking-summary").innerHTML = `
+                <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-xl mb-6">
+                    <h3 class="font-bold text-xl mb-4">Booking Confirmed!</h3>
+                    <div class="space-y-2">
+                        <p><strong>Car:</strong> ${carName}</p>
+                        <p><strong>Pickup Date:</strong> ${pickupDate}</p>
+                        <p><strong>Dropoff Date:</strong> ${dropoffDate}</p>
+                        <p><strong>Duration:</strong> ${diffDays} days</p>
+                        <p><strong>Total Price:</strong> $${totalPrice}</p>
+                    </div>
+                    <p class="mt-4 text-green-700 dark:text-green-300">Thank you for your booking! We'll contact you shortly with confirmation details.</p>
+                </div>
+            `;
+
+        // Reset form
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+        document.getElementById("pickup-date").value = pickupDate;
+        document.getElementById("dropoff-date").value = tomorrowStr;
+
+        // Close modal
+        setTimeout(() => {
+          closeCarDetails();
+        }, 3000);
+      }
+
+      // Initialize date validation
+      function updateDropoffMinDate() {
+        const pickupDate = document.getElementById("pickup-date").value;
+        const dropoffDateInput = document.getElementById("dropoff-date");
+
+        if (pickupDate) {
+          const minDropoffDate = new Date(pickupDate);
+          minDropoffDate.setDate(minDropoffDate.getDate() + 1);
+          dropoffDateInput.min = minDropoffDate.toISOString().split("T")[0];
+
+          // If current dropoff date is before new minimum, update it
+          const currentDropoff = new Date(dropoffDateInput.value);
+          const newMin = new Date(dropoffDateInput.min);
+          if (currentDropoff < newMin) {
+            dropoffDateInput.value = dropoffDateInput.min;
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .car-card:hover {
+        transform: translateY(-10px);
+        transition: transform 0.3s ease;
+      }
+
+      .brand-logo:hover {
+        filter: grayscale(0);
+        transform: scale(1.1);
+        transition: all 0.3s ease;
+      }
+
+      .service-card:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .dark .service-card:hover {
+        box-shadow: 0 10px 25px rgba(255, 22, 22, 0.15);
+      }
+
+      .stat-card:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+      }
+
+      .btn-primary {
+        background-color: #ff1616;
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #e01212;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 22, 22, 0.3);
+      }
+
+      .dark .btn-primary:hover {
+        box-shadow: 0 5px 15px rgba(255, 22, 22, 0.5);
+      }
+
+      .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .dark .pricing-card:hover {
+        box-shadow: 0 20px 40px rgba(255, 22, 22, 0.1);
+      }
+
+      .recommended {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .recommended::before {
+        content: "Most Popular";
+        position: absolute;
+        top: 20px;
+        right: -35px;
+        background: #ff1616;
+        color: white;
+        padding: 5px 40px;
+        font-size: 12px;
+        font-weight: bold;
+        transform: rotate(45deg);
+      }
+
+      /* Modal styles */
+      .modal-overlay {
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(4px);
+      }
+
+      .calendar-day {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .calendar-day:hover {
+        background-color: #ff1616;
+        color: white;
+      }
+
+      .calendar-day.selected {
+        background-color: #ff1616;
+        color: white;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-light dark:bg-dark text-gray-800 dark:text-gray-200 transition-colors duration-300"
+  >
+    <!-- Navigation -->
+    <nav
+      class="sticky top-0 z-50 bg-light/90 dark:bg-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800"
+    >
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-car text-2xl text-primary animate-pulse-slow"></i>
+            <span class="text-2xl font-bold"
+              >Drive<span class="text-primary">Easy</span></span
+            >
+          </div>
+
+          <div class="hidden md:flex space-x-8">
+            <a href="#" class="font-medium hover:text-primary transition-colors"
+              >Home</a
+            >
+            <a
+              href="#cars"
+              class="font-medium hover:text-primary transition-colors"
+              >Cars</a
+            >
+            <a
+              href="#pricing"
+              class="font-medium hover:text-primary transition-colors"
+              >Pricing</a
+            >
+            <a
+              href="#booking"
+              class="font-medium hover:text-primary transition-colors"
+              >Booking</a
+            >
+            <a
+              href="#servicing"
+              class="font-medium hover:text-primary transition-colors"
+              >Servicing</a
+            >
+            <a
+              href="#about"
+              class="font-medium hover:text-primary transition-colors"
+              >About</a
+            >
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <button
+              id="theme-toggle"
+              onclick="toggleTheme()"
+              class="p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+            >
+              <i id="theme-toggle-icon" class="fas fa-moon"></i>
+            </button>
+            <button
+              onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})"
+              class="btn-primary px-6 py-2 rounded-full font-medium"
+            >
+              Book Now
+            </button>
+            <button class="md:hidden">
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="container mx-auto px-6 py-16 md:py-24">
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 animate-slide-in-left">
+          <h1 class="text-4xl md:text-6xl font-bold mb-6">
+            Premium <span class="text-primary">Car Rental</span> & Servicing
+          </h1>
+          <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+            Experience the ultimate in convenience with our wide selection of
+            luxury and economy vehicles. We offer both car rental and
+            professional servicing all in one place.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+          >
+            <button
+              onclick="document.getElementById('cars').scrollIntoView({behavior: 'smooth'})"
+              class="btn-primary px-8 py-3 rounded-full font-medium text-lg"
+            >
+              Rent a Car
+            </button>
+            <button
+              onclick="document.getElementById('servicing').scrollIntoView({behavior: 'smooth'})"
+              class="px-8 py-3 rounded-full font-medium text-lg border-2 border-gray-300 dark:border-gray-700 hover:border-primary hover:text-primary transition-colors"
+            >
+              Book Servicing
+            </button>
+          </div>
+
+          <div class="mt-12 grid grid-cols-3 gap-6">
+            <div class="text-center stat-card">
+              <h3 class="text-3xl font-bold text-primary">250+</h3>
+              <p class="text-gray-600 dark:text-gray-300">Vehicles</p>
+            </div>
+            <div class="text-center stat-card">
+              <h3 class="text-3xl font-bold text-primary">50+</h3>
+              <p class="text-gray-600 dark:text-gray-300">Locations</p>
+            </div>
+            <div class="text-center stat-card">
+              <h3 class="text-3xl font-bold text-primary">24/7</h3>
+              <p class="text-gray-600 dark:text-gray-300">Support</p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="md:w-1/2 mt-12 md:mt-0 flex justify-center animate-slide-in-right"
+        >
+          <div class="relative">
+            <div
+              class="w-80 h-80 md:w-96 md:h-96 bg-gradient-to-br from-primary to-red-500 rounded-full flex items-center justify-center overflow-hidden shadow-2xl animate-float"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Luxury Car"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div
+              class="absolute -bottom-6 -left-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xl animate-bounce-slow"
+            >
+              <div class="flex items-center">
+                <i class="fas fa-star text-yellow-500 mr-2"></i>
+                <span class="font-bold">4.8/5</span>
+                <span class="text-gray-500 dark:text-gray-400 ml-2"
+                  >(2,500+ reviews)</span
+                >
+              </div>
+            </div>
+            <div
+              class="absolute -top-6 -right-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xl animate-pulse-slow"
+            >
+              <div class="text-center">
+                <div class="text-primary font-bold">FROM</div>
+                <div class="text-2xl font-bold">
+                  $39<span class="text-sm">/day</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Booking Section -->
+    <section
+      id="booking"
+      class="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 text-white py-16"
+    >
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Quick Book Your Ride
+          </h2>
+          <p class="text-gray-300 max-w-2xl mx-auto">
+            Select your dates and choose from our premium fleet. Book in less
+            than 2 minutes!
+          </p>
+        </div>
+
+        <div
+          class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 animate-slide-up"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div>
+              <label
+                class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                >Pick-up Location</label
+              >
+              <div class="relative">
+                <i
+                  class="fas fa-map-marker-alt absolute left-3 top-3 text-primary"
+                ></i>
+                <select
+                  class="w-full pl-10 p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-light dark:bg-gray-900"
+                >
+                  <option>Main Office - Downtown</option>
+                  <option>Airport Terminal A</option>
+                  <option>Northside Station</option>
+                  <option>Westgate Plaza</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label
+                class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                >Pick-up Date</label
+              >
+              <div class="relative">
+                <i
+                  class="fas fa-calendar-alt absolute left-3 top-3 text-primary"
+                ></i>
+                <input
+                  type="date"
+                  id="pickup-date"
+                  onchange="updateDropoffMinDate()"
+                  class="w-full pl-10 p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-light dark:bg-gray-900"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                class="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
+                >Drop-off Date</label
+              >
+              <div class="relative">
+                <i
+                  class="fas fa-calendar-alt absolute left-3 top-3 text-primary"
+                ></i>
+                <input
+                  type="date"
+                  id="dropoff-date"
+                  class="w-full pl-10 p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-light dark:bg-gray-900"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button
+              onclick="document.getElementById('cars').scrollIntoView({behavior: 'smooth'})"
+              class="btn-primary px-10 py-4 rounded-full font-medium text-lg"
+            >
+              Find Available Cars <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div
+            class="bg-white/10 dark:bg-gray-800/50 p-6 rounded-2xl backdrop-blur-sm"
+          >
+            <i class="fas fa-shield-alt text-3xl text-primary mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Fully Insured</h3>
+            <p class="text-gray-300">Comprehensive coverage on all rentals</p>
+          </div>
+          <div
+            class="bg-white/10 dark:bg-gray-800/50 p-6 rounded-2xl backdrop-blur-sm"
+          >
+            <i class="fas fa-clock text-3xl text-primary mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Flexible Hours</h3>
+            <p class="text-gray-300">24/7 pickup and dropoff available</p>
+          </div>
+          <div
+            class="bg-white/10 dark:bg-gray-800/50 p-6 rounded-2xl backdrop-blur-sm"
+          >
+            <i class="fas fa-headset text-3xl text-primary mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Premium Support</h3>
+            <p class="text-gray-300">
+              Dedicated support throughout your rental
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Available Cars Section -->
+    <section id="cars" class="bg-gray-100 dark:bg-gray-900 py-16">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Available Cars for Rent
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Choose from our wide selection of premium, luxury, and economy
+            vehicles for your next adventure.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Car cards will be dynamically generated from cars array -->
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const carsContainer = document.getElementById("cars-container");
+              cars.forEach((car) => {
+                const carCard = document.createElement("div");
+                carCard.className = `car-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg animate-slide-up`;
+                carCard.innerHTML = `
+                                <div class="relative h-48 overflow-hidden">
+                                    <img src="${car.image}" alt="${
+                  car.name
+                }" class="w-full h-full object-cover">
+                                    ${
+                                      car.popularity === "high"
+                                        ? '<div class="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">Popular</div>'
+                                        : ""
+                                    }
+                                    ${
+                                      !car.available
+                                        ? '<div class="absolute top-4 right-4 bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">Booked</div>'
+                                        : ""
+                                    }
+                                </div>
+                                <div class="p-6">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <div>
+                                            <h3 class="text-xl font-bold">${
+                                              car.name
+                                            }</h3>
+                                            <p class="text-gray-500 dark:text-gray-400">${
+                                              car.category
+                                            } | ${car.transmission}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-2xl font-bold text-primary">$${
+                                              car.price
+                                            }<span class="text-sm font-normal">/day</span></div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">${car.description.substring(
+                                      0,
+                                      100
+                                    )}...</p>
+                                    <div class="flex justify-between text-gray-600 dark:text-gray-400 mb-6">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-user-friends mr-2"></i>
+                                            <span>${car.seats} Seats</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-gas-pump mr-2"></i>
+                                            <span>${car.fuel}</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-cogs mr-2"></i>
+                                            <span>${car.transmission}</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-3">
+                                        <button onclick="openCarDetails(${
+                                          car.id
+                                        })" class="btn-primary flex-1 py-3 rounded-lg font-medium">View Details</button>
+                                        ${
+                                          car.available
+                                            ? `<button onclick="openCarDetails(${car.id})" class="px-4 py-3 rounded-lg font-medium border border-gray-300 dark:border-gray-700 hover:border-primary hover:text-primary transition-colors">Book Now</button>`
+                                            : `<button disabled class="px-4 py-3 rounded-lg font-medium border border-gray-300 dark:border-gray-700 text-gray-400 cursor-not-allowed">Unavailable</button>`
+                                        }
+                                    </div>
+                                </div>
+                            `;
+                carsContainer.appendChild(carCard);
+              });
+            });
+          </script>
+          <div id="cars-container"></div>
+        </div>
+
+        <div class="text-center mt-12">
+          <button
+            class="px-8 py-3 rounded-full font-medium text-lg border-2 border-gray-300 dark:border-gray-700 hover:border-primary hover:text-primary transition-colors"
+          >
+            View All Cars <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Plans Section -->
+    <section id="pricing" class="py-16">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Flexible Pricing Plans
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Choose the perfect plan for your needs. All plans include basic
+            insurance and 24/7 support.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <!-- Pricing cards will be dynamically generated -->
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const pricingContainer =
+                document.getElementById("pricing-container");
+              pricingPlans.forEach((plan) => {
+                const pricingCard = document.createElement("div");
+                pricingCard.className = `pricing-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg ${
+                  plan.bestValue ? "recommended border-2 border-primary" : ""
+                }`;
+                pricingCard.innerHTML = `
+                                <div class="p-8">
+                                    <div class="text-center mb-6">
+                                        <h3 class="text-2xl font-bold mb-2">${
+                                          plan.name
+                                        }</h3>
+                                        <div class="flex justify-center items-baseline mb-4">
+                                            <span class="text-5xl font-bold">$${
+                                              plan.price
+                                            }</span>
+                                            <span class="text-gray-500 dark:text-gray-400 ml-2">/${
+                                              plan.period
+                                            }</span>
+                                        </div>
+                                        <p class="text-gray-600 dark:text-gray-400">Includes: ${plan.cars.join(
+                                          ", "
+                                        )}</p>
+                                    </div>
+                                    
+                                    <ul class="space-y-3 mb-8">
+                                        ${plan.features
+                                          .map(
+                                            (feature) => `
+                                            <li class="flex items-center">
+                                                <i class="fas fa-check text-primary mr-3"></i>
+                                                <span>${feature}</span>
+                                            </li>
+                                        `
+                                          )
+                                          .join("")}
+                                    </ul>
+                                    
+                                    <button class="w-full ${
+                                      plan.bestValue
+                                        ? "btn-primary"
+                                        : "border-2 border-primary text-primary hover:bg-primary hover:text-white"
+                                    } py-3 rounded-lg font-medium transition-colors">
+                                        Select ${plan.name} Plan
+                                    </button>
+                                </div>
+                                
+                                ${
+                                  plan.bestValue
+                                    ? `
+                                <div class="bg-gray-100 dark:bg-gray-900 py-4 text-center">
+                                    <p class="font-medium text-primary">Save 15% on weekly rentals</p>
+                                </div>
+                                `
+                                    : ""
+                                }
+                            `;
+                pricingContainer.appendChild(pricingCard);
+              });
+            });
+          </script>
+          <div id="pricing-container"></div>
+        </div>
+
+        <div
+          class="mt-12 bg-gray-100 dark:bg-gray-900 rounded-2xl p-8 max-w-3xl mx-auto animate-fade-in"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-center">
+            Long Term Rental Discounts
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl">
+              <div class="text-3xl font-bold text-primary mb-2">Weekly</div>
+              <div class="text-2xl font-bold">10% OFF</div>
+              <p class="text-gray-600 dark:text-gray-400 mt-2">
+                7+ days rental
+              </p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl">
+              <div class="text-3xl font-bold text-primary mb-2">Monthly</div>
+              <div class="text-2xl font-bold">20% OFF</div>
+              <p class="text-gray-600 dark:text-gray-400 mt-2">
+                30+ days rental
+              </p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl">
+              <div class="text-3xl font-bold text-primary mb-2">Corporate</div>
+              <div class="text-2xl font-bold">30% OFF</div>
+              <p class="text-gray-600 dark:text-gray-400 mt-2">
+                For business clients
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Car Details Modal -->
+    <div
+      id="car-details-modal"
+      class="hidden fixed inset-0 z-50 overflow-y-auto"
+    >
+      <div class="modal-overlay fixed inset-0 bg-black opacity-70"></div>
+
+      <div class="relative min-h-screen flex items-center justify-center p-4">
+        <div
+          class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+        >
+          <button
+            onclick="closeCarDetails()"
+            class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 text-2xl"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+
+          <div class="p-8">
+            <!-- Car Image Gallery -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              <div>
+                <img
+                  id="car-detail-image"
+                  src=""
+                  alt="Car"
+                  class="w-full h-64 object-cover rounded-2xl mb-4"
+                />
+                <div class="grid grid-cols-4 gap-2">
+                  <div
+                    class="h-16 bg-gray-200 dark:bg-gray-800 rounded-lg"
+                  ></div>
+                  <div
+                    class="h-16 bg-gray-200 dark:bg-gray-800 rounded-lg"
+                  ></div>
+                  <div
+                    class="h-16 bg-gray-200 dark:bg-gray-800 rounded-lg"
+                  ></div>
+                  <div
+                    class="h-16 bg-gray-200 dark:bg-gray-800 rounded-lg"
+                  ></div>
+                </div>
+              </div>
+
+              <div>
+                <h2 id="car-detail-name" class="text-3xl font-bold mb-2"></h2>
+                <div class="flex items-center mb-4">
+                  <span
+                    id="car-detail-category"
+                    class="text-gray-500 dark:text-gray-400 mr-4"
+                  ></span>
+                  <span
+                    id="car-detail-availability"
+                    class="px-3 py-1 rounded-full text-sm font-medium"
+                  ></span>
+                </div>
+
+                <div class="text-4xl font-bold text-primary mb-6">
+                  <span id="car-detail-price"></span>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl mb-6">
+                  <h3 class="font-bold text-xl mb-4">Book This Car</h3>
+                  <input type="hidden" id="booking-car-id" />
+                  <input type="hidden" id="booking-car-name" />
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <label class="block text-gray-700 dark:text-gray-300 mb-2"
+                        >Pickup Date</label
+                      >
+                      <input
+                        type="date"
+                        id="pickup-date-modal"
+                        class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900"
+                      />
+                    </div>
+                    <div>
+                      <label class="block text-gray-700 dark:text-gray-300 mb-2"
+                        >Dropoff Date</label
+                      >
+                      <input
+                        type="date"
+                        id="dropoff-date-modal"
+                        class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900"
+                      />
+                    </div>
+                  </div>
+
+                  <div id="booking-summary"></div>
+
+                  <button
+                    onclick="submitBooking()"
+                    class="btn-primary w-full py-3 rounded-lg font-medium text-lg"
+                  >
+                    Confirm Booking <i class="fas fa-check ml-2"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car Details -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div class="lg:col-span-2">
+                <h3 class="text-2xl font-bold mb-4">Description</h3>
+                <p
+                  id="car-detail-description"
+                  class="text-gray-600 dark:text-gray-300 mb-6"
+                ></p>
+
+                <h3 class="text-2xl font-bold mb-4">Features</h3>
+                <div
+                  id="car-detail-features"
+                  class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8"
+                ></div>
+              </div>
+
+              <div>
+                <h3 class="text-2xl font-bold mb-4">Specifications</h3>
+                <div class="space-y-4">
+                  <div
+                    class="flex justify-between items-center border-b border-gray-200 dark:border-gray-800 pb-2"
+                  >
+                    <span class="text-gray-600 dark:text-gray-400"
+                      >Seating Capacity</span
+                    >
+                    <span id="car-detail-seats" class="font-medium"></span>
+                  </div>
+                  <div
+                    class="flex justify-between items-center border-b border-gray-200 dark:border-gray-800 pb-2"
+                  >
+                    <span class="text-gray-600 dark:text-gray-400"
+                      >Transmission</span
+                    >
+                    <span
+                      id="car-detail-transmission"
+                      class="font-medium"
+                    ></span>
+                  </div>
+                  <div
+                    class="flex justify-between items-center border-b border-gray-200 dark:border-gray-800 pb-2"
+                  >
+                    <span class="text-gray-600 dark:text-gray-400"
+                      >Fuel Type</span
+                    >
+                    <span id="car-detail-fuel" class="font-medium"></span>
+                  </div>
+                  <div
+                    class="flex justify-between items-center border-b border-gray-200 dark:border-gray-800 pb-2"
+                  >
+                    <span class="text-gray-600 dark:text-gray-400">Doors</span>
+                    <span class="font-medium">4</span>
+                  </div>
+                  <div
+                    class="flex justify-between items-center border-b border-gray-200 dark:border-gray-800 pb-2"
+                  >
+                    <span class="text-gray-600 dark:text-gray-400"
+                      >Luggage Capacity</span
+                    >
+                    <span class="font-medium">2 Large Bags</span>
+                  </div>
+                </div>
+
+                <div
+                  class="mt-8 bg-primary/10 dark:bg-primary/20 p-4 rounded-xl"
+                >
+                  <h4 class="font-bold text-primary mb-2">Need Help?</h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                    Contact our rental specialists for assistance.
+                  </p>
+                  <button class="text-primary font-medium">
+                    Call: +1 (555) 123-4567
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rest of the sections (Car Brands, Why Choose Us, Servicing, Footer) remain the same as before -->
+    <!-- Car Brands Section -->
+    <section class="py-16">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Trusted Car Brands
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            We offer vehicles from the world's most reliable and prestigious
+            automotive brands.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+          <div
+            class="brand-logo flex justify-center items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md filter grayscale hover:grayscale-0 transition-all duration-300"
+          >
+            <i class="fas fa-car text-4xl text-gray-700 dark:text-gray-300"></i>
+            <span class="ml-3 text-xl font-bold">Tesla</span>
+          </div>
+          <div
+            class="brand-logo flex justify-center items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md filter grayscale hover:grayscale-0 transition-all duration-300"
+          >
+            <i class="fas fa-car text-4xl text-gray-700 dark:text-gray-300"></i>
+            <span class="ml-3 text-xl font-bold">BMW</span>
+          </div>
+          <div
+            class="brand-logo flex justify-center items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md filter grayscale hover:grayscale-0 transition-all duration-300"
+          >
+            <i class="fas fa-car text-4xl text-gray-700 dark:text-gray-300"></i>
+            <span class="ml-3 text-xl font-bold">Mercedes</span>
+          </div>
+          <div
+            class="brand-logo flex justify-center items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md filter grayscale hover:grayscale-0 transition-all duration-300"
+          >
+            <i class="fas fa-car text-4xl text-gray-700 dark:text-gray-300"></i>
+            <span class="ml-3 text-xl font-bold">Audi</span>
+          </div>
+          <div
+            class="brand-logo flex justify-center items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md filter grayscale hover:grayscale-0 transition-all duration-300"
+          >
+            <i class="fas fa-car text-4xl text-gray-700 dark:text-gray-300"></i>
+            <span class="ml-3 text-xl font-bold">Toyota</span>
+          </div>
+          <div
+            class="brand-logo flex justify-center items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md filter grayscale hover:grayscale-0 transition-all duration-300"
+          >
+            <i class="fas fa-car text-4xl text-gray-700 dark:text-gray-300"></i>
+            <span class="ml-3 text-xl font-bold">Honda</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="about" class="bg-gray-100 dark:bg-gray-900 py-16">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Why Choose DriveEasy?
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            We provide exceptional car rental and servicing experience with our
+            customer-first approach.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            class="service-card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center animate-slide-up"
+            style="animation-delay: 0.1s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center"
+            >
+              <i class="fas fa-shield-alt text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Fully Insured</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              All our vehicles come with comprehensive insurance coverage for
+              your peace of mind.
+            </p>
+          </div>
+
+          <div
+            class="service-card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center animate-slide-up"
+            style="animation-delay: 0.2s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center"
+            >
+              <i class="fas fa-tools text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Expert Servicing</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Our certified technicians provide top-quality maintenance and
+              repair services.
+            </p>
+          </div>
+
+          <div
+            class="service-card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center animate-slide-up"
+            style="animation-delay: 0.3s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center"
+            >
+              <i class="fas fa-clock text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">24/7 Support</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Round-the-clock customer support to assist you anytime, anywhere.
+            </p>
+          </div>
+
+          <div
+            class="service-card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center animate-slide-up"
+            style="animation-delay: 0.4s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center"
+            >
+              <i class="fas fa-dollar-sign text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Best Prices</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Competitive rates with no hidden fees. Price match guarantee on
+              all rentals.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Servicing Section -->
+    <section id="servicing" class="py-16">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 mb-12 md:mb-0 animate-slide-in-left">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+              Professional Car Servicing
+            </h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-8">
+              Keep your vehicle in perfect condition with our comprehensive
+              servicing packages. Our certified technicians use state-of-the-art
+              equipment to ensure optimal performance and safety.
+            </p>
+
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div
+                  class="w-10 h-10 rounded-full bg-primary flex items-center justify-center mr-4 flex-shrink-0"
+                >
+                  <i class="fas fa-check text-white"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg mb-1">Regular Maintenance</h4>
+                  <p class="text-gray-600 dark:text-gray-400">
+                    Oil changes, brake checks, tire rotations and more.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div
+                  class="w-10 h-10 rounded-full bg-primary flex items-center justify-center mr-4 flex-shrink-0"
+                >
+                  <i class="fas fa-check text-white"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg mb-1">Diagnostic Services</h4>
+                  <p class="text-gray-600 dark:text-gray-400">
+                    Advanced computer diagnostics for all vehicle systems.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div
+                  class="w-10 h-10 rounded-full bg-primary flex items-center justify-center mr-4 flex-shrink-0"
+                >
+                  <i class="fas fa-check text-white"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg mb-1">Emergency Repairs</h4>
+                  <p class="text-gray-600 dark:text-gray-400">
+                    Fast and reliable repair services for breakdowns.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="btn-primary mt-8 px-8 py-3 rounded-full font-medium text-lg"
+            >
+              Book Servicing <i class="fas fa-wrench ml-2"></i>
+            </button>
+          </div>
+
+          <div
+            class="md:w-1/2 md:pl-12 flex justify-center animate-slide-in-right"
+          >
+            <div class="relative">
+              <div
+                class="w-80 h-80 md:w-96 md:h-96 bg-gradient-to-tr from-gray-800 to-gray-900 dark:from-gray-700 dark:to-gray-800 rounded-2xl flex items-center justify-center overflow-hidden shadow-2xl"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Car Servicing"
+                  class="w-full h-full object-cover opacity-80"
+                />
+              </div>
+              <div
+                class="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl"
+              >
+                <div class="text-center">
+                  <div class="text-primary font-bold text-2xl">15% OFF</div>
+                  <div class="font-bold">First Service</div>
+                  <div class="text-gray-500 dark:text-gray-400 text-sm mt-2">
+                    For new customers
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-gray-900 text-white py-12">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <div class="flex items-center space-x-2 mb-6">
+              <i class="fas fa-car text-2xl text-primary"></i>
+              <span class="text-2xl font-bold"
+                >Drive<span class="text-primary">Easy</span></span
+              >
+            </div>
+            <p class="text-gray-400">
+              Premium car rental and servicing solutions for individuals and
+              businesses.
+            </p>
+            <div class="flex space-x-4 mt-6">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#cars"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Car Rentals</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#servicing"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Car Servicing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Our Services</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Luxury Car Rental</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Economy Car Rental</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Long Term Rental</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Car Maintenance</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-primary transition-colors"
+                  >Emergency Repairs</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6">Contact Us</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt text-primary mr-3 mt-1"></i>
+                <span class="text-gray-400"
+                  >123 Drive Street, Auto City, AC 12345</span
+                >
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone text-primary mr-3"></i>
+                <span class="text-gray-400">+1 (555) 123-4567</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-envelope text-primary mr-3"></i>
+                <span class="text-gray-400">info@driveeasy.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500"
+        >
+          <p>
+            &copy; 2023 DriveEasy. All rights reserved. | Designed with
+            <i class="fas fa-heart text-primary"></i> for car enthusiasts
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button
+      id="backToTop"
+      class="hidden fixed bottom-6 right-6 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-700 transition-colors z-40"
+    >
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+      // Back to top button
+      const backToTopButton = document.getElementById("backToTop");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.remove("hidden");
+        } else {
+          backToTopButton.classList.add("hidden");
+        }
+      });
+
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Initialize modal date pickers
+      document.addEventListener("DOMContentLoaded", function () {
+        const today = new Date().toISOString().split("T")[0];
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+        // Set initial values for modal date pickers
+        document.getElementById("pickup-date-modal").value = today;
+        document.getElementById("pickup-date-modal").min = today;
+        document.getElementById("dropoff-date-modal").value = tomorrowStr;
+        document.getElementById("dropoff-date-modal").min = tomorrowStr;
+
+        // Copy values from main booking form to modal
+        document
+          .getElementById("pickup-date")
+          .addEventListener("change", function () {
+            document.getElementById("pickup-date-modal").value = this.value;
+            updateModalDropoffMinDate();
+          });
+
+        document
+          .getElementById("dropoff-date")
+          .addEventListener("change", function () {
+            document.getElementById("dropoff-date-modal").value = this.value;
+          });
+
+        // Modal date validation
+        document
+          .getElementById("pickup-date-modal")
+          .addEventListener("change", updateModalDropoffMinDate);
+      });
+
+      function updateModalDropoffMinDate() {
+        const pickupDate = document.getElementById("pickup-date-modal").value;
+        const dropoffDateInput = document.getElementById("dropoff-date-modal");
+
+        if (pickupDate) {
+          const minDropoffDate = new Date(pickupDate);
+          minDropoffDate.setDate(minDropoffDate.getDate() + 1);
+          dropoffDateInput.min = minDropoffDate.toISOString().split("T")[0];
+
+          // If current dropoff date is before new minimum, update it
+          const currentDropoff = new Date(dropoffDateInput.value);
+          const newMin = new Date(dropoffDateInput.min);
+          if (currentDropoff < newMin) {
+            dropoffDateInput.value = dropoffDateInput.min;
+          }
+        }
+      }
+
+      // Close modal when clicking outside
+      document
+        .getElementById("car-details-modal")
+        .addEventListener("click", function (e) {
+          if (e.target.id === "car-details-modal") {
+            closeCarDetails();
+          }
+        });
+    </script>
+  </body>
+</html>

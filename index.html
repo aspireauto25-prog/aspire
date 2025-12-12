@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aspire Automotive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff1616",
+              secondary: "#1a1a1a",
+              light: "#f7f8fd",
+              dark: "#0a0a0a",
+            },
+            fontFamily: {
+              poppins: ["Poppins", "sans-serif"],
+            },
+            animation: {
+              "fade-in": "fadeIn 0.8s ease-in-out",
+              "slide-up": "slideUp 0.6s ease-out",
+              "slide-in-left": "slideInLeft 0.7s ease-out",
+              "slide-in-right": "slideInRight 0.7s ease-out",
+              "pulse-slow": "pulse 3s infinite",
+              "bounce-slow": "bounce 2s infinite",
+              float: "float 6s ease-in-out infinite",
+              shake: "shake 0.5s ease-in-out",
+              "zoom-in": "zoomIn 0.5s ease-out",
+              typewriter: "typewriter 2s steps(40) 1s 1 normal both",
+              glow: "glow 2s ease-in-out infinite alternate",
+              "slide-in-top": "slideInTop 0.8s ease-out",
+              "rotate-slow": "rotate 20s linear infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(30px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+              slideInLeft: {
+                "0%": { transform: "translateX(-50px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              slideInRight: {
+                "0%": { transform: "translateX(50px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              slideInTop: {
+                "0%": { transform: "translateY(-50px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
+              shake: {
+                "0%, 100%": { transform: "translateX(0)" },
+                "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-5px)" },
+                "20%, 40%, 60%, 80%": { transform: "translateX(5px)" },
+              },
+              zoomIn: {
+                "0%": { transform: "scale(0.9)", opacity: "0" },
+                "100%": { transform: "scale(1)", opacity: "1" },
+              },
+              typewriter: {
+                from: { width: "0" },
+                to: { width: "100%" },
+              },
+              glow: {
+                from: {
+                  textShadow:
+                    "0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff1616, 0 0 40px #ff1616",
+                },
+                to: {
+                  textShadow:
+                    "0 0 20px #fff, 0 0 30px #ff1616, 0 0 40px #ff1616, 0 0 50px #ff1616, 0 0 60px #ff1616",
+                },
+              },
+              rotate: {
+                "0%": { transform: "rotate(0deg)" },
+                "100%": { transform: "rotate(360deg)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/main.js"></script>
+  </head>
+  <body
+    class="light font-poppins bg-light dark:bg-dark text-gray-800 dark:text-gray-200 transition-colors duration-500 overflow-x-hidden"
+  >
+    <!-- Header  -->
+    <header class="sticky top-0 w-full z-50 py-4 px-6">
+      <!-- Navigation -->
+      <nav>
+        <div class="container mx-auto">
+          <div
+            class="flex justify-between items-center glass-effect rounded-2xl px-6 py-3 backdrop-blur-lg shadow-xl animate-slide-in-top"
+          >
+            <div class="flex items-center space-x-3">
+              <img src="assets/images/logo.png" alt="" class="h-12 w-auto" />
+            </div>
+
+            <div class="hidden lg:flex space-x-8">
+              <a
+                href="#home"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                Home
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
+              <a
+                href="#cars"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                Our Cars
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
+              <a
+                href="#booking"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                Booking
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
+              <a
+                href="#servicing"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                Servicing
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
+              <a
+                href="#about"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                About
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <button
+                id="theme-toggle"
+                onclick="toggleTheme()"
+                class="w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:bg-primary/20 transition-colors"
+              >
+                <i id="theme-toggle-icon" class="fas fa-moon"></i>
+              </button>
+              <button
+                onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})"
+                class="btn-primary px-6 py-3 rounded-full font-bold shadow-lg"
+              >
+                <i class="fas fa-calendar-alt mr-2"></i> Book Now
+              </button>
+              <button class="lg:hidden">
+                <i class="fas fa-bars text-xl"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section with Video Background -->
+    <section id="home" class="relative">
+      <div class="video-background">
+        <video
+          id="hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          class="w-full h-full object-cover"
+        >
+          <source src="video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="container mx-auto px-6 py-20 min-h-screen">
+        <div class="max-w-3xl animate-slide-in-left">
+          <div
+            class="inline-block px-4 py-2 rounded-full bg-primary/20 backdrop-blur-sm mb-6 animate-pulse-slow"
+          >
+            <span class="text-primary font-bold"
+              >Premium Car Rental Service</span
+            >
+          </div>
+
+          <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            Aspire
+            <span class="gradient-text animate-glow">Automotive</span>
+            <br />Driven by <span class="text-primary">Excellence</span>
+          </h1>
+
+          <p class="text-xl text-gray-300 mb-8 max-w-2xl">
+            Experience luxury, performance, and reliability with our premium
+            fleet. From compact city cars to luxury SUVs, we have the perfect
+            vehicle for every journey.
+          </p>
+
+          <div
+            class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6"
+          >
+            <button
+              onclick="document.getElementById('cars').scrollIntoView({behavior: 'smooth'})"
+              class="btn-primary px-8 py-4 rounded-full font-bold text-lg shadow-2xl animate-bounce-slow"
+            >
+              <i class="fas fa-car mr-3"></i> Explore Our Fleet
+            </button>
+            <button
+              onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})"
+              class="px-8 py-4 rounded-full font-bold text-lg border-2 border-white text-white hover:bg-white hover:text-dark transition-all duration-300"
+            >
+              <i class="fas fa-play-circle mr-3"></i> Watch Tour
+            </button>
+          </div>
+
+          <!-- Floating stats -->
+          <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div
+              class="text-center glass-effect p-6 rounded-2xl backdrop-blur-sm"
+            >
+              <div
+                class="text-3xl font-bold text-primary counter"
+                data-target="250"
+              >
+                0
+              </div>
+              <div class="text-gray-300">Vehicles</div>
+            </div>
+            <div
+              class="text-center glass-effect p-6 rounded-2xl backdrop-blur-sm"
+            >
+              <div
+                class="text-3xl font-bold text-primary counter"
+                data-target="50"
+              >
+                0
+              </div>
+              <div class="text-gray-300">Locations</div>
+            </div>
+            <div
+              class="text-center glass-effect p-6 rounded-2xl backdrop-blur-sm"
+            >
+              <div
+                class="text-3xl font-bold text-primary counter"
+                data-target="98"
+              >
+                0
+              </div>
+              <div class="text-gray-300">Satisfaction %</div>
+            </div>
+            <div
+              class="text-center glass-effect p-6 rounded-2xl backdrop-blur-sm"
+            >
+              <div
+                class="text-3xl font-bold text-primary counter"
+                data-target="24"
+              >
+                0
+              </div>
+              <div class="text-gray-300">/7 Support</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-choose-us" class="bg-gray-100 dark:bg-gray-900 py-16">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Why Choose Aspire Automotive?
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            We provide exceptional car rental and servicing experience with our
+            customer-first approach.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            class="service-card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center animate-slide-up"
+            style="animation-delay: 0.1s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center"
+            >
+              <i class="fas fa-shield-alt text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Fully Insured</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              All our vehicles come with comprehensive insurance coverage for
+              your peace of mind.
+            </p>
+          </div>
+
+          <div
+            class="service-card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center animate-slide-up"
+            style="animation-delay: 0.2s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center"
+            >
+              <i class="fas fa-tools text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Expert Servicing</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Our certified technicians provide top-quality maintenance and
+              repair services.
+            </p>
+          </div>
+
+          <div
+            class="service-card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center animate-slide-up"
+            style="animation-delay: 0.3s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center"
+            >
+              <i class="fas fa-clock text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">24/7 Support</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Round-the-clock customer support to assist you anytime, anywhere.
+            </p>
+          </div>
+
+          <div
+            class="service-card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center animate-slide-up"
+            style="animation-delay: 0.4s"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center"
+            >
+              <i class="fas fa-dollar-sign text-2xl text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Best Prices</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Competitive rates with no hidden fees. Price match guarantee on
+              all rentals.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Cars Showcase Section -->
+    <section
+      id="cars"
+      class="py-20 bg-gradient-to-b from-light to-gray-100 dark:from-dark dark:to-gray-900"
+    >
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16 animate-fade-in">
+          <div class="inline-block px-6 py-2 rounded-full bg-primary/10 mb-4">
+            <span class="text-primary font-bold">OUR PREMIUM FLEET</span>
+          </div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            Detailed Car <span class="text-primary">Showcase</span>
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Explore our meticulously maintained fleet with detailed
+            specifications, features, and availability.
+          </p>
+        </div>
+
+        <!-- Car Filters -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12 animate-slide-up">
+          <button
+            class="px-6 py-3 rounded-full bg-primary text-white font-bold"
+          >
+            All Cars
+          </button>
+          <button
+            class="px-6 py-3 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-primary hover:text-white font-bold transition-colors"
+          >
+            Sedans
+          </button>
+          <button
+            class="px-6 py-3 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-primary hover:text-white font-bold transition-colors"
+          >
+            SUVs
+          </button>
+          <button
+            class="px-6 py-3 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-primary hover:text-white font-bold transition-colors"
+          >
+            Luxury
+          </button>
+          <button
+            class="px-6 py-3 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-primary hover:text-white font-bold transition-colors"
+          >
+            Electric
+          </button>
+        </div>
+
+        <!-- Detailed Cars Grid -->
+        <div
+          id="detailed-cars-container"
+          class="grid grid-cols-1 lg:grid-cols-2 gap-8"
+        ></div>
+      </div>
+    </section>
+  </body>
+</html>
