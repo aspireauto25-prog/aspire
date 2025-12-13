@@ -204,3 +204,74 @@ body {
     opacity: 0;
   }
 }
+/* 
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-effect {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gradient-text {
+  background: linear-gradient(45deg, #ff1616, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+} */
+
+.service-card {
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+}
+/* 
+.btn-primary {
+  background: linear-gradient(45deg, #ff1616, #ff5252);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 22, 22, 0.3);
+}
+
+.dark .btn-primary:hover {
+  box-shadow: 0 10px 20px rgba(255, 22, 22, 0.5);
+} */
+
+.feature-icon {
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.1);
+  color: #ff1616;
+}
+
+.maintenance-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(to bottom, #ff1616, transparent);
+}
+
+@media (min-width: 768px) {
+  .maintenance-timeline::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

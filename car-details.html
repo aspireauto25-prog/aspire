@@ -162,15 +162,17 @@
     class="font-poppins bg-light dark:bg-dark text-gray-800 dark:text-gray-200 transition-colors duration-500"
   >
     <!-- Header  -->
-    <header class="sticky top-0 w-full z-50 py-4 px-6">
+    <header class="sticky top-0 z-40">
       <!-- Navigation -->
-      <nav>
+      <nav
+        class="glass-effect py-4 px-6 backdrop-blur-lg shadow-xl animate-slide-in-top"
+      >
         <div class="container mx-auto">
-          <div
-            class="flex justify-between items-center glass-effect rounded-2xl px-6 py-3 backdrop-blur-lg shadow-xl animate-slide-in-top"
-          >
+          <div class="flex justify-between items-center">
             <div class="flex items-center space-x-3">
-              <img src="assets/images/logo.png" alt="" class="h-12 w-auto" />
+              <a href="index.html" class="flex items-center space-x-3">
+                <img src="assets/images/logo.png" class="h-12 w-auto" alt="" />
+              </a>
             </div>
 
             <div class="hidden lg:flex space-x-8">
@@ -194,24 +196,15 @@
               </a>
               <a
                 href="cars.html"
-                class="font-medium hover:text-primary transition-colors relative group"
+                class="font-medium text-primary transition-colors relative group"
               >
-                Our Cars
+                Our Fleet
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
                 ></span>
               </a>
               <a
-                href="#booking"
-                class="font-medium hover:text-primary transition-colors relative group"
-              >
-                Booking
-                <span
-                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
-                ></span>
-              </a>
-              <a
-                href="#servicing"
+                href="servicing.html"
                 class="font-medium hover:text-primary transition-colors relative group"
               >
                 Servicing
@@ -219,22 +212,31 @@
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
                 ></span>
               </a>
+              <a
+                href="contact.html"
+                class="font-medium hover:text-primary transition-colors relative group"
+              >
+                Contact
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
+                ></span>
+              </a>
             </div>
+
             <div class="flex items-center space-x-4">
               <button
-                id="theme-toggle"
                 onclick="toggleTheme()"
-                class="w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:bg-primary/20 transition-colors"
+                class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center hover:bg-primary/20 transition-colors"
               >
                 <i id="theme-toggle-icon" class="fas fa-moon"></i>
               </button>
-              <button
-                onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})"
-                class="btn-primary px-6 py-3 rounded-full font-bold shadow-lg"
+              <a
+                href="index.html#booking"
+                class="btn-primary px-6 py-3 rounded-full font-bold"
               >
                 <i class="fas fa-calendar-alt mr-2"></i> Book Now
-              </button>
-              <button class="lg:hidden">
+              </a>
+              <button class="md:hidden">
                 <i class="fas fa-bars text-xl"></i>
               </button>
             </div>
