@@ -449,11 +449,11 @@ function showNotification(message) {
   notification.className =
     "fixed top-6 right-6 bg-gray-800 text-white px-6 py-4 rounded-xl shadow-2xl animate-slide-in-right z-50";
   notification.innerHTML = `
-                <div class="flex items-center">
-                    <i class="fas fa-check-circle text-green-400 text-xl mr-3"></i>
-                    <span class="font-medium">${message}</span>
-                </div>
-            `;
+      <div class="flex items-center">
+          <i class="fas fa-check-circle text-green-400 text-xl mr-3"></i>
+          <span class="font-medium">${message}</span>
+      </div>
+    `;
   document.body.appendChild(notification);
 
   setTimeout(() => {
