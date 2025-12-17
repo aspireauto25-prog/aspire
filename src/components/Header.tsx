@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { HOME_ROUTE } from "@/constants/routes";
+import { CONTACT_ROUTE, HOME_ROUTE } from "@/constants/routes";
 import config from "@/config";
 import navlinks from "@/constants/navlinks";
 
 import logo from "@/assets/images/logo.png";
+import { FaBars, FaCalendar } from "react-icons/fa6";
 
 const Header = () => {
   return (
@@ -36,11 +37,15 @@ const Header = () => {
               ))}
             </div>
             <div className="flex items-center space-x-4">
-              <button className="btn-primary px-6 py-3 rounded-full font-bold shadow-lg">
-                <i className="fas fa-calendar-alt mr-2"></i> Book Now
-              </button>
+              <Link
+                href={`${CONTACT_ROUTE}#contact-form`}
+                className="btn-primary px-6 py-3 rounded-full font-bold shadow-lg items-center gap-2 hidden sm:flex"
+              >
+                <FaCalendar />
+                <span>Book Now</span>
+              </Link>
               <button className="lg:hidden">
-                <i className="fas fa-bars text-xl"></i>
+                <FaBars className="text-xl" />
               </button>
             </div>
           </div>
