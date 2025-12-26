@@ -1,28 +1,24 @@
 import { contactInfo, socialLinks } from "@/data/contact";
 import ContactForm from "@/components/contact/Form";
+import Hero from "@/components/Hero";
 import InfoCard from "@/components/contact/InfoCard";
 import SocialLink from "@/components/contact/SocialLink";
+
+import heroBg from "@/assets/images/contact-hero-bg.avif";
 
 const ContactPage = () => {
   return (
     <>
       {/* Hero Image */}
-      <section className="relative py-20 bg-linear-to-br from-gray-900 to-black dark:from-gray-900 dark:to-black text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-20" />
-        <div className="absolute top-0 left-0 w-64 h-64 bg-primary rounded-full opacity-10 -translate-x-32 -translate-y-32" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full opacity-10 translate-x-48 translate-y-48" />
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl mx-auto text-center animate-fade-in">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Get In <span className="gradient-text">Touch</span> With Us
-            </h1>
-            <p className="text-xl text-gray-300 mb-8">
-              We&apos;re here to help with all your car rental and servicing
-              needs. Reach out anytime!
-            </p>
-          </div>
-        </div>
-      </section>
+      <Hero
+        title={
+          <>
+            Get In <span className="gradient-text">Touch</span> With Us
+          </>
+        }
+        subtitle="We're here to help with all your car rental and servicing needs. Reach out anytime!"
+        backgroundImage={heroBg}
+      />
 
       {/* Contact Information */}
       <section className="py-16">
