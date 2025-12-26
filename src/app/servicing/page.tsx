@@ -6,8 +6,10 @@ import {
   FaUserCheck,
 } from "react-icons/fa6";
 
+import { servicePackages } from "@/data/servicing";
 import Hero from "@/components/Hero";
 import LinkButton from "@/components/LinkButton";
+import ServicingPackage from "@/components/servicing/Package";
 
 import heroBg from "@/assets/images/servicing-hero-bg.avif";
 
@@ -43,10 +45,19 @@ const ServicingPage = () => {
                 optimal vehicle performance.
               </p>
             </div>
-            <div
-              id="service-packages"
-              className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {servicePackages.map((pkg) => (
+                <ServicingPackage
+                  duration={pkg.duration}
+                  features={pkg.features}
+                  key={pkg.id}
+                  name={pkg.name}
+                  popular={pkg.popular}
+                  price={pkg.price}
+                  recommendedFor={pkg.recommendedFor}
+                />
+              ))}
+            </div>
           </div>
         </section>
         {/* Features */}
