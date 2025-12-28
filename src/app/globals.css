@@ -44,7 +44,7 @@
 @font-face {
   font-family: "Poppins";
   src: url("/fonts/Poppins-SemiBold.ttf") format("truetype");
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
@@ -178,7 +178,6 @@ body {
   background: linear-gradient(45deg, var(--primary), #ff5252);
   color: white;
   transition: all 0.3s ease;
-  position: relative;
   overflow: hidden;
 }
 
