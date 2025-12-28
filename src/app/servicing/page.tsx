@@ -6,9 +6,15 @@ import {
   FaUserCheck,
 } from "react-icons/fa6";
 
-import { servicePackages } from "@/data/servicing";
+import {
+  faqData,
+  maintenanceSchedule,
+  servicePackages,
+} from "@/data/servicing";
 import Hero from "@/components/Hero";
 import LinkButton from "@/components/LinkButton";
+import MaintenanceSchedule from "@/components/servicing/MaintenanceSchedule";
+import ServicingFAQ from "@/components/servicing/FAQ";
 import ServicingPackage from "@/components/servicing/Package";
 
 import heroBg from "@/assets/images/servicing-hero-bg.avif";
@@ -60,6 +66,7 @@ const ServicingPage = () => {
             </div>
           </div>
         </section>
+
         {/* Features */}
         <section className="py-16 bg-gray-100 dark:bg-gray-900">
           <div className="container mx-auto px-6">
@@ -114,6 +121,7 @@ const ServicingPage = () => {
             </div>
           </div>
         </section>
+
         {/* Maintenance Schedule */}
         <section className="py-16">
           <div className="container mx-auto px-6">
@@ -126,203 +134,14 @@ const ServicingPage = () => {
                 smoothly and efficiently.
               </p>
             </div>
-            <div
-              id="maintenance-schedule"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            />
-          </div>
-        </section>
-        {/* Booking Form */}
-        <section
-          id="booking-form"
-          className="py-16 bg-gray-100 dark:bg-gray-900"
-        >
-          <div className="container mx-auto px-6">
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl animate-slide-up">
-                <h2 className="text-3xl font-bold mb-6">
-                  Book Your Service Appointment
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300 mb-8">
-                  Fill out the form below and we&apos;ll confirm your
-                  appointment within 1 business hour.
-                </p>
-                <form id="service-booking-form" className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
-                      >
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
-                      >
-                        Phone Number *
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
-                      >
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="car-model"
-                        className="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
-                      >
-                        Car Model *
-                      </label>
-                      <input
-                        type="text"
-                        id="car-model"
-                        name="car-model"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div>
-                      <label
-                        htmlFor="service-type"
-                        className="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
-                      >
-                        Service Type *
-                      </label>
-                      <select
-                        id="service-type"
-                        name="service-type"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-                      >
-                        <option>Select service</option>
-                        <option value="Basic Service">Basic Service</option>
-                        <option value="Premium Service">Premium Service</option>
-                        <option value="Full Service">Full Service</option>
-                        <option value="Oil Change">Oil Change</option>
-                        <option value="Brake Service">Brake Service</option>
-                        <option value="Tire Service">Tire Service</option>
-                        <option value="Diagnostics">
-                          Computer Diagnostics
-                        </option>
-                      </select>
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="service-date"
-                        className="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
-                      >
-                        Preferred Date *
-                      </label>
-                      <input
-                        type="date"
-                        id="service-date"
-                        name="service-date"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="service-time"
-                        className="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
-                      >
-                        Preferred Time *
-                      </label>
-                      <select
-                        id="service-time"
-                        name="service-time"
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-                      >
-                        <option>Select time</option>
-                        <option value="08:00 AM">08:00 AM</option>
-                        <option value="09:00 AM">09:00 AM</option>
-                        <option value="10:00 AM">10:00 AM</option>
-                        <option value="11:00 AM">11:00 AM</option>
-                        <option value="12:00 PM">12:00 PM</option>
-                        <option value="01:00 PM">01:00 PM</option>
-                        <option value="02:00 PM">02:00 PM</option>
-                        <option value="03:00 PM">03:00 PM</option>
-                        <option value="04:00 PM">04:00 PM</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="estimated-price"
-                      className="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
-                    >
-                      Estimated Price
-                    </label>
-                    <input
-                      type="text"
-                      id="estimated-price"
-                      readOnly
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-gray-100 dark:bg-gray-900"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="special-requests"
-                      className="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
-                    >
-                      Special Requests
-                    </label>
-                    <textarea
-                      id="special-requests"
-                      name="special-requests"
-                      rows={3}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-                      defaultValue={""}
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    id="service-submit-btn"
-                    className="btn-primary w-full py-4 rounded-xl font-bold text-lg"
-                  >
-                    <i className="fas fa-paper-plane mr-3" /> Book Service
-                    Appointment
-                  </button>
-                </form>
-                {/* Confirmation */}
-                <div id="booking-confirmation" className="hidden mt-6" />
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {maintenanceSchedule.map((item, index) => (
+                <MaintenanceSchedule key={index} {...item} />
+              ))}
             </div>
           </div>
         </section>
+
         {/* CTA */}
         <section className="py-16 bg-linear-to-r from-primary to-red-600 text-white">
           <div className="container mx-auto px-6 text-center">
@@ -330,14 +149,9 @@ const ServicingPage = () => {
               Need Immediate Assistance?
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Our emergency service team is available 24/7 for roadside
-              assistance and urgent repairs.
+              Our service team is available for any assistance and repairs.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="bg-white text-primary px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors">
-                <i className="fas fa-exclamation-triangle mr-3" /> Emergency
-                Service
-              </button>
               <a
                 href="tel:0497790788"
                 className="px-10 py-4 rounded-full font-bold text-lg border-2 border-white hover:bg-white hover:text-primary transition-colors"
@@ -347,6 +161,7 @@ const ServicingPage = () => {
             </div>
           </div>
         </section>
+
         {/* FAQ */}
         <section className="py-16">
           <div className="container mx-auto px-6">
@@ -358,7 +173,11 @@ const ServicingPage = () => {
                 Common questions about our car servicing and maintenance
               </p>
             </div>
-            <div id="faq-container" className="max-w-3xl mx-auto space-y-6" />
+            <div className="max-w-3xl mx-auto space-y-6">
+              {faqData.map((faq, index) => (
+                <ServicingFAQ key={index} {...faq} />
+              ))}
+            </div>
           </div>
         </section>
       </div>

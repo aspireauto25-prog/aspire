@@ -76,3 +76,26 @@ export const maintenanceSchedule = [
     services: ["Timing Belt", "Water Pump", "Major Service"],
   },
 ];
+
+export const faqData = [
+  {
+    question: "How long does a typical service take?",
+    answer:
+      "Basic service takes 1-2 hours, premium service takes 3-4 hours, and full service takes 5-6 hours. We offer express service options for basic maintenance.",
+  },
+  {
+    question: "Do you provide loaner cars during servicing?",
+    answer:
+      "Yes, we provide complimentary loaner cars for services taking more than 4 hours. Luxury vehicles and SUVs may have a small additional charge.",
+  },
+  {
+    question: "What is your warranty on servicing work?",
+    answer:
+      "All our servicing work comes with a 12-month/12,000-mile warranty. Parts are covered by manufacturer warranties, and labor is guaranteed.",
+  },
+  {
+    question: "Can I wait while my car is being serviced?",
+    answer:
+      "Yes! We have a comfortable waiting lounge with free WiFi, refreshments, and workstations. You can also track progress through our mobile app.",
+  },
+];
