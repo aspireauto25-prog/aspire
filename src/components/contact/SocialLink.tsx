@@ -9,7 +9,7 @@ const SocialLink = (props: Props) => {
   return (
     <a
       href={props.link}
-      className="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+      className="w-16 h-16 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
     >
       <props.icon className="text-2xl" />
     </a>

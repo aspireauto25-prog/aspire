@@ -87,15 +87,13 @@
   --color-foreground: var(--foreground);
 }
 
-@custom-variant dark (&:not(*));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-sans: "Poppins", system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
 }

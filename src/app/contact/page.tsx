@@ -32,7 +32,7 @@ const ContactPage = () => {
       </section>
 
       {/* Contact Form & Map */}
-      <section id="contact-form">
+      <section id="contact-form" className="pt-16 pb-24">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -137,7 +137,7 @@ const ContactPage = () => {
       </section>
 
       {/* Social Media */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-100 dark:bg-gray-800">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
