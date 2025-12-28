@@ -4,7 +4,7 @@ import Hero from "@/components/Hero";
 import InfoCard from "@/components/contact/InfoCard";
 import SocialLink from "@/components/contact/SocialLink";
 
-import heroBg from "@/assets/images/contact-hero-bg.avif";
+import heroBg from "@/assets/images/contact-hero-bg.jpg";
 
 const ContactPage = () => {
   return (

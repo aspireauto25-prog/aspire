@@ -17,7 +17,7 @@ import MaintenanceSchedule from "@/components/servicing/MaintenanceSchedule";
 import ServicingFAQ from "@/components/servicing/FAQ";
 import ServicingPackage from "@/components/servicing/Package";
 
-import heroBg from "@/assets/images/servicing-hero-bg.avif";
+import heroBg from "@/assets/images/servicing-hero-bg.jpg";
 
 const ServicingPage = () => {
   return (
