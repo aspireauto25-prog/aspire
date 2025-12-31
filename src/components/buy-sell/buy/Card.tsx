@@ -18,7 +18,7 @@ interface Props {
   description: string;
 }
 
-const BuySellCard = (props: Props) => {
+const BuyCard = (props: Props) => {
   const urgencyText =
     {
       hot: "Hot Deal",
@@ -122,4 +122,4 @@ const BuySellCard = (props: Props) => {
   );
 };
 
-export default BuySellCard;
+export default BuyCard;

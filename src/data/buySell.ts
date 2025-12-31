@@ -135,7 +135,7 @@ export const carsForSale = [
 export const carsWanted = [
   {
     id: 101,
-    make: "Tesla",
+    brand: "Tesla",
     model: "Model S or X",
     year: "2018+",
     maxPrice: 65000,
@@ -145,7 +145,7 @@ export const carsWanted = [
   },
   {
     id: 102,
-    make: "Toyota",
+    brand: "Toyota",
     model: "Land Cruiser",
     year: "2015+",
     maxPrice: 45000,
@@ -155,7 +155,7 @@ export const carsWanted = [
   },
   {
     id: 103,
-    make: "BMW",
+    brand: "BMW",
     model: "M3/M4",
     year: "2020+",
     maxPrice: 75000,

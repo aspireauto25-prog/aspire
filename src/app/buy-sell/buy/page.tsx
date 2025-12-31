@@ -7,7 +7,7 @@ import {
   FaShield,
 } from "react-icons/fa6";
 
-import BuySellCard from "@/components/buy-sell/Card";
+import BuyCard from "@/components/buy-sell/buy/Card";
 import { carsForSale } from "@/data/buySell";
 
 const BuyCarPage = () => {
@@ -95,7 +95,7 @@ const BuyCarPage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {carsForSale.map((car) => (
-            <BuySellCard key={car.id} {...car} />
+            <BuyCard key={car.id} {...car} />
           ))}
         </div>
       </div>
