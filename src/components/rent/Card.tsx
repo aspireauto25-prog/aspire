@@ -2,6 +2,8 @@ import { FaCogs, FaGasPump, FaStar, FaUserFriends } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 
+import { RENT_ROUTE } from "@/constants/routes";
+
 interface Props {
   available: boolean;
   category: string;
@@ -102,7 +104,7 @@ const RentCard = ({
 
         <div className="flex space-x-3">
           <Link
-            href={`car-details.html?id=${id}`}
+            href={`${RENT_ROUTE}/${id}`}
             className="btn-primary flex-1 py-3 rounded-xl font-bold text-center"
           >
             View Details
