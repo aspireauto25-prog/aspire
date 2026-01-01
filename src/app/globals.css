@@ -498,3 +498,72 @@ input[type="range"]::-moz-range-thumb {
 .modal-enter {
   animation: bounceIn 0.6s ease-out;
 }
+
+/* Home styles  */
+
+.floating-element {
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+.car-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.car-indicator.active {
+  background: #ff1616;
+  transform: scale(1.2);
+  box-shadow: 0 0 10px #ff1616;
+}
+
+/* Decorative shapes */
+.shape-1 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #ff1616, transparent);
+  filter: blur(40px);
+  opacity: 0.1;
+}
+
+.shape-2 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  background: linear-gradient(45deg, transparent, #ff1616);
+  filter: blur(30px);
+  opacity: 0.1;
+}
+
+/* Background pattern */
+.bg-pattern {
+  background-image: radial-gradient(
+      circle at 25% 25%,
+      rgba(255, 22, 22, 0.05) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(255, 22, 22, 0.05) 0%,
+      transparent 55%
+    );
+}
+
+.dark .bg-pattern {
+  background-image: radial-gradient(
+      circle at 25% 25%,
+      rgba(255, 22, 22, 0.1) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(255, 22, 22, 0.1) 0%,
+      transparent 55%
+    );
+}

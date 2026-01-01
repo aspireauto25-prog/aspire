@@ -2,7 +2,7 @@ import { FaCogs, FaGasPump, FaStar, FaUserFriends } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 
-import { RENT_ROUTE } from "@/constants/routes";
+import { CONTACT_ROUTE, RENT_ROUTE } from "@/constants/routes";
 
 interface Props {
   available: boolean;
@@ -110,9 +110,12 @@ const RentCard = ({
             View Details
           </Link>
           {available ? (
-            <button className="px-6 py-3 rounded-xl font-bold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+            <Link
+              href={CONTACT_ROUTE}
+              className="px-6 py-3 rounded-xl font-bold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+            >
               Book Now
-            </button>
+            </Link>
           ) : (
             <button
               disabled
