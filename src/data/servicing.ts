@@ -17,7 +17,7 @@ export const servicePackages = [
   },
   {
     id: 2,
-    name: "Premium Service",
+    name: "Log Book Service",
     price: 199,
     duration: "3-4 hours",
     popular: true,

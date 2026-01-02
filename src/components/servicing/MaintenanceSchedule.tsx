@@ -1,4 +1,7 @@
 import { FaTachometerAlt, FaTools } from "react-icons/fa";
+import Link from "next/link";
+
+import { CONTACT_ROUTE } from "@/constants/routes";
 
 interface Props {
   mileage: string;
@@ -26,9 +29,12 @@ const MaintenanceSchedule = ({ mileage, services }: Props) => {
           </div>
         </div>
       </div>
-      <button className="text-primary hover:underline font-medium flex items-center gap-2">
+      <Link
+        href={CONTACT_ROUTE}
+        className="text-primary hover:underline font-medium flex items-center gap-2"
+      >
         <FaTools /> Schedule Service
-      </button>
+      </Link>
     </div>
   );
 };

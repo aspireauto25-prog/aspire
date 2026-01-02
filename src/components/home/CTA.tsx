@@ -1,7 +1,7 @@
 import { FaCalendarAlt } from "react-icons/fa";
-import Link from "next/link";
 
 import { CONTACT_ROUTE } from "@/constants/routes";
+import LinkButton from "../LinkButton";
 
 const CTA = () => {
   return (
@@ -14,12 +14,16 @@ const CTA = () => {
           Choose from our extensive collection of premium vehicles from
           world-renowned brands.
         </p>
-        <Link
-          href={CONTACT_ROUTE}
-          className="px-10 py-4 bg-white text-primary rounded-full font-bold text-lg shadow-2xl hover:scale-105 transition-transform inline-flex items-center justify-center gap-3"
-        >
-          <FaCalendarAlt /> Book Your Ride Now
-        </Link>
+        <div className="text-center">
+          <LinkButton
+            href={CONTACT_ROUTE}
+            rounded
+            theme="light"
+            className="hover:scale-105 mx-auto w-max"
+          >
+            <FaCalendarAlt /> Book Your Ride Now
+          </LinkButton>
+        </div>
       </div>
     </section>
   );

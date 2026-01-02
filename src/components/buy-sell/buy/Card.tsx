@@ -1,6 +1,10 @@
 import { FaCheck, FaMapMarkerAlt, FaShieldAlt } from "react-icons/fa";
 import Image from "next/image";
 
+import { CONTACT_ROUTE } from "@/constants/routes";
+import LinkButton from "@/components/LinkButton";
+import OutlinedButton from "@/components/OutlinedButton";
+
 interface Props {
   id: number;
   title: string;
@@ -104,18 +108,10 @@ const BuyCard = (props: Props) => {
             {props.location}
           </div>
           <div className="flex space-x-2">
-            <button
-              className="view-details-btn px-4 py-2 rounded-lg font-bold border border-primary text-primary hover:bg-primary hover:text-white transition-colors text-sm"
-              data-id={props.id}
-            >
-              Details
-            </button>
-            <button
-              className="contact-seller-btn btn-primary px-4 py-2 rounded-lg font-bold text-sm"
-              data-id={props.id}
-            >
+            <OutlinedButton size="sm">Details</OutlinedButton>
+            <LinkButton href={CONTACT_ROUTE} size="sm">
               Contact
-            </button>
+            </LinkButton>
           </div>
         </div>
       </div>

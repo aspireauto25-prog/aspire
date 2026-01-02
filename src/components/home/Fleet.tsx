@@ -1,7 +1,3 @@
-import { CONTACT_ROUTE, RENT_ROUTE } from "@/constants/routes";
-import { cars } from "@/data/home";
-import Image from "next/image";
-import Link from "next/link";
 import {
   FaCheck,
   FaCogs,
@@ -11,6 +7,12 @@ import {
   FaTachometerAlt,
   FaUserFriends,
 } from "react-icons/fa";
+import Image from "next/image";
+
+import { CONTACT_ROUTE, RENT_ROUTE } from "@/constants/routes";
+import { cars } from "@/data/home";
+import LinkButton from "../LinkButton";
+import OutlinedLinkButton from "../OutlinedLinkButton";
 
 interface Props {
   available: boolean;
@@ -88,18 +90,12 @@ const Card = (props: Props) => {
         </div>
 
         <div className="flex space-x-3">
-          <Link
-            href={`${RENT_ROUTE}/${props.id}`}
-            className="text-center btn-primary flex-1 py-3 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
-          >
+          <LinkButton href={`${RENT_ROUTE}/${props.id}`} className="flex-1">
             <FaInfoCircle /> Details
-          </Link>
-          <Link
-            href={CONTACT_ROUTE}
-            className="px-6 py-3 rounded-xl font-bold text-lg border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
-          >
+          </LinkButton>
+          <OutlinedLinkButton href={CONTACT_ROUTE}>
             <FaCheck /> Book
-          </Link>
+          </OutlinedLinkButton>
         </div>
       </div>
     </div>

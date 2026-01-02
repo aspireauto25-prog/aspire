@@ -8,7 +8,7 @@ interface Props {
 
 const RentDetailsBreadCrumb = ({ car }: Props) => {
   return (
-    <div className="container mx-auto px-6 py-4 text-sm text-gray-600 dark:text-gray-400 no-print">
+    <div className="container mx-auto px-6 py-4 text-sm text-gray-600 dark:text-gray-400 no-print flex gap-1">
       <Link href={HOME_ROUTE} className="hover:text-primary transition-colors">
         Home
       </Link>

@@ -1,6 +1,3 @@
-import { BUY_ROUTE, RENT_ROUTE, SELL_ROUTE } from "@/constants/routes";
-import Image from "next/image";
-import Link from "next/link";
 import {
   FaCar,
   FaEye,
@@ -11,6 +8,11 @@ import {
   FaTag,
   FaUserFriends,
 } from "react-icons/fa";
+import Image from "next/image";
+
+import { BUY_ROUTE, RENT_ROUTE, SELL_ROUTE } from "@/constants/routes";
+import LinkButton from "../LinkButton";
+import OutlinedLinkButton from "../OutlinedLinkButton";
 
 const BuySell = () => {
   return (
@@ -72,12 +74,9 @@ const BuySell = () => {
                       <span>5 seats</span>
                     </div>
                   </div>
-                  <Link
-                    href={`${RENT_ROUTE}/1`}
-                    className="flex items-center justify-center w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-lg transition duration-300"
-                  >
-                    <FaEye className="mr-2" /> View Details
-                  </Link>
+                  <LinkButton href={`${RENT_ROUTE}/1`} size="md">
+                    <FaEye /> View Details
+                  </LinkButton>
                 </div>
               </div>
               {/* Car 2 */}
@@ -117,12 +116,9 @@ const BuySell = () => {
                       <span>7 seats</span>
                     </div>
                   </div>
-                  <Link
-                    href={`${RENT_ROUTE}/1`}
-                    className="flex items-center justify-center w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-lg transition duration-300"
-                  >
-                    <FaEye className="mr-2" /> View Details
-                  </Link>
+                  <LinkButton href={`${RENT_ROUTE}/1`} size="md">
+                    <FaEye /> View Details
+                  </LinkButton>
                 </div>
               </div>
               {/* Car 3 */}
@@ -162,12 +158,9 @@ const BuySell = () => {
                       <span>5 seats</span>
                     </div>
                   </div>
-                  <Link
-                    href={`${RENT_ROUTE}/1`}
-                    className="flex items-center justify-center w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-lg transition duration-300"
-                  >
-                    <FaEye className="mr-2" /> View Details
-                  </Link>
+                  <LinkButton href={`${RENT_ROUTE}/1`} size="md">
+                    <FaEye /> View Details
+                  </LinkButton>
                 </div>
               </div>
             </div>
@@ -222,18 +215,12 @@ const BuySell = () => {
         {/* CTA Buttons */}
         <div className="text-center mt-16">
           <div className="inline-flex flex-col sm:flex-row gap-6">
-            <Link
-              href={BUY_ROUTE}
-              className="btn-primary flex items-center px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-xl transition duration-300 shadow-lg hover:shadow-xl"
-            >
-              <FaCar className="mr-2" /> Browse All Cars for Sale
-            </Link>
-            <Link
-              href={SELL_ROUTE}
-              className="flex items-center px-8 py-4 hover:bg-primary hover:text-white text-primary font-bold rounded-xl transition duration-300 border-2 border-primary shadow-lg hover:shadow-xl"
-            >
-              <FaTag className="mr-2" /> Start Selling Your Car
-            </Link>
+            <LinkButton href={BUY_ROUTE}>
+              <FaCar /> Browse All Cars for Sale
+            </LinkButton>
+            <OutlinedLinkButton href={SELL_ROUTE}>
+              <FaTag /> Start Selling Your Car
+            </OutlinedLinkButton>
           </div>
         </div>
       </div>

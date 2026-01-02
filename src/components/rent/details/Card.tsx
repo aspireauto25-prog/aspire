@@ -1,7 +1,8 @@
+import { FaArrowRight } from "react-icons/fa6";
 import Image from "next/image";
-import Link from "next/link";
 
 import { RENT_ROUTE } from "@/constants/routes";
+import LinkButton from "@/components/LinkButton";
 
 interface Props {
   category: string;
@@ -31,12 +32,10 @@ const SimilarCarsCard = (props: Props) => {
             ${props.price}
             <span className="text-sm font-normal">/day</span>
           </div>
-          <Link
-            href={`${RENT_ROUTE}/${props.id}`}
-            className="text-primary hover:underline font-medium"
-          >
-            View →
-          </Link>
+          <LinkButton href={`${RENT_ROUTE}/${props.id}`} size="md">
+            View
+            <FaArrowRight />
+          </LinkButton>
         </div>
       </div>
     </div>
