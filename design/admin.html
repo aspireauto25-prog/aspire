@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarRental Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .sidebar-active {
+        background-color: rgba(255, 22, 22, 0.1);
+        border-right: 3px solid #ff1616;
+        color: #ff1616;
+      }
+
+      .sidebar-active i {
+        color: #ff1616;
+      }
+
+      .text-primary {
+        color: #ff1616;
+      }
+
+      .bg-primary {
+        background-color: #ff1616;
+      }
+
+      .border-primary {
+        border-color: #ff1616;
+      }
+
+      .hover-bg-primary:hover {
+        background-color: #ff1616;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-white shadow-lg z-10 hidden md:block">
+        <div class="p-6">
+          <h1 class="text-2xl font-bold text-primary">
+            <i class="fas fa-car mr-2"></i>CarRental<span class="text-gray-700"
+              >Admin</span
+            >
+          </h1>
+          <p class="text-gray-500 text-sm mt-1">Car Rental, Service & Sales</p>
+        </div>
+
+        <nav class="mt-6">
+          <div class="px-4 mb-4">
+            <p
+              class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
+            >
+              Main
+            </p>
+          </div>
+
+          <a
+            href="#"
+            onclick="loadPage('dashboard')"
+            class="sidebar-active flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-tachometer-alt mr-3 text-primary"></i>
+            <span class="font-medium">Dashboard</span>
+          </a>
+
+          <a
+            href="#"
+            onclick="loadPage('cars-for-rent')"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-car mr-3"></i>
+            <span class="font-medium">Cars for Rent</span>
+            <span
+              class="ml-auto bg-primary text-white text-xs rounded-full px-2 py-1"
+              >12</span
+            >
+          </a>
+
+          <a
+            href="#"
+            onclick="loadPage('cars-for-sale')"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-tag mr-3"></i>
+            <span class="font-medium">Cars for Sale</span>
+            <span
+              class="ml-auto bg-primary text-white text-xs rounded-full px-2 py-1"
+              >8</span
+            >
+          </a>
+
+          <a
+            href="#"
+            onclick="loadPage('service-requests')"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-wrench mr-3"></i>
+            <span class="font-medium">Service Requests</span>
+            <span
+              class="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1"
+              >3</span
+            >
+          </a>
+
+          <div class="px-4 mb-4 mt-8">
+            <p
+              class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
+            >
+              Customer & Contact
+            </p>
+          </div>
+
+          <a
+            href="#"
+            onclick="loadPage('contact-results')"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-inbox mr-3"></i>
+            <span class="font-medium">Contact Form Results</span>
+            <span
+              class="ml-auto bg-primary text-white text-xs rounded-full px-2 py-1"
+              >24</span
+            >
+          </a>
+
+          <a
+            href="#"
+            onclick="loadPage('customers')"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-users mr-3"></i>
+            <span class="font-medium">Customers</span>
+          </a>
+
+          <a
+            href="#"
+            onclick="loadPage('bookings')"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-calendar-alt mr-3"></i>
+            <span class="font-medium">Bookings</span>
+          </a>
+
+          <div class="px-4 mb-4 mt-8">
+            <p
+              class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
+            >
+              Settings
+            </p>
+          </div>
+
+          <a
+            href="#"
+            onclick="loadPage('profile')"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-user-circle mr-3"></i>
+            <span class="font-medium">Profile</span>
+          </a>
+
+          <a
+            href="#"
+            onclick="loadPage('settings')"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-cog mr-3"></i>
+            <span class="font-medium">Settings</span>
+          </a>
+        </nav>
+
+        <div class="absolute bottom-0 w-full p-6">
+          <div class="bg-gray-100 rounded-lg p-4">
+            <div class="flex items-center">
+              <div
+                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center"
+              >
+                <span class="text-white font-bold">A</span>
+              </div>
+              <div class="ml-3">
+                <p class="font-medium">Admin User</p>
+                <p class="text-xs text-gray-500">admin@carrental.com</p>
+              </div>
+            </div>
+            <button
+              onclick="loadPage('profile')"
+              class="mt-4 w-full py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors duration-200"
+            >
+              View Profile
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Mobile Sidebar Toggle -->
+      <div class="md:hidden fixed top-0 left-0 p-4 z-20">
+        <button id="sidebarToggle" class="p-2 rounded-lg bg-primary text-white">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Sidebar (Hidden by default) -->
+      <aside
+        id="mobileSidebar"
+        class="fixed inset-0 z-10 bg-white w-64 shadow-lg transform -translate-x-full transition-transform duration-300 md:hidden"
+      >
+        <div class="p-6">
+          <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-primary">
+              <i class="fas fa-car mr-2"></i>CarRental<span
+                class="text-gray-700"
+                >Admin</span
+              >
+            </h1>
+            <button id="closeSidebar" class="p-2 rounded-lg bg-gray-100">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <p class="text-gray-500 text-sm mt-1">Car Rental, Service & Sales</p>
+        </div>
+
+        <nav class="mt-6">
+          <a
+            href="#"
+            onclick="loadPage('dashboard'); closeMobileSidebar()"
+            class="sidebar-active flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-tachometer-alt mr-3 text-primary"></i>
+            <span class="font-medium">Dashboard</span>
+          </a>
+
+          <a
+            href="#"
+            onclick="loadPage('cars-for-rent'); closeMobileSidebar()"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-car mr-3"></i>
+            <span class="font-medium">Cars for Rent</span>
+          </a>
+
+          <a
+            href="#"
+            onclick="loadPage('cars-for-sale'); closeMobileSidebar()"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-tag mr-3"></i>
+            <span class="font-medium">Cars for Sale</span>
+          </a>
+
+          <a
+            href="#"
+            onclick="loadPage('contact-results'); closeMobileSidebar()"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-inbox mr-3"></i>
+            <span class="font-medium">Contact Results</span>
+          </a>
+
+          <a
+            href="#"
+            onclick="loadPage('profile'); closeMobileSidebar()"
+            class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+          >
+            <i class="fas fa-user-circle mr-3"></i>
+            <span class="font-medium">Profile</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto">
+        <!-- Top Navigation -->
+        <header class="bg-white shadow-sm py-4 px-6">
+          <div class="flex justify-between items-center">
+            <div>
+              <h2 class="text-xl font-semibold text-gray-800" id="pageTitle">
+                Dashboard
+              </h2>
+              <p class="text-gray-500 text-sm">Welcome back, Admin</p>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <div class="relative">
+                <button class="p-2 rounded-full hover:bg-gray-100">
+                  <i class="fas fa-bell text-gray-600"></i>
+                  <span
+                    class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"
+                  ></span>
+                </button>
+              </div>
+              <div class="relative">
+                <button class="p-2 rounded-full hover:bg-gray-100">
+                  <i class="fas fa-envelope text-gray-600"></i>
+                  <span
+                    class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"
+                  ></span>
+                </button>
+              </div>
+              <div class="border-l pl-4">
+                <button onclick="loadPage('profile')" class="flex items-center">
+                  <div
+                    class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"
+                  >
+                    <span class="text-white font-bold">A</span>
+                  </div>
+                  <span class="ml-2 font-medium hidden md:inline"
+                    >Admin User</span
+                  >
+                  <i
+                    class="fas fa-chevron-down ml-1 text-gray-500 hidden md:inline"
+                  ></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="p-6" id="pageContent">
+          <!-- Dashboard content will be loaded here -->
+          <div id="dashboard">
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+            >
+              <div class="bg-white rounded-xl shadow p-6">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="text-gray-500 text-sm">Total Cars for Rent</p>
+                    <h3 class="text-2xl font-bold mt-2">12</h3>
+                    <p class="text-green-500 text-xs mt-1">
+                      +2 from last month
+                    </p>
+                  </div>
+                  <div class="p-3 rounded-lg bg-blue-50">
+                    <i class="fas fa-car text-blue-500 text-xl"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-xl shadow p-6">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="text-gray-500 text-sm">Cars for Sale</p>
+                    <h3 class="text-2xl font-bold mt-2">8</h3>
+                    <p class="text-green-500 text-xs mt-1">+1 from last week</p>
+                  </div>
+                  <div class="p-3 rounded-lg bg-green-50">
+                    <i class="fas fa-tag text-green-500 text-xl"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-xl shadow p-6">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="text-gray-500 text-sm">Active Rentals</p>
+                    <h3 class="text-2xl font-bold mt-2">9</h3>
+                    <p class="text-red-500 text-xs mt-1">-1 from yesterday</p>
+                  </div>
+                  <div class="p-3 rounded-lg bg-yellow-50">
+                    <i class="fas fa-key text-yellow-500 text-xl"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-xl shadow p-6">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="text-gray-500 text-sm">Pending Contacts</p>
+                    <h3 class="text-2xl font-bold mt-2">24</h3>
+                    <p class="text-green-500 text-xs mt-1">+5 from yesterday</p>
+                  </div>
+                  <div class="p-3 rounded-lg bg-red-50">
+                    <i class="fas fa-inbox text-primary text-xl"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+              <div class="bg-white rounded-xl shadow p-6">
+                <div class="flex justify-between items-center mb-6">
+                  <h3 class="text-lg font-semibold">Recent Rentals</h3>
+                  <a
+                    href="#"
+                    onclick="loadPage('bookings')"
+                    class="text-primary text-sm font-medium"
+                    >View All</a
+                  >
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full">
+                    <thead>
+                      <tr class="border-b">
+                        <th class="text-left py-3 text-gray-500 font-medium">
+                          Customer
+                        </th>
+                        <th class="text-left py-3 text-gray-500 font-medium">
+                          Car
+                        </th>
+                        <th class="text-left py-3 text-gray-500 font-medium">
+                          Period
+                        </th>
+                        <th class="text-left py-3 text-gray-500 font-medium">
+                          Status
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="border-b">
+                        <td class="py-3">John Smith</td>
+                        <td class="py-3">Toyota Camry</td>
+                        <td class="py-3">May 12-19</td>
+                        <td class="py-3">
+                          <span
+                            class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
+                            >Active</span
+                          >
+                        </td>
+                      </tr>
+                      <tr class="border-b">
+                        <td class="py-3">Emma Johnson</td>
+                        <td class="py-3">BMW X5</td>
+                        <td class="py-3">May 10-17</td>
+                        <td class="py-3">
+                          <span
+                            class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                            >Completed</span
+                          >
+                        </td>
+                      </tr>
+                      <tr class="border-b">
+                        <td class="py-3">Michael Brown</td>
+                        <td class="py-3">Honda Civic</td>
+                        <td class="py-3">May 15-22</td>
+                        <td class="py-3">
+                          <span
+                            class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full"
+                            >Pending</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="py-3">Sarah Davis</td>
+                        <td class="py-3">Mercedes C-Class</td>
+                        <td class="py-3">May 18-25</td>
+                        <td class="py-3">
+                          <span
+                            class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
+                            >Active</span
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-xl shadow p-6">
+                <div class="flex justify-between items-center mb-6">
+                  <h3 class="text-lg font-semibold">Service Requests</h3>
+                  <a
+                    href="#"
+                    onclick="loadPage('service-requests')"
+                    class="text-primary text-sm font-medium"
+                    >View All</a
+                  >
+                </div>
+                <div class="space-y-4">
+                  <div
+                    class="flex items-center justify-between p-3 border rounded-lg"
+                  >
+                    <div>
+                      <p class="font-medium">Oil Change</p>
+                      <p class="text-gray-500 text-sm">
+                        Toyota Camry • AB123CD
+                      </p>
+                    </div>
+                    <span
+                      class="px-3 py-1 bg-red-100 text-red-800 text-xs rounded-full"
+                      >High Priority</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center justify-between p-3 border rounded-lg"
+                  >
+                    <div>
+                      <p class="font-medium">Brake Service</p>
+                      <p class="text-gray-500 text-sm">Honda Civic • EF456GH</p>
+                    </div>
+                    <span
+                      class="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full"
+                      >Medium</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center justify-between p-3 border rounded-lg"
+                  >
+                    <div>
+                      <p class="font-medium">Tire Replacement</p>
+                      <p class="text-gray-500 text-sm">BMW X5 • IJ789KL</p>
+                    </div>
+                    <span
+                      class="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                      >Low</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center justify-between p-3 border rounded-lg"
+                  >
+                    <div>
+                      <p class="font-medium">AC Repair</p>
+                      <p class="text-gray-500 text-sm">
+                        Mercedes C-Class • MN012OP
+                      </p>
+                    </div>
+                    <span
+                      class="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full"
+                      >Medium</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6">
+              <h3 class="text-lg font-semibold mb-6">
+                Recent Contact Form Submissions
+              </h3>
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead>
+                    <tr class="border-b">
+                      <th class="text-left py-3 text-gray-500 font-medium">
+                        Name
+                      </th>
+                      <th class="text-left py-3 text-gray-500 font-medium">
+                        Email
+                      </th>
+                      <th class="text-left py-3 text-gray-500 font-medium">
+                        Subject
+                      </th>
+                      <th class="text-left py-3 text-gray-500 font-medium">
+                        Date
+                      </th>
+                      <th class="text-left py-3 text-gray-500 font-medium">
+                        Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b">
+                      <td class="py-3">Robert Wilson</td>
+                      <td class="py-3">robert@email.com</td>
+                      <td class="py-3">Car Rental Inquiry</td>
+                      <td class="py-3">May 15, 2023</td>
+                      <td class="py-3">
+                        <span
+                          class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full"
+                          >Pending</span
+                        >
+                      </td>
+                    </tr>
+                    <tr class="border-b">
+                      <td class="py-3">Lisa Taylor</td>
+                      <td class="py-3">lisa@email.com</td>
+                      <td class="py-3">Car for Sale Question</td>
+                      <td class="py-3">May 14, 2023</td>
+                      <td class="py-3">
+                        <span
+                          class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
+                          >Replied</span
+                        >
+                      </td>
+                    </tr>
+                    <tr class="border-b">
+                      <td class="py-3">David Miller</td>
+                      <td class="py-3">david@email.com</td>
+                      <td class="py-3">Service Appointment</td>
+                      <td class="py-3">May 13, 2023</td>
+                      <td class="py-3">
+                        <span
+                          class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                          >In Progress</span
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="py-3">Maria Garcia</td>
+                      <td class="py-3">maria@email.com</td>
+                      <td class="py-3">Long-term Rental</td>
+                      <td class="py-3">May 12, 2023</td>
+                      <td class="py-3">
+                        <span
+                          class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
+                          >Replied</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other pages will be loaded here -->
+          <div id="cars-for-rent" class="hidden"></div>
+          <div id="cars-for-sale" class="hidden"></div>
+          <div id="service-requests" class="hidden"></div>
+          <div id="contact-results" class="hidden"></div>
+          <div id="customers" class="hidden"></div>
+          <div id="bookings" class="hidden"></div>
+          <div id="profile" class="hidden"></div>
+          <div id="settings" class="hidden"></div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Function to load different pages
+      function loadPage(page) {
+        // Hide all pages
+        document.querySelectorAll("#pageContent > div").forEach((div) => {
+          div.classList.add("hidden");
+        });
+
+        // Show selected page
+        document.getElementById(page).classList.remove("hidden");
+
+        // Update page title
+        const titles = {
+          dashboard: "Dashboard",
+          "cars-for-rent": "Cars for Rent",
+          "cars-for-sale": "Cars for Sale",
+          "service-requests": "Service Requests",
+          "contact-results": "Contact Form Results",
+          customers: "Customers",
+          bookings: "Bookings",
+          profile: "Profile",
+          settings: "Settings",
+        };
+
+        document.getElementById("pageTitle").textContent = titles[page];
+
+        // Update sidebar active state
+        document.querySelectorAll("nav a").forEach((link) => {
+          link.classList.remove("sidebar-active");
+        });
+
+        // Add active state to clicked link (simplified logic)
+        // In a real app, you'd map page IDs to sidebar links
+
+        // Load page content if not already loaded
+        if (document.getElementById(page).innerHTML === "") {
+          loadPageContent(page);
+        }
+      }
+
+      // Function to load page content dynamically
+      function loadPageContent(page) {
+        let content = "";
+
+        if (page === "cars-for-rent") {
+          content = `
+                    <div class="mb-6 flex justify-between items-center">
+                        <h2 class="text-2xl font-bold text-gray-800">Cars for Rent</h2>
+                        <button class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors duration-200">
+                            <i class="fas fa-plus mr-2"></i>Add New Car
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white rounded-xl shadow overflow-hidden">
+                            <div class="h-48 bg-blue-100 flex items-center justify-center">
+                                <i class="fas fa-car text-blue-300 text-6xl"></i>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold">Toyota Camry</h3>
+                                        <p class="text-gray-500">2022 • Automatic • Sedan</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">Available</span>
+                                </div>
+                                <div class="mt-4 flex justify-between items-center">
+                                    <div>
+                                        <p class="text-2xl font-bold text-primary">$45<span class="text-lg text-gray-500">/day</span></p>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm">Edit</button>
+                                        <button class="px-3 py-1 bg-primary text-white rounded-lg text-sm">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow overflow-hidden">
+                            <div class="h-48 bg-gray-100 flex items-center justify-center">
+                                <i class="fas fa-car text-gray-300 text-6xl"></i>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold">BMW X5</h3>
+                                        <p class="text-gray-500">2021 • Automatic • SUV</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm rounded-full">Rented</span>
+                                </div>
+                                <div class="mt-4 flex justify-between items-center">
+                                    <div>
+                                        <p class="text-2xl font-bold text-primary">$89<span class="text-lg text-gray-500">/day</span></p>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm">Edit</button>
+                                        <button class="px-3 py-1 bg-primary text-white rounded-lg text-sm">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow overflow-hidden">
+                            <div class="h-48 bg-green-100 flex items-center justify-center">
+                                <i class="fas fa-car text-green-300 text-6xl"></i>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold">Honda Civic</h3>
+                                        <p class="text-gray-500">2023 • Manual • Sedan</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">Available</span>
+                                </div>
+                                <div class="mt-4 flex justify-between items-center">
+                                    <div>
+                                        <p class="text-2xl font-bold text-primary">$35<span class="text-lg text-gray-500">/day</span></p>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm">Edit</button>
+                                        <button class="px-3 py-1 bg-primary text-white rounded-lg text-sm">Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 bg-white rounded-xl shadow p-6">
+                        <h3 class="text-lg font-semibold mb-4">All Rental Cars</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="border-b">
+                                        <th class="text-left py-3 text-gray-500 font-medium">Car Model</th>
+                                        <th class="text-left py-3 text-gray-500 font-medium">Type</th>
+                                        <th class="text-left py-3 text-gray-500 font-medium">Year</th>
+                                        <th class="text-left py-3 text-gray-500 font-medium">Daily Rate</th>
+                                        <th class="text-left py-3 text-gray-500 font-medium">Status</th>
+                                        <th class="text-left py-3 text-gray-500 font-medium">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="py-3">Mercedes C-Class</td>
+                                        <td class="py-3">Luxury Sedan</td>
+                                        <td class="py-3">2022</td>
+                                        <td class="py-3">$75/day</td>
+                                        <td class="py-3"><span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Available</span></td>
+                                        <td class="py-3">
+                                            <button class="px-3 py-1 bg-primary text-white rounded-lg text-sm">Manage</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-3">Ford Mustang</td>
+                                        <td class="py-3">Sports Car</td>
+                                        <td class="py-3">2023</td>
+                                        <td class="py-3">$120/day</td>
+                                        <td class="py-3"><span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Rented</span></td>
+                                        <td class="py-3">
+                                            <button class="px-3 py-1 bg-primary text-white rounded-lg text-sm">Manage</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+        } else if (page === "profile") {
+          content = `
+                    <div class="max-w-4xl">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Profile Settings</h2>
+                        
+                        <div class="bg-white rounded-xl shadow p-6 mb-6">
+                            <h3 class="text-lg font-semibold mb-4">Personal Information</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-medium mb-2">First Name</label>
+                                    <input type="text" value="Admin" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-medium mb-2">Last Name</label>
+                                    <input type="text" value="User" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-medium mb-2">Email</label>
+                                    <input type="email" value="admin@carrental.com" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-medium mb-2">Phone</label>
+                                    <input type="text" value="+1 (555) 123-4567" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary">
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <button class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors duration-200">
+                                    Update Information
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow p-6">
+                            <h3 class="text-lg font-semibold mb-4">Change Password</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-medium mb-2">Current Password</label>
+                                    <input type="password" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-medium mb-2">New Password</label>
+                                    <input type="password" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-medium mb-2">Confirm New Password</label>
+                                    <input type="password" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-primary">
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <button class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors duration-200">
+                                    Change Password
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+        } else if (page === "contact-results") {
+          content = `
+                    <div class="mb-6 flex justify-between items-center">
+                        <h2 class="text-2xl font-bold text-gray-800">Contact Form Results</h2>
+                        <div class="flex space-x-2">
+                            <button class="px-4 py-2 border border-gray-300 rounded-lg font-medium">Export</button>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg font-medium">Filter</button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="text-left py-4 px-6 text-gray-500 font-medium">Name</th>
+                                        <th class="text-left py-4 px-6 text-gray-500 font-medium">Email</th>
+                                        <th class="text-left py-4 px-6 text-gray-500 font-medium">Phone</th>
+                                        <th class="text-left py-4 px-6 text-gray-500 font-medium">Subject</th>
+                                        <th class="text-left py-4 px-6 text-gray-500 font-medium">Message</th>
+                                        <th class="text-left py-4 px-6 text-gray-500 font-medium">Date</th>
+                                        <th class="text-left py-4 px-6 text-gray-500 font-medium">Status</th>
+                                        <th class="text-left py-4 px-6 text-gray-500 font-medium">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="py-4 px-6">Robert Wilson</td>
+                                        <td class="py-4 px-6">robert@email.com</td>
+                                        <td class="py-4 px-6">(555) 123-4567</td>
+                                        <td class="py-4 px-6">Car Rental Inquiry</td>
+                                        <td class="py-4 px-6 max-w-xs truncate">I'm interested in renting a car for next week...</td>
+                                        <td class="py-4 px-6">May 15, 2023</td>
+                                        <td class="py-4 px-6"><span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Pending</span></td>
+                                        <td class="py-4 px-6">
+                                            <button class="px-3 py-1 bg-primary text-white rounded-lg text-sm">Reply</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-4 px-6">Lisa Taylor</td>
+                                        <td class="py-4 px-6">lisa@email.com</td>
+                                        <td class="py-4 px-6">(555) 987-6543</td>
+                                        <td class="py-4 px-6">Car for Sale Question</td>
+                                        <td class="py-4 px-6 max-w-xs truncate">Is the 2020 BMW X5 still available for sale?</td>
+                                        <td class="py-4 px-6">May 14, 2023</td>
+                                        <td class="py-4 px-6"><span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Replied</span></td>
+                                        <td class="py-4 px-6">
+                                            <button class="px-3 py-1 bg-gray-100 text-gray-800 rounded-lg text-sm">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-4 px-6">David Miller</td>
+                                        <td class="py-4 px-6">david@email.com</td>
+                                        <td class="py-4 px-6">(555) 456-7890</td>
+                                        <td class="py-4 px-6">Service Appointment</td>
+                                        <td class="py-4 px-6 max-w-xs truncate">I need to schedule a service for my car...</td>
+                                        <td class="py-4 px-6">May 13, 2023</td>
+                                        <td class="py-4 px-6"><span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">In Progress</span></td>
+                                        <td class="py-4 px-6">
+                                            <button class="px-3 py-1 bg-primary text-white rounded-lg text-sm">Reply</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 px-6">Maria Garcia</td>
+                                        <td class="py-4 px-6">maria@email.com</td>
+                                        <td class="py-4 px-6">(555) 321-0987</td>
+                                        <td class="py-4 px-6">Long-term Rental</td>
+                                        <td class="py-4 px-6 max-w-xs truncate">I'm looking for a 3-month rental starting in June...</td>
+                                        <td class="py-4 px-6">May 12, 2023</td>
+                                        <td class="py-4 px-6"><span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Replied</span></td>
+                                        <td class="py-4 px-6">
+                                            <button class="px-3 py-1 bg-gray-100 text-gray-800 rounded-lg text-sm">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+        }
+
+        document.getElementById(page).innerHTML = content;
+      }
+
+      // Mobile sidebar functionality
+      document
+        .getElementById("sidebarToggle")
+        .addEventListener("click", function () {
+          document
+            .getElementById("mobileSidebar")
+            .classList.remove("-translate-x-full");
+        });
+
+      document
+        .getElementById("closeSidebar")
+        .addEventListener("click", function () {
+          document
+            .getElementById("mobileSidebar")
+            .classList.add("-translate-x-full");
+        });
+
+      function closeMobileSidebar() {
+        document
+          .getElementById("mobileSidebar")
+          .classList.add("-translate-x-full");
+      }
+
+      // Initialize with dashboard
+      window.onload = function () {
+        loadPage("dashboard");
+      };
+    </script>
+  </body>
+</html>
