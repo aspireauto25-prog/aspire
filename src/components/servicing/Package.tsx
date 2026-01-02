@@ -38,7 +38,7 @@ const ServicingPackage = ({
             <FaCrown className="mr-2" /> Most Popular
           </div>
         )}
-        <div className="p-8">
+        <div className="px-8 py-10">
           <div className="text-center mb-6">
             <h3 className="text-2xl font-bold mb-2">{name}</h3>
             <div className="flex items-center justify-center text-gray-600 dark:text-gray-400">
