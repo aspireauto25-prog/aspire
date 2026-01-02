@@ -24,3 +24,13 @@ export function getStylesByTheme(theme: string) {
 
   return "btn-primary ";
 }
+
+export function getOutlinedStylesByTheme(theme: string) {
+  if (theme == "light")
+    return "bg-white border-black hover:bg-gray-200 text-black ";
+
+  if (theme == "dark")
+    return "bg-gray-800 border-white hover:bg-gray-950 text-white ";
+
+  return "border-primary text-primary hover:text-white hover:bg-primary ";
+}

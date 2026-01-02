@@ -5,6 +5,8 @@ import {
   FaMapMarkedAlt,
 } from "react-icons/fa";
 
+import Button from "../Button";
+
 const BookingForm = () => {
   return (
     <section
@@ -140,9 +142,9 @@ const BookingForm = () => {
               </div>
             </div>
             <div className="text-center">
-              <button className="btn-primary px-12 py-5 rounded-full font-bold text-xl shadow-2xl hover:scale-105 transition-transform inline-flex items-center justify-center">
-                <FaCheckCircle className="mr-3" /> Confirm Booking Now
-              </button>
+              <Button rounded className="mx-auto">
+                <FaCheckCircle /> Confirm Booking Now
+              </Button>
               <p className="text-gray-400 mt-4">
                 Free cancellation up to 24 hours before pickup
               </p>
