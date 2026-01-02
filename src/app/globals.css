@@ -765,3 +765,13 @@ input[type="range"]::-moz-range-thumb {
   justify-content: center;
   margin-bottom: 20px;
 }
+
+.sidebar-active {
+  background-color: rgba(255, 22, 22, 0.1);
+  border-right: 3px solid #ff1616;
+  color: #ff1616;
+}
+
+.sidebar-active i {
+  color: #ff1616;
+}

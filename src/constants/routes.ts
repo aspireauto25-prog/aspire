@@ -6,3 +6,8 @@ export const RENT_ROUTE = "/rent";
 export const SELL_ROUTE = "/buy-sell/sell";
 export const SERVICING_ROUTE = "/servicing";
 export const WANTED_ROUTE = "/buy-sell/wanted";
+
+// Admin routes
+export const ADMIN_ROUTE = "/admin";
+export const DASHBOARD_ROUTE = "/admin/dashboard";
+export const CARS_LIST_ROUTE = "/admin/cars";
