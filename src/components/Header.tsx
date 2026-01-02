@@ -1,79 +1,71 @@
-import Image from "next/image";
+"use client";
 
-import logo from "@/assets/images/logo.png";
-import config from "@/config";
+import { FaBars, FaCalendarAlt } from "react-icons/fa";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+
+import { CONTACT_ROUTE, HOME_ROUTE } from "@/constants/routes";
+import Logo from "./Logo";
+import navlinks from "@/constants/navlinks";
+import Theme from "./Theme";
 
 const Header = () => {
-  return (
-    <header className="sticky top-0 w-full z-50 py-4 px-6">
-      <nav>
-        <div className="container mx-auto">
-          <div className="flex justify-between items-center glass-effect rounded-2xl px-6 py-3 backdrop-blur-lg shadow-xl animate-slide-in-top">
-            <div className="flex items-center space-x-3">
-              <a href="#">
-                <Image
-                  src={logo}
-                  alt={config.appName}
-                  className="h-12 w-auto"
-                />
-              </a>
-            </div>
+  const pathname = usePathname();
 
-            <div className="hidden lg:flex space-x-8">
-              <a
-                href="index.html"
-                className="font-medium text-primary transition-colors relative group"
-              >
-                Home
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a
-                href="about.html"
-                className="font-medium hover:text-primary transition-colors relative group"
-              >
-                About
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a
-                href="cars.html"
-                className="font-medium hover:text-primary transition-colors relative group"
-              >
-                Our Fleet
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a
-                href="#booking"
-                className="font-medium hover:text-primary transition-colors relative group"
-              >
-                Booking
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a
-                href="servicing.html"
-                className="font-medium hover:text-primary transition-colors relative group"
-              >
-                Servicing
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a
-                href="contact.html"
-                className="font-medium hover:text-primary transition-colors relative group"
-              >
-                Contact
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-              </a>
-            </div>
-            <div className="flex items-center space-x-4">
-              <button className="btn-primary px-6 py-3 rounded-full font-bold shadow-lg">
-                <i className="fas fa-calendar-alt mr-2"></i> Book Now
-              </button>
-              <button className="lg:hidden">
-                <i className="fas fa-bars text-xl"></i>
-              </button>
-            </div>
+  const isHomeRoute = pathname === HOME_ROUTE;
+
+  return (
+    <header
+      className={`${
+        isHomeRoute
+          ? "fixed w-full px-4 py-6"
+          : "sticky glass-effect py-4 px-6 backdrop-blur-lg shadow-xl slide-in-top"
+      } top-0 z-50`}
+    >
+      <div className="container mx-auto">
+        <div
+          className={`flex justify-between items-center ${
+            isHomeRoute
+              ? "glass-effect rounded-2xl px-6 py-3 backdrop-blur-lg shadow-xl slide-in-top"
+              : ""
+          }`}
+        >
+          <div className="flex items-center space-x-3">
+            <Logo />
+          </div>
+          <nav className="hidden lg:flex space-x-8">
+            {navlinks.map((navlink, index) => {
+              const isActive = pathname === navlink.route;
+
+              return (
+                <Link
+                  key={index}
+                  href={navlink.route}
+                  className={`font-medium hover:text-primary transition-colors relative group ${
+                    isActive ? "text-primary" : ""
+                  }`}
+                >
+                  {navlink.label}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                </Link>
+              );
+            })}
+          </nav>
+          <div className="flex items-center gap-4">
+            <Theme />
+            <Link
+              href={`${CONTACT_ROUTE}#contact-form`}
+              className="btn-primary px-6 py-3 rounded-full font-bold shadow-lg items-center gap-2 hidden sm:flex"
+            >
+              <FaCalendarAlt />
+              <span>Book Now</span>
+            </Link>
+            <button className="lg:hidden">
+              <FaBars className="text-xl" />
+            </button>
           </div>
         </div>
-      </nav>
+      </div>
     </header>
   );
 };
