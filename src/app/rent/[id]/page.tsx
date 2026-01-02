@@ -15,6 +15,7 @@ import Link from "next/link";
 import { carData } from "@/data/carDetails";
 import { CONTACT_ROUTE } from "@/constants/routes";
 import { formatSpecKey } from "@/helpers/textFormatter";
+import RentCTA from "@/components/rent/CTA";
 import RentDetailsBreadCrumb from "@/components/rent/details/BreadCrumb";
 import SimilarCarsCard from "@/components/rent/details/Card";
 
@@ -273,8 +274,9 @@ const CarDetailsPage = () => {
           </div>
         </div>
       </section>
+      <RentCTA />
       {/* Similar Cars Section */}
-      <section className="py-16 bg-gray-100 dark:bg-gray-900">
+      <section className="py-16 bg-gray-100 dark:bg-gray-950">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">

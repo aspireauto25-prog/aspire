@@ -2,16 +2,12 @@
 
 import { FaBars, FaCalendar } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 
 import { CONTACT_ROUTE, HOME_ROUTE } from "@/constants/routes";
-import config from "@/config";
+import Logo from "./Logo";
 import navlinks from "@/constants/navlinks";
 import Theme from "./Theme";
-
-
-import logo from "@/assets/images/logo.png";
 
 const Header = () => {
   const pathname = usePathname();
@@ -35,9 +31,7 @@ const Header = () => {
           }`}
         >
           <div className="flex items-center space-x-3">
-            <Link href={HOME_ROUTE} className="flex items-center space-x-3">
-              <Image src={logo} alt={config.appName} className="h-12 w-auto" />
-            </Link>
+            <Logo />
           </div>
           <nav className="hidden lg:flex space-x-8">
             {navlinks.map((navlink, index) => {

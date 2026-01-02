@@ -1,13 +1,12 @@
-import { FaMagnifyingGlass, FaPhone } from "react-icons/fa6";
-import Link from "next/link";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
-import { CONTACT_ROUTE } from "@/constants/routes";
 import { features, rentCars } from "@/data/rent";
 import Hero from "@/components/Hero";
+import RentCard from "@/components/rent/Card";
+import RentCTA from "@/components/rent/CTA";
 import RentFeature from "@/components/rent/Feature";
 
 import heroBg from "@/assets/images/rent-hero-bg.jpg";
-import RentCard from "@/components/rent/Card";
 
 const RentPage = () => {
   return (
@@ -88,24 +87,7 @@ const RentPage = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-linear-to-r from-primary to-red-600 text-white">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Can&apos;t Find What You&apos;re Looking For?
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Contact our team for special requests, custom packages, or corporate
-            rates.
-          </p>
-          <Link
-            href={CONTACT_ROUTE}
-            className="inline-flex items-center btn-primary px-10 py-4 rounded-full font-bold text-lg"
-          >
-            <FaPhone className="mr-3" /> Contact Our Team
-          </Link>
-        </div>
-      </section>
+      <RentCTA />
 
       {/* Why Choose Us */}
       <section className="py-16">

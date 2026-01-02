@@ -37,7 +37,7 @@ const BuySellTabs = () => {
               className={`tab-btn px-6 py-3 rounded-full font-bold flex items-center gap-2 ${
                 pathname == tab.route
                   ? "active bg-primary text-white"
-                  : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
+                  : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
               }`}
             >
               <tab.icon /> {tab.label}
