@@ -11,7 +11,7 @@ export function getStylesBySize(size: string, rounded: boolean) {
 
   if (size == "md")
     return `py-3 px-8 text-md font-bold ${
-      rounded ? "rounded-full " : "rounded-lg "
+      rounded ? "rounded-full " : "rounded-xl "
     }`;
 
   return `py-2 px-6 text-sm ${rounded ? "rounded-full " : "rounded-lg "}`;

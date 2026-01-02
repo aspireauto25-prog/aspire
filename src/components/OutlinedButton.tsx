@@ -1,4 +1,7 @@
-import { getStylesBySize, getStylesByTheme } from "@/helpers/buttonStyles";
+import {
+  getOutlinedStylesByTheme,
+  getStylesBySize,
+} from "@/helpers/buttonStyles";
 import { ButtonHTMLAttributes } from "react";
 
 interface Props {
@@ -12,7 +15,7 @@ interface Props {
   props?: ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
-const Button = ({
+const OutlinedButton = ({
   children,
   className = "",
   onClick,
@@ -24,10 +27,10 @@ const Button = ({
 }: Props & ButtonHTMLAttributes<HTMLButtonElement>) => {
   console.log(props);
   let btnClass =
-    "flex items-center justify-center gap-3 hover:shadow-xl transition-all duration-300 ";
+    "flex items-center justify-center gap-3 hover:shadow-xl transition-all duration-300 border-2 ";
 
   btnClass += getStylesBySize(size, rounded);
-  btnClass += getStylesByTheme(theme);
+  btnClass += getOutlinedStylesByTheme(theme);
   btnClass += props?.disabled
     ? "opacity-70 cursor-not-allowed "
     : "cursor-pointer ";
@@ -40,4 +43,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default OutlinedButton;

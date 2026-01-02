@@ -1,8 +1,10 @@
 import { FaCogs, FaGasPump, FaStar, FaUserFriends } from "react-icons/fa";
 import Image from "next/image";
-import Link from "next/link";
 
 import { CONTACT_ROUTE, RENT_ROUTE } from "@/constants/routes";
+import Button from "../Button";
+import LinkButton from "../LinkButton";
+import OutlinedLinkButton from "../OutlinedLinkButton";
 
 interface Props {
   available: boolean;
@@ -103,26 +105,22 @@ const RentCard = ({
         </div>
 
         <div className="flex space-x-3">
-          <Link
-            href={`${RENT_ROUTE}/${id}`}
-            className="btn-primary flex-1 py-3 rounded-xl font-bold text-center"
-          >
+          <LinkButton size="md" href={`${RENT_ROUTE}/${id}`} className="flex-1">
             View Details
-          </Link>
+          </LinkButton>
           {available ? (
-            <Link
-              href={CONTACT_ROUTE}
-              className="px-6 py-3 rounded-xl font-bold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors"
-            >
+            <OutlinedLinkButton href={CONTACT_ROUTE} size="md">
               Book Now
-            </Link>
+            </OutlinedLinkButton>
           ) : (
-            <button
-              disabled
-              className="px-6 py-3 rounded-xl font-bold border-2 border-gray-400 text-gray-400 cursor-not-allowed"
+            <Button
+              disabled={true}
+              theme="light"
+              size="md"
+              className="border-2 border-gray-400"
             >
               Unavailable
-            </button>
+            </Button>
           )}
         </div>
       </div>
