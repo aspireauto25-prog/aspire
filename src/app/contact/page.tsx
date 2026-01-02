@@ -1,6 +1,7 @@
 import { FaBolt, FaClock, FaWhatsapp } from "react-icons/fa";
 
 import { contactInfo, socialLinks } from "@/data/contact";
+import Button from "@/components/Button";
 import ContactFAQ from "@/components/contact/FAQ";
 import ContactForm from "@/components/contact/Form";
 import Hero from "@/components/Hero";
@@ -93,9 +94,9 @@ const ContactPage = () => {
                       </p>
                     </div>
                   </div>
-                  <button className="w-full font-bold py-3 rounded-full text-primary bg-white hover:scale-105 transition duration-300 mt-4 flex items-center justify-center">
+                  <Button theme="light" className="w-full">
                     Start WhatsApp Chat
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>

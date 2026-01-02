@@ -7,6 +7,7 @@ import {
   FaUserCheck,
 } from "react-icons/fa6";
 
+import { CONTACT_ROUTE } from "@/constants/routes";
 import {
   faqData,
   maintenanceSchedule,
@@ -33,7 +34,7 @@ const ServicingPage = () => {
         subtitle="Keep your vehicle in perfect condition with our certified technicians and state-of-the-art equipment."
         backgroundImage={heroBg}
         action={
-          <LinkButton href="#booking-form">
+          <LinkButton href={CONTACT_ROUTE}>
             <FaCalendarCheck /> Book Service
           </LinkButton>
         }

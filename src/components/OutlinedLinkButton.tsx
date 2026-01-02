@@ -1,6 +1,9 @@
 import Link from "next/link";
 
-import { getStylesBySize, getStylesByTheme } from "@/helpers/buttonStyles";
+import {
+  getOutlinedStylesByTheme,
+  getStylesBySize,
+} from "@/helpers/buttonStyles";
 
 interface Props {
   children: React.ReactNode;
@@ -11,7 +14,7 @@ interface Props {
   theme?: "primary" | "light" | "dark";
 }
 
-const LinkButton = ({
+const OutlinedLinkButton = ({
   children,
   className = "",
   href,
@@ -20,10 +23,10 @@ const LinkButton = ({
   theme = "primary",
 }: Props) => {
   let btnClass =
-    "flex items-center justify-center gap-3 hover:shadow-xl transition-all duration-300 cursor-pointer ";
+    "flex items-center justify-center gap-3 hover:shadow-xl transition-all duration-300 cursor-pointer border-2 ";
 
   btnClass += getStylesBySize(size, rounded);
-  btnClass += getStylesByTheme(theme);
+  btnClass += getOutlinedStylesByTheme(theme);
   btnClass += className;
 
   return (
@@ -33,4 +36,4 @@ const LinkButton = ({
   );
 };
 
-export default LinkButton;
+export default OutlinedLinkButton;

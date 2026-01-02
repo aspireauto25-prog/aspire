@@ -6,6 +6,8 @@ import {
   FaUser,
 } from "react-icons/fa";
 
+import Button from "@/components/Button";
+
 interface Props {
   brand: string;
   model: string;
@@ -46,9 +48,9 @@ const WantedCard = (props: Props) => {
           <span>Contact: {props.contact}</span>
         </div>
       </div>
-      <button className="express-interest-btn w-full btn-primary py-3 rounded-xl font-bold flex items-center justify-center">
-        <FaHandshake className="mr-2" /> I Have This Car
-      </button>
+      <Button size="md" className="w-full">
+        <FaHandshake /> I Have This Car
+      </Button>
     </div>
   );
 };

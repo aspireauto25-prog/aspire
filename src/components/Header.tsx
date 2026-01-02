@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import { CONTACT_ROUTE, HOME_ROUTE } from "@/constants/routes";
+import LinkButton from "./LinkButton";
 import Logo from "./Logo";
 import navlinks from "@/constants/navlinks";
 import Theme from "./Theme";
@@ -18,7 +19,7 @@ const Header = () => {
     <header
       className={`${
         isHomeRoute
-          ? "fixed w-full px-4 py-6"
+          ? "fixed w-full px-6 py-4"
           : "sticky glass-effect py-4 px-6 backdrop-blur-lg shadow-xl slide-in-top"
       } top-0 z-50`}
     >
@@ -53,13 +54,15 @@ const Header = () => {
           </nav>
           <div className="flex items-center gap-4">
             <Theme />
-            <Link
+            <LinkButton
               href={`${CONTACT_ROUTE}#contact-form`}
-              className="btn-primary px-6 py-3 rounded-full font-bold shadow-lg items-center gap-2 hidden sm:flex"
+              size="md"
+              rounded
+              className="hidden sm:flex"
             >
               <FaCalendarAlt />
-              <span>Book Now</span>
-            </Link>
+              <span>Enquire Now</span>
+            </LinkButton>
             <button className="lg:hidden">
               <FaBars className="text-xl" />
             </button>

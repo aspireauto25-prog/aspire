@@ -1,7 +1,9 @@
 import { FaArrowDown, FaMagnifyingGlass } from "react-icons/fa6";
 
 import { features, rentCars } from "@/data/rent";
+import Button from "@/components/Button";
 import Hero from "@/components/Hero";
+import OutlinedButton from "@/components/OutlinedButton";
 import RentCard from "@/components/rent/Card";
 import RentCTA from "@/components/rent/CTA";
 import RentFeature from "@/components/rent/Feature";
@@ -29,9 +31,9 @@ const RentPage = () => {
               placeholder="Search cars by name or category..."
               className="w-full pl-14 pr-6 py-4 bg-white/10 backdrop-blur-xs rounded-full border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <button className="right-3 top-2.5 btn-primary px-6 py-2 rounded-full absolute">
+            <Button className="right-3 top-2.5 absolute" size="sm" rounded>
               Search
-            </button>
+            </Button>
           </div>
         }
       />
@@ -78,9 +80,10 @@ const RentPage = () => {
               </div>
               {/* Load More (if needed) */}
               <div className="mt-12 text-center">
-                <button className="flex items-center mx-auto px-8 py-3 rounded-full font-bold text-lg border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors">
-                  Load More Cars <FaArrowDown className="fas fa-arrow-down ml-2" />
-                </button>
+                <OutlinedButton rounded className="mx-auto">
+                  Load More Cars
+                  <FaArrowDown />
+                </OutlinedButton>
               </div>
             </div>
           </div>

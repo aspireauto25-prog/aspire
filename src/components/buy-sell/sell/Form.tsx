@@ -1,5 +1,7 @@
 import { FaCloudUploadAlt, FaPaperPlane } from "react-icons/fa";
 
+import Button from "@/components/Button";
+
 const SellForm = () => {
   return (
     <form id="sell-form" className="space-y-6">
@@ -149,12 +151,9 @@ const SellForm = () => {
           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
         />
       </div>
-      <button
-        type="submit"
-        className="flex items-center justify-center w-full btn-primary py-4 rounded-xl font-bold text-lg"
-      >
-        <FaPaperPlane className="mr-3" /> Submit Car for Listing
-      </button>
+      <Button type="submit" className="w-full">
+        <FaPaperPlane /> Submit Car for Listing
+      </Button>
     </form>
   );
 };
