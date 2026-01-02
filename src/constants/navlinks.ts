@@ -1,5 +1,5 @@
 import {
-  BUY_SELL_ROUTE,
+  BUY_ROUTE,
   CONTACT_ROUTE,
   HOME_ROUTE,
   RENT_ROUTE,
@@ -16,7 +16,7 @@ const navlinks = [
     label: "Our Fleet",
   },
   {
-    route: BUY_SELL_ROUTE,
+    route: BUY_ROUTE,
     label: "Buy & Sell",
   },
   {

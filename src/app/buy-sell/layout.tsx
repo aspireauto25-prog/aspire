@@ -1,7 +1,5 @@
-import { FaBullhorn, FaMagnifyingGlass, FaTag } from "react-icons/fa6";
-import Link from "next/link";
-
 import BuySellCTA from "@/components/buy-sell/CTA";
+import BuySellTabs from "@/components/buy-sell/Tabs";
 import BuySellWhyChooseUs from "@/components/buy-sell/WhyChooseUs";
 import Hero from "@/components/Hero";
 
@@ -45,30 +43,7 @@ const BuySellLayout = ({
         }
       />
 
-      <div className="sticky top-20 z-30 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-wrap gap-2 py-4">
-            <Link
-              href="buy"
-              className="tab-btn active bg-primary text-white px-6 py-3 rounded-full font-bold flex items-center gap-2"
-            >
-              <FaMagnifyingGlass /> Buy Cars
-            </Link>
-            <Link
-              href="sell"
-              className="tab-btn bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-full font-bold flex items-center gap-2"
-            >
-              <FaTag /> Sell Your Car
-            </Link>
-            <Link
-              href="wanted"
-              className="tab-btn bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-full font-bold flex items-center gap-2"
-            >
-              <FaBullhorn /> Cars Wanted
-            </Link>
-          </div>
-        </div>
-      </div>
+      <BuySellTabs />
 
       {children}
 
