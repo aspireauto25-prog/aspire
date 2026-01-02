@@ -755,7 +755,7 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
-.feature-icon {
+.contact-feature-icon {
   width: 60px;
   height: 60px;
   background: linear-gradient(135deg, #ff1616, #ff5252);

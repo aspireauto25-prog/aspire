@@ -8,7 +8,6 @@ import heroBg from "@/assets/images/contact-hero-bg.jpg";
 import InfoCard from "@/components/contact/InfoCard";
 import SocialLink from "@/components/contact/SocialLink";
 
-
 const ContactPage = () => {
   return (
     <>
@@ -53,12 +52,10 @@ const ContactPage = () => {
                 {/* Contact Information Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg contact-card">
-                    <div className="feature-icon">
+                    <div className="contact-feature-icon">
                       <FaClock className="text-white text-2xl" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3">
-                      Business Hours
-                    </h3>
+                    <h3 className="text-xl font-bold mb-3">Business Hours</h3>
                     <div className="space-y-2">
                       <div className="flex items-center text-gray-600 dark:text-gray-400">
                         Monday - Friday: 8:00 AM - 10:00 PM
@@ -69,14 +66,16 @@ const ContactPage = () => {
                     </div>
                   </div>
                   <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg contact-card">
-                    <div className="feature-icon">
+                    <div className="contact-feature-icon">
                       <FaBolt className="text-white text-2xl" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3">
-                      Response Time
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-2">Email: Within 2 hours</p>
-                    <p className="text-gray-600 dark:text-gray-400 mb-2">Phone: Immediate</p>
+                    <h3 className="text-xl font-bold mb-3">Response Time</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-2">
+                      Email: Within 2 hours
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-2">
+                      Phone: Immediate
+                    </p>
                   </div>
                 </div>
                 {/* Interactive FAQ Section */}
@@ -94,7 +93,7 @@ const ContactPage = () => {
                       </p>
                     </div>
                   </div>
-                  <button className="w-full bg-white text-primary font-bold py-3 rounded-lg hover:bg-gray-100 transition duration-300 mt-4 flex items-center justify-center">
+                  <button className="w-full font-bold py-3 rounded-full text-primary bg-white hover:scale-105 transition duration-300 mt-4 flex items-center justify-center">
                     Start WhatsApp Chat
                   </button>
                 </div>
