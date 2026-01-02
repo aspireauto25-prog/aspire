@@ -163,10 +163,12 @@ body {
     transparent
   );
   transition: left 0.7s;
+  visibility: hidden;
 }
 
 .btn-primary:hover::after {
   left: 100%;
+  visibility: visible;
 }
 
 /* Card hover effects */
@@ -670,7 +672,8 @@ input[type="range"]::-moz-range-thumb {
 
 @keyframes glow {
   from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff1616, 0 0 40px #ff1616;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff1616,
+      0 0 40px #ff1616;
   }
   to {
     text-shadow: 0 0 20px #fff, 0 0 30px #ff1616, 0 0 40px #ff1616,
