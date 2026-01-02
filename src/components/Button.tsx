@@ -4,7 +4,16 @@ interface Props {
   onClick?: () => void;
   rounded?: boolean;
   size?: "sm" | "md" | "lg" | "xl";
+  theme?: "primary" | "light" | "dark";
   type?: "submit" | "reset" | "button";
+}
+
+function getStylesByTheme(theme: string) {
+  if (theme == "light") return "bg-white hover:bg-gray-100 text-black ";
+
+  if (theme == "dark") return "bg-gray-800 hover:bg-gray-900 text-white ";
+
+  return "btn-primary ";
 }
 
 function getStylesBySize(size: string, rounded: boolean) {
@@ -28,16 +37,18 @@ function getStylesBySize(size: string, rounded: boolean) {
 
 const Button = ({
   children,
-  className,
+  className = "",
   onClick,
   rounded = false,
   size = "lg",
+  theme = "primary",
   type = "button",
 }: Props) => {
   let btnClass =
-    "btn-primary flex items-center justify-center gap-3 hover:shadow-xl transition-all duration-300 cursor-pointer ";
+    "flex items-center justify-center gap-3 hover:shadow-xl transition-all duration-300 cursor-pointer ";
 
   btnClass += getStylesBySize(size, rounded);
+  btnClass += getStylesByTheme(theme);
   btnClass += className;
 
   return (
