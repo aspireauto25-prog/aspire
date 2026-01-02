@@ -1,6 +1,6 @@
 "use client";
 
-import { FaBars, FaCalendar } from "react-icons/fa6";
+import { FaBars, FaCalendarAlt } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -57,7 +57,7 @@ const Header = () => {
               href={`${CONTACT_ROUTE}#contact-form`}
               className="btn-primary px-6 py-3 rounded-full font-bold shadow-lg items-center gap-2 hidden sm:flex"
             >
-              <FaCalendar />
+              <FaCalendarAlt />
               <span>Book Now</span>
             </Link>
             <button className="lg:hidden">
