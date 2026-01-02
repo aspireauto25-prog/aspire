@@ -8,10 +8,10 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 pt-24 pb-16"
+      className="relative overflow-hidden pt-24 pb-16"
     >
       {/* Background pattern */}
-      <div className="absolute inset-0 bg-pattern" />
+      <div className="absolute inset-0 bg-pattern -z-10" />
       {/* Animated shapes */}
       <div className="shape-1 top-20 right-20 animate-float-1" />
       <div className="shape-2 bottom-20 left-20 animate-float-2" />

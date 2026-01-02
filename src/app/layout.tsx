@@ -18,6 +18,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  const theme = localStorage.getItem("aspire-theme");
+                  
+                  if (theme === "dark") {
+                    document.documentElement.classList.add("dark");
+                  } else {
+                    document.documentElement.classList.remove("dark");
+                  }
+                } catch (_) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="bg-light dark:bg-gray-950 text-gray-800 dark:text-gray-200 transition-colors duration-500">
         <Header />
         {children}

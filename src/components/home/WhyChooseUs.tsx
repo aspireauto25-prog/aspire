@@ -1,5 +1,5 @@
-import { IconType } from "react-icons";
 import { FaClock, FaDollarSign, FaShieldAlt, FaTools } from "react-icons/fa";
+import { IconType } from "react-icons";
 
 interface Props {
   Icon: IconType;
