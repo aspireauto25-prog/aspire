@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import config from "@/config";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import ScrollToTop from "@/components/ScrollToTop";
 
 import "./globals.css";
 
@@ -41,6 +42,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );
