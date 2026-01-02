@@ -6,10 +6,7 @@ import { RENT_ROUTE } from "@/constants/routes";
 
 const Hero = () => {
   return (
-    <section
-      id="home"
-      className="relative overflow-hidden pt-24 pb-16"
-    >
+    <section id="home" className="relative overflow-hidden pt-24 pb-16">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-pattern -z-10" />
       {/* Animated shapes */}
@@ -28,7 +25,7 @@ const Hero = () => {
               <span className="gradient-text">Automotive</span>
               <br />
               Driven by
-              <span className="text-primary glow">Excellence</span>
+              <span className="text-primary glow"> Excellence</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl">
               Experience luxury, performance, and reliability with our premium

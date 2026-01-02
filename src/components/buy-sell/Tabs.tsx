@@ -26,7 +26,6 @@ const tabs = [
 const BuySellTabs = () => {
   const pathname = usePathname();
 
-  console.log(pathname);
   return (
     <div className="sticky top-20 z-30 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-6">

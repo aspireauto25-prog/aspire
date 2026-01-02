@@ -14,16 +14,11 @@ import Link from "next/link";
 
 import { carData } from "@/data/carDetails";
 import { CONTACT_ROUTE } from "@/constants/routes";
+import { formatSpecKey } from "@/helpers/textFormatter";
 import RentDetailsBreadCrumb from "@/components/rent/details/BreadCrumb";
 import SimilarCarsCard from "@/components/rent/details/Card";
 
 const CarDetailsPage = () => {
-  function formatSpecKey(key: string) {
-    return key
-      .replace(/([A-Z])/g, " $1")
-      .replace(/^./, (str) => str.toUpperCase());
-  }
-
   return (
     <>
       <RentDetailsBreadCrumb car="Tesla" />
