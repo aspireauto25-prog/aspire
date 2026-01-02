@@ -29,7 +29,7 @@ interface Props {
 
 const Card = (props: Props) => {
   return (
-    <div className="detailed-car-card bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl animate-slide-up border border-gray-200 dark:border-gray-800 transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]">
+    <div className="detailed-car-card bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl slide-up border border-gray-200 dark:border-gray-800 transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]">
       <div className="relative h-64 overflow-hidden">
         <Image
           src={props.image}
@@ -113,7 +113,7 @@ const Fleet = () => {
       className="py-20 bg-linear-to-b from-light to-gray-100 dark:from-dark dark:to-gray-900"
     >
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-16 fade-in">
           <div className="inline-block px-6 py-2 rounded-full bg-primary/10 mb-4">
             <span className="text-primary font-bold">OUR PREMIUM FLEET</span>
           </div>
@@ -126,7 +126,7 @@ const Fleet = () => {
           </p>
         </div>
         {/* Car Filters */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12 animate-slide-up">
+        <div className="flex flex-wrap justify-center gap-4 mb-12 slide-up">
           <button className="px-6 py-3 rounded-full bg-primary text-white font-bold">
             All Cars
           </button>

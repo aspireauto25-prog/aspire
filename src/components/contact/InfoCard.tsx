@@ -10,7 +10,7 @@ interface Props {
 const InfoCard = (props: Props) => {
   return (
     <div
-      className="contact-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-xl animate-slide-up"
+      className="contact-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-xl slide-up"
       style={{ animationDelay: "0.1s" }}
     >
       <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">

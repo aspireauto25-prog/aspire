@@ -41,7 +41,7 @@ const ServicingPage = () => {
       {/* Service Packages */}
       <section className="py-16">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12 animate-fade-in">
+          <div className="text-center mb-12 fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Service Packages
             </h2>
@@ -69,7 +69,7 @@ const ServicingPage = () => {
       {/* Features */}
       <section className="py-16 bg-gray-100 dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12 animate-fade-in">
+          <div className="text-center mb-12 fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Why Choose Our Servicing?
             </h2>
@@ -122,7 +122,7 @@ const ServicingPage = () => {
       {/* Maintenance Schedule */}
       <section className="py-16">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12 animate-fade-in">
+          <div className="text-center mb-12 fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Recommended Maintenance Schedule
             </h2>
@@ -162,7 +162,7 @@ const ServicingPage = () => {
       {/* FAQ */}
       <section className="py-16">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12 animate-fade-in">
+          <div className="text-center mb-12 fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Servicing FAQs
             </h2>

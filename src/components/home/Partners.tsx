@@ -74,7 +74,7 @@ const Partners = () => {
   return (
     <section className="py-16 bg-linear-to-b from-light to-gray-100 dark:from-dark dark:to-gray-900">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12 animate-slide-up">
+        <div className="text-center mb-12 slide-up">
           <div className="inline-block px-6 py-2 rounded-full bg-primary/10 mb-4">
             <span className="text-primary font-bold">OUR PARTNERS</span>
           </div>
@@ -89,7 +89,7 @@ const Partners = () => {
       </div>
       <div className="mb-12">
         <div className="marquee-container overflow-x-hidden py-10 relative">
-          <div className="marquee-content flex animate-marquee">
+          <div className="marquee-content flex marquee">
             {partners.map((partner, index) => (
               <Card key={index} {...partner} />
             ))}

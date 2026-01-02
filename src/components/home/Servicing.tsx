@@ -70,7 +70,7 @@ const Servicing = () => {
       className="py-20 bg-linear-to-b from-gray-100 to-light dark:from-gray-900 dark:to-dark"
     >
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-16 fade-in">
           <div className="inline-block px-6 py-2 rounded-full bg-primary/10 mb-4">
             <span className="text-primary font-bold">EXPERT SERVICING</span>
           </div>

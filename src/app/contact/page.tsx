@@ -36,7 +36,7 @@ const ContactPage = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="animate-slide-in-left">
+            <div className="slide-in-left">
               <h2 className="text-3xl font-bold mb-6">Send Us a Message</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-8">
                 Fill out the form below and we&apos;ll get back to you as soon
@@ -65,7 +65,7 @@ const ContactPage = () => {
               </div>
             </div>
             {/* Map & Locations */}
-            <div className="animate-slide-in-right">
+            <div className="slide-in-right">
               <h2 className="text-3xl font-bold mb-6">Our Locations</h2>
               {/* Interactive Map */}
               <div className="map-container rounded-2xl overflow-hidden shadow-2xl mb-8 relative">

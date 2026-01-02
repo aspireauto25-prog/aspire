@@ -18,7 +18,7 @@ interface Props {
 
 const WantedCard = (props: Props) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg animate-slide-up">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg slide-up">
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-xl font-bold mb-2">

@@ -34,7 +34,7 @@ const RentCard = ({
   transmission,
 }: Props) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 animate-slide-up">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 slide-up">
       <div className="relative h-48 overflow-hidden">
         <Image
           src={image}

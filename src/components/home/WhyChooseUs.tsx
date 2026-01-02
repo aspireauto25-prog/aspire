@@ -53,7 +53,7 @@ const WhyChooseUs = () => {
   return (
     <section id="why-choose-us" className="dark:bg-gray-900 py-16">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12 animate-fade-in">
+        <div className="text-center mb-12 fade-in">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Why Choose Aspire Automotive?
           </h2>

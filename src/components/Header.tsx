@@ -23,14 +23,14 @@ const Header = () => {
       className={`${
         isHomeRoute
           ? "fixed w-full px-4 py-6"
-          : "sticky glass-effect py-4 px-6 backdrop-blur-lg shadow-xl animate-slide-in-top"
+          : "sticky glass-effect py-4 px-6 backdrop-blur-lg shadow-xl slide-in-top"
       } top-0 z-50`}
     >
       <div className="container mx-auto">
         <div
           className={`flex justify-between items-center ${
             isHomeRoute
-              ? "glass-effect rounded-2xl px-6 py-3 backdrop-blur-lg shadow-xl animate-slide-in-top"
+              ? "glass-effect rounded-2xl px-6 py-3 backdrop-blur-lg shadow-xl slide-in-top"
               : ""
           }`}
         >

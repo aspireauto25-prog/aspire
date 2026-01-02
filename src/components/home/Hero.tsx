@@ -13,12 +13,12 @@ const Hero = () => {
       {/* Background pattern */}
       <div className="absolute inset-0 bg-pattern -z-10" />
       {/* Animated shapes */}
-      <div className="shape-1 top-20 right-20 animate-float-1" />
-      <div className="shape-2 bottom-20 left-20 animate-float-2" />
+      <div className="shape-1 top-20 right-20 float" />
+      <div className="shape-2 bottom-20 left-20 float" />
       <div className="container mx-auto px-6 py-24">
         <div className="flex flex-col lg:flex-row items-center gap-20">
-          <div className="lg:w-1/2 animate-slide-in-left">
-            <div className="inline-block px-4 py-2 rounded-full bg-primary/20 backdrop-blur-sm mb-6 animate-pulse-slow">
+          <div className="lg:w-1/2 slide-in-left">
+            <div className="inline-block px-4 py-2 rounded-full bg-primary/20 backdrop-blur-sm mb-6 pulse-slow">
               <span className="text-primary font-bold">
                 Premium Car Rental Service
               </span>
@@ -28,7 +28,7 @@ const Hero = () => {
               <span className="gradient-text">Automotive</span>
               <br />
               Driven by
-              <span className="text-primary animate-glow">Excellence</span>
+              <span className="text-primary glow">Excellence</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl">
               Experience luxury, performance, and reliability with our premium
@@ -38,7 +38,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
               <Link
                 href={RENT_ROUTE}
-                className="btn-primary px-8 py-4 rounded-full font-bold text-lg shadow-2xl animate-bounce-slow flex items-center justify-center"
+                className="btn-primary px-8 py-4 rounded-full font-bold text-lg shadow-2xl bounce-slow flex items-center justify-center"
               >
                 <FaCar className="mr-3" /> Explore Our Fleet
               </Link>
@@ -89,12 +89,12 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div className="lg:w-1/2 mt-16 lg:mt-0 relative animate-slide-in-right">
+          <div className="lg:w-1/2 mt-16 lg:mt-0 relative slide-in-right">
             <div className="relative car-3d">
               {/* Main Car Display */}
               <div className="relative">
                 {/* Car 1 - Tesla Model 3 */}
-                <div className="hero-car relative floating-element animate-float-1">
+                <div className="hero-car relative">
                   <div className="relative">
                     <Image
                       src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
@@ -117,7 +117,7 @@ const Hero = () => {
                   </div>
                 </div>
                 {/* Car 2 - BMW X5 */}
-                <div className="hero-car hidden relative floating-element animate-float-2">
+                <div className="hero-car hidden relative">
                   <div className="relative">
                     <Image
                       src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
@@ -140,7 +140,7 @@ const Hero = () => {
                   </div>
                 </div>
                 {/* Car 3 - Porsche 911 */}
-                <div className="hero-car hidden relative floating-element animate-float-3">
+                <div className="hero-car hidden relative">
                   <div className="relative">
                     <Image
                       src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
@@ -170,13 +170,13 @@ const Hero = () => {
                 </div>
               </div>
               {/* Floating elements around cars */}
-              <div className="absolute -top-10 -left-10 w-24 h-24 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center animate-float-2">
+              <div className="absolute -top-10 -left-10 w-24 h-24 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center float">
                 <FaBolt className="text-primary text-2xl" />
               </div>
-              <div className="absolute -bottom-10 -right-10 w-20 h-20 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center animate-float-3">
+              <div className="absolute -bottom-10 -right-10 w-20 h-20 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center float">
                 <FaShieldAlt className="text-primary text-2xl" />
               </div>
-              <div className="absolute top-1/2 -right-16 transform -translate-y-1/2 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-2xl animate-bounce-slow">
+              <div className="absolute top-1/2 -right-16 transform -translate-y-1/2 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-2xl bounce-slow">
                 <div className="flex items-center">
                   <FaStar className="text-yellow-500 text-xl mr-2" />
                   <div>

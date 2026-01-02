@@ -34,7 +34,7 @@ const CarDetailsPage = () => {
             {/* Left Column - Images & Videos */}
             <div className="lg:col-span-2">
               {/* Main Image */}
-              <div className="main-image-container rounded-2xl overflow-hidden shadow-2xl relative animate-zoom-in">
+              <div className="main-image-container rounded-2xl overflow-hidden shadow-2xl relative zoom-in">
                 <Image
                   id="main-image"
                   alt="Tesla Model 3"
@@ -86,7 +86,7 @@ const CarDetailsPage = () => {
                 </div>
               </div>
               {/* Detailed Description */}
-              <div className="mt-12 animate-slide-up">
+              <div className="mt-12 slide-up">
                 <h3 className="text-2xl font-bold mb-6">
                   Detailed Description
                 </h3>
@@ -95,7 +95,7 @@ const CarDetailsPage = () => {
                 </div>
               </div>
               {/* Features */}
-              <div className="mt-12 animate-slide-up">
+              <div className="mt-12 slide-up">
                 <h3 className="text-2xl font-bold mb-6">Key Features</h3>
                 <ul
                   id="features-list"
@@ -110,7 +110,7 @@ const CarDetailsPage = () => {
                 </ul>
               </div>
               {/* Specifications */}
-              <div className="mt-12 animate-slide-up">
+              <div className="mt-12 slide-up">
                 <h3 className="text-2xl font-bold mb-6">
                   Technical Specifications
                 </h3>
@@ -136,7 +136,7 @@ const CarDetailsPage = () => {
             </div>
             <div className="space-y-8">
               {/* Car Info Card */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl animate-slide-in-right">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right">
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h1 id="car-name" className="text-3xl font-bold mb-2">
@@ -228,7 +228,7 @@ const CarDetailsPage = () => {
               </div>
               {/* Booking Form */}
               <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl animate-slide-in-right"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
                 style={{ animationDelay: "0.1s" }}
               >
                 <h3 className="text-2xl font-bold mb-6">Book This Car</h3>
@@ -244,7 +244,7 @@ const CarDetailsPage = () => {
               </div>
               {/* What's Included */}
               <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl animate-slide-in-right"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
                 style={{ animationDelay: "0.2s" }}
               >
                 <h3 className="text-2xl font-bold mb-6">
@@ -261,7 +261,7 @@ const CarDetailsPage = () => {
               </div>
               {/* Requirements */}
               <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl animate-slide-in-right"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
                 style={{ animationDelay: "0.3s" }}
               >
                 <h3 className="text-2xl font-bold mb-6">Rental Requirements</h3>

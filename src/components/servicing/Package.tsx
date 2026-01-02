@@ -26,7 +26,7 @@ const ServicingPackage = ({
   return (
     <>
       <div
-        className={`service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 animate-slide-up ${
+        className={`service-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 slide-up ${
           popular ? "border-2 border-primary relative" : ""
         }`}
       >

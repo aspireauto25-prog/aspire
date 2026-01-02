@@ -37,7 +37,7 @@ const BuyCard = (props: Props) => {
   const savingsPercent = Math.round((savings / props.originalPrice) * 100);
 
   return (
-    <div className="car-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 animate-slide-up">
+    <div className="car-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 slide-up">
       <div className="relative">
         <Image
           src={props.image}
