@@ -1,10 +1,13 @@
+import { FaBolt, FaClock, FaWhatsapp } from "react-icons/fa";
+
 import { contactInfo, socialLinks } from "@/data/contact";
+import ContactFAQ from "@/components/contact/FAQ";
 import ContactForm from "@/components/contact/Form";
 import Hero from "@/components/Hero";
+import heroBg from "@/assets/images/contact-hero-bg.jpg";
 import InfoCard from "@/components/contact/InfoCard";
 import SocialLink from "@/components/contact/SocialLink";
 
-import heroBg from "@/assets/images/contact-hero-bg.jpg";
 
 const ContactPage = () => {
   return (
@@ -46,69 +49,54 @@ const ContactPage = () => {
             </div>
             {/* Map & Locations */}
             <div className="slide-in-right">
-              <h2 className="text-3xl font-bold mb-6">Our Locations</h2>
-              {/* Interactive Map */}
-              <div className="map-container rounded-2xl overflow-hidden shadow-2xl mb-8 relative">
-                <div id="map-container" className="absolute inset-0" />
-                <div className="absolute bottom-4 left-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg">
-                  <h4 className="font-bold mb-2">
-                    Click on markers for details
-                  </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    3 locations across the city
-                  </p>
-                </div>
-              </div>
-              {/* Locations List */}
-              <div className="space-y-6">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-                  <div className="flex items-start">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
-                      <i className="fas fa-building text-primary" />
+              <div className="space-y-8">
+                {/* Contact Information Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg contact-card">
+                    <div className="feature-icon">
+                      <FaClock className="text-white text-2xl" />
                     </div>
-                    <div>
-                      <h4 className="font-bold text-lg mb-2">Main Office</h4>
-                      <p className="text-gray-600 dark:text-gray-300 mb-2">
-                        123 Auto Street, Downtown, Car City, CC 10101
-                      </p>
-                      <p className="text-primary font-medium">0497790788</p>
+                    <h3 className="text-xl font-bold mb-3">
+                      Business Hours
+                    </h3>
+                    <div className="space-y-2">
+                      <div className="flex items-center text-gray-600 dark:text-gray-400">
+                        Monday - Friday: 8:00 AM - 10:00 PM
+                      </div>
+                      <div className="flex items-center text-gray-600 dark:text-gray-400">
+                        Saturday - Sunday: 9:00 AM - 8:00 PM
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-                  <div className="flex items-start">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
-                      <i className="fas fa-plane text-primary" />
+                  <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg contact-card">
+                    <div className="feature-icon">
+                      <FaBolt className="text-white text-2xl" />
                     </div>
-                    <div>
-                      <h4 className="font-bold text-lg mb-2">Airport Branch</h4>
-                      <p className="text-gray-600 dark:text-gray-300 mb-2">
-                        Airport Terminal A, Gate 3, Car City International
-                        Airport
-                      </p>
-                      <p className="text-primary font-medium">
-                        +1 (555) 123-4568
-                      </p>
-                    </div>
+                    <h3 className="text-xl font-bold mb-3">
+                      Response Time
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-2">Email: Within 2 hours</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-2">Phone: Immediate</p>
                   </div>
                 </div>
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-                  <div className="flex items-start">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
-                      <i className="fas fa-store text-primary" />
+                {/* Interactive FAQ Section */}
+                <ContactFAQ />
+                {/* Live Chat Widget */}
+                <div className="bg-linear-to-r from-primary to-red-600 rounded-xl p-6 text-white shadow-lg">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                      <FaWhatsapp className="text-xl" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg mb-2">
-                        Northside Branch
-                      </h4>
-                      <p className="text-gray-600 dark:text-gray-300 mb-2">
-                        456 North Avenue, Northside District, Car City
-                      </p>
-                      <p className="text-primary font-medium">
-                        +1 (555) 123-4569
+                      <h3 className="text-xl font-bold">WhatsApp Us</h3>
+                      <p className="opacity-90">
+                        Get instant answers from our support team
                       </p>
                     </div>
                   </div>
+                  <button className="w-full bg-white text-primary font-bold py-3 rounded-lg hover:bg-gray-100 transition duration-300 mt-4 flex items-center justify-center">
+                    Start WhatsApp Chat
+                  </button>
                 </div>
               </div>
             </div>
