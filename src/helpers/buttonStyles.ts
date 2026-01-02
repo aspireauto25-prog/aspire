@@ -18,19 +18,19 @@ export function getStylesBySize(size: string, rounded: boolean) {
 }
 
 export function getStylesByTheme(theme: string) {
-  if (theme == "light") return "bg-white hover:bg-gray-100 text-black ";
+  if (theme == "light") return "bg-white hover:bg-gray-100 text-primary ";
 
-  if (theme == "dark") return "bg-gray-800 hover:bg-gray-900 text-white ";
+  if (theme == "dark") return "bg-gray-800 hover:bg-gray-900 text-primary ";
 
   return "btn-primary ";
 }
 
 export function getOutlinedStylesByTheme(theme: string) {
   if (theme == "light")
-    return "bg-white border-black hover:bg-gray-200 text-black ";
+    return "bg-white border-black hover:bg-gray-200 text-primary ";
 
   if (theme == "dark")
-    return "bg-gray-800 border-white hover:bg-gray-950 text-white ";
+    return "bg-gray-800 border-white hover:bg-gray-950 text-primary ";
 
   return "border-primary text-primary hover:text-white hover:bg-primary ";
 }

@@ -6,6 +6,9 @@ import {
   FaCrown,
 } from "react-icons/fa6";
 
+import Button from "../Button";
+import OutlinedButton from "../OutlinedButton";
+
 interface Props {
   duration: string;
   features: string[];
@@ -63,15 +66,15 @@ const ServicingPackage = ({
               {recommendedFor}
             </p>
           </div>
-          <button
-            className={`w-full flex items-center justify-center ${
-              popular
-                ? "btn-primary"
-                : "border-2 border-primary text-primary hover:bg-primary hover:text-white"
-            } py-3 rounded-xl font-bold transition-colors`}
-          >
-            <FaCalendarCheck className="mr-2" /> Book This Service
-          </button>
+          {popular ? (
+            <Button size="md" className="w-full">
+              <FaCalendarCheck className="mr-2" /> Book This Service
+            </Button>
+          ) : (
+            <OutlinedButton size="md" className="w-full">
+              <FaCalendarCheck /> Book This Service
+            </OutlinedButton>
+          )}
         </div>
       </div>
     </>

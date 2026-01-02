@@ -19,7 +19,7 @@ const CTA = () => {
             href={CONTACT_ROUTE}
             rounded
             theme="light"
-            className="text-primary hover:scale-105 mx-auto w-max"
+            className="hover:scale-105 mx-auto w-max"
           >
             <FaCalendarAlt /> Book Your Ride Now
           </LinkButton>

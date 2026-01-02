@@ -25,7 +25,6 @@ const OutlinedButton = ({
   type = "button",
   ...props
 }: Props & ButtonHTMLAttributes<HTMLButtonElement>) => {
-  console.log(props);
   let btnClass =
     "flex items-center justify-center gap-3 hover:shadow-xl transition-all duration-300 border-2 ";
 
