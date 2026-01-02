@@ -1,16 +1,33 @@
 import Link from "next/link";
 
+import { getStylesBySize, getStylesByTheme } from "@/helpers/buttonStyles";
+
 interface Props {
-  href: string;
   children: React.ReactNode;
+  className?: string;
+  href: string;
+  rounded?: boolean;
+  size?: "sm" | "md" | "lg" | "xl";
+  theme?: "primary" | "light" | "dark";
 }
 
-const LinkButton = ({ href, children }: Props) => {
+const LinkButton = ({
+  children,
+  className = "",
+  href,
+  rounded = false,
+  size = "lg",
+  theme = "primary",
+}: Props) => {
+  let btnClass =
+    "flex items-center justify-center gap-3 hover:shadow-xl transition-all duration-300 cursor-pointer ";
+
+  btnClass += getStylesBySize(size, rounded);
+  btnClass += getStylesByTheme(theme);
+  btnClass += className;
+
   return (
-    <Link
-      href={href}
-      className="btn-primary px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3"
-    >
+    <Link href={href} className={btnClass}>
       {children}
     </Link>
   );
