@@ -43,26 +43,6 @@ const ContactPage = () => {
                 as possible.
               </p>
               <ContactForm />
-
-              {/* Confirmation Message */}
-              <div
-                id="confirmation"
-                className="hidden mt-6 bg-green-50 dark:bg-green-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800"
-              >
-                <div className="flex items-center">
-                  <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-800 flex items-center justify-center mr-4">
-                    <i className="fas fa-check text-green-600 dark:text-green-300 text-xl" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">
-                      Message Sent Successfully!
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      We&apos;ll get back to you within 1-2 business hours.
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
             {/* Map & Locations */}
             <div className="slide-in-right">

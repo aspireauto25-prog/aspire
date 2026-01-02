@@ -1,6 +1,7 @@
 import {
   FaBolt,
   FaCalendarCheck,
+  FaPhone,
   FaShield,
   FaToolbox,
   FaUserCheck,
@@ -151,9 +152,9 @@ const ServicingPage = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a
               href="tel:0497790788"
-              className="px-10 py-4 rounded-full font-bold text-lg border-2 border-white hover:bg-white hover:text-primary transition-colors"
+              className="px-10 py-4 rounded-full font-bold text-lg border-2 border-white hover:bg-white hover:text-primary transition-colors flex items-center"
             >
-              <i className="fas fa-phone mr-3" /> Call Now: 0497790788
+              <FaPhone className="mr-3" /> Call Now: 0497790788
             </a>
           </div>
         </div>

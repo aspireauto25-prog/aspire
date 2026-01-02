@@ -1,4 +1,4 @@
-import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaArrowDown, FaMagnifyingGlass } from "react-icons/fa6";
 
 import { features, rentCars } from "@/data/rent";
 import Hero from "@/components/Hero";
@@ -78,8 +78,8 @@ const RentPage = () => {
               </div>
               {/* Load More (if needed) */}
               <div className="mt-12 text-center">
-                <button className="px-8 py-3 rounded-full font-bold text-lg border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors">
-                  Load More Cars <i className="fas fa-arrow-down ml-2" />
+                <button className="flex items-center mx-auto px-8 py-3 rounded-full font-bold text-lg border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors">
+                  Load More Cars <FaArrowDown className="fas fa-arrow-down ml-2" />
                 </button>
               </div>
             </div>

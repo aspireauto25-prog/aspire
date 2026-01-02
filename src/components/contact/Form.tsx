@@ -1,3 +1,5 @@
+import { FaPaperPlane } from "react-icons/fa6";
+
 const ContactForm = () => {
   return (
     <form id="contact-form" className="space-y-6">
@@ -95,9 +97,9 @@ const ContactForm = () => {
       <button
         type="submit"
         id="submit-btn"
-        className="btn-primary w-full py-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300"
+        className="btn-primary w-full py-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
       >
-        <i className="fas fa-paper-plane mr-3" /> Send Message
+        <FaPaperPlane className="mr-3" /> Send Message
       </button>
     </form>
   );

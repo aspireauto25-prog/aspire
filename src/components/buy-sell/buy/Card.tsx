@@ -1,3 +1,4 @@
+import { FaCheck, FaMapMarkerAlt, FaShieldAlt } from "react-icons/fa";
 import Image from "next/image";
 
 interface Props {
@@ -34,7 +35,7 @@ const BuyCard = (props: Props) => {
     }[props.urgency] || "bg-gray-500";
 
   const savings = props.originalPrice - props.price;
-  const savingsPercent = Math.round((savings / props.originalPrice) * 100);
+  // const savingsPercent = Math.round((savings / props.originalPrice) * 100);
 
   return (
     <div className="car-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 slide-up">
@@ -54,8 +55,8 @@ const BuyCard = (props: Props) => {
           </div>
         ) : null}
         {props.certified ? (
-          <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-            <i className="fas fa-shield-alt mr-1" /> Certified
+          <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold flex items-center">
+            <FaShieldAlt className="fas fa-shield-alt mr-1" /> Certified
           </div>
         ) : null}
         {props.originalPrice > props.price ? (
@@ -84,9 +85,9 @@ const BuyCard = (props: Props) => {
           {props.features.slice(0, 2).map((feature, index) => (
             <span
               key={index}
-              className="px-2 py-1 bg-primary/10 text-primary rounded text-xs"
+              className="px-2 py-1 bg-primary/10 text-primary rounded text-xs flex items-center"
             >
-              <i className="fas fa-check mr-1" />
+              <FaCheck className="fas fa-check mr-1" />
               {feature}
             </span>
           ))}
@@ -98,8 +99,8 @@ const BuyCard = (props: Props) => {
           ) : null}
         </div>
         <div className="flex justify-between items-center">
-          <div className="text-gray-600 dark:text-gray-400 text-sm">
-            <i className="fas fa-map-marker-alt mr-1" />
+          <div className="text-gray-600 dark:text-gray-400 text-sm flex items-center">
+            <FaMapMarkerAlt className="fas fa-map-marker-alt mr-1" />
             {props.location}
           </div>
           <div className="flex space-x-2">
