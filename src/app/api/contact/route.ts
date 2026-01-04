@@ -2,6 +2,7 @@ import { ZodError } from "zod";
 
 import { CONTACT_STATUS_PENDING } from "@/constants/contact";
 import { contactSchema } from "@/lib/schemas/contact.schema";
+import { formatZodErrors } from "@/utils/zod";
 import supabase from "@/config/database";
 
 export async function POST(request: Request) {
@@ -25,7 +26,9 @@ export async function POST(request: Request) {
     return Response.json(data[0], { status: 201 });
   } catch (error) {
     if (error instanceof ZodError) {
-      return Response.json({ errors: error.flatten() }, { status: 400 });
+      const formattedErrors = formatZodErrors(error);
+
+      return Response.json(formattedErrors, { status: 400 });
     }
 
     return Response.json({ error: "Internal Server Error" }, { status: 500 });
