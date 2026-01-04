@@ -1,8 +1,11 @@
 "use client";
 
 import { FaPaperPlane } from "react-icons/fa6";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
+import { subjects } from "@/constants/contact";
 import Button from "../Button";
 
 interface FormData {
@@ -13,21 +16,22 @@ interface FormData {
   subject: string;
 }
 
-const subjects = [
-  "Car Rental Inquiry",
-  "Car Purchase Inquiry",
-  "Car Sale Inquiry",
-  "Car Servicing & Maintenance",
-  "Corporate & Business Services",
-  "Feedback & Suggestions",
-  "Other Inquiry",
-];
-
 const ContactForm = () => {
   const { handleSubmit, register, reset } = useForm<FormData>();
 
   const submitForm = async (data: FormData) => {
-    console.log(data);
+    try {
+      await axios.post("/api/contact", {
+        ...data,
+        phone: parseInt(data.phone),
+      });
+
+      reset();
+
+      toast.success("Message sent successfully!");
+    } catch {
+      toast.error("Failed to send message.");
+    }
   };
 
   return (
