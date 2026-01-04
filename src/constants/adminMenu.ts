@@ -3,6 +3,7 @@ import {
   FaChartLine,
   FaCog,
   FaInbox,
+  FaKey,
   FaTachometerAlt,
   FaTag,
   FaUserCog,
@@ -28,7 +29,7 @@ export const dashboardMenu = [
   },
   {
     Icon: FaChartLine,
-    route: "/admin",
+    route: "/admin/analytics",
     label: "Analytics",
   },
 ];
@@ -40,7 +41,7 @@ export const inventoryMenu = [
     label: "All Cars",
   },
   {
-    Icon: FaCarAlt,
+    Icon: FaKey,
     route: ADMIN_RENT_ROUTE,
     label: "Cars for Rent",
   },
@@ -51,7 +52,7 @@ export const inventoryMenu = [
   },
   {
     Icon: FaWrench,
-    route: "/admin",
+    route: "/admin/services",
     label: "Service requests",
   },
 ];
@@ -64,7 +65,7 @@ export const customerMenu = [
   },
   {
     Icon: FaUsers,
-    route: "/admin",
+    route: "/admin/customers",
     label: "Customers",
   },
 ];
