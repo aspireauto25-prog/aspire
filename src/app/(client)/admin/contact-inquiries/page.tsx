@@ -1,4 +1,3 @@
-import Button from "@/components/Button";
 import {
   FaArchive,
   FaBan,
@@ -15,6 +14,8 @@ import {
   FaTrash,
   FaUserTag,
 } from "react-icons/fa";
+
+import Button from "@/components/Button";
 
 const ContactInquiresPage = () => {
   return (

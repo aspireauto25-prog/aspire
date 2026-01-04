@@ -1,4 +1,3 @@
-import Button from "@/components/Button";
 import {
   FaCalendarAlt,
   FaCar,
@@ -12,6 +11,10 @@ import {
   FaTrash,
   FaWrench,
 } from "react-icons/fa";
+
+import { ADD_CAR_ROUTE } from "@/constants/routes";
+import LinkButton from "@/components/LinkButton";
+
 
 const CarRentalPage = () => {
   return (
@@ -94,10 +97,10 @@ const CarRentalPage = () => {
               Manage your fleet of rental vehicles
             </p>
           </div>
-          <Button size="sm">
+          <LinkButton href={ADD_CAR_ROUTE} size="sm">
             <FaPlus />
             Add New Car
-          </Button>
+          </LinkButton>
         </div>
         {/* Quick Filters */}
         <div className="mt-6 flex flex-wrap gap-2">

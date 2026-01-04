@@ -11,6 +11,7 @@ export const WANTED_ROUTE = "/buy-sell/wanted";
 export const ADMIN_ROUTE = "/admin";
 export const DASHBOARD_ROUTE = "/admin/dashboard";
 
+export const ADD_CAR_ROUTE = "/admin/cars/add";
 export const ADMIN_CARS_ROUTE = "/admin/cars";
 export const ADMIN_RENT_ROUTE = "/admin/rent";
 export const ADMIN_SELL_ROUTE = "/admin/sale";
