@@ -102,12 +102,10 @@ const ContactInquiresPage = () => {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            <Button size="sm">
-              <FaPlus />
-              New Reply
-            </Button>
-          </div>
+          <Button size="sm">
+            <FaPlus />
+            New Reply
+          </Button>
         </div>
         {/* Quick Filters */}
         <div className="mt-6 flex flex-wrap gap-2">

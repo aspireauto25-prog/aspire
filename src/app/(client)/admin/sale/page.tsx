@@ -1,19 +1,21 @@
 import Button from "@/components/Button";
 import {
-  FaCalendarAlt,
   FaCar,
+  FaChartLine,
   FaCheckCircle,
   FaChevronLeft,
   FaChevronRight,
+  FaDollarSign,
   FaEdit,
   FaEye,
-  FaKey,
+  FaInbox,
   FaPlus,
+  FaReceipt,
+  FaTag,
   FaTrash,
-  FaWrench,
 } from "react-icons/fa";
 
-const CarRentalPage = () => {
+const CarSalePage = () => {
   return (
     <section>
       {/* Stats Cards */}
@@ -22,15 +24,15 @@ const CarRentalPage = () => {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Total Cars
+                Total for Sale
               </p>
               <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-white">
-                24
+                14
               </h3>
-              <p className="text-green-500 text-xs mt-1">+3 from last month</p>
+              <p className="text-green-500 text-xs mt-1">+2 from last month</p>
             </div>
             <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20">
-              <FaCar className="text-blue-500 text-xl" />
+              <FaTag className="text-blue-500 text-xl" />
             </div>
           </div>
         </div>
@@ -38,12 +40,12 @@ const CarRentalPage = () => {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Available Now
+                Available
               </p>
               <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-white">
-                16
+                10
               </h3>
-              <p className="text-green-500 text-xs mt-1">68% availability</p>
+              <p className="text-green-500 text-xs mt-1">71% available</p>
             </div>
             <div className="p-3 rounded-lg bg-green-50 dark:bg-green-900/20">
               <FaCheckCircle className="text-green-500 text-xl" />
@@ -54,15 +56,15 @@ const CarRentalPage = () => {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Currently Rented
+                Sold This Month
               </p>
               <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-white">
-                6
+                3
               </h3>
-              <p className="text-yellow-500 text-xs mt-1">2 return tomorrow</p>
+              <p className="text-yellow-500 text-xs mt-1">+1 from last week</p>
             </div>
             <div className="p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
-              <FaKey className="text-yellow-500 text-xl" />
+              <FaDollarSign className=" text-yellow-500 text-xl" />
             </div>
           </div>
         </div>
@@ -70,15 +72,17 @@ const CarRentalPage = () => {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Under Maintenance
+                Avg. Price
               </p>
               <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-white">
-                2
+                $28,500
               </h3>
-              <p className="text-red-500 text-xs mt-1">1 ready by Friday</p>
+              <p className="text-green-500 text-xs mt-1">
+                +5.2% from last month
+              </p>
             </div>
-            <div className="p-3 rounded-lg bg-red-50 dark:bg-red-900/20">
-              <FaWrench className="text-red-500 text-xl" />
+            <div className="p-3 rounded-lg bg-purple-50 dark:bg-purple-900/20">
+              <FaChartLine className=" text-purple-500 text-xl" />
             </div>
           </div>
         </div>
@@ -88,10 +92,10 @@ const CarRentalPage = () => {
         <div className="flex flex-col lg:flex-row lg:items-center justify-between">
           <div className="mb-4 lg:mb-0">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
-              Rental Cars Inventory
+              Cars for Sale Inventory
             </h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm">
-              Manage your fleet of rental vehicles
+              Manage vehicles available for purchase
             </p>
           </div>
           <Button size="sm">
@@ -105,7 +109,10 @@ const CarRentalPage = () => {
             All Cars
           </button>
           <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            Available
+            Under $20K
+          </button>
+          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
+            $20K-$40K
           </button>
           <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
             Luxury
@@ -114,14 +121,11 @@ const CarRentalPage = () => {
             SUV
           </button>
           <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            Economy
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
             Featured
           </button>
         </div>
       </div>
-      {/* Rental Cars Table */}
+      {/* Sale Cars Table */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
         <div className="table-responsive">
           <table className="w-full">
@@ -137,13 +141,13 @@ const CarRentalPage = () => {
                   Specifications
                 </th>
                 <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
-                  Daily Rate
+                  Price
                 </th>
                 <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
                   Status
                 </th>
                 <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
-                  Last Rental
+                  Days Listed
                 </th>
                 <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
                   Actions
@@ -160,13 +164,13 @@ const CarRentalPage = () => {
                     </div>
                     <div>
                       <p className="font-bold text-gray-800 dark:text-white">
-                        Toyota Camry 2023
+                        Honda Civic 2021
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        License: ABC123 • Color: White
+                        License: HND456 • Color: Blue
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        VIN: 1HGCM82633A123456
+                        VIN: 2HGFC2F50MH567890
                       </p>
                     </div>
                   </div>
@@ -182,41 +186,38 @@ const CarRentalPage = () => {
                 <td className="py-4 px-6">
                   <div className="space-y-1">
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Fuel:</span> Petrol
+                      <span className="font-medium">Year:</span> 2021
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Seats:</span> 5
+                      <span className="font-medium">Mileage:</span> 42,300 km
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Mileage:</span> 12,500 km
+                      <span className="font-medium">Condition:</span> Excellent
                     </p>
                   </div>
                 </td>
                 <td className="py-4 px-6">
                   <p className="font-bold text-gray-800 dark:text-white text-lg">
-                    $45
-                    <span className="text-gray-500 dark:text-gray-400 text-sm font-normal">
-                      /day
-                    </span>
+                    $19,500
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    $280/week
+                    $350/month financing
                   </p>
                 </td>
                 <td className="py-4 px-6">
-                  <span className="status-badge status-available">
+                  <span className="status-badge status-available-sale">
                     Available
                   </span>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                    Next booking: May 25
+                    4 inquiries
                   </p>
                 </td>
                 <td className="py-4 px-6">
                   <p className="font-medium text-gray-800 dark:text-white">
-                    John Smith
+                    12 days
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    May 12-19
+                    Listed: May 5
                   </p>
                 </td>
                 <td className="py-4 px-6">
@@ -235,9 +236,9 @@ const CarRentalPage = () => {
                     </button>
                     <button
                       className="p-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg"
-                      title="Manage Bookings"
+                      title="View Inquiries"
                     >
-                      <FaCalendarAlt />
+                      <FaInbox />
                     </button>
                     <button
                       className="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
@@ -257,20 +258,20 @@ const CarRentalPage = () => {
                     </div>
                     <div>
                       <p className="font-bold text-gray-800 dark:text-white">
-                        BMW X5 2022
+                        Ford F-150 2020
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        License: XYZ789 • Color: Black
+                        License: FRD789 • Color: Black
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        VIN: 5UXCR435XYA987654
+                        VIN: 1FTFW1RG5LFC12345
                       </p>
                     </div>
                   </div>
                 </td>
                 <td className="py-4 px-6">
                   <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs rounded-full font-medium">
-                    SUV
+                    Truck
                   </span>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
                     Automatic
@@ -279,39 +280,36 @@ const CarRentalPage = () => {
                 <td className="py-4 px-6">
                   <div className="space-y-1">
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Fuel:</span> Diesel
+                      <span className="font-medium">Year:</span> 2020
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Seats:</span> 5
+                      <span className="font-medium">Mileage:</span> 58,700 km
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Mileage:</span> 34,200 km
+                      <span className="font-medium">Condition:</span> Good
                     </p>
                   </div>
                 </td>
                 <td className="py-4 px-6">
                   <p className="font-bold text-gray-800 dark:text-white text-lg">
-                    $89
-                    <span className="text-gray-500 dark:text-gray-400 text-sm font-normal">
-                      /day
-                    </span>
+                    $34,900
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    $580/week
+                    $620/month financing
                   </p>
                 </td>
                 <td className="py-4 px-6">
-                  <span className="status-badge status-rented">Rented</span>
+                  <span className="status-badge status-sold">Sold</span>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                    Returns: May 20
+                    Sold: May 14
                   </p>
                 </td>
                 <td className="py-4 px-6">
                   <p className="font-medium text-gray-800 dark:text-white">
-                    Emma Johnson
+                    28 days
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    May 10-20
+                    Listed: Apr 16
                   </p>
                 </td>
                 <td className="py-4 px-6">
@@ -329,10 +327,10 @@ const CarRentalPage = () => {
                       <FaEye />
                     </button>
                     <button
-                      className="p-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg"
-                      title="Manage Bookings"
+                      className="p-2 text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg"
+                      title="View Sale"
                     >
-                      <FaCalendarAlt />
+                      <FaReceipt />
                     </button>
                     <button
                       className="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
@@ -347,25 +345,25 @@ const CarRentalPage = () => {
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                 <td className="py-4 px-6">
                   <div className="flex items-center">
-                    <div className="w-16 h-12 rounded-md bg-linear-to-r from-red-500 to-pink-500 flex items-center justify-center mr-4">
+                    <div className="w-16 h-12 rounded-md bg-linear-to-r from-amber-500 to-yellow-400 flex items-center justify-center mr-4">
                       <FaCar className="text-white text-lg" />
                     </div>
                     <div>
                       <p className="font-bold text-gray-800 dark:text-white">
-                        Tesla Model 3 2023
+                        Audi Q5 2019
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        License: TES123 • Color: Red
+                        License: AUD123 • Color: Silver
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        VIN: 5YJ3E1EA0PF123789
+                        VIN: WA1ANAFY1K2123456
                       </p>
                     </div>
                   </div>
                 </td>
                 <td className="py-4 px-6">
-                  <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 text-xs rounded-full font-medium">
-                    Electric
+                  <span className="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 text-xs rounded-full font-medium">
+                    Luxury SUV
                   </span>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
                     Automatic
@@ -374,39 +372,38 @@ const CarRentalPage = () => {
                 <td className="py-4 px-6">
                   <div className="space-y-1">
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Fuel:</span> Electric
+                      <span className="font-medium">Year:</span> 2019
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Seats:</span> 5
+                      <span className="font-medium">Mileage:</span> 65,400 km
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Mileage:</span> 8,900 km
+                      <span className="font-medium">Condition:</span> Very Good
                     </p>
                   </div>
                 </td>
                 <td className="py-4 px-6">
                   <p className="font-bold text-gray-800 dark:text-white text-lg">
-                    $99
-                    <span className="text-gray-500 dark:text-gray-400 text-sm font-normal">
-                      /day
-                    </span>
+                    $32,800
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    $650/week
+                    $580/month financing
                   </p>
                 </td>
                 <td className="py-4 px-6">
-                  <span className="status-badge status-reserved">Reserved</span>
+                  <span className="status-badge status-available-sale">
+                    Available
+                  </span>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                    From: May 22
+                    7 inquiries
                   </p>
                 </td>
                 <td className="py-4 px-6">
                   <p className="font-medium text-gray-800 dark:text-white">
-                    Michael Chen
+                    9 days
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    Apr 28-May 5
+                    Listed: May 8
                   </p>
                 </td>
                 <td className="py-4 px-6">
@@ -425,9 +422,9 @@ const CarRentalPage = () => {
                     </button>
                     <button
                       className="p-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg"
-                      title="Manage Bookings"
+                      title="View Inquiries"
                     >
-                      <FaCalendarAlt />
+                      <FaInbox />
                     </button>
                     <button
                       className="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
@@ -442,68 +439,65 @@ const CarRentalPage = () => {
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                 <td className="py-4 px-6">
                   <div className="flex items-center">
-                    <div className="w-16 h-12 rounded-md bg-linear-to-r from-amber-500 to-yellow-400 flex items-center justify-center mr-4">
+                    <div className="w-16 h-12 rounded-md bg-linear-to-r from-red-500 to-pink-500 flex items-center justify-center mr-4">
                       <FaCar className="text-white text-lg" />
                     </div>
                     <div>
                       <p className="font-bold text-gray-800 dark:text-white">
-                        Mercedes C-Class 2022
+                        Chevrolet Camaro 2022
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        License: MBZ456 • Color: Silver
+                        License: CAM789 • Color: Red
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        VIN: WDDWF5EB2N1234567
+                        VIN: 1G1FH1R72N0123456
                       </p>
                     </div>
                   </div>
                 </td>
                 <td className="py-4 px-6">
-                  <span className="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 text-xs rounded-full font-medium">
-                    Luxury
+                  <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 text-xs rounded-full font-medium">
+                    Sports Car
                   </span>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                    Automatic
+                    Manual
                   </p>
                 </td>
                 <td className="py-4 px-6">
                   <div className="space-y-1">
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Fuel:</span> Petrol
+                      <span className="font-medium">Year:</span> 2022
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Seats:</span> 5
+                      <span className="font-medium">Mileage:</span> 12,800 km
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="font-medium">Mileage:</span> 18,000 km
+                      <span className="font-medium">Condition:</span> Like New
                     </p>
                   </div>
                 </td>
                 <td className="py-4 px-6">
                   <p className="font-bold text-gray-800 dark:text-white text-lg">
-                    $75
-                    <span className="text-gray-500 dark:text-gray-400 text-sm font-normal">
-                      /day
-                    </span>
+                    $42,500
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    $490/week
+                    $750/month financing
                   </p>
                 </td>
                 <td className="py-4 px-6">
-                  <span className="status-badge status-maintenance">
-                    Maintenance
+                  <span className="status-badge status-available-sale">
+                    Available
                   </span>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                    Ready: May 19
+                    2 test drives scheduled
                   </p>
                 </td>
                 <td className="py-4 px-6">
                   <p className="font-medium text-gray-800 dark:text-white">
-                    Sarah Davis
+                    5 days
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    May 5-12
+                    Listed: May 12
                   </p>
                 </td>
                 <td className="py-4 px-6">
@@ -521,10 +515,10 @@ const CarRentalPage = () => {
                       <FaEye />
                     </button>
                     <button
-                      className="p-2 text-orange-600 hover:bg-orange-100 dark:hover:bg-orange-900/20 rounded-lg"
-                      title="Service History"
+                      className="p-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg"
+                      title="View Inquiries"
                     >
-                      <FaWrench />
+                      <FaInbox />
                     </button>
                     <button
                       className="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
@@ -552,7 +546,7 @@ const CarRentalPage = () => {
               </span>
               of
               <span className="font-medium text-gray-700 dark:text-gray-300">
-                24
+                14
               </span>
               cars
             </p>
@@ -583,4 +577,4 @@ const CarRentalPage = () => {
   );
 };
 
-export default CarRentalPage;
+export default CarSalePage;
