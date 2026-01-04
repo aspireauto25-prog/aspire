@@ -1,14 +1,30 @@
 import { FaBell } from "react-icons/fa";
 
-import Logo from "../Logo";
 import Theme from "../Theme";
 
-const AdminHeader = () => {
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const AdminHeader = ({
+  title = "Aspire Automotive",
+  subtitle = "Car Rental, Service & Sales",
+}: Props) => {
   return (
-    <header className="fixed w-full top-0 z-50 bg-white dark:bg-gray-800 shadow-sm">
+    <header className="sticky w-full top-0 z-10 bg-white dark:bg-gray-800 shadow-sm">
       <div className="px-6 py-4">
         <div className="flex flex-row md:items-center justify-between">
-          <Logo />
+          <div>
+            <h1 className="hidden md:block text-2xl font-bold text-gray-800 dark:text-white">
+              {title}
+            </h1>
+            {subtitle && (
+              <p className="hidden md:block text-gray-500 dark:text-gray-400">
+                {subtitle}
+              </p>
+            )}
+          </div>
 
           <div className="flex items-center gap-4">
             {/* Notifications */}
@@ -25,10 +41,10 @@ const AdminHeader = () => {
             <div className="relative">
               <button className="flex items-center gap-2 rounded-lg dark:hover:bg-dark-700">
                 <div className="w-10 h-10 rounded-full bg-linear-to-r from-primary to-orange-500 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">AJ</span>
+                  <span className="text-white font-bold text-sm">AU</span>
                 </div>
                 <span className="hidden md:inline font-medium text-gray-700 dark:text-gray-300">
-                  Admin
+                  Admin User
                 </span>
               </button>
             </div>
