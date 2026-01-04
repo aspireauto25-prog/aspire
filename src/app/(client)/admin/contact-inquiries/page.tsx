@@ -94,13 +94,14 @@ const ContactInquiresPage = () => {
       <div className="mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 ">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between">
           <div className="mb-4 lg:mb-0">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
               All Contact Inquiries
             </h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm">
               Manage customer inquiries from website contact forms
             </p>
           </div>
+
           <div className="flex flex-wrap gap-3">
             <Button size="sm">
               <FaPlus />
@@ -136,12 +137,6 @@ const ContactInquiresPage = () => {
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="text-left py-4 px-6">
-                  <input
-                    type="checkbox"
-                    className="rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
-                  />
-                </th>
                 <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
                   Customer
                 </th>
@@ -168,12 +163,6 @@ const ContactInquiresPage = () => {
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {/* Row 1 */}
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                <td className="py-4 px-6">
-                  <input
-                    type="checkbox"
-                    className="rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
-                  />
-                </td>
                 <td className="py-4 px-6">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 flex items-center justify-center mr-3">
@@ -248,12 +237,6 @@ const ContactInquiresPage = () => {
               {/* Row 2 */}
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                 <td className="py-4 px-6">
-                  <input
-                    type="checkbox"
-                    className="rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
-                  />
-                </td>
-                <td className="py-4 px-6">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-linear-to-r from-green-500 to-emerald-400 flex items-center justify-center mr-3">
                       <span className="text-white font-bold">LT</span>
@@ -326,12 +309,6 @@ const ContactInquiresPage = () => {
               </tr>
               {/* Row 3 */}
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                <td className="py-4 px-6">
-                  <input
-                    type="checkbox"
-                    className="rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
-                  />
-                </td>
                 <td className="py-4 px-6">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-linear-to-r from-purple-500 to-pink-400 flex items-center justify-center mr-3">
@@ -409,12 +386,6 @@ const ContactInquiresPage = () => {
               {/* Row 4 */}
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                 <td className="py-4 px-6">
-                  <input
-                    type="checkbox"
-                    className="rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
-                  />
-                </td>
-                <td className="py-4 px-6">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-linear-to-r from-orange-500 to-amber-400 flex items-center justify-center mr-3">
                       <span className="text-white font-bold">SG</span>
@@ -489,12 +460,6 @@ const ContactInquiresPage = () => {
               {/* Row 5 */}
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                 <td className="py-4 px-6">
-                  <input
-                    type="checkbox"
-                    className="rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
-                  />
-                </td>
-                <td className="py-4 px-6">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-linear-to-r from-red-500 to-rose-400 flex items-center justify-center mr-3">
                       <span className="text-white font-bold">DW</span>
@@ -568,12 +533,6 @@ const ContactInquiresPage = () => {
               </tr>
               {/* Row 6 */}
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                <td className="py-4 px-6">
-                  <input
-                    type="checkbox"
-                    className="rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
-                  />
-                </td>
                 <td className="py-4 px-6">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-linear-to-r from-gray-500 to-slate-400 flex items-center justify-center mr-3">
