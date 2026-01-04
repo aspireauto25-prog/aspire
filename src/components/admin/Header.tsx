@@ -38,7 +38,7 @@ const AdminHeader = ({
             {/* User Menu */}
             <div className="relative">
               <button className="flex items-center gap-2 rounded-lg dark:hover:bg-dark-700">
-                <div className="w-10 h-10 rounded-full bg-linear-to-r from-primary to-orange-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-linear-to-r from-primary to-red-700 flex items-center justify-center">
                   <span className="text-white font-bold text-sm">AU</span>
                 </div>
                 <span className="hidden md:inline font-medium text-gray-700 dark:text-gray-300">
