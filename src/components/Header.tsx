@@ -4,7 +4,7 @@ import { FaBars, FaCalendarAlt } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-import { CONTACT_ROUTE, HOME_ROUTE } from "@/constants/routes";
+import { ADMIN_ROUTE, CONTACT_ROUTE, HOME_ROUTE } from "@/constants/routes";
 import LinkButton from "./LinkButton";
 import Logo from "./Logo";
 import navlinks from "@/constants/navlinks";
@@ -14,6 +14,9 @@ const Header = () => {
   const pathname = usePathname();
 
   const isHomeRoute = pathname === HOME_ROUTE;
+  const isAdminRoute = pathname.startsWith(ADMIN_ROUTE);
+
+  if (isAdminRoute) return <></>;
 
   return (
     <header

@@ -1,14 +1,23 @@
+"use client";
+
 import { FaEnvelope, FaMapLocationDot, FaPhone } from "react-icons/fa6";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-import { HOME_ROUTE } from "@/constants/routes";
+import { ADMIN_ROUTE, HOME_ROUTE } from "@/constants/routes";
 import { socialLinks } from "@/data/contact";
 import config from "@/config";
 import logoLight from "@/assets/images/logo-light.png";
 import navlinks from "@/constants/navlinks";
 
 const Footer = () => {
+  const pathname = usePathname();
+
+  const isAdminRoute = pathname.startsWith(ADMIN_ROUTE);
+
+  if (isAdminRoute) return <></>;
+
   return (
     <footer className="bg-gray-900 text-white py-16 relative overflow-hidden">
       {/* Animated elements */}
