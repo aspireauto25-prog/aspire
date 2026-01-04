@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Management | CarRental Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ff1616",
+              dark: {
+                50: "#f9fafb",
+                100: "#f3f4f6",
+                200: "#e5e7eb",
+                300: "#d1d5db",
+                400: "#9ca3af",
+                500: "#6b7280",
+                600: "#4b5563",
+                700: "#374151",
+                800: "#1f2937",
+                900: "#111827",
+                950: "#030712",
+              },
+            },
+            fontFamily: {
+              poppins: ["Poppins", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .tab-active {
+        background-color: #ff1616;
+        color: white;
+      }
+
+      .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: inline-block;
+      }
+
+      .status-available {
+        background-color: #d1fae5;
+        color: #065f46;
+      }
+
+      .dark .status-available {
+        background-color: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+      }
+
+      .status-rented {
+        background-color: #fef3c7;
+        color: #92400e;
+      }
+
+      .dark .status-rented {
+        background-color: rgba(251, 191, 36, 0.2);
+        color: #fbbf24;
+      }
+
+      .status-maintenance {
+        background-color: #fee2e2;
+        color: #991b1b;
+      }
+
+      .dark .status-maintenance {
+        background-color: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+      }
+
+      .status-reserved {
+        background-color: #dbeafe;
+        color: #1e40af;
+      }
+
+      .dark .status-reserved {
+        background-color: rgba(59, 130, 246, 0.2);
+        color: #3b82f6;
+      }
+
+      .status-sold {
+        background-color: #f3f4f6;
+        color: #4b5563;
+      }
+
+      .dark .status-sold {
+        background-color: rgba(107, 114, 128, 0.2);
+        color: #9ca3af;
+      }
+
+      .status-available-sale {
+        background-color: #d1fae5;
+        color: #065f46;
+      }
+
+      .dark .status-available-sale {
+        background-color: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+      }
+
+      .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      @media (max-width: 768px) {
+        .table-responsive table {
+          min-width: 1000px;
+        }
+      }
+
+      .car-image {
+        width: 60px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+
+      .modal {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .modal.open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-content {
+        transform: translateY(-20px);
+        transition: transform 0.3s ease;
+      }
+
+      .modal.open .modal-content {
+        transform: translateY(0);
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+
+      .dark ::-webkit-scrollbar-track {
+        background: #374151;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+      }
+
+      .dark ::-webkit-scrollbar-thumb {
+        background: #6b7280;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #a1a1a1;
+      }
+
+      .dark ::-webkit-scrollbar-thumb:hover {
+        background: #9ca3af;
+      }
+    </style>
+  </head>
+  <body
+    class="font-poppins bg-gray-50 dark:bg-dark-900 text-gray-800 dark:text-gray-200"
+  >
+    <!-- Top Navigation -->
+    <div
+      class="sticky top-0 z-30 bg-white dark:bg-dark-800 shadow-sm border-b dark:border-dark-700"
+    >
+      <div class="px-6 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div
+              class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center mr-3"
+            >
+              <i class="fas fa-car text-white"></i>
+            </div>
+            <div>
+              <h1 class="text-xl font-bold text-gray-800 dark:text-white">
+                Car Management
+              </h1>
+              <p class="text-gray-500 dark:text-gray-400 text-sm">
+                Admin Panel
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <!-- Dark Mode Toggle -->
+            <button
+              id="darkModeToggle"
+              class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700"
+            >
+              <i class="fas fa-moon text-gray-600 dark:text-gray-400"></i>
+            </button>
+
+            <!-- Notifications -->
+            <div class="relative">
+              <button
+                class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700 relative"
+              >
+                <i class="fas fa-bell text-gray-600 dark:text-gray-400"></i>
+                <span
+                  class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"
+                ></span>
+              </button>
+            </div>
+
+            <!-- User Menu -->
+            <div class="flex items-center space-x-2">
+              <div
+                class="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-orange-500 flex items-center justify-center"
+              >
+                <span class="text-white font-bold text-sm">AJ</span>
+              </div>
+              <span
+                class="font-medium text-gray-700 dark:text-gray-300 hidden md:inline"
+                >Admin</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Page Tabs -->
+      <div class="border-b dark:border-dark-700">
+        <div class="px-6">
+          <div class="flex space-x-1">
+            <button
+              id="rentTab"
+              class="tab-active px-4 py-3 rounded-t-lg font-medium transition-colors duration-200"
+            >
+              <i class="fas fa-car mr-2"></i>Cars for Rent
+            </button>
+            <button
+              id="saleTab"
+              class="px-4 py-3 rounded-t-lg font-medium hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors duration-200"
+            >
+              <i class="fas fa-tag mr-2"></i>Cars for Sale
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="p-6">
+      <!-- Cars for Rent Page -->
+      <div id="rentPage" class="space-y-6">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            class="bg-white dark:bg-dark-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-dark-700"
+          >
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                  Total Cars
+                </p>
+                <h3
+                  class="text-2xl font-bold mt-2 text-gray-800 dark:text-white"
+                >
+                  24
+                </h3>
+                <p class="text-green-500 text-xs mt-1">+3 from last month</p>
+              </div>
+              <div class="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20">
+                <i class="fas fa-car text-blue-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-white dark:bg-dark-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-dark-700"
+          >
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                  Available Now
+                </p>
+                <h3
+                  class="text-2xl font-bold mt-2 text-gray-800 dark:text-white"
+                >
+                  16
+                </h3>
+                <p class="text-green-500 text-xs mt-1">68% availability</p>
+              </div>
+              <div class="p-3 rounded-lg bg-green-50 dark:bg-green-900/20">
+                <i class="fas fa-check-circle text-green-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-white dark:bg-dark-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-dark-700"
+          >
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                  Currently Rented
+                </p>
+                <h3
+                  class="text-2xl font-bold mt-2 text-gray-800 dark:text-white"
+                >
+                  6
+                </h3>
+                <p class="text-yellow-500 text-xs mt-1">2 return tomorrow</p>
+              </div>
+              <div class="p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
+                <i class="fas fa-key text-yellow-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-white dark:bg-dark-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-dark-700"
+          >
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                  Under Maintenance
+                </p>
+                <h3
+                  class="text-2xl font-bold mt-2 text-gray-800 dark:text-white"
+                >
+                  2
+                </h3>
+                <p class="text-red-500 text-xs mt-1">1 ready by Friday</p>
+              </div>
+              <div class="p-3 rounded-lg bg-red-50 dark:bg-red-900/20">
+                <i class="fas fa-wrench text-red-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div
+          class="bg-white dark:bg-dark-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-dark-700"
+        >
+          <div
+            class="flex flex-col lg:flex-row lg:items-center justify-between"
+          >
+            <div class="mb-4 lg:mb-0">
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                Rental Cars Inventory
+              </h3>
+              <p class="text-gray-500 dark:text-gray-400 text-sm">
+                Manage your fleet of rental vehicles
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <button
+                onclick="openAddCarModal('rent')"
+                class="px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-red-700 transition-colors duration-200"
+              >
+                <i class="fas fa-plus mr-2"></i>Add New Car
+              </button>
+              <button
+                class="px-4 py-2 bg-white dark:bg-dark-700 border border-gray-300 dark:border-dark-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-dark-600"
+              >
+                <i class="fas fa-download mr-2"></i>Export
+              </button>
+              <button
+                class="px-4 py-2 bg-white dark:bg-dark-700 border border-gray-300 dark:border-dark-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-dark-600"
+              >
+                <i class="fas fa-filter mr-2"></i>Filter
+              </button>
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="Search cars..."
+                  class="pl-10 pr-4 py-2 w-full lg:w-64 border border-gray-300 dark:border-dark-600 rounded-lg bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <i
+                  class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Filters -->
+          <div class="mt-6 flex flex-wrap gap-2">
+            <button
+              class="px-3 py-1.5 bg-primary text-white text-sm rounded-lg font-medium"
+            >
+              All Cars
+            </button>
+            <button
+              class="px-3 py-1.5 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-dark-600"
+            >
+              Available
+            </button>
+            <button
+              class="px-3 py-1.5 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-dark-600"
+            >
+              Luxury
+            </button>
+            <button
+              class="px-3 py-1.5 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-dark-600"
+            >
+              SUV
+            </button>
+            <button
+              class="px-3 py-1.5 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-dark-600"
+            >
+              Economy
+            </button>
+            <button
+              class="px-3 py-1.5 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-dark-600"
+            >
+              Featured
+            </button>
+          </div>
+        </div>
+
+        <!-- Rental Cars Table -->
+        <div
+          class="bg-white dark:bg-dark-800 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-dark-700"
+        >
+          <div class="table-responsive">
+            <table class="w-full">
+              <thead class="bg-gray-50 dark:bg-dark-700">
+                <tr>
+                  <th class="text-left py-4 px-6">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
+                    />
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Car Details
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Type
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Specifications
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Daily Rate
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Status
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Last Rental
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-dark-700">
+                <!-- Car 1 -->
+                <tr class="hover:bg-gray-50 dark:hover:bg-dark-700/50">
+                  <td class="py-4 px-6">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
+                    />
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex items-center">
+                      <div
+                        class="w-16 h-12 rounded-md bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center mr-4"
+                      >
+                        <i class="fas fa-car text-white text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="font-bold text-gray-800 dark:text-white">
+                          Toyota Camry 2023
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          License: ABC123 • Color: White
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          VIN: 1HGCM82633A123456
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span
+                      class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium"
+                      >Sedan</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Automatic
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="space-y-1">
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Fuel:</span> Petrol
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Seats:</span> 5
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Mileage:</span> 12,500 km
+                      </p>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-bold text-gray-800 dark:text-white text-lg">
+                      $45<span
+                        class="text-gray-500 dark:text-gray-400 text-sm font-normal"
+                        >/day</span
+                      >
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      $280/week
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span class="status-badge status-available">Available</span>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Next booking: May 25
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-medium text-gray-800 dark:text-white">
+                      John Smith
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      May 12-19
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex space-x-2">
+                      <button
+                        onclick="openEditCarModal('rent', 1)"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/20 rounded-lg"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="p-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg"
+                        title="Manage Bookings"
+                      >
+                        <i class="fas fa-calendar-alt"></i>
+                      </button>
+                      <button
+                        onclick="deleteCar('rent', 1)"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
+                        title="Delete"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Car 2 -->
+                <tr class="hover:bg-gray-50 dark:hover:bg-dark-700/50">
+                  <td class="py-4 px-6">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
+                    />
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex items-center">
+                      <div
+                        class="w-16 h-12 rounded-md bg-gradient-to-r from-gray-800 to-gray-600 flex items-center justify-center mr-4"
+                      >
+                        <i class="fas fa-car text-white text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="font-bold text-gray-800 dark:text-white">
+                          BMW X5 2022
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          License: XYZ789 • Color: Black
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          VIN: 5UXCR435XYA987654
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span
+                      class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs rounded-full font-medium"
+                      >SUV</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Automatic
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="space-y-1">
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Fuel:</span> Diesel
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Seats:</span> 5
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Mileage:</span> 34,200 km
+                      </p>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-bold text-gray-800 dark:text-white text-lg">
+                      $89<span
+                        class="text-gray-500 dark:text-gray-400 text-sm font-normal"
+                        >/day</span
+                      >
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      $580/week
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span class="status-badge status-rented">Rented</span>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Returns: May 20
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-medium text-gray-800 dark:text-white">
+                      Emma Johnson
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      May 10-20
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex space-x-2">
+                      <button
+                        onclick="openEditCarModal('rent', 2)"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/20 rounded-lg"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="p-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg"
+                        title="Manage Bookings"
+                      >
+                        <i class="fas fa-calendar-alt"></i>
+                      </button>
+                      <button
+                        onclick="deleteCar('rent', 2)"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
+                        title="Delete"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Car 3 -->
+                <tr class="hover:bg-gray-50 dark:hover:bg-dark-700/50">
+                  <td class="py-4 px-6">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
+                    />
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex items-center">
+                      <div
+                        class="w-16 h-12 rounded-md bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center mr-4"
+                      >
+                        <i class="fas fa-car text-white text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="font-bold text-gray-800 dark:text-white">
+                          Tesla Model 3 2023
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          License: TES123 • Color: Red
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          VIN: 5YJ3E1EA0PF123789
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span
+                      class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 text-xs rounded-full font-medium"
+                      >Electric</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Automatic
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="space-y-1">
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Fuel:</span> Electric
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Seats:</span> 5
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Mileage:</span> 8,900 km
+                      </p>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-bold text-gray-800 dark:text-white text-lg">
+                      $99<span
+                        class="text-gray-500 dark:text-gray-400 text-sm font-normal"
+                        >/day</span
+                      >
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      $650/week
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span class="status-badge status-reserved">Reserved</span>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      From: May 22
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-medium text-gray-800 dark:text-white">
+                      Michael Chen
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      Apr 28-May 5
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex space-x-2">
+                      <button
+                        onclick="openEditCarModal('rent', 3)"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/20 rounded-lg"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="p-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg"
+                        title="Manage Bookings"
+                      >
+                        <i class="fas fa-calendar-alt"></i>
+                      </button>
+                      <button
+                        onclick="deleteCar('rent', 3)"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
+                        title="Delete"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Car 4 -->
+                <tr class="hover:bg-gray-50 dark:hover:bg-dark-700/50">
+                  <td class="py-4 px-6">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
+                    />
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex items-center">
+                      <div
+                        class="w-16 h-12 rounded-md bg-gradient-to-r from-amber-500 to-yellow-400 flex items-center justify-center mr-4"
+                      >
+                        <i class="fas fa-car text-white text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="font-bold text-gray-800 dark:text-white">
+                          Mercedes C-Class 2022
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          License: MBZ456 • Color: Silver
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          VIN: WDDWF5EB2N1234567
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span
+                      class="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 text-xs rounded-full font-medium"
+                      >Luxury</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Automatic
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="space-y-1">
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Fuel:</span> Petrol
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Seats:</span> 5
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Mileage:</span> 18,000 km
+                      </p>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-bold text-gray-800 dark:text-white text-lg">
+                      $75<span
+                        class="text-gray-500 dark:text-gray-400 text-sm font-normal"
+                        >/day</span
+                      >
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      $490/week
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span class="status-badge status-maintenance"
+                      >Maintenance</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Ready: May 19
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-medium text-gray-800 dark:text-white">
+                      Sarah Davis
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      May 5-12
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex space-x-2">
+                      <button
+                        onclick="openEditCarModal('rent', 4)"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/20 rounded-lg"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="p-2 text-orange-600 hover:bg-orange-100 dark:hover:bg-orange-900/20 rounded-lg"
+                        title="Service History"
+                      >
+                        <i class="fas fa-wrench"></i>
+                      </button>
+                      <button
+                        onclick="deleteCar('rent', 4)"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
+                        title="Delete"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer -->
+          <div
+            class="px-6 py-4 border-t border-gray-200 dark:border-dark-700 flex flex-col md:flex-row md:items-center justify-between"
+          >
+            <div class="mb-4 md:mb-0">
+              <p class="text-gray-500 dark:text-gray-400 text-sm">
+                Showing
+                <span class="font-medium text-gray-700 dark:text-gray-300"
+                  >1</span
+                >
+                to
+                <span class="font-medium text-gray-700 dark:text-gray-300"
+                  >4</span
+                >
+                of
+                <span class="font-medium text-gray-700 dark:text-gray-300"
+                  >24</span
+                >
+                cars
+              </p>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <button
+                class="px-3 py-1.5 border border-gray-300 dark:border-dark-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button
+                class="px-3 py-1.5 bg-primary text-white rounded-lg text-sm"
+              >
+                1
+              </button>
+              <button
+                class="px-3 py-1.5 border border-gray-300 dark:border-dark-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                2
+              </button>
+              <button
+                class="px-3 py-1.5 border border-gray-300 dark:border-dark-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                3
+              </button>
+              <button
+                class="px-3 py-1.5 border border-gray-300 dark:border-dark-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                4
+              </button>
+              <button
+                class="px-3 py-1.5 border border-gray-300 dark:border-dark-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cars for Sale Page (Hidden by default) -->
+      <div id="salePage" class="hidden space-y-6">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            class="bg-white dark:bg-dark-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-dark-700"
+          >
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                  Total for Sale
+                </p>
+                <h3
+                  class="text-2xl font-bold mt-2 text-gray-800 dark:text-white"
+                >
+                  14
+                </h3>
+                <p class="text-green-500 text-xs mt-1">+2 from last month</p>
+              </div>
+              <div class="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20">
+                <i class="fas fa-tag text-blue-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-white dark:bg-dark-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-dark-700"
+          >
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                  Available
+                </p>
+                <h3
+                  class="text-2xl font-bold mt-2 text-gray-800 dark:text-white"
+                >
+                  10
+                </h3>
+                <p class="text-green-500 text-xs mt-1">71% available</p>
+              </div>
+              <div class="p-3 rounded-lg bg-green-50 dark:bg-green-900/20">
+                <i class="fas fa-check-circle text-green-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-white dark:bg-dark-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-dark-700"
+          >
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                  Sold This Month
+                </p>
+                <h3
+                  class="text-2xl font-bold mt-2 text-gray-800 dark:text-white"
+                >
+                  3
+                </h3>
+                <p class="text-yellow-500 text-xs mt-1">+1 from last week</p>
+              </div>
+              <div class="p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
+                <i class="fas fa-dollar-sign text-yellow-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-white dark:bg-dark-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-dark-700"
+          >
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                  Avg. Price
+                </p>
+                <h3
+                  class="text-2xl font-bold mt-2 text-gray-800 dark:text-white"
+                >
+                  $28,500
+                </h3>
+                <p class="text-green-500 text-xs mt-1">+5.2% from last month</p>
+              </div>
+              <div class="p-3 rounded-lg bg-purple-50 dark:bg-purple-900/20">
+                <i class="fas fa-chart-line text-purple-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div
+          class="bg-white dark:bg-dark-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-dark-700"
+        >
+          <div
+            class="flex flex-col lg:flex-row lg:items-center justify-between"
+          >
+            <div class="mb-4 lg:mb-0">
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                Cars for Sale Inventory
+              </h3>
+              <p class="text-gray-500 dark:text-gray-400 text-sm">
+                Manage vehicles available for purchase
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <button
+                onclick="openAddCarModal('sale')"
+                class="px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-red-700 transition-colors duration-200"
+              >
+                <i class="fas fa-plus mr-2"></i>Add New Car
+              </button>
+              <button
+                class="px-4 py-2 bg-white dark:bg-dark-700 border border-gray-300 dark:border-dark-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-dark-600"
+              >
+                <i class="fas fa-download mr-2"></i>Export
+              </button>
+              <button
+                class="px-4 py-2 bg-white dark:bg-dark-700 border border-gray-300 dark:border-dark-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-dark-600"
+              >
+                <i class="fas fa-filter mr-2"></i>Filter
+              </button>
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="Search cars..."
+                  class="pl-10 pr-4 py-2 w-full lg:w-64 border border-gray-300 dark:border-dark-600 rounded-lg bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <i
+                  class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Filters -->
+          <div class="mt-6 flex flex-wrap gap-2">
+            <button
+              class="px-3 py-1.5 bg-primary text-white text-sm rounded-lg font-medium"
+            >
+              All Cars
+            </button>
+            <button
+              class="px-3 py-1.5 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-dark-600"
+            >
+              Under $20K
+            </button>
+            <button
+              class="px-3 py-1.5 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-dark-600"
+            >
+              $20K-$40K
+            </button>
+            <button
+              class="px-3 py-1.5 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-dark-600"
+            >
+              Luxury
+            </button>
+            <button
+              class="px-3 py-1.5 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-dark-600"
+            >
+              SUV
+            </button>
+            <button
+              class="px-3 py-1.5 bg-gray-100 dark:bg-dark-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-dark-600"
+            >
+              Featured
+            </button>
+          </div>
+        </div>
+
+        <!-- Sale Cars Table -->
+        <div
+          class="bg-white dark:bg-dark-800 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-dark-700"
+        >
+          <div class="table-responsive">
+            <table class="w-full">
+              <thead class="bg-gray-50 dark:bg-dark-700">
+                <tr>
+                  <th class="text-left py-4 px-6">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
+                    />
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Car Details
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Type
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Specifications
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Price
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Status
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Days Listed
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium"
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-dark-700">
+                <!-- Car 1 -->
+                <tr class="hover:bg-gray-50 dark:hover:bg-dark-700/50">
+                  <td class="py-4 px-6">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
+                    />
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex items-center">
+                      <div
+                        class="w-16 h-12 rounded-md bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center mr-4"
+                      >
+                        <i class="fas fa-car text-white text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="font-bold text-gray-800 dark:text-white">
+                          Honda Civic 2021
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          License: HND456 • Color: Blue
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          VIN: 2HGFC2F50MH567890
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span
+                      class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium"
+                      >Sedan</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Automatic
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="space-y-1">
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Year:</span> 2021
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Mileage:</span> 42,300 km
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Condition:</span> Excellent
+                      </p>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-bold text-gray-800 dark:text-white text-lg">
+                      $19,500
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      $350/month financing
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span class="status-badge status-available-sale"
+                      >Available</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      4 inquiries
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-medium text-gray-800 dark:text-white">
+                      12 days
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      Listed: May 5
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex space-x-2">
+                      <button
+                        onclick="openEditCarModal('sale', 1)"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/20 rounded-lg"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="p-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg"
+                        title="View Inquiries"
+                      >
+                        <i class="fas fa-inbox"></i>
+                      </button>
+                      <button
+                        onclick="deleteCar('sale', 1)"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
+                        title="Delete"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Car 2 -->
+                <tr class="hover:bg-gray-50 dark:hover:bg-dark-700/50">
+                  <td class="py-4 px-6">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
+                    />
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex items-center">
+                      <div
+                        class="w-16 h-12 rounded-md bg-gradient-to-r from-gray-800 to-gray-600 flex items-center justify-center mr-4"
+                      >
+                        <i class="fas fa-car text-white text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="font-bold text-gray-800 dark:text-white">
+                          Ford F-150 2020
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          License: FRD789 • Color: Black
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          VIN: 1FTFW1RG5LFC12345
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span
+                      class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs rounded-full font-medium"
+                      >Truck</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Automatic
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="space-y-1">
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Year:</span> 2020
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Mileage:</span> 58,700 km
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Condition:</span> Good
+                      </p>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-bold text-gray-800 dark:text-white text-lg">
+                      $34,900
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      $620/month financing
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span class="status-badge status-sold">Sold</span>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Sold: May 14
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-medium text-gray-800 dark:text-white">
+                      28 days
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      Listed: Apr 16
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex space-x-2">
+                      <button
+                        onclick="openEditCarModal('sale', 2)"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/20 rounded-lg"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="p-2 text-gray-600 hover:bg-gray-100 dark:hover:bg-dark-600 rounded-lg"
+                        title="View Sale"
+                      >
+                        <i class="fas fa-receipt"></i>
+                      </button>
+                      <button
+                        onclick="deleteCar('sale', 2)"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
+                        title="Delete"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Car 3 -->
+                <tr class="hover:bg-gray-50 dark:hover:bg-dark-700/50">
+                  <td class="py-4 px-6">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
+                    />
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex items-center">
+                      <div
+                        class="w-16 h-12 rounded-md bg-gradient-to-r from-amber-500 to-yellow-400 flex items-center justify-center mr-4"
+                      >
+                        <i class="fas fa-car text-white text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="font-bold text-gray-800 dark:text-white">
+                          Audi Q5 2019
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          License: AUD123 • Color: Silver
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          VIN: WA1ANAFY1K2123456
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span
+                      class="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 text-xs rounded-full font-medium"
+                      >Luxury SUV</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Automatic
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="space-y-1">
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Year:</span> 2019
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Mileage:</span> 65,400 km
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Condition:</span> Very Good
+                      </p>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-bold text-gray-800 dark:text-white text-lg">
+                      $32,800
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      $580/month financing
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span class="status-badge status-available-sale"
+                      >Available</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      7 inquiries
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-medium text-gray-800 dark:text-white">
+                      9 days
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      Listed: May 8
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex space-x-2">
+                      <button
+                        onclick="openEditCarModal('sale', 3)"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/20 rounded-lg"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="p-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg"
+                        title="View Inquiries"
+                      >
+                        <i class="fas fa-inbox"></i>
+                      </button>
+                      <button
+                        onclick="deleteCar('sale', 3)"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
+                        title="Delete"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Car 4 -->
+                <tr class="hover:bg-gray-50 dark:hover:bg-dark-700/50">
+                  <td class="py-4 px-6">
+                    <input
+                      type="checkbox"
+                      class="rounded border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
+                    />
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex items-center">
+                      <div
+                        class="w-16 h-12 rounded-md bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center mr-4"
+                      >
+                        <i class="fas fa-car text-white text-lg"></i>
+                      </div>
+                      <div>
+                        <p class="font-bold text-gray-800 dark:text-white">
+                          Chevrolet Camaro 2022
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          License: CAM789 • Color: Red
+                        </p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                          VIN: 1G1FH1R72N0123456
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span
+                      class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 text-xs rounded-full font-medium"
+                      >Sports Car</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      Manual
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="space-y-1">
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Year:</span> 2022
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Mileage:</span> 12,800 km
+                      </p>
+                      <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <span class="font-medium">Condition:</span> Like New
+                      </p>
+                    </div>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-bold text-gray-800 dark:text-white text-lg">
+                      $42,500
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      $750/month financing
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <span class="status-badge status-available-sale"
+                      >Available</span
+                    >
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      2 test drives scheduled
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <p class="font-medium text-gray-800 dark:text-white">
+                      5 days
+                    </p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                      Listed: May 12
+                    </p>
+                  </td>
+                  <td class="py-4 px-6">
+                    <div class="flex space-x-2">
+                      <button
+                        onclick="openEditCarModal('sale', 4)"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="p-2 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/20 rounded-lg"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="p-2 text-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/20 rounded-lg"
+                        title="View Inquiries"
+                      >
+                        <i class="fas fa-inbox"></i>
+                      </button>
+                      <button
+                        onclick="deleteCar('sale', 4)"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
+                        title="Delete"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer -->
+          <div
+            class="px-6 py-4 border-t border-gray-200 dark:border-dark-700 flex flex-col md:flex-row md:items-center justify-between"
+          >
+            <div class="mb-4 md:mb-0">
+              <p class="text-gray-500 dark:text-gray-400 text-sm">
+                Showing
+                <span class="font-medium text-gray-700 dark:text-gray-300"
+                  >1</span
+                >
+                to
+                <span class="font-medium text-gray-700 dark:text-gray-300"
+                  >4</span
+                >
+                of
+                <span class="font-medium text-gray-700 dark:text-gray-300"
+                  >14</span
+                >
+                cars
+              </p>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <button
+                class="px-3 py-1.5 border border-gray-300 dark:border-dark-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button
+                class="px-3 py-1.5 bg-primary text-white rounded-lg text-sm"
+              >
+                1
+              </button>
+              <button
+                class="px-3 py-1.5 border border-gray-300 dark:border-dark-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                2
+              </button>
+              <button
+                class="px-3 py-1.5 border border-gray-300 dark:border-dark-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                3
+              </button>
+              <button
+                class="px-3 py-1.5 border border-gray-300 dark:border-dark-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                4
+              </button>
+              <button
+                class="px-3 py-1.5 border border-gray-300 dark:border-dark-600 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add/Edit Car Modal -->
+    <div
+      id="carModal"
+      class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50"
+    >
+      <div
+        class="modal-content bg-white dark:bg-dark-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+      >
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h3
+              class="text-xl font-bold text-gray-800 dark:text-white"
+              id="modalTitle"
+            >
+              Add New Car
+            </h3>
+            <button
+              onclick="closeCarModal()"
+              class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700"
+            >
+              <i class="fas fa-times text-gray-500 dark:text-gray-400"></i>
+            </button>
+          </div>
+
+          <form id="carForm" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Car Details -->
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Make *</label
+                >
+                <input
+                  type="text"
+                  required
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Model *</label
+                >
+                <input
+                  type="text"
+                  required
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Year *</label
+                >
+                <select
+                  required
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="">Select Year</option>
+                  <option>2023</option>
+                  <option>2022</option>
+                  <option>2021</option>
+                  <option>2020</option>
+                  <option>2019</option>
+                </select>
+              </div>
+
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Vehicle Type *</label
+                >
+                <select
+                  required
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="">Select Type</option>
+                  <option>Sedan</option>
+                  <option>SUV</option>
+                  <option>Truck</option>
+                  <option>Coupe</option>
+                  <option>Convertible</option>
+                  <option>Van</option>
+                  <option>Luxury</option>
+                  <option>Electric</option>
+                </select>
+              </div>
+
+              <!-- Price/Rate Fields -->
+              <div id="dailyRateField">
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Daily Rate ($) *</label
+                >
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  required
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div id="salePriceField" class="hidden">
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Sale Price ($) *</label
+                >
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  required
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >License Plate *</label
+                >
+                <input
+                  type="text"
+                  required
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >VIN</label
+                >
+                <input
+                  type="text"
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Color</label
+                >
+                <input
+                  type="text"
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Transmission *</label
+                >
+                <select
+                  required
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="">Select Transmission</option>
+                  <option>Automatic</option>
+                  <option>Manual</option>
+                  <option>Semi-Automatic</option>
+                </select>
+              </div>
+
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Fuel Type *</label
+                >
+                <select
+                  required
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="">Select Fuel Type</option>
+                  <option>Petrol</option>
+                  <option>Diesel</option>
+                  <option>Electric</option>
+                  <option>Hybrid</option>
+                  <option>CNG</option>
+                </select>
+              </div>
+
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Mileage (km)</label
+                >
+                <input
+                  type="number"
+                  min="0"
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label
+                  class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                  >Seating Capacity</label
+                >
+                <input
+                  type="number"
+                  min="1"
+                  max="20"
+                  class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div>
+              <label
+                class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                >Description</label
+              >
+              <textarea
+                rows="3"
+                class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-4 py-3 bg-white dark:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-primary"
+              ></textarea>
+            </div>
+
+            <!-- Features -->
+            <div>
+              <label
+                class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
+                >Features</label
+              >
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <label class="flex items-center">
+                  <input
+                    type="checkbox"
+                    class="mr-2 rounded border-gray-300 dark:border-dark-600 text-primary"
+                  />
+                  <span class="text-sm">Air Conditioning</span>
+                </label>
+                <label class="flex items-center">
+                  <input
+                    type="checkbox"
+                    class="mr-2 rounded border-gray-300 dark:border-dark-600 text-primary"
+                  />
+                  <span class="text-sm">GPS Navigation</span>
+                </label>
+                <label class="flex items-center">
+                  <input
+                    type="checkbox"
+                    class="mr-2 rounded border-gray-300 dark:border-dark-600 text-primary"
+                  />
+                  <span class="text-sm">Bluetooth</span>
+                </label>
+                <label class="flex items-center">
+                  <input
+                    type="checkbox"
+                    class="mr-2 rounded border-gray-300 dark:border-dark-600 text-primary"
+                  />
+                  <span class="text-sm">Backup Camera</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div
+              class="pt-6 border-t dark:border-dark-700 flex justify-end space-x-4"
+            >
+              <button
+                type="button"
+                onclick="closeCarModal()"
+                class="px-6 py-3 border border-gray-300 dark:border-dark-600 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-dark-700"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-red-700"
+              >
+                Save Car
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // DOM Elements
+      const rentTab = document.getElementById("rentTab");
+      const saleTab = document.getElementById("saleTab");
+      const rentPage = document.getElementById("rentPage");
+      const salePage = document.getElementById("salePage");
+      const darkModeToggle = document.getElementById("darkModeToggle");
+      const carModal = document.getElementById("carModal");
+      const modalTitle = document.getElementById("modalTitle");
+      const dailyRateField = document.getElementById("dailyRateField");
+      const salePriceField = document.getElementById("salePriceField");
+      const carForm = document.getElementById("carForm");
+
+      // Current page state
+      let currentPage = "rent";
+      let currentCarType = "rent";
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        // Set up tab switching
+        rentTab.addEventListener("click", () => switchPage("rent"));
+        saleTab.addEventListener("click", () => switchPage("sale"));
+
+        // Dark mode toggle
+        darkModeToggle.addEventListener("click", toggleDarkMode);
+
+        // Initialize dark mode
+        if (localStorage.getItem("darkMode") === "true") {
+          document.documentElement.classList.add("dark");
+          darkModeToggle.innerHTML =
+            '<i class="fas fa-sun text-gray-600 dark:text-yellow-400"></i>';
+        }
+
+        // Form submission
+        carForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          showToast("Car saved successfully!");
+          closeCarModal();
+        });
+      });
+
+      // Switch between rent and sale pages
+      function switchPage(page) {
+        currentPage = page;
+
+        if (page === "rent") {
+          rentPage.classList.remove("hidden");
+          salePage.classList.add("hidden");
+          rentTab.classList.add("tab-active");
+          saleTab.classList.remove("tab-active");
+        } else {
+          rentPage.classList.add("hidden");
+          salePage.classList.remove("hidden");
+          rentTab.classList.remove("tab-active");
+          saleTab.classList.add("tab-active");
+        }
+      }
+
+      // Toggle dark mode
+      function toggleDarkMode() {
+        const isDarkMode = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("darkMode", isDarkMode);
+
+        if (isDarkMode) {
+          darkModeToggle.innerHTML =
+            '<i class="fas fa-sun text-yellow-400"></i>';
+        } else {
+          darkModeToggle.innerHTML =
+            '<i class="fas fa-moon text-gray-600"></i>';
+        }
+      }
+
+      // Open add car modal
+      function openAddCarModal(type) {
+        currentCarType = type;
+        modalTitle.textContent =
+          type === "rent" ? "Add Rental Car" : "Add Car for Sale";
+
+        // Show/hide appropriate price field
+        if (type === "rent") {
+          dailyRateField.classList.remove("hidden");
+          salePriceField.classList.add("hidden");
+        } else {
+          dailyRateField.classList.add("hidden");
+          salePriceField.classList.remove("hidden");
+        }
+
+        carModal.classList.add("open");
+      }
+
+      // Open edit car modal
+      function openEditCarModal(type, carId) {
+        currentCarType = type;
+        modalTitle.textContent =
+          type === "rent" ? "Edit Rental Car" : "Edit Car for Sale";
+
+        // Show/hide appropriate price field
+        if (type === "rent") {
+          dailyRateField.classList.remove("hidden");
+          salePriceField.classList.add("hidden");
+        } else {
+          dailyRateField.classList.add("hidden");
+          salePriceField.classList.remove("hidden");
+        }
+
+        // In a real app, you would load car data here
+        console.log(`Editing ${type} car with ID: ${carId}`);
+
+        carModal.classList.add("open");
+      }
+
+      // Close car modal
+      function closeCarModal() {
+        carModal.classList.remove("open");
+        carForm.reset();
+      }
+
+      // Delete car
+      function deleteCar(type, carId) {
+        if (
+          confirm(
+            `Are you sure you want to delete this ${
+              type === "rent" ? "rental" : "sale"
+            } car? This action cannot be undone.`
+          )
+        ) {
+          showToast(`Car deleted successfully!`);
+          console.log(`Deleted ${type} car with ID: ${carId}`);
+          // In a real app, you would make an API call to delete the car
+        }
+      }
+
+      // Show toast notification
+      function showToast(message) {
+        // Remove existing toast if any
+        const existingToast = document.querySelector(".toast-notification");
+        if (existingToast) existingToast.remove();
+
+        // Create toast
+        const toast = document.createElement("div");
+        toast.className =
+          "toast-notification fixed bottom-4 right-4 bg-gray-800 dark:bg-dark-700 text-white px-6 py-3 rounded-lg shadow-lg z-50";
+        toast.textContent = message;
+
+        document.body.appendChild(toast);
+
+        // Remove toast after 3 seconds
+        setTimeout(() => toast.remove(), 3000);
+      }
+
+      // Status badge click handler (for demo)
+      document.querySelectorAll(".status-badge").forEach((badge) => {
+        badge.addEventListener("click", function (e) {
+          e.stopPropagation();
+          const currentStatus = this.textContent.trim();
+
+          if (currentPage === "rent") {
+            // For rental cars
+            const statuses = ["Available", "Rented", "Reserved", "Maintenance"];
+            const currentIndex = statuses.indexOf(currentStatus);
+            const nextIndex = (currentIndex + 1) % statuses.length;
+            const nextStatus = statuses[nextIndex];
+
+            // Update badge
+            this.textContent = nextStatus;
+            this.className = "status-badge"; // Reset classes
+
+            // Add appropriate class
+            if (nextStatus === "Available")
+              this.classList.add("status-available");
+            if (nextStatus === "Rented") this.classList.add("status-rented");
+            if (nextStatus === "Reserved")
+              this.classList.add("status-reserved");
+            if (nextStatus === "Maintenance")
+              this.classList.add("status-maintenance");
+
+            showToast(`Status changed to ${nextStatus}`);
+          } else {
+            // For sale cars
+            const statuses = ["Available", "Sold"];
+            const currentIndex = statuses.indexOf(currentStatus);
+            const nextIndex = (currentIndex + 1) % statuses.length;
+            const nextStatus = statuses[nextIndex];
+
+            // Update badge
+            this.textContent = nextStatus;
+            this.className = "status-badge"; // Reset classes
+
+            // Add appropriate class
+            if (nextStatus === "Available")
+              this.classList.add("status-available-sale");
+            if (nextStatus === "Sold") this.classList.add("status-sold");
+
+            showToast(`Status changed to ${nextStatus}`);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
