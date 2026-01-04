@@ -16,14 +16,12 @@ const AdminHeader = ({
       <div className="px-6 py-4">
         <div className="flex flex-row md:items-center justify-between">
           <div>
-            <h1 className="hidden md:block text-2xl font-bold text-gray-800 dark:text-white">
+            <h2 className="hidden md:block text-xl font-semibold text-gray-800 dark:text-white">
               {title}
-            </h1>
-            {subtitle && (
-              <p className="hidden md:block text-gray-500 dark:text-gray-400">
-                {subtitle}
-              </p>
-            )}
+            </h2>
+            <p className="hidden md:block text-sm text-gray-500 dark:text-gray-400">
+              {subtitle}
+            </p>
           </div>
 
           <div className="flex items-center gap-4">
