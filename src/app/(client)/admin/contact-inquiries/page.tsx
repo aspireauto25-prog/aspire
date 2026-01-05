@@ -1,5 +1,5 @@
 import {
-    FaCheckCircle,
+  FaCheckCircle,
   FaClock,
   FaInbox,
   FaPlus,
@@ -11,6 +11,7 @@ import { getContactInquiries } from "@/api/contacts";
 import { PAGE_LIMIT } from "@/constants/pagination";
 import Button from "@/components/Button";
 import ContactInquiryTable from "@/components/admin/contact-inquiries/Table";
+import Pagination from "@/components/admin/table/Pagination";
 
 interface Props {
   searchParams: Promise<SearchParams>;
@@ -142,7 +143,14 @@ const ContactInquiresPage = async ({ searchParams }: Props) => {
         </div>
       </div>
 
-      <ContactInquiryTable inquiries={inquiries.data} />
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden ">
+        <ContactInquiryTable inquiries={inquiries.data} />
+        <Pagination
+          currentPage={inquiries.currentPage}
+          total={inquiries.total}
+          totalPages={inquiries.totalPages}
+        />
+      </div>
     </section>
   );
 };
