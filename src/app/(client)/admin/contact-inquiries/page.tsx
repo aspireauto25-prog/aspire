@@ -2,16 +2,16 @@ import {
   FaCheckCircle,
   FaClock,
   FaInbox,
-  FaPlus,
   FaTachometerAlt,
 } from "react-icons/fa";
 import { SearchParams } from "next/dist/server/request/search-params";
 
 import { getContactInquiries } from "@/api/contacts";
 import { PAGE_LIMIT } from "@/constants/pagination";
-import Button from "@/components/Button";
 import ContactInquiryTable from "@/components/admin/contact-inquiries/Table";
 import Pagination from "@/components/admin/table/Pagination";
+import Search from "@/components/admin/contact-inquiries/Search";
+import Filters from "@/components/admin/contact-inquiries/Filters";
 
 interface Props {
   searchParams: Promise<SearchParams>;
@@ -27,8 +27,6 @@ const ContactInquiresPage = async ({ searchParams }: Props) => {
     pagesize: PAGE_LIMIT.toString(),
     search: query.search ?? "",
   });
-
-  console.log(inquiries);
 
   return (
     <section>
@@ -115,32 +113,9 @@ const ContactInquiresPage = async ({ searchParams }: Props) => {
             </p>
           </div>
 
-          <Button size="sm">
-            <FaPlus />
-            New Reply
-          </Button>
+          <Search />
         </div>
-        {/* Quick Filters */}
-        <div className="mt-6 flex flex-wrap gap-2">
-          <button className="px-3 py-1.5 bg-primary text-white text-sm rounded-lg font-medium">
-            All
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            New
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            Pending
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            Replied
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            In Progress
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            Spam
-          </button>
-        </div>
+        <Filters />
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden ">

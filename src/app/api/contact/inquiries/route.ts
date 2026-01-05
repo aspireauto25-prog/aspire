@@ -35,7 +35,7 @@ export const GET = async (req: Request) => {
   try {
     const { data, error, count } = await query;
 
-    if (error) return Response.json({ error }, { status: 500 });
+    if (error) return Response.json(error, { status: 500 });
 
     return Response.json(
       {
