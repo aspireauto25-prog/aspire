@@ -7,17 +7,18 @@ import supabase from "@/config/database";
 export const GET = async (req: Request) => {
   const { searchParams } = new URL(req.url);
 
+  const pageParam = searchParams.get("page");
+  const pageSizeParam = searchParams.get("pagesize");
+  const search = searchParams.get("search");
+  const status = searchParams.get("status");
+
+  const page = pageParam && parseInt(pageParam);
+  const pageSize = pageSizeParam && parseInt(pageSizeParam);
+
   let query = supabase
     .from("contacts")
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false });
-
-  const pageParam = searchParams.get("page");
-  const pageSizeParam = searchParams.get("pagesize");
-  const search = searchParams.get("search");
-
-  const page = pageParam && parseInt(pageParam);
-  const pageSize = pageSizeParam && parseInt(pageSizeParam);
 
   if (page && pageSize) {
     const from = (page - 1) * pageSize;
@@ -25,6 +26,8 @@ export const GET = async (req: Request) => {
 
     query = query.range(from, to);
   }
+
+  if (status) query = query.eq("status", status);
 
   if (search) {
     query = query.or(

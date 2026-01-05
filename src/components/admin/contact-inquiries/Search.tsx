@@ -3,22 +3,23 @@
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { KeyboardEvent, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
-import { useRouter } from "next/navigation";
+
+import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const router = useRouter();
+  const updateParams = useUpdateQueryParams();
 
   function search(event: KeyboardEvent) {
     if (event.key != "Enter") return;
 
-    router.push(`?search=${searchTerm}`);
+    updateParams({ search: searchTerm });
   }
 
   function clearSearch() {
     setSearchTerm("");
-    router.push("?search=");
+    updateParams({ search: "" });
   }
 
   return (
