@@ -1,10 +1,45 @@
-import { FaPaperPlane } from "react-icons/fa6";
+"use client";
 
+import { FaPaperPlane } from "react-icons/fa6";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+
+import { subjects } from "@/constants/contact";
 import Button from "../Button";
+import { useState } from "react";
+
+interface FormData {
+  email: string;
+  message: string;
+  name: string;
+  phone: string;
+  subject: string;
+}
 
 const ContactForm = () => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const { handleSubmit, register, reset } = useForm<FormData>();
+
+  const submitForm = async (data: FormData) => {
+    setSubmitting(true);
+
+    try {
+      await axios.post("/api/contact", data);
+
+      toast.success("Message sent successfully!");
+
+      reset();
+    } catch {
+      toast.error("Failed to send message.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
-    <form id="contact-form" className="space-y-6">
+    <form className="space-y-6" onSubmit={handleSubmit(submitForm)}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label
@@ -16,9 +51,9 @@ const ContactForm = () => {
           <input
             type="text"
             id="name"
-            name="name"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("name")}
           />
           <div id="name-error" className="text-red-500 text-sm mt-1" />
         </div>
@@ -32,9 +67,9 @@ const ContactForm = () => {
           <input
             type="email"
             id="email"
-            name="email"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("email")}
           />
           <div id="email-error" className="text-red-500 text-sm mt-1" />
         </div>
@@ -45,13 +80,14 @@ const ContactForm = () => {
             htmlFor="phone"
             className="block text-gray-700 dark:text-gray-300 mb-2 font-medium"
           >
-            Phone Number
+            Phone Number *
           </label>
           <input
-            type="tel"
+            type="text"
             id="phone"
-            name="phone"
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            required
+            {...register("phone")}
           />
           <div id="phone-error" className="text-red-500 text-sm mt-1" />
         </div>
@@ -64,17 +100,16 @@ const ContactForm = () => {
           </label>
           <select
             id="subject"
-            name="subject"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("subject")}
           >
-            <option>Select a subject</option>
-            <option value="rental">Car Rental Inquiry</option>
-            <option value="servicing">Car Servicing</option>
-            <option value="support">Technical Support</option>
-            <option value="corporate">Corporate/Business</option>
-            <option value="feedback">Feedback/Suggestion</option>
-            <option value="other">Other</option>
+            <option value="">Select a subject</option>
+            {subjects.map((subject, index) => (
+              <option key={index} value={subject}>
+                {subject}
+              </option>
+            ))}
           </select>
           <div id="subject-error" className="text-red-500 text-sm mt-1" />
         </div>
@@ -88,16 +123,17 @@ const ContactForm = () => {
         </label>
         <textarea
           id="message"
-          name="message"
           rows={6}
           required
+          minLength={10}
           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-          defaultValue={""}
+          {...register("message")}
         />
         <div id="message-error" className="text-red-500 text-sm mt-1" />
       </div>
-      <Button type="submit" className="w-full">
-        <FaPaperPlane /> Send Message
+      <Button type="submit" className="w-full" disabled={submitting}>
+        <FaPaperPlane />
+        {submitting ? "Sending..." : "Send Message"}
       </Button>
     </form>
   );
