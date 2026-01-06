@@ -11,7 +11,6 @@ import { PAGE_LIMIT } from "@/constants/pagination";
 import ContactInquiryTable from "@/components/admin/contact-inquiries/Table";
 import Filters from "@/components/admin/contact-inquiries/Filters";
 import Pagination from "@/components/admin/table/Pagination";
-import RefreshButton from "@/components/admin/RefreshButton";
 import Search from "@/components/admin/contact-inquiries/Search";
 
 interface Props {
@@ -115,7 +114,6 @@ const ContactInquiresPage = async ({ searchParams }: Props) => {
             </p>
           </div>
 
-          <RefreshButton />
           <Search />
         </div>
         <Filters currentStatus={query.status ?? ""} />

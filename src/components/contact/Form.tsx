@@ -7,6 +7,7 @@ import axios from "axios";
 
 import { subjects } from "@/constants/contact";
 import Button from "../Button";
+import { useState } from "react";
 
 interface FormData {
   email: string;
@@ -17,9 +18,13 @@ interface FormData {
 }
 
 const ContactForm = () => {
+  const [submitting, setSubmitting] = useState(false);
+
   const { handleSubmit, register, reset } = useForm<FormData>();
 
   const submitForm = async (data: FormData) => {
+    setSubmitting(true);
+
     try {
       await axios.post("/api/contact", data);
 
@@ -28,6 +33,8 @@ const ContactForm = () => {
       reset();
     } catch {
       toast.error("Failed to send message.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -124,8 +131,9 @@ const ContactForm = () => {
         />
         <div id="message-error" className="text-red-500 text-sm mt-1" />
       </div>
-      <Button type="submit" className="w-full">
-        <FaPaperPlane /> Send Message
+      <Button type="submit" className="w-full" disabled={submitting}>
+        <FaPaperPlane />
+        {submitting ? "Sending..." : "Send Message"}
       </Button>
     </form>
   );
