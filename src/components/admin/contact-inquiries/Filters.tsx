@@ -1,8 +1,22 @@
 "use client";
 
+import {
+  CONTACT_STATUS_PENDING,
+  CONTACT_STATUS_RESPONDED,
+} from "@/constants/contact";
 import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
 
-const Filters = () => {
+interface Props {
+  currentStatus?: string | string[];
+}
+
+const filters = [
+  { label: "All", value: "" },
+  { label: "Pending", value: CONTACT_STATUS_PENDING },
+  { label: "Responded", value: CONTACT_STATUS_RESPONDED },
+];
+
+const Filters = ({ currentStatus }: Props) => {
   const updateParams = useUpdateQueryParams();
 
   function filter(status: string) {
@@ -11,30 +25,19 @@ const Filters = () => {
 
   return (
     <div className="mt-6 flex flex-wrap gap-2">
-      <button
-        onClick={() => filter("")}
-        className="px-3 py-1.5 bg-primary text-white text-sm rounded-lg font-medium"
-      >
-        All
-      </button>
-      <button
-        onClick={() => filter("")}
-        className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600"
-      >
-        New
-      </button>
-      <button
-        onClick={() => filter("PENDING")}
-        className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600"
-      >
-        Pending
-      </button>
-      <button
-        onClick={() => filter("RESPONDED")}
-        className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600"
-      >
-        Responded
-      </button>
+      {filters.map((item) => (
+        <button
+          key={item.value}
+          onClick={() => filter(item.value)}
+          className={`px-3 py-1.5 text-sm rounded-lg font-medium cursor-pointer ${
+            item.value == currentStatus
+              ? "bg-primary text-white"
+              : " bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+          }`}
+        >
+          {item.label}
+        </button>
+      ))}
     </div>
   );
 };

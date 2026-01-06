@@ -9,9 +9,10 @@ import { SearchParams } from "next/dist/server/request/search-params";
 import { getContactInquiries } from "@/api/contacts";
 import { PAGE_LIMIT } from "@/constants/pagination";
 import ContactInquiryTable from "@/components/admin/contact-inquiries/Table";
-import Pagination from "@/components/admin/table/Pagination";
-import Search from "@/components/admin/contact-inquiries/Search";
 import Filters from "@/components/admin/contact-inquiries/Filters";
+import Pagination from "@/components/admin/table/Pagination";
+import RefreshButton from "@/components/admin/RefreshButton";
+import Search from "@/components/admin/contact-inquiries/Search";
 
 interface Props {
   searchParams: Promise<SearchParams>;
@@ -114,9 +115,10 @@ const ContactInquiresPage = async ({ searchParams }: Props) => {
             </p>
           </div>
 
+          <RefreshButton />
           <Search />
         </div>
-        <Filters />
+        <Filters currentStatus={query.status ?? ""} />
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden ">

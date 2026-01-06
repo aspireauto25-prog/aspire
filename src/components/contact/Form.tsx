@@ -21,14 +21,11 @@ const ContactForm = () => {
 
   const submitForm = async (data: FormData) => {
     try {
-      await axios.post("/api/contact", {
-        ...data,
-        phone: parseInt(data.phone),
-      });
-
-      reset();
+      await axios.post("/api/contact", data);
 
       toast.success("Message sent successfully!");
+
+      reset();
     } catch {
       toast.error("Failed to send message.");
     }
@@ -79,7 +76,7 @@ const ContactForm = () => {
             Phone Number *
           </label>
           <input
-            type="number"
+            type="text"
             id="phone"
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
             required
@@ -121,6 +118,7 @@ const ContactForm = () => {
           id="message"
           rows={6}
           required
+          minLength={10}
           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
           {...register("message")}
         />

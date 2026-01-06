@@ -31,7 +31,7 @@ export const GET = async (req: Request) => {
 
   if (search) {
     query = query.or(
-      `name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,subject.ilike.%${search}%`
+      `name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,subject.ilike.%${search}%,message.ilike.%${search}%`
     );
   }
 

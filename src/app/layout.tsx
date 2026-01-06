@@ -44,7 +44,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <ScrollToTop />
-        <ToastContainer />
+        <ToastContainer autoClose={2500} />
       </body>
     </html>
   );
