@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 
 import { DASHBOARD_ROUTE, HOME_ROUTE } from "@/constants/routes";
-import { ROLE_ADMIN, ROLE_STAFF } from "@/constants/userRoles";
+import { USER_ROLE_ADMIN, USER_ROLE_STAFF } from "@/constants/user";
 import { RootState } from "@/redux/rootReducer";
 
 const AuthLayout = ({
@@ -20,7 +20,7 @@ const AuthLayout = ({
   useEffect(() => {
     if (!user) return;
 
-    if ([ROLE_ADMIN, ROLE_STAFF].includes(user.role))
+    if ([USER_ROLE_ADMIN, USER_ROLE_STAFF].includes(user.role))
       return router.replace(DASHBOARD_ROUTE);
 
     router.replace(HOME_ROUTE);
