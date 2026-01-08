@@ -1,18 +1,18 @@
 "use client";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AppDispatch } from "@/redux/store";
-import { DASHBOARD_ROUTE } from "@/constants/routes";
 import { loginUser } from "@/redux/auth/authActions";
 import { RootState } from "@/redux/rootReducer";
 import Button from "@/components/Button";
-import Logo from "@/components/Logo";
 import Hero from "@/components/Hero";
+import Logo from "@/components/Logo";
+import Spinner from "@/components/Spinner";
 
 import heroBg from "@/assets/images/servicing-hero-bg.jpg";
 
@@ -34,13 +34,19 @@ const LoginPage = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const router = useRouter();
-
-  async function submitForm(data: LoginFormInputs) {
-    await dispatch(loginUser(data));
-
-    router.replace(DASHBOARD_ROUTE);
+  function submitForm(data: LoginFormInputs) {
+    dispatch(loginUser(data)).then(() => {
+      console.log(error);
+    });
   }
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Login failed. Please check your credentials.", {
+        autoClose: false,
+      });
+    }
+  }, [error]);
 
   return (
     <>
@@ -116,15 +122,19 @@ const LoginPage = () => {
                     {errors.password?.message}
                   </p>
                 </div>
-                <Button type="submit" size="md" className="w-full">
+                <Button
+                  type="submit"
+                  size="md"
+                  className="w-full"
+                  disabled={loading}
+                >
+                  {loading && <Spinner />}
                   Sign In
                 </Button>
               </form>
             </div>
           </div>
         </div>
-
-        {error && <div>Error: {error.message}</div>}
       </section>
     </>
   );
