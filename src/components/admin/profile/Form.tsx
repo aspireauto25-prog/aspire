@@ -1,4 +1,5 @@
 import { FaCalendarAlt } from "react-icons/fa";
+import { format } from "date-fns";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -95,7 +96,7 @@ const ProfileForm = ({ user }: Props) => {
           </label>
           <div className="flex items-center">
             <div className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mr-3">
-              Administrator
+              {user?.role}
             </div>
             <span className="text-gray-500 dark:text-gray-400 text-sm">
               Full Access
@@ -109,7 +110,7 @@ const ProfileForm = ({ user }: Props) => {
           <div className="flex items-center">
             <FaCalendarAlt className=" text-gray-400 dark:text-gray-500 mr-2" />
             <span className="text-gray-700 dark:text-gray-300">
-              March 15, 2022
+              {user && format(user.created_at, "MMMM dd, yyyy")}
             </span>
           </div>
         </div>
