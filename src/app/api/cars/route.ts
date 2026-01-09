@@ -1,0 +1,124 @@
+import { cookies } from "next/headers";
+import { ZodError } from "zod";
+
+import { CAR_STATUS_AVAILABLE } from "@/constants/car";
+import { carSchema } from "@/lib/schemas/car.schema";
+import { formatZodErrors } from "@/utils/zod";
+import { PAGE_LIMIT } from "@/constants/pagination";
+import { TOKEN } from "@/constants/contants";
+import { User } from "@/lib/types/user.types";
+import { USER_ROLE_ADMIN } from "@/constants/user";
+import { verifyJWT } from "@/utils/jwt";
+import supabase from "@/config/database";
+
+export const GET = async (req: Request) => {
+  const authToken = (await cookies()).get(TOKEN)?.value;
+
+  if (!authToken) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const authUser = (await verifyJWT(authToken).catch((error) => error)) as User;
+
+  if (authUser?.role !== USER_ROLE_ADMIN) {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const { searchParams } = new URL(req.url);
+
+  const pageParam = searchParams.get("page");
+  const pageSizeParam = searchParams.get("pagesize");
+  const search = searchParams.get("search");
+  const status = searchParams.get("status");
+
+  const page = pageParam && parseInt(pageParam);
+  const pageSize = pageSizeParam && parseInt(pageSizeParam);
+
+  let query = supabase
+    .from("cars")
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false });
+
+  if (page && pageSize) {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize - 1;
+
+    query = query.range(from, to);
+  }
+
+  if (status) query = query.eq("status", status);
+
+  if (search) {
+    query = query.or(
+      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassi_number.ilike.%${search}%`
+    );
+  }
+
+  try {
+    const { data, error, count } = await query;
+
+    if (error) return Response.json(error, { status: 500 });
+
+    return Response.json(
+      {
+        currentPage: page,
+        data,
+        total: count,
+        totalPages: pageSize ? Math.ceil((count ?? 0) / pageSize) : PAGE_LIMIT,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const formattedErrors = formatZodErrors(error);
+
+      return Response.json(formattedErrors, { status: 400 });
+    }
+
+    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+};
+
+export async function POST(request: Request) {
+  try {
+    const authToken = (await cookies()).get(TOKEN)?.value;
+
+    if (!authToken) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const authUser = (await verifyJWT(authToken).catch(
+      (error) => error
+    )) as User;
+
+    if (authUser?.role !== USER_ROLE_ADMIN) {
+      return Response.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    const body = await request.json();
+
+    const input = carSchema.parse(body);
+
+    const { data, error } = await supabase
+      .from("cars")
+      .insert([
+        {
+          ...input,
+          status: CAR_STATUS_AVAILABLE,
+        },
+      ])
+      .select();
+
+    if (error) return Response.json({ error: error.message }, { status: 500 });
+
+    return Response.json(data[0], { status: 201 });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const formattedErrors = formatZodErrors(error);
+
+      return Response.json(formattedErrors, { status: 400 });
+    }
+
+    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}
