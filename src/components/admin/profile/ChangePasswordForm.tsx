@@ -59,29 +59,6 @@ const ChangePasswordForm = ({ id }: Props) => {
             New Password
           </label>
           <PasswordInput required {...register("newPassword")} />
-          {/* Password Strength Indicator */}
-          <div className="mt-2">
-            <div className="flex justify-between mb-1">
-              <span className="text-xs text-gray-500 dark:text-gray-400">
-                Password strength
-              </span>
-              <span id="passwordStrengthText" className="text-xs font-medium">
-                Weak
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-              <div
-                id="passwordStrengthBar"
-                className="password-strength strength-weak"
-              />
-            </div>
-            <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-              <p>
-                Must contain at least 8 characters, including uppercase,
-                lowercase, numbers, and special characters.
-              </p>
-            </div>
-          </div>
         </div>
         <div>
           <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
