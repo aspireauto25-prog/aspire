@@ -1,10 +1,9 @@
 "use client";
 
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
 
 import { AppDispatch } from "@/redux/store";
 import { loginUser } from "@/redux/auth/authActions";
@@ -12,6 +11,7 @@ import { RootState } from "@/redux/rootReducer";
 import Button from "@/components/Button";
 import Hero from "@/components/Hero";
 import Logo from "@/components/Logo";
+import PasswordInput from "@/components/PasswordInput";
 import Spinner from "@/components/Spinner";
 
 import heroBg from "@/assets/images/servicing-hero-bg.jpg";
@@ -22,13 +22,7 @@ interface LoginFormInputs {
 }
 
 const LoginPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormInputs>();
-
-  const [showPassword, setShowPassword] = useState(false);
+  const { register, handleSubmit } = useForm<LoginFormInputs>();
 
   const { loading, error } = useSelector((state: RootState) => state.auth);
 
@@ -81,15 +75,13 @@ const LoginPage = () => {
                   <input
                     type="email"
                     id="email"
-                    className="bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                    className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary pr-10"
                     placeholder="name@company.com"
+                    required
                     {...register("email", {
                       required: "Email address is required.",
                     })}
                   />
-                  <p className="text-red-600 text-sm p-1">
-                    {errors.email?.message}
-                  </p>
                 </div>
                 <div>
                   <label
@@ -98,27 +90,12 @@ const LoginPage = () => {
                   >
                     Password
                   </label>
-                  <div className="relative">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      id="password"
-                      placeholder="••••••••"
-                      className="bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
-                      {...register("password", {
-                        required: "Password is required.",
-                      })}
-                    />
-                    <button
-                      type="button"
-                      className="absolute right-0 top-0.5 p-3 text-gray-600 cursor-pointer"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? <FaEye /> : <FaEyeSlash />}
-                    </button>
-                  </div>
-                  <p className="text-red-600 text-sm p-1">
-                    {errors.password?.message}
-                  </p>
+                  <PasswordInput
+                    required
+                    {...register("password", {
+                      required: "Password is required.",
+                    })}
+                  />
                 </div>
                 <Button
                   type="submit"

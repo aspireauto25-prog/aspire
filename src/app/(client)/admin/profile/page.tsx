@@ -1,20 +1,16 @@
 "use client";
 
-import {
-  FaCamera,
-  FaEnvelope,
-  FaEye,
-  FaMapMarkedAlt,
-  FaPhone,
-} from "react-icons/fa";
+import { FaCamera, FaEnvelope, FaMapMarkedAlt, FaPhone } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 import { RootState } from "@/redux/rootReducer";
-import Button from "@/components/Button";
 import ProfileForm from "@/components/admin/profile/Form";
+import ChangePasswordForm from "@/components/admin/profile/ChangePasswordForm";
 
 const ProfilePage = () => {
   const { user } = useSelector((state: RootState) => state.auth);
+
+  if (!user) return;
 
   return (
     <section className="space-y-8 max-w-6xl mx-auto">
@@ -41,28 +37,26 @@ const ProfilePage = () => {
           {/* Profile Info */}
           <div className="flex-1 text-center md:text-left">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-              Admin User
+              {user.name}
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 mb-4">
-              Administrator
-            </p>
+            <p className="text-gray-500 dark:text-gray-400 mb-4">{user.role}</p>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <div className="flex items-center">
                 <FaEnvelope className="text-gray-400 dark:text-gray-500 mr-2" />
                 <span className="text-gray-700 dark:text-gray-300">
-                  admin@carrental.com
+                  {user.email}
                 </span>
               </div>
               <div className="flex items-center">
                 <FaPhone className="text-gray-400 dark:text-gray-500 mr-2" />
                 <span className="text-gray-700 dark:text-gray-300">
-                  +1 (555) 123-4567
+                  {user.phone}
                 </span>
               </div>
               <div className="flex items-center">
                 <FaMapMarkedAlt className="text-gray-400 dark:text-gray-500 mr-2" />
                 <span className="text-gray-700 dark:text-gray-300">
-                  New York, USA
+                  {user.address}
                 </span>
               </div>
             </div>
@@ -94,101 +88,7 @@ const ProfilePage = () => {
             <span className="text-sm font-medium">Account Secure</span>
           </div>
         </div>
-        <form id="passwordForm" className="space-y-6">
-          <div className="space-y-4">
-            <div>
-              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-                Current Password
-              </label>
-              <div className="relative">
-                <input
-                  type="password"
-                  id="currentPassword"
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary pr-10"
-                />
-                <button
-                  type="button"
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                >
-                  <FaEye />
-                </button>
-              </div>
-            </div>
-            <div>
-              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-                New Password
-              </label>
-              <div className="relative">
-                <input
-                  type="password"
-                  id="newPassword"
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary pr-10"
-                />
-                <button
-                  type="button"
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                >
-                  <FaEye />
-                </button>
-              </div>
-              {/* Password Strength Indicator */}
-              <div className="mt-2">
-                <div className="flex justify-between mb-1">
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
-                    Password strength
-                  </span>
-                  <span
-                    id="passwordStrengthText"
-                    className="text-xs font-medium"
-                  >
-                    Weak
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                  <div
-                    id="passwordStrengthBar"
-                    className="password-strength strength-weak"
-                  />
-                </div>
-                <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                  <p>
-                    Must contain at least 8 characters, including uppercase,
-                    lowercase, numbers, and special characters.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-                Confirm New Password
-              </label>
-              <div className="relative">
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary pr-10"
-                />
-                <button
-                  type="button"
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                >
-                  <FaEye />
-                </button>
-              </div>
-              <div id="passwordMatch" className="mt-2 hidden">
-                <p className="text-sm text-red-500">
-                  <i className="fas fa-times-circle mr-1" />
-                  Passwords do not match
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="pt-6 border-t border-gray-300 dark:border-gray-700 flex justify-end space-x-4">
-            <Button type="submit" size="md">
-              Update Password
-            </Button>
-          </div>
-        </form>
+        <ChangePasswordForm id={user.id} />
       </div>
     </section>
   );

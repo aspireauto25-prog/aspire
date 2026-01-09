@@ -36,7 +36,6 @@ const ProfileForm = ({ user }: Props) => {
     }
 
     if (error) {
-      console.log(error);
       toast.error("Profile update failed. Please try again.", {
         autoClose: false,
       });
