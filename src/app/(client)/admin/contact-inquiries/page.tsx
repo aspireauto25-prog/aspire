@@ -11,7 +11,7 @@ import { PAGE_LIMIT } from "@/constants/pagination";
 import ContactInquiryTable from "@/components/admin/contact-inquiries/Table";
 import Filters from "@/components/admin/contact-inquiries/Filters";
 import Pagination from "@/components/admin/table/Pagination";
-import Search from "@/components/admin/contact-inquiries/Search";
+import Search from "@/components/admin/Search";
 
 interface Props {
   searchParams: Promise<SearchParams>;
@@ -25,7 +25,7 @@ const ContactInquiresPage = async ({ searchParams }: Props) => {
   const inquiries = await getContactInquiries({
     page: query.page ?? DEFAULT_PAGE,
     pagesize: PAGE_LIMIT.toString(),
-    search: query.search ?? "",
+    search: query.q ?? "",
     status: query.status ?? "",
   });
 

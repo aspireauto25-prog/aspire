@@ -1,9 +1,49 @@
-import CarStats from "@/components/admin/cars/Stats";
+import { FaPlus } from "react-icons/fa";
+import { SearchParams } from "next/dist/server/request/search-params";
 
-const CarsPage = () => {
+import { ADD_CAR_ROUTE } from "@/constants/routes";
+import CarStats from "@/components/admin/cars/Stats";
+import Filters from "@/components/admin/cars/Filters";
+import LinkButton from "@/components/LinkButton";
+import Pagination from "@/components/admin/table/Pagination";
+import Search from "@/components/admin/Search";
+
+interface Props {
+  searchParams: Promise<SearchParams>;
+}
+
+const CarsPage = async ({ searchParams }: Props) => {
+  const query = await searchParams;
+
   return (
     <section>
       <CarStats />
+
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between">
+          <div className="mb-4 lg:mb-0">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+              All Cars
+            </h3>
+            <p className="text-gray-500 dark:text-gray-400 text-sm">
+              Manage your car inventory, add new cars, edit or delete existing
+              ones
+            </p>
+          </div>
+          <Search />
+        </div>
+        <div className="mt-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <Filters currentStatus={query.status ?? ""} />
+          <LinkButton href={ADD_CAR_ROUTE} size="sm">
+            <FaPlus />
+            Add New Car
+          </LinkButton>
+        </div>
+      </div>
+
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden ">
+        <Pagination currentPage={1} total={10} totalPages={2} />
+      </div>
     </section>
   );
 };

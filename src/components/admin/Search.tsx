@@ -14,12 +14,12 @@ const Search = () => {
   function search(event: KeyboardEvent) {
     if (event.key != "Enter") return;
 
-    updateParams({ search: searchTerm });
+    updateParams({ q: searchTerm });
   }
 
   function clearSearch() {
     setSearchTerm("");
-    updateParams({ search: "" });
+    updateParams({ q: "" });
   }
 
   return (
@@ -31,7 +31,7 @@ const Search = () => {
         className="px-10 py-2 rounded-lg border border-gray-300 w-full focus:outline-secondary/80"
         onChange={(event) => setSearchTerm(event.target.value)}
         onKeyDown={search}
-        placeholder="Search inquiries..."
+        placeholder="Search ..."
         type="text"
         value={searchTerm}
       />
