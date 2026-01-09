@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+export const changePasswordSchema = z.object({
+  currentPassword: z.string("Current password is required."),
+  newPassword: z
+    .string("New password is required.")
+    .min(6, "Password is too short."),
+});
+
 export const registerSchema = z.object({
   address: z.string("Address is required.").trim().min(2).optional(),
   email: z
