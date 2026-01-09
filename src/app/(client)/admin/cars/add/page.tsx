@@ -9,42 +9,71 @@ import {
   FaSave,
   FaStar,
 } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
+import { Car } from "@/lib/types/car.types";
+import { createCar } from "@/api/axios/cars";
 import Button from "@/components/Button";
+import Spinner from "@/components/Spinner";
+import useRequest from "@/hooks/useRequest";
 
-interface FormInput {
+export interface FormInput {
   brand: string;
-  category: string;
-  chassisNumber: string;
-  color: string;
-  description: string;
-  driveType: string;
-  engineCapacity: number;
-  engineNumber: string;
-  features: string[];
-  fuelType: string;
-  licensePlate: string;
-  mileage: number;
+  category?: string;
+  chassis_number: string;
+  color?: string;
+  description?: string;
+  drive_type: string;
+  engine_capacity?: string;
+  engine_number?: string;
+  features?: string;
+  fuel_type?: string;
+  id?: string;
+  license_plate: string;
+  mileage?: string;
   model: string;
-  price: number;
-  seatCapacity: number;
+  price: string;
+  seat_capacity?: string;
   status: string;
-  transmissionType: string;
+  transmission_type?: string;
   variant: string;
-  year: number;
+  year: string;
 }
 
 const AddCarPage = () => {
-  const { register, handleSubmit } = useForm<FormInput>();
+  const { register, handleSubmit, reset } = useForm<FormInput>();
 
-  function submitForm(data: FormInput) {
-    console.log(data);
-  }
+  const { error, loading, run, success } = useRequest((data: FormInput) =>
+    createCar({
+      ...data,
+      engine_capacity: data.engine_capacity && parseInt(data.engine_capacity),
+      mileage: data.mileage && parseInt(data.mileage),
+      price: parseInt(data.price),
+      seat_capacity: data.seat_capacity && parseInt(data.seat_capacity),
+      year: parseInt(data.year),
+    } as unknown as Car)
+  );
+
+  useEffect(() => {
+    if (success) {
+      toast.success("Car added successfully.");
+
+      reset();
+    }
+
+    if (error) {
+      toast.error("Car create failed. Please try again.", {
+        autoClose: false,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success, error]);
 
   return (
     <section className="bg-white rounded-xl shadow overflow-hidden">
-      <form onSubmit={handleSubmit(submitForm)}>
+      <form onSubmit={handleSubmit(run)}>
         {/* Basic Information Section */}
         <div className="form-section p-6 border-b border-gray-100">
           <div className="flex items-center mb-6">
@@ -231,7 +260,7 @@ const AddCarPage = () => {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200 font-mono"
                 placeholder="License plate number"
                 required
-                {...register("licensePlate")}
+                {...register("license_plate")}
               />
               <p className="text-xs text-gray-500 mt-1">
                 Vehicle Identification Number
@@ -251,7 +280,7 @@ const AddCarPage = () => {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200 font-mono"
                 placeholder="17-character VIN"
                 required
-                {...register("chassisNumber")}
+                {...register("chassis_number")}
               />
               <p className="text-xs text-gray-500 mt-1">
                 Vehicle Identification Number
@@ -270,7 +299,7 @@ const AddCarPage = () => {
                 id="engineNumber"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200 font-mono"
                 placeholder="Engine serial number"
-                {...register("engineNumber")}
+                {...register("engine_number")}
               />
             </div>
             {/* Mileage */}
@@ -279,7 +308,7 @@ const AddCarPage = () => {
                 htmlFor="mileage"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Mileage (miles)
+                Mileage (km)
               </label>
               <div className="relative">
                 <input
@@ -292,7 +321,7 @@ const AddCarPage = () => {
                   placeholder="0"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <span className="text-gray-500">miles</span>
+                  <span className="text-gray-500">km</span>
                 </div>
               </div>
             </div>
@@ -310,7 +339,7 @@ const AddCarPage = () => {
                   id="engineCapacity"
                   min={0}
                   step="0.1"
-                  {...register("engineCapacity")}
+                  {...register("engine_capacity")}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                   placeholder="0.0"
                 />
@@ -331,7 +360,7 @@ const AddCarPage = () => {
                 id="fuel"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 required
-                {...register("fuelType")}
+                {...register("fuel_type")}
               >
                 <option>Select Fuel Type</option>
                 <option value="Petrol">Petrol</option>
@@ -355,7 +384,7 @@ const AddCarPage = () => {
                 id="transmission"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 required
-                {...register("transmissionType")}
+                {...register("transmission_type")}
               >
                 <option>Select Transmission</option>
                 <option value="Manual">Manual</option>
@@ -376,7 +405,7 @@ const AddCarPage = () => {
               <select
                 id="driveType"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
-                {...register("driveType")}
+                {...register("drive_type")}
               >
                 <option>Select Drive Type</option>
                 <option value="FWD">Front-Wheel Drive (FWD)</option>
@@ -397,7 +426,7 @@ const AddCarPage = () => {
                 id="seats"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 required
-                {...register("seatCapacity")}
+                {...register("seat_capacity")}
               >
                 <option>Select Seats</option>
                 <option value={2}>2 Seats</option>
@@ -838,8 +867,8 @@ const AddCarPage = () => {
                 Save as Draft
               </Button>
 
-              <Button type="submit" size="md">
-                <FaSave />
+              <Button type="submit" size="md" disabled={loading}>
+                {loading ? <Spinner /> : <FaSave />}
                 Add Car to Inventory
               </Button>
             </div>
