@@ -1,5 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+
+import { LOGIN_ROUTE } from "@/constants/routes";
+import { RootState } from "@/redux/rootReducer";
 import AdminHeader from "@/components/admin/Header";
 import Sidebar from "@/components/admin/Sidebar";
 
@@ -8,6 +13,12 @@ const AdminLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const router = useRouter();
+
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  if (!user) router.replace(LOGIN_ROUTE);
+
   return (
     <div className="flex h-screen">
       <Sidebar />

@@ -35,9 +35,7 @@ const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   function submitForm(data: LoginFormInputs) {
-    dispatch(loginUser(data)).then(() => {
-      console.log(error);
-    });
+    dispatch(loginUser(data));
   }
 
   useEffect(() => {

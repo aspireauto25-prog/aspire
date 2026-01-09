@@ -1,15 +1,21 @@
+"use client";
+
 import {
-  FaCalendarAlt,
   FaCamera,
   FaEnvelope,
   FaEye,
   FaMapMarkedAlt,
   FaPhone,
 } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
+import { RootState } from "@/redux/rootReducer";
 import Button from "@/components/Button";
+import ProfileForm from "@/components/admin/profile/Form";
 
 const ProfilePage = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
+
   return (
     <section className="space-y-8 max-w-6xl mx-auto">
       {/* Profile Header */}
@@ -70,89 +76,7 @@ const ProfilePage = () => {
             Personal Information
           </h3>
         </div>
-        <form className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-                First Name
-              </label>
-              <input
-                type="text"
-                defaultValue="Admin"
-                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-                Last Name
-              </label>
-              <input
-                type="text"
-                defaultValue="User"
-                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                defaultValue="admin@carrental.com"
-                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                defaultValue="+1 (555) 123-4567"
-                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div className="md:col-span-2">
-              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-                Address
-              </label>
-              <input
-                type="text"
-                defaultValue="1234 Business Center Dr, New York, NY 10001"
-                className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-                Role
-              </label>
-              <div className="flex items-center">
-                <div className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mr-3">
-                  Administrator
-                </div>
-                <span className="text-gray-500 dark:text-gray-400 text-sm">
-                  Full Access
-                </span>
-              </div>
-            </div>
-            <div>
-              <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-                Joined Date
-              </label>
-              <div className="flex items-center">
-                <FaCalendarAlt className=" text-gray-400 dark:text-gray-500 mr-2" />
-                <span className="text-gray-700 dark:text-gray-300">
-                  March 15, 2022
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className=" pt-6 border-t border-gray-300 dark:border-gray-700 flex justify-end space-x-4">
-            <Button size="md" type="submit">
-              Save Changes
-            </Button>
-          </div>
-        </form>
+        <ProfileForm user={user || undefined} />
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
