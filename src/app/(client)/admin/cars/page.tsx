@@ -43,7 +43,7 @@ const CarsPage = async ({ searchParams }: Props) => {
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden ">
-        <Table />
+        <Table searchParams={searchParams} />
         <Pagination currentPage={1} total={10} totalPages={2} />
       </div>
     </section>

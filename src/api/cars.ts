@@ -1,13 +1,13 @@
 import { cookies } from "next/headers";
 import type { SearchParams } from "next/dist/server/request/search-params";
 
+import { PaginatedCars } from "@/lib/types/car.types";
 import { getFormattedQuery } from "@/utils/queryFormatter";
-import { PaginatedInquiries } from "@/lib/types/contact.types";
 import config from "@/config";
 
 export const getCars = async (
   searchParams?: SearchParams
-): Promise<PaginatedInquiries> => {
+): Promise<PaginatedCars> => {
   const query = getFormattedQuery(searchParams);
 
   const url = `${config.apiUrl}/api/cars${query}`;

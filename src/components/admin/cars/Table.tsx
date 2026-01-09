@@ -1,10 +1,27 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { SearchParams } from "next/dist/server/request/search-params";
 import Image from "next/image";
 
-import cars from "@/data/cars";
+import { getCars } from "@/api/cars";
+import { PAGE_LIMIT } from "@/constants/pagination";
 import CarStatus from "./Status";
 
-const Table = () => {
+interface Props {
+  searchParams: Promise<SearchParams>;
+}
+
+const DEFAULT_PAGE = "1";
+
+const Table = async ({ searchParams }: Props) => {
+  const query = await searchParams;
+
+  const cars = await getCars({
+    page: query.page ?? DEFAULT_PAGE,
+    pagesize: PAGE_LIMIT.toString(),
+    search: query.q ?? "",
+    status: query.status ?? "",
+  });
+
   return (
     <div className="table-responsive">
       <table className="w-full">
@@ -31,7 +48,7 @@ const Table = () => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-          {cars.map((car) => (
+          {cars.data.map((car) => (
             <tr
               key={car.id}
               className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
@@ -50,10 +67,10 @@ const Table = () => {
                       {car.brand} {car.model} {car.variant} {car.year}
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      License: {car.licensePlate}
+                      License: {car.license_plate}
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      VIN: {car.chassisNumber}
+                      VIN: {car.chassis_number}
                     </p>
                   </div>
                 </div>
@@ -63,18 +80,18 @@ const Table = () => {
                   {car.category}
                 </span>
                 <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                  {car.transmissionType}
+                  {car.transmission_type}
                 </p>
               </td>
               <td className="py-4 px-6">
                 <div className="space-y-1">
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Fuel:</span>
-                    <span>{car.fuelType}</span>
+                    <span>{car.fuel_type}</span>
                   </p>
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Seats:</span>
-                    <span>{car.seatCapacity}</span>
+                    <span>{car.seat_capacity}</span>
                   </p>
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Mileage:</span>

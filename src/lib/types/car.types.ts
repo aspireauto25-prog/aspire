@@ -1,20 +1,27 @@
 export interface Car {
   brand: string;
   category: string;
-  chassisNumber: string;
+  chassis_number: string;
   color: string;
   description: string;
-  engineCapacity: number;
-  engineNumber: string;
-  fuelType: string;
+  engine_capacity: number;
+  engine_number: string;
+  fuel_type: string;
   id: number;
-  licensePlate: string;
+  license_plate: string;
   mileage: number;
   model: string;
   price: number;
-  seatCapacity: number;
+  seat_capacity: number;
   status: string;
-  transmissionType: string;
+  transmission_type: string;
   variant: string;
   year: number;
+}
+
+export interface PaginatedCars {
+  currentPage: number;
+  data: Car[];
+  total: number;
+  totalPages: number;
 }
