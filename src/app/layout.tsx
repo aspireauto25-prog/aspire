@@ -1,4 +1,4 @@
-import { ToastContainer } from "react-toastify";
+import { Slide, ToastContainer } from "react-toastify";
 import type { Metadata } from "next";
 
 import config from "@/config";
@@ -44,7 +44,11 @@ export default function RootLayout({
         {children}
         <Footer />
         <ScrollToTop />
-        <ToastContainer autoClose={2500} />
+        <ToastContainer
+          autoClose={2500}
+          position="top-center"
+          transition={Slide}
+        />
       </body>
     </html>
   );

@@ -14,7 +14,7 @@ import storage from "redux-persist/lib/storage";
 import rootReducer from "./rootReducer";
 
 const persistConfig = {
-  key: "veltara",
+  key: "aspire",
   storage,
   whitelist: ["auth"],
 };

@@ -1,8 +1,8 @@
-import { FaBars, FaSignOutAlt } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 
-import Button from "../Button";
 import Logo from "../Logo";
 import SidebarMenu from "./SidebarMenu";
+import Logout from "./Logout";
 
 const Sidebar = () => {
   return (
@@ -14,12 +14,8 @@ const Sidebar = () => {
         <SidebarMenu />
         {/* Logout Button */}
         <div className="p-4 border-t  border-gray-200 dark:border-gray-700">
-          <Button size="md" className="w-full">
-            <FaSignOutAlt />
-            <span>Log Out</span>
-          </Button>
+          <Logout />
         </div>
-        {/* Mobile Sidebar Toggle */}
       </aside>
       <div className="md:hidden fixed top-4 left-4 z-30">
         <button className="p-3 rounded-lg bg-primary text-white shadow-lg">

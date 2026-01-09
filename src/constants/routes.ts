@@ -7,6 +7,10 @@ export const SELL_ROUTE = "/buy-sell/sell";
 export const SERVICING_ROUTE = "/servicing";
 export const WANTED_ROUTE = "/buy-sell/wanted";
 
+// Auth routes
+export const LOGIN_ROUTE = "/auth/login";
+export const REGISTER_ROUTE = "/auth/register";
+
 // Admin routes
 export const ADMIN_ROUTE = "/admin";
 export const DASHBOARD_ROUTE = "/admin/dashboard";
