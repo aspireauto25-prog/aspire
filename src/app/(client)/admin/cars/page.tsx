@@ -1,5 +1,11 @@
+import CarStats from "@/components/admin/cars/Stats";
+
 const CarsPage = () => {
-  return <div>CarsPage</div>;
+  return (
+    <section>
+      <CarStats />
+    </section>
+  );
 };
 
 export default CarsPage;
