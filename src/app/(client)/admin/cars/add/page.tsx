@@ -1,3 +1,5 @@
+"use client";
+
 import {
   FaBookmark,
   FaCar,
@@ -7,13 +9,42 @@ import {
   FaSave,
   FaStar,
 } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 
 import Button from "@/components/Button";
 
+interface FormInput {
+  brand: string;
+  category: string;
+  chassisNumber: string;
+  color: string;
+  description: string;
+  driveType: string;
+  engineCapacity: number;
+  engineNumber: string;
+  features: string[];
+  fuelType: string;
+  licensePlate: string;
+  mileage: number;
+  model: string;
+  price: number;
+  seatCapacity: number;
+  status: string;
+  transmissionType: string;
+  variant: string;
+  year: number;
+}
+
 const AddCarPage = () => {
+  const { register, handleSubmit } = useForm<FormInput>();
+
+  function submitForm(data: FormInput) {
+    console.log(data);
+  }
+
   return (
     <section className="bg-white rounded-xl shadow overflow-hidden">
-      <form>
+      <form onSubmit={handleSubmit(submitForm)}>
         {/* Basic Information Section */}
         <div className="form-section p-6 border-b border-gray-100">
           <div className="flex items-center mb-6">
@@ -41,10 +72,10 @@ const AddCarPage = () => {
               <input
                 type="text"
                 id="brand"
-                name="brand"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 placeholder="e.g. Toyota, BMW, Tesla"
                 required
+                {...register("brand")}
               />
             </div>
             {/* Model */}
@@ -58,10 +89,10 @@ const AddCarPage = () => {
               <input
                 type="text"
                 id="model"
-                name="model"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 placeholder="e.g. Camry, Model 3, X5"
                 required
+                {...register("model")}
               />
             </div>
             {/* Variant */}
@@ -75,9 +106,9 @@ const AddCarPage = () => {
               <input
                 type="text"
                 id="variant"
-                name="variant"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 placeholder="e.g. SE, Limited, Performance"
+                {...register("variant")}
               />
             </div>
             {/* Year */}
@@ -94,9 +125,9 @@ const AddCarPage = () => {
                 max="2099"
                 step="1"
                 id="year"
-                name="year"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 placeholder="e.g. 2025"
+                {...register("year")}
               />
             </div>
             {/* Category */}
@@ -109,9 +140,9 @@ const AddCarPage = () => {
               </label>
               <select
                 id="category"
-                name="category"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 required
+                {...register("category")}
               >
                 <option>Select Category</option>
                 <option value="Sedan">Sedan</option>
@@ -142,9 +173,9 @@ const AddCarPage = () => {
                 <input
                   type="number"
                   id="price"
-                  name="price"
                   min={0}
                   step={100}
+                  {...register("price")}
                   className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                   placeholder="0.0"
                   required
@@ -162,9 +193,9 @@ const AddCarPage = () => {
             </label>
             <textarea
               id="description"
-              name="description"
               rows={3}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+              {...register("description")}
               placeholder="Provide a detailed description of the car..."
               defaultValue={""}
             />
@@ -186,6 +217,26 @@ const AddCarPage = () => {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* License plate */}
+            <div>
+              <label
+                htmlFor="licensePlate"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                License Plate *
+              </label>
+              <input
+                type="text"
+                id="licensePlate"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200 font-mono"
+                placeholder="License plate number"
+                required
+                {...register("licensePlate")}
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Vehicle Identification Number
+              </p>
+            </div>
             {/* Chassis Number */}
             <div>
               <label
@@ -197,10 +248,10 @@ const AddCarPage = () => {
               <input
                 type="text"
                 id="chassisNumber"
-                name="chassisNumber"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200 font-mono"
                 placeholder="17-character VIN"
                 required
+                {...register("chassisNumber")}
               />
               <p className="text-xs text-gray-500 mt-1">
                 Vehicle Identification Number
@@ -217,9 +268,9 @@ const AddCarPage = () => {
               <input
                 type="text"
                 id="engineNumber"
-                name="engineNumber"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200 font-mono"
                 placeholder="Engine serial number"
+                {...register("engineNumber")}
               />
             </div>
             {/* Mileage */}
@@ -234,9 +285,9 @@ const AddCarPage = () => {
                 <input
                   type="number"
                   id="mileage"
-                  name="mileage"
                   min={0}
                   step={100}
+                  {...register("mileage")}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                   placeholder="0"
                 />
@@ -257,9 +308,9 @@ const AddCarPage = () => {
                 <input
                   type="number"
                   id="engineCapacity"
-                  name="engineCapacity"
                   min={0}
                   step="0.1"
+                  {...register("engineCapacity")}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                   placeholder="0.0"
                 />
@@ -278,9 +329,9 @@ const AddCarPage = () => {
               </label>
               <select
                 id="fuel"
-                name="fuel"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 required
+                {...register("fuelType")}
               >
                 <option>Select Fuel Type</option>
                 <option value="Petrol">Petrol</option>
@@ -302,9 +353,9 @@ const AddCarPage = () => {
               </label>
               <select
                 id="transmission"
-                name="transmission"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 required
+                {...register("transmissionType")}
               >
                 <option>Select Transmission</option>
                 <option value="Manual">Manual</option>
@@ -324,8 +375,8 @@ const AddCarPage = () => {
               </label>
               <select
                 id="driveType"
-                name="driveType"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                {...register("driveType")}
               >
                 <option>Select Drive Type</option>
                 <option value="FWD">Front-Wheel Drive (FWD)</option>
@@ -344,9 +395,9 @@ const AddCarPage = () => {
               </label>
               <select
                 id="seats"
-                name="seats"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 required
+                {...register("seatCapacity")}
               >
                 <option>Select Seats</option>
                 <option value={2}>2 Seats</option>
@@ -369,9 +420,9 @@ const AddCarPage = () => {
               <input
                 type="text"
                 id="color"
-                name="color"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
                 placeholder="e.g., Midnight Black, Pearl White"
+                {...register("color")}
               />
             </div>
           </div>
@@ -399,72 +450,72 @@ const AddCarPage = () => {
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="ABS"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">ABS</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Airbags"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Airbags</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Stability Control"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Stability Control</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Rear Camera"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Rear Camera</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Parking Sensors"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Parking Sensors</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Lane Assist"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Lane Assist</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Blind Spot Monitor"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Blind Spot Monitor</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Adaptive Cruise"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Adaptive Cruise</span>
               </label>
@@ -478,72 +529,72 @@ const AddCarPage = () => {
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Air Conditioning"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Air Conditioning</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Power Windows"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Power Windows</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Power Seats"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Power Seats</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Heated Seats"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Heated Seats</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Sunroof"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Sunroof</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Keyless Entry"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Keyless Entry</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Push Button Start"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Push Button Start</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Remote Start"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Remote Start</span>
               </label>
@@ -557,72 +608,72 @@ const AddCarPage = () => {
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Touchscreen"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Touchscreen</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Navigation"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Navigation</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Bluetooth"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Bluetooth</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Apple CarPlay"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Apple CarPlay</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Android Auto"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Android Auto</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Premium Sound"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Premium Sound</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="USB Ports"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">USB Ports</span>
               </label>
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  name="features"
                   defaultValue="Wireless Charging"
                   className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                  {...register("features")}
                 />
                 <span className="ml-2 text-gray-700">Wireless Charging</span>
               </label>
@@ -639,9 +690,9 @@ const AddCarPage = () => {
             <input
               type="text"
               id="additionalFeatures"
-              name="additionalFeatures"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
               placeholder="e.g., panoramic roof, heated steering wheel, ambient lighting"
+              {...register("features")}
             />
             <p className="text-xs text-gray-500 mt-1">
               Add any features not listed above
@@ -689,14 +740,14 @@ const AddCarPage = () => {
                   </Button>
                 </div>
               </div>
-              <input
+              {/* <input
                 type="file"
                 id="featuredImage"
                 name="featuredImage"
                 className="hidden"
                 accept="image/*"
                 required
-              />
+              /> */}
             </div>
             <div className="mt-4 hidden" id="featuredImagePreview">
               <div className="flex items-center justify-between p-4 border border-gray-300 rounded-lg">
@@ -778,8 +829,8 @@ const AddCarPage = () => {
         {/* Form Actions */}
         <div className="p-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-sm text-gray-600">
-              <p>Fields marked with * are required</p>
+            <div className="text-sm text-primary">
+              Fields marked with * are required.
             </div>
             <div className="flex space-x-4">
               <Button type="button" theme="light" size="md">
