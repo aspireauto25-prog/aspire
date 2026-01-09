@@ -7,6 +7,7 @@ import Filters from "@/components/admin/cars/Filters";
 import LinkButton from "@/components/LinkButton";
 import Pagination from "@/components/admin/table/Pagination";
 import Search from "@/components/admin/Search";
+import Table from "@/components/admin/cars/Table";
 
 interface Props {
   searchParams: Promise<SearchParams>;
@@ -42,6 +43,7 @@ const CarsPage = async ({ searchParams }: Props) => {
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden ">
+        <Table />
         <Pagination currentPage={1} total={10} totalPages={2} />
       </div>
     </section>
