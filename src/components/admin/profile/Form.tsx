@@ -57,7 +57,7 @@ const ProfileForm = ({ user }: Props) => {
             {...register("name")}
           />
         </div>
-        <div>
+        <div className="md:col-span-2 lg:col-span-1">
           <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
             Email Address
           </label>
@@ -68,7 +68,7 @@ const ProfileForm = ({ user }: Props) => {
             {...register("email")}
           />
         </div>
-        <div>
+        <div className="md:col-span-2 lg:col-span-1">
           <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
             Phone Number
           </label>
