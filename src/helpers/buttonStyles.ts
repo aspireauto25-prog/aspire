@@ -18,7 +18,7 @@ export function getStylesBySize(size: string, rounded: boolean) {
 }
 
 export function getStylesByTheme(theme: string) {
-  if (theme == "light") return "bg-white hover:bg-gray-100 text-primary ";
+  if (theme == "light") return "bg-gray-100 hover:bg-gray-200 text-gray-800 ";
 
   if (theme == "dark") return "bg-gray-800 hover:bg-gray-900 text-primary ";
 
