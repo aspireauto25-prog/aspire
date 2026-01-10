@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 
 import { Car } from "@/lib/types/car.types";
 import { createCar } from "@/api/axios/cars";
+import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -30,7 +31,6 @@ export interface FormInput {
   engine_number?: string;
   features?: string;
   fuel_type?: string;
-  id?: string;
   license_plate: string;
   mileage?: string;
   model: string;
@@ -48,11 +48,11 @@ const AddCarPage = () => {
   const { error, loading, run, success } = useRequest((data: FormInput) =>
     createCar({
       ...data,
-      engine_capacity: data.engine_capacity && parseInt(data.engine_capacity),
-      mileage: data.mileage && parseInt(data.mileage),
-      price: parseInt(data.price),
-      seat_capacity: data.seat_capacity && parseInt(data.seat_capacity),
-      year: parseInt(data.year),
+      engine_capacity: parseNumber(data.engine_capacity),
+      mileage: parseNumber(data.mileage),
+      price: parseNumber(data.price),
+      seat_capacity: parseNumber(data.seat_capacity),
+      year: parseNumber(data.year),
     } as unknown as Car)
   );
 
