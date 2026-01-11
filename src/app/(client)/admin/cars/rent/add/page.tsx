@@ -1,7 +1,5 @@
-const AddCarRentPage = () => {
-  return (
-    <div>AddCarRentPage</div>
-  )
-}
+import RentCarForm from "@/components/admin/cars/rent/Form";
 
-export default AddCarRentPage
+const AddCarRentPage = () => <RentCarForm />;
+
+export default AddCarRentPage;
