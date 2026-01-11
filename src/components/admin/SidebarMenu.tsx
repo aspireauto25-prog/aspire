@@ -18,7 +18,7 @@ interface MenuItemProps {
 const SidebarMenuItem = ({ Icon, label, route }: MenuItemProps) => {
   const pathname = usePathname();
 
-  const isActive = pathname.startsWith(route);
+  const isActive = pathname === route;
 
   return (
     <li>

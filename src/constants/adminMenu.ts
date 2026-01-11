@@ -13,8 +13,8 @@ import {
 
 import {
   ADMIN_CARS_ROUTE,
-  ADMIN_RENT_ROUTE,
-  ADMIN_SELL_ROUTE,
+  ADMIN_CAR_RENT_ROUTE,
+  ADMIN_CAR_SELL_ROUTE,
   CONTACT_INQUIRIES_ROUTE,
   DASHBOARD_ROUTE,
   PROFILE_ROUTE,
@@ -42,12 +42,12 @@ export const inventoryMenu = [
   },
   {
     Icon: FaKey,
-    route: ADMIN_RENT_ROUTE,
+    route: ADMIN_CAR_RENT_ROUTE,
     label: "Cars for Rent",
   },
   {
     Icon: FaTag,
-    route: ADMIN_SELL_ROUTE,
+    route: ADMIN_CAR_SELL_ROUTE,
     label: "Cars for Sale",
   },
   {

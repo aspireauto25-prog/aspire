@@ -1,91 +1,26 @@
 import {
   FaCalendarAlt,
   FaCar,
-  FaCheckCircle,
   FaChevronLeft,
   FaChevronRight,
   FaEdit,
   FaEye,
-  FaKey,
   FaPlus,
   FaTrash,
   FaWrench,
 } from "react-icons/fa";
 
-import { ADD_CAR_ROUTE } from "@/constants/routes";
+import { ADD_CAR_RENT_ROUTE } from "@/constants/routes";
 import LinkButton from "@/components/LinkButton";
-
+import CarStats from "@/components/admin/cars/Stats";
+import Search from "@/components/admin/Search";
+import Filters from "@/components/admin/cars/Filters";
 
 const CarRentalPage = () => {
   return (
     <section>
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Total Cars
-              </p>
-              <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-white">
-                24
-              </h3>
-              <p className="text-green-500 text-xs mt-1">+3 from last month</p>
-            </div>
-            <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20">
-              <FaCar className="text-blue-500 text-xl" />
-            </div>
-          </div>
-        </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Available Now
-              </p>
-              <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-white">
-                16
-              </h3>
-              <p className="text-green-500 text-xs mt-1">68% availability</p>
-            </div>
-            <div className="p-3 rounded-lg bg-green-50 dark:bg-green-900/20">
-              <FaCheckCircle className="text-green-500 text-xl" />
-            </div>
-          </div>
-        </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Currently Rented
-              </p>
-              <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-white">
-                6
-              </h3>
-              <p className="text-yellow-500 text-xs mt-1">2 return tomorrow</p>
-            </div>
-            <div className="p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
-              <FaKey className="text-yellow-500 text-xl" />
-            </div>
-          </div>
-        </div>
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Under Maintenance
-              </p>
-              <h3 className="text-2xl font-bold mt-2 text-gray-800 dark:text-white">
-                2
-              </h3>
-              <p className="text-red-500 text-xs mt-1">1 ready by Friday</p>
-            </div>
-            <div className="p-3 rounded-lg bg-red-50 dark:bg-red-900/20">
-              <FaWrench className="text-red-500 text-xl" />
-            </div>
-          </div>
-        </div>
-      </div>
+      <CarStats />
+
       {/* Action Bar */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between">
@@ -97,32 +32,16 @@ const CarRentalPage = () => {
               Manage your fleet of rental vehicles
             </p>
           </div>
-          <LinkButton href={ADD_CAR_ROUTE} size="sm">
+          <Search query={""} />
+        </div>
+        <div className="mt-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <Filters currentStatus={""} />
+          <LinkButton href={ADD_CAR_RENT_ROUTE} size="sm">
             <FaPlus />
             Add New Car
           </LinkButton>
         </div>
         {/* Quick Filters */}
-        <div className="mt-6 flex flex-wrap gap-2">
-          <button className="px-3 py-1.5 bg-primary text-white text-sm rounded-lg font-medium">
-            All Cars
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            Available
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            Luxury
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            SUV
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            Economy
-          </button>
-          <button className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600">
-            Featured
-          </button>
-        </div>
       </div>
       {/* Rental Cars Table */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
