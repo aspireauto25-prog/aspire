@@ -6,8 +6,12 @@ import { RxCross1 } from "react-icons/rx";
 
 import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
 
-const Search = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+interface Props {
+  query?: string;
+}
+
+const Search = ({ query }: Props) => {
+  const [searchTerm, setSearchTerm] = useState(query || "");
 
   const updateParams = useUpdateQueryParams();
 

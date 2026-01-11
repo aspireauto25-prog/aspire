@@ -1,27 +1,15 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { SearchParams } from "next/dist/server/request/search-params";
 import Image from "next/image";
 
-import { getCars } from "@/api/cars";
-import { PAGE_LIMIT } from "@/constants/pagination";
+import { Car } from "@/lib/types/car.types";
 import CarStatus from "./Status";
+import EmptyTable from "../EmptyTable";
 
 interface Props {
-  searchParams: Promise<SearchParams>;
+  cars: Car[];
 }
 
-const DEFAULT_PAGE = "1";
-
-const Table = async ({ searchParams }: Props) => {
-  const query = await searchParams;
-
-  const cars = await getCars({
-    page: query.page ?? DEFAULT_PAGE,
-    pagesize: PAGE_LIMIT.toString(),
-    search: query.q ?? "",
-    status: query.status ?? "",
-  });
-
+const Table = async ({ cars }: Props) => {
   return (
     <div className="table-responsive">
       <table className="w-full">
@@ -48,7 +36,7 @@ const Table = async ({ searchParams }: Props) => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-          {cars.data.map((car) => (
+          {cars.map((car) => (
             <tr
               key={car.id}
               className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
@@ -127,6 +115,7 @@ const Table = async ({ searchParams }: Props) => {
           ))}
         </tbody>
       </table>
+      {cars.length == 0 && <EmptyTable />}
     </div>
   );
 };

@@ -2,6 +2,8 @@ import { FaPlus } from "react-icons/fa";
 import { SearchParams } from "next/dist/server/request/search-params";
 
 import { ADD_CAR_ROUTE } from "@/constants/routes";
+import { getCars } from "@/api/cars";
+import { PAGE_LIMIT } from "@/constants/pagination";
 import CarStats from "@/components/admin/cars/Stats";
 import Filters from "@/components/admin/cars/Filters";
 import LinkButton from "@/components/LinkButton";
@@ -13,8 +15,17 @@ interface Props {
   searchParams: Promise<SearchParams>;
 }
 
+const DEFAULT_PAGE = "1";
+
 const CarsPage = async ({ searchParams }: Props) => {
   const query = await searchParams;
+
+  const cars = await getCars({
+    page: query.page ?? DEFAULT_PAGE,
+    pagesize: PAGE_LIMIT.toString(),
+    search: query.q ?? "",
+    status: query.status ?? "",
+  });
 
   return (
     <section>
@@ -31,7 +42,7 @@ const CarsPage = async ({ searchParams }: Props) => {
               ones
             </p>
           </div>
-          <Search />
+          <Search query={query.q as string} />
         </div>
         <div className="mt-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <Filters currentStatus={query.status ?? ""} />
@@ -43,8 +54,12 @@ const CarsPage = async ({ searchParams }: Props) => {
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden ">
-        <Table searchParams={searchParams} />
-        <Pagination currentPage={1} total={10} totalPages={2} />
+        <Table cars={cars.data} />
+        <Pagination
+          currentPage={cars.currentPage}
+          total={cars.total}
+          totalPages={cars.totalPages}
+        />
       </div>
     </section>
   );
