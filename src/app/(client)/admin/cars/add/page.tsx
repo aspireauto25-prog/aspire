@@ -26,7 +26,7 @@ import {
 import { createCar } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
-import ImageUpload from "@/components/ImageUpload";
+import ImageUpload, { ImageUrlsType } from "@/components/ImageUpload";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
 
@@ -54,7 +54,8 @@ export interface FormInput {
 }
 
 const AddCarPage = () => {
-  const [featuredImageUrl, setFeaturedImageUrl] = useState<string | null>(null);
+  const [featuredImageUrl, setFeaturedImageUrl] = useState<ImageUrlsType>(null);
+  const [otherImageUrls, setOtherImageUrls] = useState<ImageUrlsType>([]);
 
   const { register, handleSubmit, reset, watch, setValue } = useForm<FormInput>(
     {
@@ -75,8 +76,10 @@ const AddCarPage = () => {
     setValue("features", list.join(","));
   };
 
-  const { error, loading, run, success } = useRequest((data: FormInput) =>
-    createCar({
+  const { error, loading, run, success } = useRequest(createCarWithImages);
+
+  async function createCarWithImages(data: FormInput) {
+    const response = await createCar({
       ...data,
       engine_capacity: parseNumber(data.engine_capacity),
       features: [features, data.other_features].join(","),
@@ -84,8 +87,10 @@ const AddCarPage = () => {
       price: parseNumber(data.price),
       seat_capacity: parseNumber(data.seat_capacity),
       year: parseNumber(data.year),
-    } as unknown as Car)
-  );
+    } as unknown as Car);
+
+    const createdCar = response.data;
+  }
 
   useEffect(() => {
     if (success) {
@@ -602,7 +607,11 @@ const AddCarPage = () => {
             <p className="text-sm text-gray-500 mb-4">
               This will be the main image displayed for the car
             </p>
-            <ImageUpload folder="cars" setImageUrl={setFeaturedImageUrl} />
+            <ImageUpload
+              folder="cars"
+              id="featuredImage"
+              setImageUrls={setFeaturedImageUrl}
+            />
           </div>
           {/* Additional Images */}
           <div>
@@ -612,43 +621,12 @@ const AddCarPage = () => {
             <p className="text-sm text-gray-500 mb-4">
               Upload multiple images showing different angles and features
             </p>
-            <div
-              className="image-upload-area rounded-xl p-8 text-center cursor-pointer"
-              id="additionalImagesUpload"
-            >
-              <div className="max-w-xs mx-auto">
-                <div className="h-20 w-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                  <FaImages className="fas fa-images text-gray-400 text-2xl" />
-                </div>
-                <h3 className="text-lg font-medium text-gray-800 mb-2">
-                  Drag &amp; drop or click to upload
-                </h3>
-                <p className="text-gray-500 text-sm">
-                  Upload up to 10 images (5MB each)
-                </p>
-                <div className="mt-4 flex justify-center">
-                  <Button type="button" size="sm" theme="light">
-                    Select Images
-                  </Button>
-                </div>
-              </div>
-              <input
-                type="file"
-                id="additionalImages"
-                name="additionalImages"
-                className="hidden"
-                accept="image/*"
-                multiple
-              />
-            </div>
-            <div className="mt-4 hidden" id="additionalImagesPreview">
-              <div
-                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-                id="additionalImagesList"
-              >
-                {/* Additional images will be previewed here */}
-              </div>
-            </div>
+            <ImageUpload
+              folder="cars"
+              id="otherImages"
+              multiple={true}
+              setImageUrls={setOtherImageUrls}
+            />
           </div>
         </div>
         {/* Form Actions */}
