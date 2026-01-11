@@ -8,21 +8,21 @@ export const GET = async (req: Request) => {
   const { searchParams } = new URL(req.url);
 
   const pageParam = searchParams.get("page");
-  const pageSizeParam = searchParams.get("pagesize");
+  const limitParam = searchParams.get("limit");
   const search = searchParams.get("search");
   const status = searchParams.get("status");
 
   const page = pageParam && parseInt(pageParam);
-  const pageSize = pageSizeParam && parseInt(pageSizeParam);
+  const limit = limitParam && parseInt(limitParam);
 
   let query = supabase
     .from("contacts")
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false });
 
-  if (page && pageSize) {
-    const from = (page - 1) * pageSize;
-    const to = from + pageSize - 1;
+  if (page && limit) {
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
 
     query = query.range(from, to);
   }
@@ -45,7 +45,7 @@ export const GET = async (req: Request) => {
         currentPage: page,
         data,
         total: count,
-        totalPages: pageSize ? Math.ceil((count ?? 0) / pageSize) : PAGE_LIMIT,
+        totalPages: limit ? Math.ceil((count ?? 0) / limit) : PAGE_LIMIT,
       },
       { status: 200 }
     );

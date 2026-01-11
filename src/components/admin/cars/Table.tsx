@@ -1,6 +1,7 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
-import Link from "next/link";
+import { isBefore } from "date-fns";
 import Image from "next/image";
+import Link from "next/link";
 
 import { Car } from "@/lib/types/car.types";
 import CarStatus from "./Status";
@@ -48,8 +49,11 @@ const Table = async ({ cars }: Props) => {
                 <div className="flex items-center">
                   <Image
                     src={
-                      car.car_images?.find((image) => image.featured)?.url ??
-                      logoUrl
+                      car.car_images
+                        ?.sort((a, b) =>
+                          isBefore(a.created_at, b.created_at) ? 1 : -1
+                        )
+                        .find((image) => image.featured)?.url ?? logoUrl
                     }
                     alt={car.brand}
                     height={80}

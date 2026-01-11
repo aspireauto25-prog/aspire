@@ -1,4 +1,5 @@
 export interface CarImage {
+  created_at: number;
   featured: boolean;
   url: string;
 }

@@ -22,7 +22,7 @@ const CarsPage = async ({ searchParams }: Props) => {
 
   const cars = await getCars({
     page: query.page ?? DEFAULT_PAGE,
-    pagesize: PAGE_LIMIT.toString(),
+    limit: PAGE_LIMIT.toString(),
     search: query.q ?? "",
     status: query.status ?? "",
   });

@@ -24,7 +24,7 @@ const ContactInquiresPage = async ({ searchParams }: Props) => {
 
   const inquiries = await getContactInquiries({
     page: query.page ?? DEFAULT_PAGE,
-    pagesize: PAGE_LIMIT.toString(),
+    limit: PAGE_LIMIT.toString(),
     search: query.q ?? "",
     status: query.status ?? "",
   });
