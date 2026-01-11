@@ -36,9 +36,7 @@ const ProfileForm = ({ user }: Props) => {
     }
 
     if (error) {
-      toast.error("Profile update failed. Please try again.", {
-        autoClose: false,
-      });
+      toast.error("Profile update failed. Please try again.");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);

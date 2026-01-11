@@ -84,9 +84,7 @@ const AddCarPage = () => {
     }
 
     if (error) {
-      toast.error("Car create failed. Please try again.", {
-        autoClose: false,
-      });
+      toast.error("Car create failed. Please try again.");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);

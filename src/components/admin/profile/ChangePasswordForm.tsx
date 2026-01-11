@@ -39,9 +39,7 @@ const ChangePasswordForm = ({ id }: Props) => {
     }
 
     if (error) {
-      toast.error("Password update failed. Please try again.", {
-        autoClose: false,
-      });
+      toast.error("Password update failed. Please try again.");
     }
   }, [success, error]);
 

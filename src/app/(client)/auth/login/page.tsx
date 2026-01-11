@@ -34,9 +34,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error("Login failed. Please check your credentials.", {
-        autoClose: false,
-      });
+      toast.error("Login failed. Please check your credentials.");
     }
   }, [error]);
 
