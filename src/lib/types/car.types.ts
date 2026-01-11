@@ -1,5 +1,11 @@
+export interface CarImage {
+  featured: boolean;
+  url: string;
+}
+
 export interface Car {
   brand: string;
+  car_images?: CarImage[];
   category?: string;
   chassis_number: string;
   color?: string;

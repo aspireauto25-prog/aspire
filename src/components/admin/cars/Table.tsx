@@ -5,6 +5,8 @@ import { Car } from "@/lib/types/car.types";
 import CarStatus from "./Status";
 import EmptyTable from "../EmptyTable";
 
+import logoUrl from "@/assets/images/logo.png";
+
 interface Props {
   cars: Car[];
 }
@@ -44,11 +46,14 @@ const Table = async ({ cars }: Props) => {
               <td className="py-4 px-6">
                 <div className="flex items-center">
                   <Image
-                    src="https://images.unsplash.com/photo-1506610654-064fbba4780c?w=400"
+                    src={
+                      car.car_images?.find((image) => image.featured)?.url ??
+                      logoUrl
+                    }
                     alt={car.brand}
                     height={80}
                     width={100}
-                    className="w-20 h-14 rounded-md bg-linear-to-r from-gray-800 to-gray-600 flex items-center justify-center mr-4"
+                    className="w-20 h-14 rounded-md bg-linear-to-r border bg-gray-50 flex items-center justify-center mr-4 object-contain"
                   />
                   <div>
                     <p className="font-bold text-gray-800 dark:text-white">

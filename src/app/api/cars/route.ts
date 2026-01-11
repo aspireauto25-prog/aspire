@@ -24,7 +24,7 @@ export const GET = async (req: Request) => {
 
   let query = supabase
     .from("cars")
-    .select("*", { count: "exact" })
+    .select(`*, car_images (url,featured)`, { count: "exact" })
     .order("created_at", { ascending: false });
 
   if (page && pageSize) {
