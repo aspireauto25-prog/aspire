@@ -3,14 +3,13 @@
 import {
   FaBookmark,
   FaCar,
-  FaCloudUploadAlt,
   FaCogs,
   FaImages,
   FaSave,
   FaStar,
 } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Car } from "@/lib/types/car.types";
@@ -27,6 +26,7 @@ import {
 import { createCar } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
+import ImageUpload from "@/components/ImageUpload";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
 
@@ -54,6 +54,8 @@ export interface FormInput {
 }
 
 const AddCarPage = () => {
+  const [featuredImageUrl, setFeaturedImageUrl] = useState<string | null>(null);
+
   const { register, handleSubmit, reset, watch, setValue } = useForm<FormInput>(
     {
       defaultValues: {
@@ -600,64 +602,7 @@ const AddCarPage = () => {
             <p className="text-sm text-gray-500 mb-4">
               This will be the main image displayed for the car
             </p>
-            <div
-              className="image-upload-area rounded-xl p-8 text-center cursor-pointer"
-              id="featuredImageUpload"
-            >
-              <div className="max-w-xs mx-auto">
-                <div className="h-20 w-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                  <FaCloudUploadAlt className="text-gray-400 text-2xl" />
-                </div>
-                <h3 className="text-lg font-medium text-gray-800 mb-2">
-                  Click to upload featured image
-                </h3>
-                <p className="text-gray-500 text-sm">
-                  PNG, JPG or GIF up to 5MB
-                </p>
-                <div className="mt-4 flex justify-center">
-                  <Button type="button" size="sm">
-                    Browse Files
-                  </Button>
-                </div>
-              </div>
-              {/* <input
-                type="file"
-                id="featuredImage"
-                name="featuredImage"
-                className="hidden"
-                accept="image/*"
-                required
-              /> */}
-            </div>
-            <div className="mt-4 hidden" id="featuredImagePreview">
-              <div className="flex items-center justify-between p-4 border border-gray-300 rounded-lg">
-                <div className="flex items-center">
-                  {/* <img
-                      id="featuredImagePreviewImg"
-                      src=""
-                      alt="Featured image preview"
-                      className="h-16 w-24 object-cover rounded"
-                    /> */}
-                  <div className="ml-4">
-                    <p
-                      id="featuredImageName"
-                      className="font-medium text-gray-800"
-                    />
-                    <p
-                      id="featuredImageSize"
-                      className="text-sm text-gray-500"
-                    />
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  id="removeFeaturedImage"
-                  className="text-red-600 hover:text-red-800"
-                >
-                  <i className="fas fa-trash" />
-                </button>
-              </div>
-            </div>
+            <ImageUpload folder="cars" setImageUrl={setFeaturedImageUrl} />
           </div>
           {/* Additional Images */}
           <div>
