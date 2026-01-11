@@ -7,7 +7,7 @@ export interface CarImage {
 export interface Car {
   brand: string;
   car_images?: CarImage[];
-  category?: string;
+  category: string;
   chassis_number: string;
   color?: string;
   description?: string;
