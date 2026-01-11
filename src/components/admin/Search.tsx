@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Search = ({ query }: Props) => {
-  const [searchTerm, setSearchTerm] = useState(query || "");
+  const [searchTerm, setSearchTerm] = useState(query ?? "");
 
   const updateParams = useUpdateQueryParams();
 

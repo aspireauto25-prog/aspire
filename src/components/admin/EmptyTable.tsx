@@ -24,8 +24,10 @@ const EmptyTable = () => {
       <p className="text-gray-500 dark:text-gray-400 mb-6">
         All data have been processed or no data match your filters.
       </p>
-      <div className="flex justify-center" onClick={resetFilters}>
-        <Button size="md">Clear Filters</Button>
+      <div className="flex justify-center">
+        <Button size="md" onClick={resetFilters}>
+          Clear Filters
+        </Button>
       </div>
     </div>
   );
