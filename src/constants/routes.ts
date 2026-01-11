@@ -24,3 +24,14 @@ export const CONTACT_INQUIRIES_ROUTE = "/admin/contact-inquiries";
 
 export const SETTINGS_ROUTE = "/admin/settings";
 export const PROFILE_ROUTE = "/admin/profile";
+
+export const ADMIN_ROUTES = [
+  DASHBOARD_ROUTE,
+  ADD_CAR_ROUTE,
+  ADMIN_CARS_ROUTE,
+  ADMIN_RENT_ROUTE,
+  ADMIN_SELL_ROUTE,
+  CONTACT_INQUIRIES_ROUTE,
+  SETTINGS_ROUTE,
+  PROFILE_ROUTE,
+];
