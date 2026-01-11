@@ -58,7 +58,7 @@ const ImagePreview = ({
   if (!file) return null;
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm my-5">
+    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 shadow-sm dark:shadow-gray-700 my-5">
       <div className="grid grid-cols-[auto_1fr_auto] items-start gap-x-4">
         <Image
           src={file.path}
@@ -68,7 +68,7 @@ const ImagePreview = ({
           className="flex-1 h-12 w-12 object-cover rounded-lg"
         />
         <div className="flex flex-col">
-          <p className="text-sm font-medium text-gray-900 mb-1">{file.name}</p>
+          <p className="text-sm font-medium text-gray-90 dark:text-white mb-1">{file.name}</p>
           <div className="flex items-center gap-2 text-xs text-gray-500">
             <p>{file.size}</p>
             <span>•</span>

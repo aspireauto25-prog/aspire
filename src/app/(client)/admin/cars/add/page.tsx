@@ -120,36 +120,36 @@ const AddCarPage = () => {
   }, [success, error]);
 
   return (
-    <section className="bg-white rounded-xl shadow overflow-hidden">
+    <section className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
       <form onSubmit={handleSubmit(run)}>
         {/* Basic Information Section */}
-        <div className="form-section p-6 border-b border-gray-100">
+        <div className="form-section p-6 border-b border-gray-100 dark:border-gray-700">
           <div className="flex items-center mb-6">
             <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
               <FaCar />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-800">
+              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
                 Basic Information
               </h2>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
                 Primary details about the car
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {/* Brand */}
             <div>
               <label
                 htmlFor="brand"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Brand *
               </label>
               <input
                 type="text"
                 id="brand"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                 placeholder="e.g. Toyota, BMW, Tesla"
                 required
                 {...register("brand")}
@@ -159,14 +159,14 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="model"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Model *
               </label>
               <input
                 type="text"
                 id="model"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                 placeholder="e.g. Camry, Model 3, X5"
                 required
                 {...register("model")}
@@ -176,14 +176,14 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="variant"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Variant / Trim
               </label>
               <input
                 type="text"
                 id="variant"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                 placeholder="e.g. SE, Limited, Performance"
                 {...register("variant")}
               />
@@ -192,7 +192,7 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="year"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Year *
               </label>
@@ -202,7 +202,7 @@ const AddCarPage = () => {
                 max="2100"
                 step="1"
                 id="year"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                 placeholder="e.g. 2025"
                 required
                 {...register("year")}
@@ -212,13 +212,13 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="category"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Category *
               </label>
               <select
                 id="category"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                 required
                 {...register("category")}
               >
@@ -234,7 +234,7 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="price"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Price ($) *
               </label>
@@ -247,7 +247,7 @@ const AddCarPage = () => {
                   id="price"
                   min={0}
                   {...register("price")}
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                   placeholder="0.0"
                   required
                 />
@@ -258,14 +258,14 @@ const AddCarPage = () => {
           <div className="mt-6">
             <label
               htmlFor="description"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
             >
               Description
             </label>
             <textarea
               id="description"
               rows={3}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
               placeholder="Provide a detailed description of the car..."
               defaultValue={""}
               {...register("description")}
@@ -273,33 +273,33 @@ const AddCarPage = () => {
           </div>
         </div>
         {/* Technical Specifications Section */}
-        <div className="form-section p-6 border-b border-gray-100">
+        <div className="form-section p-6 border-b border-gray-100 dark:border-gray-700">
           <div className="flex items-center mb-6">
             <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
               <FaCogs />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-800">
+              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
                 Technical Specifications
               </h2>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
                 Mechanical and performance details
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {/* License plate */}
             <div>
               <label
                 htmlFor="licensePlate"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 License Plate *
               </label>
               <input
                 type="text"
                 id="licensePlate"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200 font-mono"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono"
                 placeholder="License plate number"
                 required
                 {...register("license_plate")}
@@ -312,14 +312,14 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="chassisNumber"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Chassis Number (VIN) *
               </label>
               <input
                 type="text"
                 id="chassisNumber"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200 font-mono"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono"
                 placeholder="17-character VIN"
                 required
                 {...register("chassis_number")}
@@ -332,14 +332,14 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="engineNumber"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Engine Number
               </label>
               <input
                 type="text"
                 id="engineNumber"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200 font-mono"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono"
                 placeholder="Engine serial number"
                 {...register("engine_number")}
               />
@@ -348,7 +348,7 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="mileage"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Mileage (km)
               </label>
@@ -358,7 +358,7 @@ const AddCarPage = () => {
                   id="mileage"
                   min={0}
                   {...register("mileage")}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                   placeholder="0"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -370,7 +370,7 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="engineCapacity"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Engine Capacity
               </label>
@@ -380,7 +380,7 @@ const AddCarPage = () => {
                   id="engineCapacity"
                   min={0}
                   {...register("engine_capacity")}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                   placeholder="0.0"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -392,13 +392,13 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="fuel"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Fuel Type *
               </label>
               <select
                 id="fuel"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                 required
                 {...register("fuel_type")}
               >
@@ -414,13 +414,13 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="transmission"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Transmission *
               </label>
               <select
                 id="transmission"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                 required
                 {...register("transmission_type")}
               >
@@ -436,13 +436,13 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="driveType"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Drive Type
               </label>
               <select
                 id="driveType"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                 {...register("drive_type")}
               >
                 <option value="">Select Drive Type</option>
@@ -457,13 +457,13 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="seats"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Number of Seats *
               </label>
               <select
                 id="seats"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                 required
                 {...register("seat_capacity")}
               >
@@ -479,14 +479,14 @@ const AddCarPage = () => {
             <div>
               <label
                 htmlFor="color"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
                 Color
               </label>
               <input
                 type="text"
                 id="color"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                 placeholder="e.g., Midnight Black, Pearl White"
                 {...register("color")}
               />
@@ -494,38 +494,38 @@ const AddCarPage = () => {
           </div>
         </div>
         {/* Features & Equipment Section */}
-        <div className="form-section p-6 border-b border-gray-100">
+        <div className="form-section p-6 border-b border-gray-100 dark:border-gray-700">
           <div className="flex items-center mb-6">
             <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
               <FaStar />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-800">
+              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
                 Features &amp; Equipment
               </h2>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
                 Select all available features and amenities
               </p>
             </div>
           </div>
           <div className="mb-6">
-            <h3 className="text-lg font-medium text-gray-800 mb-4">
+            <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">
               Safety Features
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-3">
               {safetyFeatures.map((feature, index) => (
                 <div key={index} className="flex items-center">
                   <input
                     id={feature}
                     type="checkbox"
-                    className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                    className="h-4 w-4 text-red-600 border-gray-300 dark:border-gray-700 rounded custom-checkbox"
                     {...register("features")}
                     checked={features?.includes(feature)}
                     onChange={(e) =>
                       handleFeatureChange(feature, e.target.checked)
                     }
                   />
-                  <label className="ml-2 text-gray-700" htmlFor={feature}>
+                  <label className="ml-2 text-gray-700 dark:text-gray-300" htmlFor={feature}>
                     {feature}
                   </label>
                 </div>
@@ -533,23 +533,23 @@ const AddCarPage = () => {
             </div>
           </div>
           <div className="mb-6">
-            <h3 className="text-lg font-medium text-gray-800 mb-4">
+            <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">
               Comfort &amp; Convenience
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-3">
               {comfortFeatures.map((feature, index) => (
                 <div key={index} className="flex items-center">
                   <input
                     id={feature}
                     type="checkbox"
-                    className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                    className="h-4 w-4 text-red-600 border-gray-300 dark:border-gray-700 rounded custom-checkbox"
                     {...register("features")}
                     checked={features?.includes(feature)}
                     onChange={(e) =>
                       handleFeatureChange(feature, e.target.checked)
                     }
                   />
-                  <label className="ml-2 text-gray-700" htmlFor={feature}>
+                  <label className="ml-2 text-gray-700 dark:text-gray-300" htmlFor={feature}>
                     {feature}
                   </label>
                 </div>
@@ -557,23 +557,23 @@ const AddCarPage = () => {
             </div>
           </div>
           <div className="mb-6">
-            <h3 className="text-lg font-medium text-gray-800 mb-4">
+            <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">
               Entertainment &amp; Technology
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-3">
               {techFeatures.map((feature, index) => (
                 <div key={index} className="flex items-center">
                   <input
                     id={feature}
                     type="checkbox"
-                    className="h-4 w-4 text-red-600 border-gray-300 rounded custom-checkbox"
+                    className="h-4 w-4 text-red-600 border-gray-300 dark:border-gray-700 rounded custom-checkbox"
                     {...register("features")}
                     checked={features?.includes(feature)}
                     onChange={(e) =>
                       handleFeatureChange(feature, e.target.checked)
                     }
                   />
-                  <label className="ml-2 text-gray-700" htmlFor={feature}>
+                  <label className="ml-2 text-gray-700 dark:text-gray-300" htmlFor={feature}>
                     {feature}
                   </label>
                 </div>
@@ -584,14 +584,14 @@ const AddCarPage = () => {
           <div>
             <label
               htmlFor="additionalFeatures"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
             >
               Additional Features (comma separated)
             </label>
             <input
               type="text"
               id="additionalFeatures"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-200 focus:border-red-400 focus:outline-none transition duration-200"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
               placeholder="e.g., panoramic roof, heated steering wheel, ambient lighting"
               {...register("other_features")}
             />
@@ -601,21 +601,21 @@ const AddCarPage = () => {
           </div>
         </div>
         {/* Media & Images Section */}
-        <div className="form-section p-6 border-b border-gray-100">
+        <div className="form-section p-6 border-b border-gray-100 dark:border-gray-700">
           <div className="flex items-center mb-6">
             <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
               <FaImages />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-800">
+              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
                 Media &amp; Images
               </h2>
-              <p className="text-gray-600 text-sm">Upload photos of the car</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Upload photos of the car</p>
             </div>
           </div>
           {/* Featured Image */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Featured Image *
             </label>
             <p className="text-sm text-gray-500 mb-4">
@@ -629,7 +629,7 @@ const AddCarPage = () => {
           </div>
           {/* Additional Images */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Additional Images
             </label>
             <p className="text-sm text-gray-500 mb-4">
@@ -645,11 +645,11 @@ const AddCarPage = () => {
         </div>
         {/* Form Actions */}
         <div className="p-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
             <div className="text-sm text-primary">
               Fields marked with * are required.
             </div>
-            <div className="flex space-x-4">
+            <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
               <Button type="button" theme="light" size="md">
                 <FaBookmark />
                 Save as Draft

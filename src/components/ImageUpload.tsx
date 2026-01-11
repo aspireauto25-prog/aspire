@@ -126,7 +126,7 @@ const ImageUpload = ({
         htmlFor={`${id}_images`}
         className={`image-upload-area flex flex-col items-center justify-center w-full rounded-xl py-5 ${
           uploadState === UPLOAD_PROGRESS
-            ? "bg-gray-50 cursor-not-allowed opacity-85"
+            ? "bg-gray-50 dark:bg-gray-700 cursor-not-allowed opacity-85"
             : "cursor-pointer"
         }`}
       >
