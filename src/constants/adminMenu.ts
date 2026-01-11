@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 
 import {
-  ADMIN_CARS_ROUTE,
+  ADMIN_CARS_LIST_ROUTE,
   ADMIN_CAR_RENT_ROUTE,
   ADMIN_CAR_SELL_ROUTE,
   CONTACT_INQUIRIES_ROUTE,
@@ -37,7 +37,7 @@ export const dashboardMenu = [
 export const inventoryMenu = [
   {
     Icon: FaCarAlt,
-    route: ADMIN_CARS_ROUTE,
+    route: ADMIN_CARS_LIST_ROUTE,
     label: "All Cars",
   },
   {
