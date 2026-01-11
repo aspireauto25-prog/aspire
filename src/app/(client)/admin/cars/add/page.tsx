@@ -23,10 +23,10 @@ import {
   techFeatures,
   transmissionTypes,
 } from "@/constants/cars";
-import { createCar } from "@/api/axios/cars";
+import { createCar, uploadCarImages } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
-import ImageUpload, { ImageUrlsType } from "@/components/ImageUpload";
+import ImageUpload from "@/components/ImageUpload";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
 
@@ -54,8 +54,8 @@ export interface FormInput {
 }
 
 const AddCarPage = () => {
-  const [featuredImageUrl, setFeaturedImageUrl] = useState<ImageUrlsType>(null);
-  const [otherImageUrls, setOtherImageUrls] = useState<ImageUrlsType>([]);
+  const [featuredImageUrl, setFeaturedImageUrl] = useState<string[]>([]);
+  const [otherImageUrls, setOtherImageUrls] = useState<string[]>([]);
 
   const { register, handleSubmit, reset, watch, setValue } = useForm<FormInput>(
     {
@@ -79,6 +79,10 @@ const AddCarPage = () => {
   const { error, loading, run, success } = useRequest(createCarWithImages);
 
   async function createCarWithImages(data: FormInput) {
+    if (!featuredImageUrl || featuredImageUrl.length == 0) {
+      throw { message: "Featured image is required." };
+    }
+
     const response = await createCar({
       ...data,
       engine_capacity: parseNumber(data.engine_capacity),
@@ -90,6 +94,16 @@ const AddCarPage = () => {
     } as unknown as Car);
 
     const createdCar = response.data;
+
+    const images = [
+      {
+        url: featuredImageUrl[0],
+        featured: true,
+      },
+      ...otherImageUrls.map((url) => ({ url })),
+    ];
+
+    await uploadCarImages(createdCar.id, images);
   }
 
   useEffect(() => {

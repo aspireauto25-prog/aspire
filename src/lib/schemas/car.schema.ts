@@ -33,3 +33,13 @@ export const carSchema = z.object({
       value.input === undefined ? "Year is required." : "Invalid year value.",
   }),
 });
+
+export const carImageSchema = z.object({
+  car_id: z.number(),
+  images: z.array(
+    z.object({
+      featured: z.boolean().default(false),
+      url: z.string(),
+    })
+  ),
+});

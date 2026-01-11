@@ -8,20 +8,18 @@ import {
 } from "@/constants/uploadState";
 import ImagePreview from "./ImagePreview";
 
-export type ImageUrlsType = string | string[] | null;
-
 interface Props {
-  id: string;
   disabled?: boolean;
   folder?: string;
+  id: string;
   multiple?: boolean;
-  setImageUrls: (_: ImageUrlsType) => void;
+  setImageUrls: (_: string[]) => void;
 }
 
 const ImageUpload = ({
-  id,
   disabled,
   folder,
+  id,
   multiple = false,
   setImageUrls,
 }: Props) => {
@@ -29,7 +27,7 @@ const ImageUpload = ({
   const [files, setFiles] = useState<
     Array<{ file: File; name: string; path: string; size: string }>
   >([]);
-  const [progress, setProgress] = useState<number[]>([]); // progress per file
+  const [progress, setProgress] = useState<number[]>([]);
   const [uploadState, setUploadState] = useState<string | null>(null);
 
   const controllerRef = useRef<AbortController | null>(null);
@@ -78,7 +76,7 @@ const ImageUpload = ({
           const percent = Math.round(
             (progressEvent.loaded * 100) / (progressEvent.total ?? 1)
           );
-          setProgress(Array(files.length).fill(percent)); // simple shared progress
+          setProgress(Array(files.length).fill(percent));
         },
       });
 
@@ -87,7 +85,7 @@ const ImageUpload = ({
         ? response.data
         : [response.data];
 
-      setImageUrls(uploadedFiles); // pass array to parent
+      setImageUrls(uploadedFiles.map((file) => file.url));
       setUploadState(UPLOAD_SUCCESS);
     } catch (error) {
       if (axios.isCancel(error)) return;
