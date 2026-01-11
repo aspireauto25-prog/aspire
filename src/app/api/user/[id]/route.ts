@@ -33,7 +33,7 @@ export const PUT = async (req: Request, { params }: Params) => {
     return Response.json({ error: "User ID is required" }, { status: 400 });
   }
 
-  const input = {} as User;
+  const input = { updated_at: new Date().toISOString() } as User;
 
   if (body.address) input.address = body.address;
   if (body.email) input.email = body.email;

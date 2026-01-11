@@ -94,6 +94,7 @@ export async function POST(request: Request) {
         {
           ...input,
           status: CAR_STATUS_AVAILABLE,
+          updated_at: new Date().toISOString(),
         },
         { onConflict: "license_plate" }
       )

@@ -1,10 +1,11 @@
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { isBefore } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Car } from "@/lib/types/car.types";
 import CarStatus from "./Status";
+import DeleteAction from "./DeleteAction";
 import EmptyTable from "../EmptyTable";
 
 import logoUrl from "@/assets/images/logo.png";
@@ -114,12 +115,7 @@ const Table = async ({ cars }: Props) => {
                   >
                     <FaEdit />
                   </Link>
-                  <button
-                    className="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
-                    title="Delete"
-                  >
-                    <FaTrash />
-                  </button>
+                  <DeleteAction id={car.id} />
                 </div>
               </td>
             </tr>
