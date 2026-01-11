@@ -14,7 +14,16 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { Car } from "@/lib/types/car.types";
-import { comfortFeatures, safetyFeatures, techFeatures } from "@/data/cars";
+import {
+  categories,
+  comfortFeatures,
+  driveTypes,
+  fuelTypes,
+  safetyFeatures,
+  seatCapacities,
+  techFeatures,
+  transmissionTypes,
+} from "@/constants/cars";
 import { createCar } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
@@ -193,17 +202,11 @@ const AddCarPage = () => {
                 {...register("category")}
               >
                 <option value="">Select Category</option>
-                <option value="Sedan">Sedan</option>
-                <option value="SUV">SUV</option>
-                <option value="Truck">Truck</option>
-                <option value="Coupe">Coupe</option>
-                <option value="Convertible">Convertible</option>
-                <option value="Hatchback">Hatchback</option>
-                <option value="Minivan">Minivan</option>
-                <option value="Sports Car">Sports Car</option>
-                <option value="Electric Vehicle">Electric Vehicle</option>
-                <option value="Luxury">Luxury</option>
-                <option value="Hybrid">Hybrid</option>
+                {categories.map((value, index) => (
+                  <option key={index} value={value}>
+                    {value}
+                  </option>
+                ))}
               </select>
             </div>
             {/* Price */}
@@ -379,13 +382,11 @@ const AddCarPage = () => {
                 {...register("fuel_type")}
               >
                 <option value="">Select Fuel Type</option>
-                <option value="Petrol">Petrol</option>
-                <option value="Diesel">Diesel</option>
-                <option value="Electric">Electric</option>
-                <option value="Hybrid">Hybrid</option>
-                <option value="Plug-in Hybrid">Plug-in Hybrid</option>
-                <option value="CNG">CNG</option>
-                <option value="LPG">LPG</option>
+                {fuelTypes.map((value, index) => (
+                  <option key={index} value={value}>
+                    {value}
+                  </option>
+                ))}
               </select>
             </div>
             {/* Transmission */}
@@ -403,11 +404,11 @@ const AddCarPage = () => {
                 {...register("transmission_type")}
               >
                 <option value="">Select Transmission</option>
-                <option value="Manual">Manual</option>
-                <option value="Automatic">Automatic</option>
-                <option value="CVT">CVT</option>
-                <option value="Dual-Clutch">Dual-Clutch</option>
-                <option value="Semi-Automatic">Semi-Automatic</option>
+                {transmissionTypes.map((value, index) => (
+                  <option key={index} value={value}>
+                    {value}
+                  </option>
+                ))}
               </select>
             </div>
             {/* Drive Type */}
@@ -424,10 +425,11 @@ const AddCarPage = () => {
                 {...register("drive_type")}
               >
                 <option value="">Select Drive Type</option>
-                <option value="FWD">Front-Wheel Drive (FWD)</option>
-                <option value="RWD">Rear-Wheel Drive (RWD)</option>
-                <option value="AWD">All-Wheel Drive (AWD)</option>
-                <option value="4WD">Four-Wheel Drive (4WD)</option>
+                {driveTypes.map((type, index) => (
+                  <option key={index} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
               </select>
             </div>
             {/* No. of Seats */}
@@ -445,13 +447,11 @@ const AddCarPage = () => {
                 {...register("seat_capacity")}
               >
                 <option value="">Select Seats</option>
-                <option value={2}>2 Seats</option>
-                <option value={4}>4 Seats</option>
-                <option value={5}>5 Seats</option>
-                <option value={6}>6 Seats</option>
-                <option value={7}>7 Seats</option>
-                <option value={8}>8 Seats</option>
-                <option value={9}>9+ Seats</option>
+                {seatCapacities.map((value, index) => (
+                  <option key={index} value={value}>
+                    {value} Seats
+                  </option>
+                ))}
               </select>
             </div>
             {/* Color */}

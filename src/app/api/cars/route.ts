@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { ZodError } from "zod";
 
-import { CAR_STATUS_AVAILABLE } from "@/constants/car";
+import { CAR_STATUS_AVAILABLE } from "@/constants/cars";
 import { carSchema } from "@/lib/schemas/car.schema";
 import { formatZodErrors } from "@/utils/zod";
 import { PAGE_LIMIT } from "@/constants/pagination";

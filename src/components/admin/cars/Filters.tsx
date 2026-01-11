@@ -4,7 +4,7 @@ import {
   CAR_STATUS_AVAILABLE,
   CAR_STATUS_MAINTENANCE,
   CAR_STATUS_UNAVAILABLE,
-} from "@/constants/car";
+} from "@/constants/cars";
 import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
 
 interface Props {

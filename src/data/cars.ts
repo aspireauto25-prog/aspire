@@ -424,37 +424,4 @@ const cars = [
   },
 ];
 
-export const safetyFeatures = [
-  "ABS",
-  "Airbags",
-  "Stability Control",
-  "Rear Camera",
-  "Parking Sensors",
-  "Lane Assist",
-  "Blind Spot Monitor",
-  "Adaptive Cruise",
-];
-
-export const comfortFeatures = [
-  "Air Conditioning",
-  "Power Windows",
-  "Power Seats",
-  "Heated Seats",
-  "Sunroof",
-  "Keyless Entry",
-  "Push Button Start",
-  "Remote Start",
-];
-
-export const techFeatures = [
-  "Touchscreen",
-  "Navigation",
-  "Bluetooth",
-  "Apple CarPlay",
-  "Android Auto",
-  "Premium Sound",
-  "USB Ports",
-  "Wireless Charging",
-];
-
 export default cars;

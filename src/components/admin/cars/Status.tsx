@@ -1,7 +1,7 @@
 import {
   CAR_STATUS_MAINTENANCE,
   CAR_STATUS_UNAVAILABLE,
-} from "@/constants/car";
+} from "@/constants/cars";
 
 interface Props {
   status: string;
