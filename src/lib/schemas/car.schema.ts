@@ -9,7 +9,17 @@ export const carSchema = z.object({
   drive_type: z.string().trim().optional(),
   engine_capacity: z.number().optional(),
   engine_number: z.string().trim().optional(),
-  features: z.string().optional(),
+  features: z
+    .string()
+    .optional()
+    .transform((value) =>
+      value
+        ? value
+            .split(",")
+            .map((f) => f.trim())
+            .filter(Boolean)
+        : []
+    ),
   fuel_type: z.string().trim().optional(),
   license_plate: z.string("License plate is required.").trim().min(2),
   mileage: z.number().optional(),

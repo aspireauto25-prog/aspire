@@ -7,9 +7,9 @@ export interface Car {
   drive_type: string;
   engine_capacity?: number;
   engine_number?: string;
-  features?: string;
+  features?: string[];
   fuel_type?: string;
-  id?: number;
+  id: number;
   license_plate: string;
   mileage?: number;
   model: string;
