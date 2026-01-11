@@ -2,30 +2,36 @@ import { v2 as cloudinary } from "cloudinary";
 
 const CLOUDINARY_FOLDER = "aspire";
 
-async function uploadFile(file: File, subDirectory?: string) {
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
+async function uploadFile(file: File | File[], subDirectory?: string) {
+  const files = Array.isArray(file) ? file : [file];
 
   const folder = subDirectory
     ? `${CLOUDINARY_FOLDER}/${subDirectory}`
     : CLOUDINARY_FOLDER;
 
-  // Upload to Cloudinary
-  return await new Promise((resolve, reject) => {
-    return cloudinary.uploader
-      .upload_stream(
-        {
-          folder,
-          resource_type: "image",
-        },
-        (error, data) => {
-          if (error) return reject(error);
+  const uploadSingle = async (file: File) => {
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-          resolve(data);
-        }
-      )
-      .end(buffer);
-  });
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          {
+            folder,
+            resource_type: "image",
+          },
+          (error, data) => {
+            if (error) return reject(error);
+            resolve(data);
+          }
+        )
+        .end(buffer);
+    });
+  };
+
+  const results = await Promise.all(files.map(uploadSingle));
+
+  return Array.isArray(file) ? results : results[0];
 }
 
 export default uploadFile;
