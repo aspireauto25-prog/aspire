@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import type { SearchParams } from "next/dist/server/request/search-params";
 
-import { PaginatedCars } from "@/lib/types/car.types";
+import { Car, PaginatedCars } from "@/lib/types/car.types";
 import { getFormattedQuery } from "@/utils/queryFormatter";
 import config from "@/config";
 
@@ -23,6 +23,18 @@ export const getCars = async (
 
   if (!res.ok) {
     throw new Error(res.statusText);
+  }
+
+  return res.json();
+};
+
+export const getCarById = async (id: string): Promise<Car> => {
+  const url = `${config.apiUrl}/api/cars/${id}`;
+
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch car.");
   }
 
   return res.json();

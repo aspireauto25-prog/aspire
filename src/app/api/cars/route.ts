@@ -89,12 +89,13 @@ export async function POST(request: Request) {
 
     const { data, error } = await supabase
       .from("cars")
-      .insert([
+      .upsert(
         {
           ...input,
           status: CAR_STATUS_AVAILABLE,
         },
-      ])
+        { onConflict: "license_plate" }
+      )
       .select();
 
     if (error) return Response.json({ error: error.message }, { status: 500 });

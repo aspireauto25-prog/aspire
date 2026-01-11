@@ -11,7 +11,9 @@ import {
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
+import { ADMIN_CARS_LIST_ROUTE } from "@/constants/routes";
 import { Car } from "@/lib/types/car.types";
 import {
   categories,
@@ -53,19 +55,44 @@ export interface FormInput {
   year: string;
 }
 
-const CarForm = () => {
+interface Props {
+  car?: Car;
+  isEditing?: boolean;
+}
+
+const CarForm = ({ car, isEditing }: Props) => {
   const [featuredImageUrl, setFeaturedImageUrl] = useState<string[]>([]);
   const [otherImageUrls, setOtherImageUrls] = useState<string[]>([]);
 
   const { register, handleSubmit, reset, watch, setValue } = useForm<FormInput>(
     {
-      defaultValues: {
-        features: "",
+      values: {
+        brand: car?.brand ?? "",
+        category: car?.category ?? "",
+        chassis_number: car?.chassis_number ?? "",
+        color: car?.color ?? "",
+        description: car?.description ?? "",
+        drive_type: car?.drive_type ?? "",
+        engine_capacity: car?.engine_capacity?.toString() ?? "",
+        engine_number: car?.engine_number ?? "",
+        features: car?.features?.join(",") || "",
+        fuel_type: car?.fuel_type ?? "",
+        license_plate: car?.license_plate ?? "",
+        mileage: car?.mileage?.toString() ?? "",
+        model: car?.model ?? "",
+        price: car?.price?.toString() ?? "",
+        seat_capacity: car?.seat_capacity?.toString() ?? "",
+        status: car?.status ?? "",
+        transmission_type: car?.transmission_type ?? "",
+        variant: car?.variant ?? "",
+        year: car?.year?.toString() ?? "",
       },
     }
   );
 
   const features = watch("features");
+
+  const router = useRouter();
 
   const handleFeatureChange = (feature: string, checked: boolean) => {
     let list = features ? features.split(",") : [];
@@ -79,7 +106,7 @@ const CarForm = () => {
   const { error, loading, run, success } = useRequest(createCarWithImages);
 
   async function createCarWithImages(data: FormInput) {
-    if (!featuredImageUrl || featuredImageUrl.length == 0) {
+    if (!isEditing && (!featuredImageUrl || featuredImageUrl.length == 0)) {
       throw { message: "Featured image is required." };
     }
 
@@ -103,18 +130,21 @@ const CarForm = () => {
       ...otherImageUrls.map((url) => ({ url })),
     ];
 
-    await uploadCarImages(createdCar.id, images);
+    if (featuredImageUrl.length > 0)
+      await uploadCarImages(createdCar.id, images);
   }
 
   useEffect(() => {
     if (success) {
-      toast.success("Car added successfully.");
+      toast.success("Car saved successfully.");
+
+      router.replace(ADMIN_CARS_LIST_ROUTE);
 
       reset();
     }
 
     if (error) {
-      toast.error("Car create failed. Please try again.");
+      toast.error("Car save failed. Please try again.");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);
@@ -299,9 +329,10 @@ const CarForm = () => {
               <input
                 type="text"
                 id="licensePlate"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="License plate number"
                 required
+                disabled={isEditing}
                 {...register("license_plate")}
               />
               <p className="text-xs text-gray-500 mt-1">
@@ -639,20 +670,22 @@ const CarForm = () => {
             />
           </div>
           {/* Additional Images */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Additional Images
-            </label>
-            <p className="text-sm text-gray-500 mb-4">
-              Upload multiple images showing different angles and features
-            </p>
-            <ImageUpload
-              folder="cars"
-              id="otherImages"
-              multiple={true}
-              setImageUrls={setOtherImageUrls}
-            />
-          </div>
+          {!isEditing && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Additional Images
+              </label>
+              <p className="text-sm text-gray-500 mb-4">
+                Upload multiple images showing different angles and features
+              </p>
+              <ImageUpload
+                folder="cars"
+                id="otherImages"
+                multiple={true}
+                setImageUrls={setOtherImageUrls}
+              />
+            </div>
+          )}
         </div>
         {/* Form Actions */}
         <div className="p-6">
@@ -668,7 +701,7 @@ const CarForm = () => {
 
               <Button type="submit" size="md" disabled={loading}>
                 {loading ? <Spinner /> : <FaSave />}
-                Add Car to Inventory
+                Save Car
               </Button>
             </div>
           </div>

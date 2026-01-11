@@ -1,4 +1,5 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
+import Link from "next/link";
 import Image from "next/image";
 
 import { Car } from "@/lib/types/car.types";
@@ -102,12 +103,13 @@ const Table = async ({ cars }: Props) => {
               </td>
               <td className="py-4 px-6">
                 <div className="flex space-x-1">
-                  <button
+                  <Link
+                    href={`/admin/cars/${car.id}/edit`}
                     className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
                     title="Edit"
                   >
                     <FaEdit />
-                  </button>
+                  </Link>
                   <button
                     className="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg"
                     title="Delete"
