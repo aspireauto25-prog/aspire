@@ -1,14 +1,18 @@
 "use client";
 
 import { FaCar, FaSave } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
-import Button from "@/components/Button";
-import Spinner from "@/components/Spinner";
-import SelectCar from "./SelectCar";
-import useRequest from "@/hooks/useRequest";
+import { ADMIN_CAR_RENT_ROUTE } from "@/constants/routes";
 import { createRentalCar } from "@/api/axios/rentalCars";
 import { parseNumber } from "@/utils/inputFormatter";
+import Button from "@/components/Button";
+import SelectCar from "./SelectCar";
+import Spinner from "@/components/Spinner";
+import useRequest from "@/hooks/useRequest";
 
 interface FormInput {
   car_id: string;
@@ -22,16 +26,29 @@ const RentCarForm = () => {
 
   const { error, loading, run, success } = useRequest((data: FormInput) =>
     createRentalCar({
-      car_id: parseInt(data.car_id),
-      daily_rate: parseInt(data.daily_rate),
-      weekly_rate: parseInt(data.weekly_rate),
-      monthly_rate: parseInt(data.monthly_rate),
+      car_id: parseNumber(data.car_id)!,
+      daily_rate: parseNumber(data.daily_rate)!,
+      weekly_rate: parseNumber(data.weekly_rate),
+      monthly_rate: parseNumber(data.monthly_rate),
     })
   );
 
-  function submitform(data: FormInput) {
-    console.log(data);
-  }
+  const router = useRouter();
+
+  useEffect(() => {
+    if (success) {
+      toast.success("Rental car saved successfully.");
+
+      router.replace(ADMIN_CAR_RENT_ROUTE);
+
+      reset();
+    }
+
+    if (error) {
+      toast.error("Rental car save failed. Please try again.");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success, error]);
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow dark:shadow-dark-900 overflow-hidden mb-8">
@@ -50,7 +67,7 @@ const RentCarForm = () => {
           </div>
         </div>
       </div>
-      <form onSubmit={handleSubmit(submitform)}>
+      <form onSubmit={handleSubmit(run)}>
         {/* Car Selection */}
         <div className="p-6">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
@@ -150,8 +167,8 @@ const RentCarForm = () => {
               Fields marked with * are required.
             </div>
             <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-              <Button type="submit" size="md" disabled={false}>
-                {false ? <Spinner /> : <FaSave />}
+              <Button type="submit" size="md" disabled={loading}>
+                {loading ? <Spinner /> : <FaSave />}
                 Save Car Rental
               </Button>
             </div>

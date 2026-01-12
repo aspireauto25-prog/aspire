@@ -38,7 +38,7 @@ const CarRentalPage = () => {
           <Filters currentStatus={""} />
           <LinkButton href={ADD_CAR_RENT_ROUTE} size="sm">
             <FaPlus />
-            Add New Car
+            Add New Rental Car
           </LinkButton>
         </div>
         {/* Quick Filters */}

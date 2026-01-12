@@ -6,8 +6,9 @@ import { createJWT } from "@/utils/jwt";
 import { formatZodErrors } from "@/utils/zod";
 import { loginSchema } from "@/lib/schemas/auth.schema";
 import { TOKEN } from "@/constants/contants";
-import supabase from "@/config/database";
+import { TOKEN_EXPIRATION_IN_SECONDS } from "@/constants/token";
 import { USER_STATUS_BLOCKED, USER_STATUS_INACTIVE } from "@/constants/user";
+import supabase from "@/config/database";
 
 export const POST = async (req: Request) => {
   try {
@@ -62,6 +63,7 @@ export const POST = async (req: Request) => {
       path: "/",
       sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
+      maxAge: TOKEN_EXPIRATION_IN_SECONDS,
     });
 
     return response;

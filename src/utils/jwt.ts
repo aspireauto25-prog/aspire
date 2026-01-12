@@ -1,13 +1,12 @@
 import { jwtDecode } from "jwt-decode";
 import jwt from "jsonwebtoken";
 
+import { TOKEN_EXPIRATION_IN_DAYS } from "@/constants/token";
 import config from "@/config";
-
-const TOKEN_EXPIRATION = "30d"; // 30 days
 
 function createJWT(data: Record<string, unknown>) {
   return jwt.sign(data, config.jwtSecret, {
-    expiresIn: TOKEN_EXPIRATION,
+    expiresIn: TOKEN_EXPIRATION_IN_DAYS,
   });
 }
 
@@ -15,6 +14,8 @@ function isTokenExpired(authToken: string) {
   const { exp } = jwtDecode(authToken);
 
   if (!exp) return true;
+
+  console.log({ date: Date.now(), exp: exp * 1000 });
 
   return Date.now() >= exp * 1000;
 }
