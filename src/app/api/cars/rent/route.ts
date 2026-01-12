@@ -1,10 +1,10 @@
 import { cookies } from "next/headers";
 import { ZodError } from "zod";
 
-import { CAR_STATUS_AVAILABLE } from "@/constants/cars";
-import { carSchema } from "@/lib/schemas/car.schema";
 import { formatZodErrors } from "@/utils/zod";
 import { PAGE_LIMIT } from "@/constants/pagination";
+import { RENTAL_CAR_STATUS_AVAILABLE } from "@/constants/rentalCars";
+import { rentalCarSchema } from "@/lib/schemas/rentalCar.schema";
 import { TOKEN } from "@/constants/contants";
 import { User } from "@/lib/types/user.types";
 import { USER_ROLE_ADMIN } from "@/constants/user";
@@ -24,7 +24,10 @@ export const GET = async (req: Request) => {
 
   let query = supabase
     .from("rental_cars")
-    .select(`*, car_images (url,featured,created_at)`, { count: "exact" })
+    .select(
+      `*, cars (brand,model,variant,year,license_plate,chassis_number,category)`,
+      { count: "exact" }
+    )
     .is("deleted_at", null)
     .order("created_at", { ascending: false });
 
@@ -86,18 +89,15 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    const input = carSchema.parse(body);
+    const input = rentalCarSchema.parse(body);
 
     const { data, error } = await supabase
       .from("rental_cars")
-      .upsert(
-        {
-          ...input,
-          status: CAR_STATUS_AVAILABLE,
-          updated_at: new Date().toISOString(),
-        },
-        { onConflict: "license_plate" }
-      )
+      .upsert({
+        ...input,
+        status: RENTAL_CAR_STATUS_AVAILABLE,
+        updated_at: new Date().toISOString(),
+      })
       .select();
 
     if (error) return Response.json({ error: error.message }, { status: 500 });

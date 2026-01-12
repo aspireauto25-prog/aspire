@@ -1,39 +1,37 @@
 "use client";
 
 import { FaCar, FaSave } from "react-icons/fa";
-import AsyncSelect from "react-select/async";
+import { useForm } from "react-hook-form";
 
-import { CAR_STATUS_AVAILABLE } from "@/constants/cars";
-import { getCars } from "@/api/cars";
 import Button from "@/components/Button";
 import Spinner from "@/components/Spinner";
-import { useState } from "react";
+import SelectCar from "./SelectCar";
+import useRequest from "@/hooks/useRequest";
+import { createRentalCar } from "@/api/axios/rentalCars";
+import { parseNumber } from "@/utils/inputFormatter";
+
+interface FormInput {
+  car_id: string;
+  daily_rate: string;
+  weekly_rate: string;
+  monthly_rate: string;
+}
 
 const RentCarForm = () => {
-  const loading = false;
-  const [selectedCar, setSelectedCar] = useState<Record<
-    string,
-    string | number
-  > | null>();
+  const { register, handleSubmit, reset, setValue } = useForm<FormInput>();
 
-  const loadOptions = (inputValue: string) =>
-    new Promise<Record<string, string | number>[]>(async (resolve) => {
-      const response = await getCars({
-        search: inputValue,
-        status: CAR_STATUS_AVAILABLE,
-      });
+  const { error, loading, run, success } = useRequest((data: FormInput) =>
+    createRentalCar({
+      car_id: parseInt(data.car_id),
+      daily_rate: parseInt(data.daily_rate),
+      weekly_rate: parseInt(data.weekly_rate),
+      monthly_rate: parseInt(data.monthly_rate),
+    })
+  );
 
-      resolve(
-        response.data.map((car) => ({
-          category: car.category,
-          chassisNumber: car.chassis_number,
-          label: `${car.brand} ${car.model} ${car.variant} ${car.year}`,
-          licensePlate: car.license_plate,
-          status: car.status,
-          value: car.id,
-        }))
-      );
-    });
+  function submitform(data: FormInput) {
+    console.log(data);
+  }
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow dark:shadow-dark-900 overflow-hidden mb-8">
@@ -52,50 +50,21 @@ const RentCarForm = () => {
           </div>
         </div>
       </div>
-      <form>
+      <form onSubmit={handleSubmit(submitform)}>
         {/* Car Selection */}
         <div className="p-6">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
             1. Select Car for Rent
           </h3>
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-            <div id="react-select">
+            <div>
               <label
                 htmlFor="rentalCar"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
               >
                 Select Car *
               </label>
-              <AsyncSelect
-                id="rentalCar"
-                cacheOptions
-                loadOptions={loadOptions}
-                defaultOptions
-                classNamePrefix="react-select"
-                onChange={(item) => setSelectedCar(item)}
-              />
-              {selectedCar && (
-                <div className="mt-2 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg ">
-                  <div className="flex items-center">
-                    <div className="hidden h-16 w-24 bg-gray-200 dark:bg-gray-600 rounded sm:flex items-center justify-center mr-4">
-                      <FaCar className="text-gray-400 dark:text-gray-500 text-2xl" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-800 dark:text-white">
-                        {selectedCar.label}
-                      </h4>
-                      <div className="text-sm text-gray-600 dark:text-gray-400 flex flex-col md:flex-row gap-1">
-                        <span>{selectedCar.category} •</span>
-                        <span>{selectedCar.licensePlate} •</span>
-                        <span>{selectedCar.chassisNumber}</span>
-                      </div>
-                      <p id="carRentStatus" className="text-sm mt-1">
-                        {selectedCar.status}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
+              <SelectCar setCarId={(id) => setValue("car_id", id)} />
             </div>
           </div>
         </div>
@@ -119,12 +88,12 @@ const RentCarForm = () => {
                 <input
                   type="number"
                   id="dailyRate"
-                  name="dailyRate"
                   min={0}
                   step="0.01"
                   className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
                   placeholder="0.0"
                   required
+                  {...register("daily_rate")}
                 />
               </div>
             </div>
@@ -142,11 +111,11 @@ const RentCarForm = () => {
                 <input
                   type="number"
                   id="weeklyRate"
-                  name="weeklyRate"
                   min={0}
                   step="0.01"
                   className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
                   placeholder="0.0"
+                  {...register("weekly_rate")}
                 />
               </div>
             </div>
@@ -164,11 +133,11 @@ const RentCarForm = () => {
                 <input
                   type="number"
                   id="monthlyRate"
-                  name="monthlyRate"
                   min={0}
                   step="0.01"
                   className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
                   placeholder="0.0"
+                  {...register("monthly_rate")}
                 />
               </div>
             </div>
@@ -181,8 +150,8 @@ const RentCarForm = () => {
               Fields marked with * are required.
             </div>
             <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-              <Button type="submit" size="md" disabled={loading}>
-                {loading ? <Spinner /> : <FaSave />}
+              <Button type="submit" size="md" disabled={false}>
+                {false ? <Spinner /> : <FaSave />}
                 Save Car Rental
               </Button>
             </div>
