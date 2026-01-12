@@ -25,7 +25,20 @@ export const GET = async (req: Request) => {
   let query = supabase
     .from("rental_cars")
     .select(
-      `*, cars (brand,model,variant,year,license_plate,chassis_number,category)`,
+      `*, 
+      cars (
+        brand,
+        category,
+        chassis_number,
+        fuel_type,
+        license_plate,
+        mileage,
+        model,
+        seat_capacity,
+        transmission_type,
+        variant,
+        year
+      )`,
       { count: "exact" }
     )
     .is("deleted_at", null)
@@ -40,11 +53,11 @@ export const GET = async (req: Request) => {
 
   if (status) query = query.eq("status", status);
 
-  if (search) {
-    query = query.or(
-      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`
-    );
-  }
+  // if (search) {
+  //   query = query.or(
+  //     `cars.brand.ilike.%${search}%,cars.model.ilike.%${search}%,cars.variant.ilike.%${search}%,cars.license_plate.ilike.%${search}%,cars.chassis_number.ilike.%${search}%`
+  //   );
+  // }
 
   try {
     const { data, error, count } = await query;

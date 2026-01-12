@@ -1,20 +1,19 @@
 import { FaEdit } from "react-icons/fa";
-import { isBefore } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Car } from "@/lib/types/car.types";
+import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
 import CarStatus from "./Status";
-import DeleteAction from "./DeleteAction";
-import EmptyTable from "../EmptyTable";
+import DeleteAction from "../DeleteAction";
+import EmptyTable from "../../EmptyTable";
 
 import logoUrl from "@/assets/images/logo.png";
 
 interface Props {
-  cars: Car[];
+  rentalCars: RentalCarWithDetails[];
 }
 
-const Table = async ({ cars }: Props) => {
+const Table = async ({ rentalCars }: Props) => {
   return (
     <div className="table-responsive">
       <table className="w-full">
@@ -30,10 +29,7 @@ const Table = async ({ cars }: Props) => {
               Specifications
             </th>
             <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
-              Price
-            </th>
-            <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
-              Main Features
+              Daily/Weekly Rate
             </th>
             <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
               Status
@@ -44,101 +40,90 @@ const Table = async ({ cars }: Props) => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-          {cars.map((car) => (
+          {rentalCars.map((rentalCar) => (
             <tr
-              key={car.id}
+              key={rentalCar.id}
               className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
             >
               <td className="py-4 px-6">
                 <div className="flex items-center">
                   <Image
-                    src={
-                      car.car_images
-                        ?.sort((a, b) =>
-                          isBefore(a.created_at, b.created_at) ? 1 : -1
-                        )
-                        .find((image) => image.featured)?.url ?? logoUrl
-                    }
-                    alt={car.brand}
+                    src={logoUrl}
+                    alt={rentalCar.cars.brand}
                     height={80}
                     width={100}
                     className="w-20 h-14 rounded-md bg-linear-to-r border bg-gray-50 flex items-center justify-center mr-4 object-contain"
                   />
                   <div>
                     <p className="font-bold text-gray-800 dark:text-white">
-                      {car.brand} {car.model} {car.variant} {car.year}
+                      {rentalCar.cars.brand} {rentalCar.cars.model}
+                      {rentalCar.cars.variant} {rentalCar.cars.year}
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      License: {car.license_plate}
+                      License: {rentalCar.cars.license_plate}
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      VIN: {car.chassis_number}
+                      VIN: {rentalCar.cars.chassis_number}
                     </p>
                   </div>
                 </div>
               </td>
               <td className="py-4 px-6">
                 <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium">
-                  {car.category}
+                  {rentalCar.cars.category}
                 </span>
                 <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                  {car.transmission_type}
+                  {rentalCar.cars.transmission_type}
                 </p>
               </td>
               <td className="py-4 px-6">
                 <div className="space-y-1">
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Fuel:</span>
-                    <span>{car.fuel_type}</span>
+                    <span>{rentalCar.cars.fuel_type}</span>
                   </p>
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Seats:</span>
-                    <span>{car.seat_capacity}</span>
+                    <span>{rentalCar.cars.seat_capacity}</span>
                   </p>
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Mileage:</span>
-                    <span>{car.mileage} km</span>
+                    <span>{rentalCar.cars.mileage} km</span>
                   </p>
                 </div>
               </td>
               <td className="py-4 px-6">
                 <p className="font-bold text-gray-800 dark:text-white text-lg">
-                  ${car.price}
+                  ${rentalCar.daily_rate}
+                  <span className="text-gray-500 dark:text-gray-400 text-sm font-normal">
+                    /day
+                  </span>
+                </p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
+                  ${rentalCar.weekly_rate}
+                  /week
                 </p>
               </td>
               <td className="py-4 px-6">
-                {car.features?.map(
-                  (feature, index) =>
-                    index < 4 && (
-                      <span
-                        key={index}
-                        className="text-xs text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 mx-1 px-1 rounded-lg inline-flex"
-                      >
-                        {feature}
-                      </span>
-                    )
-                )}
-              </td>
-              <td className="py-4 px-6">
-                <CarStatus status={car.status} />
+                <CarStatus status={rentalCar.status} />
               </td>
               <td className="py-4 px-6">
                 <div className="flex space-x-1">
                   <Link
-                    href={`/admin/cars/${car.id}/edit`}
+                    href={`/admin/cars/${rentalCar.cars.id}/edit`}
                     className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
                     title="Edit"
                   >
                     <FaEdit />
                   </Link>
-                  <DeleteAction id={car.id} />
+                  <DeleteAction id={rentalCar.cars.id} />
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {cars.length == 0 && <EmptyTable />}
+      {rentalCars.length == 0 && <EmptyTable />}
     </div>
   );
 };
