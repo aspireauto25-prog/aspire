@@ -276,6 +276,7 @@ const CarForm = ({ car, isEditing }: Props) => {
                   type="number"
                   id="price"
                   min={0}
+                  step="0.01"
                   {...register("price")}
                   className="w-full pl-8 pr-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                   placeholder="0.0"
@@ -409,7 +410,8 @@ const CarForm = ({ car, isEditing }: Props) => {
                 <input
                   type="number"
                   id="engineCapacity"
-                  min={0}
+                  min={0.0}
+                  step="0.01"
                   {...register("engine_capacity")}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
                   placeholder="0.0"
