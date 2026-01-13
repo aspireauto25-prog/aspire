@@ -5,10 +5,10 @@ import { ADD_CAR_RENT_ROUTE } from "@/constants/routes";
 import { getRentalCars } from "@/api/rentalCars";
 import { PAGE_LIMIT } from "@/constants/pagination";
 import CarStats from "@/components/admin/cars/Stats";
-import Filters from "@/components/admin/cars/Filters";
+import Filters from "@/components/admin/cars/rent/Filters";
 import LinkButton from "@/components/LinkButton";
-import Search from "@/components/admin/Search";
 import Pagination from "@/components/admin/table/Pagination";
+import Search from "@/components/admin/Search";
 import Table from "@/components/admin/cars/rent/Table";
 
 interface Props {
@@ -42,10 +42,10 @@ const CarRentalPage = async ({ searchParams }: Props) => {
               Manage your fleet of rental vehicles
             </p>
           </div>
-          <Search query={""} />
+          <Search query={query.q as string} />
         </div>
         <div className="mt-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <Filters currentStatus={""} />
+          <Filters currentStatus={query.status ?? ""} />
           <LinkButton href={ADD_CAR_RENT_ROUTE} size="sm">
             <FaPlus />
             Add New Rental Car
