@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
 import CarStatus from "./Status";
-import DeleteAction from "../DeleteAction";
+import DeleteAction from "./DeleteAction";
 import EmptyTable from "../../EmptyTable";
 
 import logoUrl from "@/assets/images/logo.png";
@@ -116,7 +116,7 @@ const Table = async ({ rentalCars }: Props) => {
                   >
                     <FaEdit />
                   </Link>
-                  <DeleteAction id={rentalCar.cars.id} />
+                  <DeleteAction id={rentalCar.id} />
                 </div>
               </td>
             </tr>

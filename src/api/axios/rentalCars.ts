@@ -8,3 +8,6 @@ export const createRentalCar = async (data: RentalCar) =>
 
 export const updateRentalCar = async (id: number, data: RentalCar) =>
   await api.put(`/api/cars/rent/${id}`, data);
+
+export const deleteRentalCar = async (id: number) =>
+  await api.delete(`/api/cars/rent/${id}`);
