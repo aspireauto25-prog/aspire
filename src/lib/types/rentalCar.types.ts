@@ -1,5 +1,3 @@
-import { Car } from "./car.types";
-
 export interface RentalCar {
   car_id: number;
   daily_rate: number;
@@ -8,11 +6,21 @@ export interface RentalCar {
 }
 
 export interface RentalCarWithDetails extends RentalCar {
-  cars: Car;
+  brand: string;
+  category: string;
+  chassis_number: string;
   created_at: number;
+  fuel_type?: string;
   id: number;
+  license_plate: string;
+  mileage?: number;
+  model: string;
+  seat_capacity?: number;
   status: string;
+  transmission_type?: string;
   updated_at: number;
+  variant: string;
+  year: number;
 }
 
 export interface PaginatedRentalCars {

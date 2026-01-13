@@ -4,7 +4,6 @@ import { SearchParams } from "next/dist/server/request/search-params";
 import { ADD_CAR_RENT_ROUTE } from "@/constants/routes";
 import { getRentalCars } from "@/api/rentalCars";
 import { PAGE_LIMIT } from "@/constants/pagination";
-import CarStats from "@/components/admin/cars/Stats";
 import Filters from "@/components/admin/cars/rent/Filters";
 import LinkButton from "@/components/LinkButton";
 import Pagination from "@/components/admin/table/Pagination";
@@ -28,9 +27,7 @@ const CarRentalPage = async ({ searchParams }: Props) => {
   });
 
   return (
-    <section>
-      <CarStats />
-
+    <>
       {/* Action Bar */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between">
@@ -53,6 +50,7 @@ const CarRentalPage = async ({ searchParams }: Props) => {
         </div>
         {/* Quick Filters */}
       </div>
+
       {/* Rental Cars Table */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
         <Table rentalCars={rentalCars.data} />
@@ -62,7 +60,7 @@ const CarRentalPage = async ({ searchParams }: Props) => {
           totalPages={rentalCars.totalPages}
         />
       </div>
-    </section>
+    </>
   );
 };
 

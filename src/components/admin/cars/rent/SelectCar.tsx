@@ -2,13 +2,13 @@ import { FaCar } from "react-icons/fa";
 import { useState } from "react";
 import AsyncSelect from "react-select/async";
 
-import { Car } from "@/lib/types/car.types";
 import { getCars } from "@/api/cars";
+import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
 import CarStatus from "../Status";
 
 interface Props {
   isEditing?: boolean;
-  selectedRentalCar?: Car;
+  selectedRentalCar?: RentalCarWithDetails;
   setCarId: (_: string) => void;
 }
 

@@ -104,7 +104,7 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
               </label>
               <SelectCar
                 isEditing={isEditing}
-                selectedRentalCar={rentalCar?.cars}
+                selectedRentalCar={rentalCar}
                 setCarId={(id) => setValue("car_id", id)}
               />
             </div>

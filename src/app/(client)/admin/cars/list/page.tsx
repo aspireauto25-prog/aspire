@@ -4,7 +4,6 @@ import { SearchParams } from "next/dist/server/request/search-params";
 import { ADD_CAR_ROUTE } from "@/constants/routes";
 import { getCars } from "@/api/cars";
 import { PAGE_LIMIT } from "@/constants/pagination";
-import CarStats from "@/components/admin/cars/Stats";
 import Filters from "@/components/admin/cars/Filters";
 import LinkButton from "@/components/LinkButton";
 import Pagination from "@/components/admin/table/Pagination";
@@ -28,9 +27,7 @@ const CarsPage = async ({ searchParams }: Props) => {
   });
 
   return (
-    <section>
-      <CarStats />
-
+    <>
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between">
           <div className="mb-4 lg:mb-0">
@@ -61,7 +58,7 @@ const CarsPage = async ({ searchParams }: Props) => {
           totalPages={cars.totalPages}
         />
       </div>
-    </section>
+    </>
   );
 };
 
