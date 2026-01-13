@@ -853,6 +853,10 @@ input[type="range"]::-moz-range-thumb {
   -webkit-overflow-scrolling: touch;
 }
 
+.table-responsive::-webkit-scrollbar {
+  height: 0.5rem;
+}
+
 @media (max-width: 768px) {
   .table-responsive table {
     min-width: 800px;
