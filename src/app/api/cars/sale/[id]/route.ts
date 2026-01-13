@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-import { rentalCarSchema } from "@/lib/schemas/rentalCar.schema";
+import { saleCarSchema } from "@/lib/schemas/saleCar.schema";
 import { TOKEN } from "@/constants/contants";
 import { User } from "@/lib/types/user.types";
 import { USER_ROLE_ADMIN } from "@/constants/user";
@@ -24,7 +24,7 @@ export const GET = async (req: Request, { params }: Params) => {
   }
 
   const { data, error } = await supabase
-    .from("rental_cars_with_details")
+    .from("sale_cars_with_details")
     .select("*")
     .eq("id", id)
     .single();
@@ -58,10 +58,10 @@ export const PUT = async (request: Request, { params }: Params) => {
 
   const body = await request.json();
 
-  const input = rentalCarSchema.parse(body);
+  const input = saleCarSchema.parse(body);
 
   const { data, error } = await supabase
-    .from("rental_cars")
+    .from("sale_cars")
     .update({
       ...input,
       updated_at: new Date().toISOString(),
@@ -98,7 +98,7 @@ export const DELETE = async (req: Request, { params }: Params) => {
   }
 
   const { data, error } = await supabase
-    .from("rental_cars")
+    .from("sale_cars")
     .update({
       deleted_at: new Date().toISOString(),
     })
