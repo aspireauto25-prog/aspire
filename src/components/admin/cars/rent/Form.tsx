@@ -7,8 +7,9 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { ADMIN_CAR_RENT_ROUTE } from "@/constants/routes";
-import { createRentalCar } from "@/api/axios/rentalCars";
+import { createRentalCar, updateRentalCar } from "@/api/axios/rentalCars";
 import { parseNumber } from "@/utils/inputFormatter";
+import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
 import Button from "@/components/Button";
 import SelectCar from "./SelectCar";
 import Spinner from "@/components/Spinner";
@@ -21,17 +22,37 @@ interface FormInput {
   monthly_rate: string;
 }
 
-const RentCarForm = () => {
-  const { register, handleSubmit, reset, setValue } = useForm<FormInput>();
+interface Props {
+  isEditing?: boolean;
+  rentalCar?: RentalCarWithDetails;
+}
 
-  const { error, loading, run, success } = useRequest((data: FormInput) =>
-    createRentalCar({
+const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
+  const { register, handleSubmit, reset, setValue } = useForm<FormInput>({
+    values: {
+      car_id: rentalCar?.car_id.toString() ?? "",
+      daily_rate: rentalCar?.daily_rate.toString() ?? "",
+      weekly_rate: rentalCar?.weekly_rate?.toString() ?? "",
+      monthly_rate: rentalCar?.monthly_rate?.toString() ?? "",
+    },
+  });
+
+  function upsertRentalCar(data: FormInput) {
+    const input = {
       car_id: parseNumber(data.car_id)!,
       daily_rate: parseNumber(data.daily_rate)!,
       weekly_rate: parseNumber(data.weekly_rate),
       monthly_rate: parseNumber(data.monthly_rate),
-    })
-  );
+    };
+
+    if (isEditing) {
+      return updateRentalCar(rentalCar!.id, input);
+    }
+
+    return createRentalCar(input);
+  }
+
+  const { error, loading, run, success } = useRequest(upsertRentalCar);
 
   const router = useRouter();
 
@@ -81,7 +102,11 @@ const RentCarForm = () => {
               >
                 Select Car *
               </label>
-              <SelectCar setCarId={(id) => setValue("car_id", id)} />
+              <SelectCar
+                isEditing={isEditing}
+                selectedRentalCar={rentalCar?.cars}
+                setCarId={(id) => setValue("car_id", id)}
+              />
             </div>
           </div>
         </div>

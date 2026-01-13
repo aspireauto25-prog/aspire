@@ -106,7 +106,7 @@ export async function POST(request: Request) {
 
     const { data, error } = await supabase
       .from("rental_cars")
-      .upsert({
+      .insert({
         ...input,
         status: RENTAL_CAR_STATUS_AVAILABLE,
         updated_at: new Date().toISOString(),

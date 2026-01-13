@@ -110,7 +110,7 @@ const Table = async ({ rentalCars }: Props) => {
               <td className="py-4 px-6">
                 <div className="flex space-x-1">
                   <Link
-                    href={`/admin/cars/${rentalCar.cars.id}/edit`}
+                    href={`/admin/cars/rent/${rentalCar.id}/edit`}
                     className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
                     title="Edit"
                   >

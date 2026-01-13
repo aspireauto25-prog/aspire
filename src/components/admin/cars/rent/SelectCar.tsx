@@ -2,18 +2,36 @@ import { FaCar } from "react-icons/fa";
 import { useState } from "react";
 import AsyncSelect from "react-select/async";
 
+import { Car } from "@/lib/types/car.types";
 import { getCars } from "@/api/cars";
 import CarStatus from "../Status";
 
 interface Props {
+  isEditing?: boolean;
+  selectedRentalCar?: Car;
   setCarId: (_: string) => void;
 }
 
-const SelectCar = ({ setCarId }: Props) => {
+const SelectCar = ({
+  isEditing = false,
+  selectedRentalCar,
+  setCarId,
+}: Props) => {
+  const defaultCar = selectedRentalCar
+    ? {
+        category: selectedRentalCar?.category,
+        chassisNumber: selectedRentalCar?.chassis_number,
+        label: `${selectedRentalCar?.brand} ${selectedRentalCar?.model} ${selectedRentalCar?.variant} ${selectedRentalCar?.year}`,
+        licensePlate: selectedRentalCar?.license_plate,
+        status: selectedRentalCar?.status,
+        value: selectedRentalCar?.id,
+      }
+    : null;
+
   const [selectedCar, setSelectedCar] = useState<Record<
     string,
-    string | number
-  > | null>();
+    string | number | undefined
+  > | null>(defaultCar);
 
   const loadOptions = (inputValue: string) =>
     new Promise<Record<string, string | number>[]>(async (resolve) => {
@@ -40,6 +58,7 @@ const SelectCar = ({ setCarId }: Props) => {
         cacheOptions
         loadOptions={loadOptions}
         defaultOptions
+        isDisabled={isEditing}
         classNamePrefix="react-select"
         required
         onChange={(item) => {
