@@ -89,15 +89,13 @@ const Table = async ({ saleCars }: Props) => {
               </td>
               <td className="py-4 px-6">
                 <p className="font-bold text-gray-800 dark:text-white text-lg">
-                  ${saleCar.full_price}
-                  <span className="text-gray-500 dark:text-gray-400 text-sm font-normal">
-                    /day
-                  </span>
+                  ${saleCar.full_price - (saleCar?.discount_price ?? 0)}
                 </p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">
-                  ${saleCar.discount_price}
-                  /week
-                </p>
+                {saleCar.discount_price && (
+                  <p className="text-gray-500 dark:text-gray-400 text-sm line-through">
+                    ${saleCar.full_price}
+                  </p>
+                )}
               </td>
               <td className="py-4 px-6">
                 <CarStatus status={saleCar.status} />
