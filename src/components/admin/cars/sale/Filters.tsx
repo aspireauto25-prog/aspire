@@ -1,11 +1,10 @@
 "use client";
 
 import {
-  RENTAL_CAR_STATUS_AVAILABLE,
-  RENTAL_CAR_STATUS_BOOKED,
-  RENTAL_CAR_STATUS_RENTED,
-  RENTAL_CAR_STATUS_UNAVAILABLE,
-} from "@/constants/rentalCars";
+  SALE_CAR_STATUS_AVAILABLE,
+  SALE_CAR_STATUS_SOLD,
+  SALE_CAR_STATUS_UNAVAILABLE,
+} from "@/constants/saleCars";
 import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
 
 interface Props {
@@ -14,10 +13,9 @@ interface Props {
 
 const filters = [
   { label: "All", value: "" },
-  { label: "Available", value: RENTAL_CAR_STATUS_AVAILABLE },
-  { label: "Booked", value: RENTAL_CAR_STATUS_BOOKED },
-  { label: "Rented", value: RENTAL_CAR_STATUS_RENTED },
-  { label: "Unavailable", value: RENTAL_CAR_STATUS_UNAVAILABLE },
+  { label: "Available", value: SALE_CAR_STATUS_AVAILABLE },
+  { label: "Sold", value: SALE_CAR_STATUS_SOLD },
+  { label: "Unavailable", value: SALE_CAR_STATUS_UNAVAILABLE },
 ];
 
 const Filters = ({ currentStatus }: Props) => {

@@ -3,7 +3,7 @@
 import { FaTrash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-import { deleteRentalCar } from "@/api/axios/rentalCars";
+import { deleteSaleCar } from "@/api/axios/saleCars";
 
 interface Props {
   id: number;
@@ -14,7 +14,7 @@ const DeleteAction = ({ id }: Props) => {
 
   function onDelete() {
     if (confirm("Are you sure?")) {
-      deleteRentalCar(id);
+      deleteSaleCar(id);
 
       router.refresh();
     }

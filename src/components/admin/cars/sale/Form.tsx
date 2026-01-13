@@ -6,10 +6,10 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-import { ADMIN_CAR_RENT_ROUTE } from "@/constants/routes";
-import { createRentalCar, updateRentalCar } from "@/api/axios/rentalCars";
+import { ADMIN_CAR_SELL_ROUTE } from "@/constants/routes";
+import { createSaleCar, updateSaleCar } from "@/api/axios/saleCars";
 import { parseNumber } from "@/utils/inputFormatter";
-import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
+import { SaleCarWithDetails } from "@/lib/types/saleCar.types";
 import Button from "@/components/Button";
 import SelectCar from "./SelectCar";
 import Spinner from "@/components/Spinner";
@@ -17,56 +17,53 @@ import useRequest from "@/hooks/useRequest";
 
 interface FormInput {
   car_id: string;
-  daily_rate: string;
-  weekly_rate: string;
-  monthly_rate: string;
+  full_price: string;
+  discount_price: string;
 }
 
 interface Props {
   isEditing?: boolean;
-  rentalCar?: RentalCarWithDetails;
+  saleCar?: SaleCarWithDetails;
 }
 
-const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
+const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
   const { register, handleSubmit, reset, setValue } = useForm<FormInput>({
     values: {
-      car_id: rentalCar?.car_id.toString() ?? "",
-      daily_rate: rentalCar?.daily_rate.toString() ?? "",
-      weekly_rate: rentalCar?.weekly_rate?.toString() ?? "",
-      monthly_rate: rentalCar?.monthly_rate?.toString() ?? "",
+      car_id: saleCar?.car_id.toString() ?? "",
+      full_price: saleCar?.full_price.toString() ?? "",
+      discount_price: saleCar?.discount_price?.toString() ?? "",
     },
   });
 
-  function upsertRentalCar(data: FormInput) {
+  function upsertSaleCar(data: FormInput) {
     const input = {
       car_id: parseNumber(data.car_id)!,
-      daily_rate: parseNumber(data.daily_rate)!,
-      weekly_rate: parseNumber(data.weekly_rate),
-      monthly_rate: parseNumber(data.monthly_rate),
+      full_price: parseNumber(data.full_price)!,
+      discount_price: parseNumber(data.discount_price),
     };
 
     if (isEditing) {
-      return updateRentalCar(rentalCar!.id, input);
+      return updateSaleCar(saleCar!.id, input);
     }
 
-    return createRentalCar(input);
+    return createSaleCar(input);
   }
 
-  const { error, loading, run, success } = useRequest(upsertRentalCar);
+  const { error, loading, run, success } = useRequest(upsertSaleCar);
 
   const router = useRouter();
 
   useEffect(() => {
     if (success) {
-      toast.success("Rental car saved successfully.");
+      toast.success("Sale car saved successfully.");
 
-      router.replace(ADMIN_CAR_RENT_ROUTE);
+      router.replace(ADMIN_CAR_SELL_ROUTE);
 
       reset();
     }
 
     if (error) {
-      toast.error("Rental car save failed. Please try again.");
+      toast.error("Sale car save failed. Please try again.");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);
@@ -80,10 +77,10 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
           </div>
           <div>
             <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-              Add Rental Car
+              Add Sale Car
             </h2>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Add a new car for renting
+              Add a new car for selling
             </p>
           </div>
         </div>
@@ -92,28 +89,28 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
         {/* Car Selection */}
         <div className="p-6">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-            1. Select Car for Rent
+            1. Select Car for Sale
           </h3>
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <div>
               <label
-                htmlFor="rentalCar"
+                htmlFor="saleCar"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
               >
                 Select Car *
               </label>
               <SelectCar
                 isEditing={isEditing}
-                selectedRentalCar={rentalCar}
+                selectedSaleCar={saleCar}
                 setCarId={(id) => setValue("car_id", id)}
               />
             </div>
           </div>
         </div>
-        {/* Rental Details */}
+        {/* Sale Details */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-            2. Rental Pricing
+            2. Sale Pricing
           </h3>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             <div>
@@ -135,7 +132,7 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
                   className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
                   placeholder="0.0"
                   required
-                  {...register("daily_rate")}
+                  {...register("full_price")}
                 />
               </div>
             </div>
@@ -157,29 +154,7 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
                   step="0.01"
                   className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
                   placeholder="0.0"
-                  {...register("weekly_rate")}
-                />
-              </div>
-            </div>
-            <div>
-              <label
-                htmlFor="monthlyRate"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-              >
-                Monthly Rate ($)
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <span className="text-gray-500 dark:text-gray-400">$</span>
-                </div>
-                <input
-                  type="number"
-                  id="monthlyRate"
-                  min={0}
-                  step="0.01"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
-                  placeholder="0.0"
-                  {...register("monthly_rate")}
+                  {...register("discount_price")}
                 />
               </div>
             </div>
@@ -194,7 +169,7 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
             <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
               <Button type="submit" size="md" disabled={loading}>
                 {loading ? <Spinner /> : <FaSave />}
-                Save Car Rental
+                Save Car Sale
               </Button>
             </div>
           </div>
@@ -204,4 +179,4 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
   );
 };
 
-export default RentCarForm;
+export default SaleCarForm;

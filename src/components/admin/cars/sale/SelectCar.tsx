@@ -3,28 +3,24 @@ import { useState } from "react";
 import AsyncSelect from "react-select/async";
 
 import { getCars } from "@/api/cars";
-import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
+import { SaleCarWithDetails } from "@/lib/types/saleCar.types";
 import CarStatus from "../Status";
 
 interface Props {
   isEditing?: boolean;
-  selectedRentalCar?: RentalCarWithDetails;
+  selectedSaleCar?: SaleCarWithDetails;
   setCarId: (_: string) => void;
 }
 
-const SelectCar = ({
-  isEditing = false,
-  selectedRentalCar,
-  setCarId,
-}: Props) => {
-  const defaultCar = selectedRentalCar
+const SelectCar = ({ isEditing = false, selectedSaleCar, setCarId }: Props) => {
+  const defaultCar = selectedSaleCar
     ? {
-        category: selectedRentalCar?.category,
-        chassisNumber: selectedRentalCar?.chassis_number,
-        label: `${selectedRentalCar?.brand} ${selectedRentalCar?.model} ${selectedRentalCar?.variant} ${selectedRentalCar?.year}`,
-        licensePlate: selectedRentalCar?.license_plate,
-        status: selectedRentalCar?.status,
-        value: selectedRentalCar?.id,
+        category: selectedSaleCar?.category,
+        chassisNumber: selectedSaleCar?.chassis_number,
+        label: `${selectedSaleCar?.brand} ${selectedSaleCar?.model} ${selectedSaleCar?.variant} ${selectedSaleCar?.year}`,
+        licensePlate: selectedSaleCar?.license_plate,
+        status: selectedSaleCar?.status,
+        value: selectedSaleCar?.id,
       }
     : null;
 
@@ -54,7 +50,7 @@ const SelectCar = ({
   return (
     <div id="react-select">
       <AsyncSelect
-        id="rentalCar"
+        id="saleCar"
         cacheOptions
         loadOptions={loadOptions}
         defaultOptions
