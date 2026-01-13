@@ -75,7 +75,14 @@ const CarForm = ({ car, isEditing }: Props) => {
         drive_type: car?.drive_type ?? "",
         engine_capacity: car?.engine_capacity?.toString() ?? "",
         engine_number: car?.engine_number ?? "",
-        features: car?.features?.join(",") || "",
+        features:
+          car?.features
+            ?.filter((feature) =>
+              [...safetyFeatures, ...techFeatures, ...comfortFeatures].includes(
+                feature
+              )
+            )
+            .join(",") ?? "",
         fuel_type: car?.fuel_type ?? "",
         license_plate: car?.license_plate ?? "",
         mileage: car?.mileage?.toString() ?? "",
@@ -86,6 +93,17 @@ const CarForm = ({ car, isEditing }: Props) => {
         transmission_type: car?.transmission_type ?? "",
         variant: car?.variant ?? "",
         year: car?.year?.toString() ?? "",
+        other_features:
+          car?.features
+            ?.filter(
+              (feature) =>
+                ![
+                  ...safetyFeatures,
+                  ...techFeatures,
+                  ...comfortFeatures,
+                ].includes(feature)
+            )
+            .join(",") ?? "",
       },
     }
   );
