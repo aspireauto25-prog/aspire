@@ -62,11 +62,14 @@ const Table = async ({ cars }: Props) => {
                     alt={car.brand}
                     height={80}
                     width={100}
-                    className="w-20 h-14 rounded-md bg-linear-to-r border bg-gray-50 flex items-center justify-center mr-4 object-contain"
+                    className="min-w-20 h-14 rounded-md bg-linear-to-r border bg-primary/5 flex items-center justify-center mr-4 object-contain"
                   />
                   <div>
-                    <p className="font-bold text-gray-800 dark:text-white">
-                      {car.brand} {car.model} {car.variant} {car.year}
+                    <p className="font-bold text-gray-800 dark:text-white whitespace-nowrap space-x-1">
+                      <span>{car.brand}</span>
+                      <span>{car.model}</span>
+                      <span>{car.variant}</span>
+                      <span>{car.year}</span>
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 text-sm">
                       License: {car.license_plate}
@@ -86,7 +89,7 @@ const Table = async ({ cars }: Props) => {
                 </p>
               </td>
               <td className="py-4 px-6">
-                <div className="space-y-1">
+                <div className="space-y-1 whitespace-nowrap">
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Fuel:</span>
                     <span>{car.fuel_type}</span>

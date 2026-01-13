@@ -48,7 +48,7 @@ const ContactInquiryTable = ({ inquiries }: Props) => {
             >
               <td className="py-4 px-6">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-linear-to-r from-primary to-red-700 flex items-center justify-center mr-3 text-white">
+                  <div className="min-w-10 h-10 rounded-full bg-linear-to-r from-primary to-red-700 flex items-center justify-center mr-3 text-white">
                     <FaUser />
                   </div>
                   <p className="font-medium">{inquiry.name}</p>

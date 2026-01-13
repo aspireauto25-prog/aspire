@@ -69,16 +69,16 @@ const SelectCar = ({
       {selectedCar && (
         <div className="mt-2 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg ">
           <div className="flex items-center">
-            <div className="hidden h-16 w-24 bg-gray-200 dark:bg-gray-600 rounded sm:flex items-center justify-center mr-4">
-              <FaCar className="text-gray-400 dark:text-gray-500 text-2xl" />
+            <div className="min-w-16 h-12 rounded-md bg-linear-to-r from-primary to-red-700 hidden md:flex items-center justify-center mr-4">
+              <FaCar className="text-white text-2xl" />
             </div>
             <div>
               <h4 className="font-bold text-gray-800 dark:text-white">
                 {selectedCar.label}
               </h4>
-              <div className="text-sm text-gray-600 dark:text-gray-400 flex flex-col md:flex-row gap-1">
-                <span>{selectedCar.category} •</span>
-                <span>{selectedCar.licensePlate} •</span>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                <span>{selectedCar.category} • </span>
+                <span>{selectedCar.licensePlate} • </span>
                 <span>{selectedCar.chassisNumber}</span>
               </div>
               <div className="mt-1">

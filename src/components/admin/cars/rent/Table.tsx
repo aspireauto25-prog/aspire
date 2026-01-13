@@ -44,13 +44,15 @@ const Table = async ({ rentalCars }: Props) => {
             >
               <td className="py-4 px-6">
                 <div className="flex items-center">
-                  <div className="hidden h-16 w-24 bg-gray-200 dark:bg-gray-600 rounded sm:flex items-center justify-center mr-4">
-                    <FaCar className="text-gray-400 dark:text-gray-500 text-2xl" />
+                  <div className="min-w-16 h-12 rounded-md bg-linear-to-r from-primary to-red-700 flex items-center justify-center mr-4">
+                    <FaCar className="text-white text-2xl" />
                   </div>
                   <div>
-                    <p className="font-bold text-gray-800 dark:text-white">
-                      {rentalCar.cars.brand} {rentalCar.cars.model}
-                      {rentalCar.cars.variant} {rentalCar.cars.year}
+                    <p className="font-bold text-gray-800 dark:text-white space-x-1 whitespace-nowrap">
+                      <span>{rentalCar.cars.brand}</span>
+                      <span>{rentalCar.cars.model}</span>
+                      <span>{rentalCar.cars.variant}</span>
+                      <span>{rentalCar.cars.year}</span>
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 text-sm">
                       License: {rentalCar.cars.license_plate}
@@ -70,7 +72,7 @@ const Table = async ({ rentalCars }: Props) => {
                 </p>
               </td>
               <td className="py-4 px-6">
-                <div className="space-y-1">
+                <div className="space-y-1 whitespace-nowrap">
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Fuel:</span>
                     <span>{rentalCar.cars.fuel_type}</span>
