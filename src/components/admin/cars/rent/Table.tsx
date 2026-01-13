@@ -1,13 +1,10 @@
-import { FaEdit } from "react-icons/fa";
-import Image from "next/image";
+import { FaCar, FaEdit } from "react-icons/fa";
 import Link from "next/link";
 
 import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
 import CarStatus from "./Status";
 import DeleteAction from "./DeleteAction";
 import EmptyTable from "../../EmptyTable";
-
-import logoUrl from "@/assets/images/logo.png";
 
 interface Props {
   rentalCars: RentalCarWithDetails[];
@@ -47,13 +44,9 @@ const Table = async ({ rentalCars }: Props) => {
             >
               <td className="py-4 px-6">
                 <div className="flex items-center">
-                  <Image
-                    src={logoUrl}
-                    alt={rentalCar.cars.brand}
-                    height={80}
-                    width={100}
-                    className="w-20 h-14 rounded-md bg-linear-to-r border bg-gray-50 flex items-center justify-center mr-4 object-contain"
-                  />
+                  <div className="hidden h-16 w-24 bg-gray-200 dark:bg-gray-600 rounded sm:flex items-center justify-center mr-4">
+                    <FaCar className="text-gray-400 dark:text-gray-500 text-2xl" />
+                  </div>
                   <div>
                     <p className="font-bold text-gray-800 dark:text-white">
                       {rentalCar.cars.brand} {rentalCar.cars.model}
