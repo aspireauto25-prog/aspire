@@ -43,7 +43,7 @@ const SelectCar = ({ isEditing = false, selectedSaleCar, setCarId }: Props) => {
           licensePlate: car.license_plate,
           status: car.status,
           value: car.id,
-        }))
+        })),
       );
     });
 
@@ -78,7 +78,10 @@ const SelectCar = ({ isEditing = false, selectedSaleCar, setCarId }: Props) => {
                 <span>{selectedCar.chassisNumber}</span>
               </div>
               <div className="mt-1">
-                <CarStatus status={selectedCar.status as string} />
+                <CarStatus
+                  id={selectedCar.id as number}
+                  status={selectedCar.status as number}
+                />
               </div>
             </div>
           </div>

@@ -2,9 +2,9 @@ import { FaCar, FaEdit } from "react-icons/fa";
 import Link from "next/link";
 
 import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
-import CarStatus from "./Status";
 import DeleteAction from "./DeleteAction";
 import EmptyTable from "../../EmptyTable";
+import CarStatus from "../Status";
 
 interface Props {
   rentalCars: RentalCarWithDetails[];
@@ -100,7 +100,7 @@ const Table = async ({ rentalCars }: Props) => {
                 </p>
               </td>
               <td className="py-4 px-6">
-                <CarStatus status={rentalCar.status} />
+                <CarStatus id={rentalCar.car_id} status={rentalCar.status} />
               </td>
               <td className="py-4 px-6">
                 <div className="flex space-x-1">

@@ -24,7 +24,7 @@ export const GET = async (req: Request, { params }: Params) => {
   }
 
   const { data, error } = await supabase
-    .from("sale_cars_with_details")
+    .from("sale_cars_detail")
     .select("*")
     .eq("id", id)
     .single();

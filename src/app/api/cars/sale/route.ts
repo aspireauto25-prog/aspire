@@ -22,7 +22,7 @@ export const GET = async (req: Request) => {
   const limit = parseInt(limitParam);
 
   let query = supabase
-    .from("sale_cars_with_details")
+    .from("sale_cars_detail")
     .select("*", { count: "exact" })
     .is("deleted_at", null)
     .order("created_at", { ascending: false });

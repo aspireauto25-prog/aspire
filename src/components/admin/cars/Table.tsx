@@ -125,7 +125,7 @@ const Table = async ({ cars }: Props) => {
                   : "-"}
               </td>
               <td className="py-4 px-6">
-                <CarStatus status={car.status} />
+                <CarStatus id={car.id} status={car.status} />
               </td>
               <td className="py-4 px-6">
                 <div className="flex space-x-1">

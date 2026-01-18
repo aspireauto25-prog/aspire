@@ -1,10 +1,10 @@
 "use client";
 
 import {
-  SALE_CAR_STATUS_AVAILABLE,
-  SALE_CAR_STATUS_SOLD,
-  SALE_CAR_STATUS_UNAVAILABLE,
-} from "@/constants/saleCars";
+  CAR_STATUS_AVAILABLE,
+  CAR_STATUS_SOLD,
+  CAR_STATUS_UNAVAILABLE,
+} from "@/constants/cars";
 import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
 
 interface Props {
@@ -13,9 +13,9 @@ interface Props {
 
 const filters = [
   { label: "All", value: "" },
-  { label: "Available", value: SALE_CAR_STATUS_AVAILABLE },
-  { label: "Sold", value: SALE_CAR_STATUS_SOLD },
-  { label: "Unavailable", value: SALE_CAR_STATUS_UNAVAILABLE },
+  { label: "Available", value: CAR_STATUS_AVAILABLE },
+  { label: "Sold", value: CAR_STATUS_SOLD },
+  { label: "Unavailable", value: CAR_STATUS_UNAVAILABLE },
 ];
 
 const Filters = ({ currentStatus }: Props) => {
@@ -30,7 +30,7 @@ const Filters = ({ currentStatus }: Props) => {
       {filters.map((item) => (
         <button
           key={item.value}
-          onClick={() => filter(item.value)}
+          onClick={() => filter(item.value.toString())}
           className={`px-3 py-1.5 text-sm rounded-lg font-medium cursor-pointer ${
             item.value == currentStatus
               ? "bg-primary text-white"
