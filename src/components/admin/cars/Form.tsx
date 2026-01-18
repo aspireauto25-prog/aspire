@@ -21,7 +21,6 @@ import {
   driveTypes,
   fuelTypes,
   safetyFeatures,
-  seatCapacities,
   techFeatures,
   transmissionTypes,
 } from "@/constants/cars";
@@ -79,8 +78,8 @@ const CarForm = ({ car, isEditing }: Props) => {
           car?.features
             ?.filter((feature) =>
               [...safetyFeatures, ...techFeatures, ...comfortFeatures].includes(
-                feature
-              )
+                feature,
+              ),
             )
             .join(",") ?? "",
         fuel_type: car?.fuel_type ?? "",
@@ -89,7 +88,7 @@ const CarForm = ({ car, isEditing }: Props) => {
         model: car?.model ?? "",
         price: car?.price?.toString() ?? "",
         seat_capacity: car?.seat_capacity?.toString() ?? "",
-        status: car?.status ?? "",
+        status: car?.status?.toString() ?? "1",
         transmission_type: car?.transmission_type ?? "",
         variant: car?.variant ?? "",
         year: car?.year?.toString() ?? "",
@@ -101,11 +100,11 @@ const CarForm = ({ car, isEditing }: Props) => {
                   ...safetyFeatures,
                   ...techFeatures,
                   ...comfortFeatures,
-                ].includes(feature)
+                ].includes(feature),
             )
             .join(",") ?? "",
       },
-    }
+    },
   );
 
   const features = watch("features");
@@ -512,19 +511,16 @@ const CarForm = ({ car, isEditing }: Props) => {
               >
                 Number of Seats *
               </label>
-              <select
+              <input
+                type="number"
                 id="seats"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
-                required
+                min={2}
+                max={15}
+                step="1"
                 {...register("seat_capacity")}
-              >
-                <option value="">Select Seats</option>
-                {seatCapacities.map((value, index) => (
-                  <option key={index} value={value}>
-                    {value} Seats
-                  </option>
-                ))}
-              </select>
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                placeholder="2"
+              />
             </div>
             {/* Color */}
             <div>

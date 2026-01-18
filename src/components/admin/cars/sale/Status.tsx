@@ -6,36 +6,37 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import {
-  SALE_CAR_STATUS_AVAILABLE,
-  SALE_CAR_STATUS_SOLD,
-  SALE_CAR_STATUS_UNAVAILABLE,
-} from "@/constants/saleCars";
-import { updateSaleCarStatus } from "@/api/axios/saleCars";
+  CAR_STATUS_AVAILABLE,
+  CAR_STATUS_SOLD,
+  CAR_STATUS_UNAVAILABLE,
+} from "@/constants/cars";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
+import { updateCarStatus } from "@/api/axios/cars";
+import { parseNumber } from "@/utils/inputFormatter";
 
 interface Props {
   id: number;
-  status?: string;
+  status?: number;
 }
 
 const statuses = [
-  SALE_CAR_STATUS_AVAILABLE,
-  SALE_CAR_STATUS_SOLD,
-  SALE_CAR_STATUS_UNAVAILABLE,
+  CAR_STATUS_AVAILABLE,
+  CAR_STATUS_SOLD,
+  CAR_STATUS_UNAVAILABLE,
 ];
 
 const Status = ({ status }: Props) => {
-  if (status == SALE_CAR_STATUS_UNAVAILABLE)
+  if (status == CAR_STATUS_UNAVAILABLE)
     return (
       <span className="status-badge bg-red-100 text-red-700 hover:bg-red-200">
         Unavailable
       </span>
     );
 
-  if (status == SALE_CAR_STATUS_SOLD)
+  if (status == CAR_STATUS_SOLD)
     return (
       <span className="status-badge bg-gray-100 text-gray-700 hover:bg-gray-200">
         Sold
@@ -56,7 +57,7 @@ const SaleStatus = ({ id, status }: Props) => {
   const router = useRouter();
 
   const { error, loading, run, success } = useRequest(() =>
-    updateSaleCarStatus(id, selectedStatus).finally(() => setShowModal(false)),
+    updateCarStatus(id, selectedStatus).finally(() => setShowModal(false)),
   );
 
   useEffect(() => {
@@ -96,7 +97,7 @@ const SaleStatus = ({ id, status }: Props) => {
           id="status"
           className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
           value={selectedStatus}
-          onChange={(e) => setSelectedStatus(e.target.value)}
+          onChange={(e) => setSelectedStatus(parseNumber(e.target.value))}
         >
           {statuses.map((saleStatus) => (
             <option key={saleStatus} value={saleStatus}>

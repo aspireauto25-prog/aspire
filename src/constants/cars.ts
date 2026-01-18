@@ -1,6 +1,9 @@
-export const CAR_STATUS_AVAILABLE = "AVAILABLE";
-export const CAR_STATUS_MAINTENANCE = "MAINTENANCE";
-export const CAR_STATUS_UNAVAILABLE = "UNAVAILABLE";
+export const CAR_STATUS_AVAILABLE = 1;
+export const CAR_STATUS_MAINTENANCE = 2;
+export const CAR_STATUS_BOOKED = 3;
+export const CAR_STATUS_RENTED = 4;
+export const CAR_STATUS_SOLD = 5;
+export const CAR_STATUS_UNAVAILABLE = 6;
 
 export const categories = [
   "Sedan",

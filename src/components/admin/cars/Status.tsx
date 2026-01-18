@@ -1,10 +1,13 @@
 import {
+  CAR_STATUS_BOOKED,
   CAR_STATUS_MAINTENANCE,
+  CAR_STATUS_RENTED,
+  CAR_STATUS_SOLD,
   CAR_STATUS_UNAVAILABLE,
 } from "@/constants/cars";
 
 interface Props {
-  status: string;
+  status: number;
 }
 
 const CarStatus = ({ status }: Props) => {
@@ -13,9 +16,22 @@ const CarStatus = ({ status }: Props) => {
       <span className="status-badge bg-red-100 text-red-700">Unavailable</span>
     );
 
+  if (status == CAR_STATUS_SOLD)
+    return <span className="status-badge bg-gray-100 text-gray-700">Sold</span>;
+
+  if (status == CAR_STATUS_RENTED)
+    return (
+      <span className="status-badge bg-purple-100 text-purple-700">Rented</span>
+    );
+
+  if (status == CAR_STATUS_BOOKED)
+    return (
+      <span className="status-badge bg-blue-100 text-blue-700">Booked</span>
+    );
+
   if (status == CAR_STATUS_MAINTENANCE)
     return (
-      <span className="status-badge bg-yellow-100 text-yellow-700">
+      <span className="status-badge bg-amber-100 text-amber-700">
         Maintenance
       </span>
     );

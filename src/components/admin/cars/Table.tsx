@@ -55,7 +55,7 @@ const Table = async ({ cars }: Props) => {
                     src={
                       car.car_images
                         ?.sort((a, b) =>
-                          isBefore(a.created_at, b.created_at) ? 1 : -1
+                          isBefore(a.created_at, b.created_at) ? 1 : -1,
                         )
                         .find((image) => image.featured)?.url ?? logoUrl
                     }
@@ -82,7 +82,7 @@ const Table = async ({ cars }: Props) => {
               </td>
               <td className="py-4 px-6">
                 <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium">
-                  {car.category}
+                  {car.category ?? "-"}
                 </span>
                 <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
                   {car.transmission_type}
@@ -92,15 +92,15 @@ const Table = async ({ cars }: Props) => {
                 <div className="space-y-1 whitespace-nowrap">
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Fuel:</span>
-                    <span>{car.fuel_type}</span>
+                    <span>{car.fuel_type ?? "-"}</span>
                   </p>
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Seats:</span>
-                    <span>{car.seat_capacity}</span>
+                    <span>{car.seat_capacity ?? "-"}</span>
                   </p>
                   <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span className="font-medium mr-1">Mileage:</span>
-                    <span>{car.mileage} km</span>
+                    {car.mileage ? <span>{car.mileage} km</span> : "-"}
                   </p>
                 </div>
               </td>
@@ -110,17 +110,19 @@ const Table = async ({ cars }: Props) => {
                 </p>
               </td>
               <td className="py-4 px-6">
-                {car.features?.map(
-                  (feature, index) =>
-                    index < 4 && (
-                      <span
-                        key={index}
-                        className="text-xs text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 mx-1 px-1 rounded-lg inline-flex"
-                      >
-                        {feature}
-                      </span>
+                {car.features && car.features?.length > 0
+                  ? car.features?.map(
+                      (feature, index) =>
+                        index < 4 && (
+                          <span
+                            key={index}
+                            className="text-xs text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 mx-1 px-1 rounded-lg inline-flex"
+                          >
+                            {feature}
+                          </span>
+                        ),
                     )
-                )}
+                  : "-"}
               </td>
               <td className="py-4 px-6">
                 <CarStatus status={car.status} />

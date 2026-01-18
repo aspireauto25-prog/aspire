@@ -3,7 +3,6 @@ import { ZodError } from "zod";
 
 import { formatZodErrors } from "@/utils/zod";
 import { PAGE_LIMIT } from "@/constants/pagination";
-import { SALE_CAR_STATUS_AVAILABLE } from "@/constants/saleCars";
 import { saleCarSchema } from "@/lib/schemas/saleCar.schema";
 import { TOKEN } from "@/constants/contants";
 import { User } from "@/lib/types/user.types";
@@ -92,7 +91,6 @@ export async function POST(request: Request) {
       .from("sale_cars")
       .insert({
         ...input,
-        status: SALE_CAR_STATUS_AVAILABLE,
         updated_at: new Date().toISOString(),
       })
       .select();

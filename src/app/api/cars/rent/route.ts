@@ -3,7 +3,6 @@ import { ZodError } from "zod";
 
 import { formatZodErrors } from "@/utils/zod";
 import { PAGE_LIMIT } from "@/constants/pagination";
-import { RENTAL_CAR_STATUS_AVAILABLE } from "@/constants/rentalCars";
 import { rentalCarSchema } from "@/lib/schemas/rentalCar.schema";
 import { TOKEN } from "@/constants/contants";
 import { User } from "@/lib/types/user.types";
@@ -39,7 +38,7 @@ export const GET = async (req: Request) => {
 
   if (search) {
     query = query.or(
-      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`
+      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`,
     );
   }
 
@@ -55,7 +54,7 @@ export const GET = async (req: Request) => {
         total: count,
         totalPages: Math.ceil((count ?? 0) / limit),
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     if (error instanceof ZodError) {
@@ -77,7 +76,7 @@ export async function POST(request: Request) {
     }
 
     const authUser = (await verifyJWT(authToken).catch(
-      (error) => error
+      (error) => error,
     )) as User;
 
     if (authUser?.role !== USER_ROLE_ADMIN) {
@@ -92,7 +91,6 @@ export async function POST(request: Request) {
       .from("rental_cars")
       .insert({
         ...input,
-        status: RENTAL_CAR_STATUS_AVAILABLE,
         updated_at: new Date().toISOString(),
       })
       .select();

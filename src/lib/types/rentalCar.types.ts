@@ -16,7 +16,6 @@ export interface RentalCarWithDetails extends RentalCar {
   mileage?: number;
   model: string;
   seat_capacity?: number;
-  status: string;
   transmission_type?: string;
   updated_at: number;
   variant: string;

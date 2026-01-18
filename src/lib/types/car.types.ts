@@ -22,7 +22,7 @@ export interface Car {
   model: string;
   price: number;
   seat_capacity?: number;
-  status: string;
+  status: number;
   transmission_type?: string;
   variant: string;
   year: number;
