@@ -27,13 +27,20 @@ interface Props {
 }
 
 const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
-  const { register, handleSubmit, reset, setValue } = useForm<FormInput>({
-    values: {
-      car_id: saleCar?.car_id.toString() ?? "",
-      full_price: saleCar?.full_price.toString() ?? "",
-      discount_price: saleCar?.discount_price?.toString() ?? "",
+  const { register, handleSubmit, reset, setValue, watch } = useForm<FormInput>(
+    {
+      values: {
+        car_id: saleCar?.car_id.toString() ?? "",
+        full_price: saleCar?.full_price.toString() ?? "",
+        discount_price: saleCar?.discount_price?.toString() ?? "",
+      },
     },
-  });
+  );
+
+  const fullPrice = parseNumber(watch("full_price")) ?? 0;
+  const discountPrice = parseNumber(watch("discount_price")) ?? 0;
+
+  console.log({ fullPrice, discountPrice });
 
   function upsertSaleCar(data: FormInput) {
     const input = {
@@ -115,10 +122,10 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             <div>
               <label
-                htmlFor="dailyRate"
+                htmlFor="fullPrice"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
               >
-                Daily Rate ($) *
+                Full Price ($) *
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -126,7 +133,7 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
                 </div>
                 <input
                   type="number"
-                  id="dailyRate"
+                  id="fullPrice"
                   min={0}
                   step="0.01"
                   className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
@@ -138,10 +145,10 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
             </div>
             <div>
               <label
-                htmlFor="weeklyRate"
+                htmlFor="discountPrice"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
               >
-                Weekly Rate ($)
+                Discount Price ($)
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -149,12 +156,35 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
                 </div>
                 <input
                   type="number"
-                  id="weeklyRate"
+                  id="discountPrice"
                   min={0}
                   step="0.01"
                   className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
                   placeholder="0.0"
                   {...register("discount_price")}
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="netPrice"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                Net Price ($)
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span className="text-gray-500 dark:text-gray-400">$</span>
+                </div>
+                <input
+                  type="number"
+                  id="netPrice"
+                  disabled
+                  min={0}
+                  step="0.01"
+                  value={fullPrice - discountPrice}
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all disabled:bg-gray-100 dark:disabled:bg-gray-600 disabled:text-gray-400"
+                  placeholder="0.0"
                 />
               </div>
             </div>
