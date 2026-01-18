@@ -1,7 +1,9 @@
 "use client";
 
-import { FaBarsProgress } from "react-icons/fa6";
-import { useState } from "react";
+import { FaCar, FaSave } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   SALE_CAR_STATUS_AVAILABLE,
@@ -11,6 +13,8 @@ import {
 import { updateSaleCarStatus } from "@/api/axios/saleCars";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
+import Spinner from "@/components/Spinner";
+import useRequest from "@/hooks/useRequest";
 
 interface Props {
   id: number;
@@ -49,9 +53,26 @@ const SaleStatus = ({ id, status }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(status);
 
-  function updateStatus() {
-    updateSaleCarStatus(id, selectedStatus);
-  }
+  const router = useRouter();
+
+  const { error, loading, run, success } = useRequest(() =>
+    updateSaleCarStatus(id, selectedStatus).finally(() => setShowModal(false)),
+  );
+
+  useEffect(() => {
+    if (success) {
+      toast.success("Status update successful.");
+
+      router.refresh();
+
+      setShowModal(false);
+    }
+
+    if (error) {
+      toast.error("Status update failed.");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success, error]);
 
   return (
     <>
@@ -62,9 +83,10 @@ const SaleStatus = ({ id, status }: Props) => {
         show={showModal}
         setShow={setShowModal}
         title="Update Status"
-        Icon={FaBarsProgress}
+        Icon={FaCar}
         action={
-          <Button onClick={updateStatus} size="sm">
+          <Button disabled={loading} onClick={run} size="sm">
+            {loading ? <Spinner /> : <FaSave />}
             Update
           </Button>
         }
