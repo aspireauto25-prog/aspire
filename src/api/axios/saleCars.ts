@@ -9,5 +9,8 @@ export const createSaleCar = async (data: SaleCar) =>
 export const updateSaleCar = async (id: number, data: SaleCar) =>
   await api.put(`/api/cars/sale/${id}`, data);
 
+export const updateSaleCarStatus = async (id: number, status?: string) =>
+  await api.patch(`/api/cars/sale/${id}`, { status });
+
 export const deleteSaleCar = async (id: number) =>
   await api.delete(`/api/cars/sale/${id}`);

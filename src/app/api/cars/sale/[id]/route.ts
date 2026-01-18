@@ -6,6 +6,7 @@ import { User } from "@/lib/types/user.types";
 import { USER_ROLE_ADMIN } from "@/constants/user";
 import { verifyJWT } from "@/utils/jwt";
 import supabase from "@/config/database";
+import { SALE_CAR_STATUS_AVAILABLE } from "@/constants/saleCars";
 
 interface Params {
   params: Promise<{
@@ -19,7 +20,7 @@ export const GET = async (req: Request, { params }: Params) => {
   if (!id) {
     return Response.json(
       { error: "Rental car ID is required." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -52,7 +53,7 @@ export const PUT = async (request: Request, { params }: Params) => {
   if (!id) {
     return Response.json(
       { error: "Rental car ID is required" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -64,6 +65,47 @@ export const PUT = async (request: Request, { params }: Params) => {
     .from("sale_cars")
     .update({
       ...input,
+      updated_at: new Date().toISOString(),
+    })
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) return Response.json({ error }, { status: 500 });
+
+  return Response.json(data, { status: 200 });
+};
+
+export const PATCH = async (request: Request, { params }: Params) => {
+  const authToken = (await cookies()).get(TOKEN)?.value;
+
+  if (!authToken) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const authUser = (await verifyJWT(authToken).catch((error) => error)) as User;
+
+  if (authUser?.role !== USER_ROLE_ADMIN) {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const { id } = await params;
+
+  if (!id) {
+    return Response.json(
+      { error: "Rental car ID is required" },
+      { status: 400 },
+    );
+  }
+
+  const body = await request.json();
+
+  console.log(body);
+
+  const { data, error } = await supabase
+    .from("sale_cars")
+    .update({
+      status: body?.status || SALE_CAR_STATUS_AVAILABLE,
       updated_at: new Date().toISOString(),
     })
     .select("*")
@@ -93,7 +135,7 @@ export const DELETE = async (req: Request, { params }: Params) => {
   if (!id) {
     return Response.json(
       { error: "Rental car ID is required" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
