@@ -27,7 +27,7 @@ import {
 import { createCar, uploadCarImages } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
-import ImageUpload from "@/components/ImageUpload";
+import ImageUploader from "@/components/ImageUploader";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
 
@@ -679,7 +679,7 @@ const CarForm = ({ car, isEditing }: Props) => {
             <p className="text-sm text-gray-500 mb-4">
               This will be the main image displayed for the car
             </p>
-            <ImageUpload
+            <ImageUploader
               folder="cars"
               id="featuredImage"
               setImageUrls={setFeaturedImageUrl}
@@ -694,7 +694,7 @@ const CarForm = ({ car, isEditing }: Props) => {
               <p className="text-sm text-gray-500 mb-4">
                 Upload multiple images showing different angles and features
               </p>
-              <ImageUpload
+              <ImageUploader
                 folder="cars"
                 id="otherImages"
                 multiple={true}
