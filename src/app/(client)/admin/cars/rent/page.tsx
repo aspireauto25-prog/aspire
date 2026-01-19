@@ -41,7 +41,7 @@ const CarRentalPage = async ({ searchParams }: Props) => {
           </div>
           <Search query={query.q as string} />
         </div>
-        <div className="mt-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div className="mt-6 flex flex-col xl:flex-row xl:items-center items-start justify-between gap-4">
           <Filters currentStatus={query.status ?? ""} />
           <LinkButton href={ADD_CAR_RENT_ROUTE} size="sm">
             <FaPlus />
