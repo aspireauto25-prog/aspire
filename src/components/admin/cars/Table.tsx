@@ -62,7 +62,7 @@ const Table = async ({ cars }: Props) => {
                     alt={car.brand}
                     height={80}
                     width={100}
-                    className="min-w-20 h-14 rounded-md bg-linear-to-r border bg-primary/5 flex items-center justify-center mr-4 object-contain"
+                    className="min-w-20 h-14 rounded-md bg-primary/5 flex items-center justify-center mr-4 object-cover"
                   />
                   <div>
                     <p className="font-bold text-gray-800 dark:text-white whitespace-nowrap space-x-1">
