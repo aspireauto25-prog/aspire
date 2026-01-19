@@ -81,7 +81,7 @@ const Table = async ({ cars }: Props) => {
                 </div>
               </td>
               <td className="py-4 px-6">
-                <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium">
+                <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium whitespace-nowrap">
                   {car.category ?? "-"}
                 </span>
                 <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
