@@ -157,6 +157,8 @@ const CarForm = ({ car, isEditing }: Props) => {
 
       router.replace(ADMIN_CARS_LIST_ROUTE);
 
+      setFeaturedImageUrl([]);
+      setOtherImageUrls([]);
       reset();
     }
 
@@ -165,7 +167,6 @@ const CarForm = ({ car, isEditing }: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);
-
   return (
     <section className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
       <form onSubmit={handleSubmit(run)}>
