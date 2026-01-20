@@ -1,11 +1,5 @@
-import { SearchParams } from "next/dist/server/request/search-params";
-
-interface Props {
-  searchParams: Promise<SearchParams>;
-}
-
-const ContactInquiresPage = async ({ searchParams }: Props) => {
+const SellInquiresPage = async () => {
   return <section>Sell inquiries</section>;
 };
 
-export default ContactInquiresPage;
+export default SellInquiresPage;

@@ -1,9 +1,7 @@
-"use client";
-
 import RentCarForm from "@/components/admin/cars/rent/Form";
 
-const AddCarRentPage = () => {
-  return <RentCarForm />;
-};
+export const dynamic = "force-dynamic";
+
+const AddCarRentPage = () => <RentCarForm />;
 
 export default AddCarRentPage;
