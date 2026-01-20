@@ -1,14 +1,12 @@
 import {
   FaCarAlt,
-  FaChartLine,
   FaCog,
+  FaDollarSign,
   FaInbox,
   FaKey,
   FaTachometerAlt,
   FaTag,
   FaUserCog,
-  FaUsers,
-  FaWrench,
 } from "react-icons/fa";
 
 import {
@@ -18,6 +16,7 @@ import {
   CONTACT_INQUIRIES_ROUTE,
   DASHBOARD_ROUTE,
   PROFILE_ROUTE,
+  SELL_INQUIRIES_ROUTE,
   SETTINGS_ROUTE,
 } from "./routes";
 
@@ -26,11 +25,6 @@ export const dashboardMenu = [
     Icon: FaTachometerAlt,
     label: "Dashboard",
     route: DASHBOARD_ROUTE,
-  },
-  {
-    Icon: FaChartLine,
-    route: "/admin/analytics",
-    label: "Analytics",
   },
 ];
 
@@ -50,11 +44,6 @@ export const inventoryMenu = [
     route: ADMIN_CAR_SELL_ROUTE,
     label: "Cars for Sale",
   },
-  {
-    Icon: FaWrench,
-    route: "/admin/services",
-    label: "Service requests",
-  },
 ];
 
 export const customerMenu = [
@@ -64,9 +53,9 @@ export const customerMenu = [
     label: "Contact Inquiries",
   },
   {
-    Icon: FaUsers,
-    route: "/admin/customers",
-    label: "Customers",
+    Icon: FaDollarSign,
+    route: SELL_INQUIRIES_ROUTE,
+    label: "Sell Inquiries",
   },
 ];
 

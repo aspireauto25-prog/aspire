@@ -23,6 +23,7 @@ export const ADMIN_CAR_RENT_ROUTE = "/admin/cars/rent";
 export const ADMIN_CAR_SELL_ROUTE = "/admin/cars/sell";
 
 export const CONTACT_INQUIRIES_ROUTE = "/admin/contact-inquiries";
+export const SELL_INQUIRIES_ROUTE = "/admin/sell-inquiries";
 
 export const SETTINGS_ROUTE = "/admin/settings";
 export const PROFILE_ROUTE = "/admin/profile";

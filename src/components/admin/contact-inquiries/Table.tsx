@@ -54,24 +54,24 @@ const ContactInquiryTable = ({ inquiries }: Props) => {
                   <p className="font-medium">{inquiry.name}</p>
                 </div>
               </td>
-              <td className="py-4 px-6 text-gray-700 dark:text-gray-300 hover:underline">
+              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300 hover:underline">
                 <a href={`mailto:${inquiry.email}`}>{inquiry.email}</a>
               </td>
-              <td className="py-4 px-6 text-gray-700 dark:text-gray-300 hover:underline">
+              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300 hover:underline">
                 <a href={`tel:${inquiry.phone}`}>{inquiry.phone}</a>
               </td>
-              <td className="py-4 px-6 text-gray-700 dark:text-gray-300">
+              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300">
                 {inquiry.subject}
               </td>
-              <td className="py-4 px-6 max-w-xs">
+              <td className="py-4 px-6 text-sm max-w-xs">
                 <p className="text-gray-700 dark:text-gray-300 truncate">
                   {inquiry.message}
                 </p>
               </td>
-              <td className="py-4 px-6 text-gray-700 dark:text-gray-300">
+              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300">
                 {format(inquiry.created_at, "MMM dd, yyyy")}
               </td>
-              <td className="py-4 px-6 text-gray-700 dark:text-gray-300">
+              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300">
                 {inquiry.status}
               </td>
               <td className="py-4 px-6">
