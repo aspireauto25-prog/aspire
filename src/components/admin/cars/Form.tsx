@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  FaBookmark,
   FaCar,
   FaCogs,
   FaImages,
@@ -712,11 +711,6 @@ const CarForm = ({ car, isEditing }: Props) => {
               Fields marked with * are required.
             </div>
             <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-              <Button type="button" theme="light" size="md">
-                <FaBookmark />
-                Save as Draft
-              </Button>
-
               <Button type="submit" size="md" disabled={loading}>
                 {loading ? <Spinner /> : <FaSave />}
                 Save Car
