@@ -34,7 +34,7 @@ export const POST = async (req: Request) => {
 
   const { error } = await supabase
     .from("users")
-    .update({ password: hashedPassword })
+    .update({ password: hashedPassword, updated_at: new Date().toISOString() })
     .eq("id", body.id)
     .select();
 
