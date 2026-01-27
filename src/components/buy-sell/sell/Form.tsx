@@ -8,11 +8,11 @@ const SellForm = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
-            Car Make *
+            Car Brand *
           </label>
           <input
             type="text"
-            name="make"
+            name="brand"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
           />

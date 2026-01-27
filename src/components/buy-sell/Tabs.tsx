@@ -1,9 +1,10 @@
 "use client";
-import { FaBullhorn, FaMagnifyingGlass, FaTag } from "react-icons/fa6";
+
+import { FaMagnifyingGlass, FaTag } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-import { BUY_ROUTE, SELL_ROUTE, WANTED_ROUTE } from "@/constants/routes";
+import { BUY_ROUTE, SELL_ROUTE } from "@/constants/routes";
 
 const tabs = [
   {
@@ -16,11 +17,11 @@ const tabs = [
     label: "Sell Your Car",
     route: SELL_ROUTE,
   },
-  {
-    icon: FaBullhorn,
-    label: "Cars Wanted",
-    route: WANTED_ROUTE,
-  },
+  // {
+  //   icon: FaBullhorn,
+  //   label: "Cars Wanted",
+  //   route: WANTED_ROUTE,
+  // },
 ];
 
 const BuySellTabs = () => {
