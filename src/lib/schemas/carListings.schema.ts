@@ -12,7 +12,7 @@ export const carListingSchema = z.object({
   owner_email: z.string("Owner's email is required."),
   owner_name: z.string("Owner's name is required."),
   owner_phone: z.string("Owner's phone is required."),
-  price: z.number("Car price is required."),
+  price: z.number().optional(),
   variant: z.string().trim().optional(),
   year: z.number({
     error: (value) =>

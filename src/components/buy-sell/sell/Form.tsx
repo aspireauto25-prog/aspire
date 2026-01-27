@@ -1,10 +1,61 @@
-import { FaCloudUploadAlt, FaPaperPlane } from "react-icons/fa";
+"use client";
 
+import { FaCloudUploadAlt, FaPaperPlane } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+import { createCarListing } from "@/api/axios/ carListings";
+import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
+import Spinner from "@/components/Spinner";
+import useRequest from "@/hooks/useRequest";
+
+export interface FormInput {
+  brand: string;
+  condition: string;
+  description?: string;
+  mileage: string;
+  model: string;
+  owner_email: string;
+  owner_name: string;
+  owner_phone: string;
+  price: string;
+  variant?: string;
+  year: string;
+}
 
 const SellForm = () => {
+  const { register, handleSubmit, reset } = useForm<FormInput>();
+
+  const { error, loading, run, success } = useRequest(createCarForListing);
+
+  async function createCarForListing(data: FormInput) {
+    const response = await createCarListing({
+      ...data,
+      mileage: parseNumber(data.mileage),
+      price: parseNumber(data.price),
+      year: parseNumber(data.year),
+    });
+
+    return response.data;
+  }
+
+  useEffect(() => {
+    if (success) {
+      toast.success("Car listed for sell successfully.");
+
+      reset();
+    }
+
+    if (error) {
+      toast.error("Car listing failed. Please try again.");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success, error]);
+
   return (
-    <form id="sell-form" className="space-y-6">
+    <form id="sell-form" className="space-y-6" onSubmit={handleSubmit(run)}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
@@ -12,9 +63,9 @@ const SellForm = () => {
           </label>
           <input
             type="text"
-            name="brand"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("brand")}
           />
         </div>
         <div>
@@ -23,24 +74,34 @@ const SellForm = () => {
           </label>
           <input
             type="text"
-            name="model"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("model")}
           />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
+            Car Variant
+          </label>
+          <input
+            type="text"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("variant")}
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
             Year *
           </label>
           <input
             type="number"
-            name="year"
             min={1990}
-            max={2024}
+            max={new Date().getFullYear()}
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("year")}
           />
         </div>
         <div>
@@ -49,49 +110,51 @@ const SellForm = () => {
           </label>
           <input
             type="number"
-            name="mileage"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("mileage")}
           />
         </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
             Condition *
           </label>
           <select
-            name="condition"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("condition")}
           >
-            <option>Select condition</option>
+            <option value="">Select condition</option>
             <option value="excellent">Excellent</option>
-            <option value="verygood">Very Good</option>
+            <option value="very-good">Very Good</option>
             <option value="good">Good</option>
             <option value="fair">Fair</option>
             <option value="poor">Poor</option>
           </select>
         </div>
-      </div>
-      <div>
-        <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
-          Expected Price ($)
-        </label>
-        <input
-          type="number"
-          name="price"
-          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-        />
+        <div>
+          <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
+            Expected Price ($)
+          </label>
+          <input
+            type="number"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("price")}
+          />
+        </div>
       </div>
       <div>
         <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
           Description *
         </label>
         <textarea
-          name="description"
           rows={4}
           required
           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
           defaultValue={""}
+          {...register("description")}
         />
       </div>
       <div>
@@ -123,9 +186,9 @@ const SellForm = () => {
           </label>
           <input
             type="text"
-            name="name"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("owner_name")}
           />
         </div>
         <div>
@@ -134,9 +197,9 @@ const SellForm = () => {
           </label>
           <input
             type="tel"
-            name="phone"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("owner_phone")}
           />
         </div>
       </div>
@@ -146,13 +209,13 @@ const SellForm = () => {
         </label>
         <input
           type="email"
-          name="email"
           required
           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+          {...register("owner_email")}
         />
       </div>
-      <Button type="submit" className="w-full">
-        <FaPaperPlane /> Submit Car for Listing
+      <Button type="submit" className="w-full" disabled={loading}>
+        {loading ? <Spinner /> : <FaPaperPlane />} Submit Car for Listing
       </Button>
     </form>
   );

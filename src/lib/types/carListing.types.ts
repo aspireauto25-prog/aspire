@@ -7,9 +7,9 @@ export interface CarListing {
   owner_email: string;
   owner_name: string;
   owner_phone: string;
-  price: number;
+  price?: number;
   variant?: string;
-  year: number;
+  year?: number;
 }
 
 export interface PaginatedCarListings {
