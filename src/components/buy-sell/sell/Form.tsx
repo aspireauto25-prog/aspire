@@ -1,13 +1,17 @@
 "use client";
 
-import { FaCloudUploadAlt, FaPaperPlane } from "react-icons/fa";
+import { FaPaperPlane } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { createCarListing } from "@/api/axios/ carListings";
+import {
+  createCarListing,
+  uploadListingCarImages,
+} from "@/api/axios/ carListings";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
+import ImageUploader from "@/components/ImageUploader";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
 
@@ -26,6 +30,8 @@ export interface FormInput {
 }
 
 const SellForm = () => {
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+
   const { register, handleSubmit, reset } = useForm<FormInput>();
 
   const { error, loading, run, success } = useRequest(createCarForListing);
@@ -38,13 +44,18 @@ const SellForm = () => {
       year: parseNumber(data.year),
     });
 
-    return response.data;
+    const createdCar = response.data;
+
+    const images = imageUrls.map((url) => ({ url }));
+
+    if (images.length > 0) await uploadListingCarImages(createdCar.id, images);
   }
 
   useEffect(() => {
     if (success) {
       toast.success("Car listed for sell successfully.");
 
+      setImageUrls([]);
       reset();
     }
 
@@ -161,22 +172,11 @@ const SellForm = () => {
         <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
           Upload Photos
         </label>
-        <div
-          id="image-preview"
-          className="image-upload-area border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors"
-        >
-          <div className="text-center flex flex-col items-center">
-            <FaCloudUploadAlt className="text-4xl text-gray-400 mb-2" />
-            <p className="text-gray-500">Click to upload car photos</p>
-            <p className="text-sm text-gray-400">Max 5MB per image</p>
-          </div>
-        </div>
-        <input
-          type="file"
-          id="car-images"
-          accept="image/*"
-          multiple
-          className="hidden"
+        <ImageUploader
+          folder="cars"
+          id="images"
+          multiple={true}
+          setImageUrls={setImageUrls}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

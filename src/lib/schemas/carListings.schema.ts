@@ -19,3 +19,12 @@ export const carListingSchema = z.object({
       value.input === undefined ? "Year is required." : "Invalid year value.",
   }),
 });
+
+export const carListingImageSchema = z.object({
+  car_id: z.number(),
+  images: z.array(
+    z.object({
+      url: z.string(),
+    }),
+  ),
+});
