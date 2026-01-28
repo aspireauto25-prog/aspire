@@ -2,7 +2,7 @@ import { FaEye, FaReply, FaUser } from "react-icons/fa";
 import { format } from "date-fns";
 
 import { Inquiry } from "@/lib/types/contact.types";
-import EmptyTable from "../EmptyTable";
+import EmptyTable from "../../EmptyTable";
 
 interface Props {
   inquiries: Inquiry[];

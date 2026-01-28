@@ -3,8 +3,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import {
-  customerMenu,
   dashboardMenu,
+  inquiryMenu,
   inventoryMenu,
   settingsMenu,
 } from "@/constants/adminMenu";
@@ -66,10 +66,10 @@ const SidebarMenu = () => {
       </div>
       <div className="mb-6">
         <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3 px-3">
-          Customer Management
+          Inquiries
         </p>
         <ul>
-          {customerMenu.map((menu, index) => (
+          {inquiryMenu.map((menu, index) => (
             <SidebarMenuItem key={index} {...menu} />
           ))}
         </ul>

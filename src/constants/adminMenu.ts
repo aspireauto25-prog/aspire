@@ -46,7 +46,7 @@ export const inventoryMenu = [
   },
 ];
 
-export const customerMenu = [
+export const inquiryMenu = [
   {
     Icon: FaInbox,
     route: CONTACT_INQUIRIES_ROUTE,
