@@ -1,9 +1,9 @@
 import { cookies } from "next/headers";
 import { ZodError } from "zod";
 
-import { carListingSchema } from "@/lib/schemas/carListings.schema";
 import { formatZodErrors } from "@/utils/zod";
 import { PAGE_LIMIT } from "@/constants/pagination";
+import { sellInquirySchema } from "@/lib/schemas/sellInquiry.schema";
 import { TOKEN } from "@/constants/contants";
 import { User } from "@/lib/types/user.types";
 import { USER_ROLE_ADMIN } from "@/constants/user";
@@ -34,7 +34,7 @@ export const GET = async (req: Request) => {
   const limit = parseInt(limitParam);
 
   let query = supabase
-    .from("car_listings")
+    .from("sell_inquiries")
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false });
 
@@ -82,10 +82,10 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const input = carListingSchema.parse(body);
+    const input = sellInquirySchema.parse(body);
 
     const { data, error } = await supabase
-      .from("car_listings")
+      .from("sell_inquiries")
       .insert({
         ...input,
         updated_at: new Date().toISOString(),

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const carListingSchema = z.object({
+export const sellInquirySchema = z.object({
   brand: z
     .string("Car brand is required.")
     .trim()
@@ -20,7 +20,7 @@ export const carListingSchema = z.object({
   }),
 });
 
-export const carListingImageSchema = z.object({
+export const sellInquiryImageSchema = z.object({
   car_id: z.number(),
   images: z.array(
     z.object({

@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import {
-  createCarListing,
-  uploadListingCarImages,
-} from "@/api/axios/ carListings";
+  createSellInquiry,
+  uploadSellInquiryImages,
+} from "@/api/axios/sellInquiries";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
 import ImageUploader from "@/components/ImageUploader";
@@ -34,10 +34,10 @@ const SellForm = () => {
 
   const { register, handleSubmit, reset } = useForm<FormInput>();
 
-  const { error, loading, run, success } = useRequest(createCarForListing);
+  const { error, loading, run, success } = useRequest(sendInquiry);
 
-  async function createCarForListing(data: FormInput) {
-    const response = await createCarListing({
+  async function sendInquiry(data: FormInput) {
+    const response = await createSellInquiry({
       ...data,
       mileage: parseNumber(data.mileage),
       price: parseNumber(data.price),
@@ -48,19 +48,19 @@ const SellForm = () => {
 
     const images = imageUrls.map((url) => ({ url }));
 
-    if (images.length > 0) await uploadListingCarImages(createdCar.id, images);
+    if (images.length > 0) await uploadSellInquiryImages(createdCar.id, images);
   }
 
   useEffect(() => {
     if (success) {
-      toast.success("Car listed for sell successfully.");
+      toast.success("Sell inquiry sent successfully.");
 
       setImageUrls([]);
       reset();
     }
 
     if (error) {
-      toast.error("Car listing failed. Please try again.");
+      toast.error("Sell inquiry failed. Please try again.");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);
@@ -215,7 +215,7 @@ const SellForm = () => {
         />
       </div>
       <Button type="submit" className="w-full" disabled={loading}>
-        {loading ? <Spinner /> : <FaPaperPlane />} Submit Car for Listing
+        {loading ? <Spinner /> : <FaPaperPlane />} Submit Sell Inquiry
       </Button>
     </form>
   );

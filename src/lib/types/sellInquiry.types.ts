@@ -1,4 +1,4 @@
-export interface CarListing {
+export interface SellInquiry {
   brand: string;
   condition: string;
   description?: string;
@@ -12,9 +12,9 @@ export interface CarListing {
   year?: number;
 }
 
-export interface PaginatedCarListings {
+export interface PaginatedSellInquiries {
   currentPage: number;
-  data: CarListing[];
+  data: SellInquiry[];
   total: number;
   totalPages: number;
 }
