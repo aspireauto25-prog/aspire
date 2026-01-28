@@ -1,7 +1,12 @@
+import {
+  FaCheckCircle,
+  FaClock,
+  FaInbox,
+  FaTachometerAlt,
+} from "react-icons/fa";
 import React from "react";
-import { FaCheckCircle, FaClock, FaInbox, FaTachometerAlt } from "react-icons/fa";
 
-const ContactInquiresLayout = ({
+const InquiresLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -83,4 +88,4 @@ const ContactInquiresLayout = ({
   );
 };
 
-export default ContactInquiresLayout;
+export default InquiresLayout;
