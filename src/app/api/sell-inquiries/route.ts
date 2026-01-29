@@ -26,7 +26,7 @@ export const GET = async (req: Request) => {
   const { searchParams } = new URL(req.url);
 
   const pageParam = searchParams.get("page") ?? "1";
-  const limitParam = searchParams.get("limit") ?? PAGE_LIMIT.toString();
+  const limitParam = searchParams.get("limit") ?? PAGE_LIMIT;
   const search = searchParams.get("search");
   const status = searchParams.get("status");
 
@@ -35,7 +35,7 @@ export const GET = async (req: Request) => {
 
   let query = supabase
     .from("sell_inquiries")
-    .select("*", { count: "exact" })
+    .select(`*, sell_inquiry_images (url,created_at)`, { count: "exact" })
     .order("created_at", { ascending: false });
 
   if (page && limit) {

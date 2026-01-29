@@ -1,7 +1,7 @@
 import { SearchParams } from "next/dist/server/request/search-params";
 
 import { getContactInquiries } from "@/api/contacts";
-import { PAGE_LIMIT } from "@/constants/pagination";
+import { DEFAULT_PAGE, PAGE_LIMIT } from "@/constants/pagination";
 import ContactInquiryTable from "@/components/admin/inquiries/contact-inquiries/Table";
 import Filters from "@/components/admin/inquiries/contact-inquiries/Filters";
 import Pagination from "@/components/admin/table/Pagination";
@@ -11,14 +11,12 @@ interface Props {
   searchParams: Promise<SearchParams>;
 }
 
-const DEFAULT_PAGE = "1";
-
 const ContactInquiresPage = async ({ searchParams }: Props) => {
   const query = await searchParams;
 
   const inquiries = await getContactInquiries({
     page: query.page ?? DEFAULT_PAGE,
-    limit: PAGE_LIMIT.toString(),
+    limit: PAGE_LIMIT,
     search: query.q ?? "",
     status: query.status ?? "",
   });

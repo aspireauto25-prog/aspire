@@ -3,7 +3,7 @@ import { SearchParams } from "next/dist/server/request/search-params";
 
 import { ADD_CAR_ROUTE } from "@/constants/routes";
 import { getCars } from "@/api/cars";
-import { PAGE_LIMIT } from "@/constants/pagination";
+import { DEFAULT_PAGE, PAGE_LIMIT } from "@/constants/pagination";
 import Filters from "@/components/admin/cars/Filters";
 import LinkButton from "@/components/LinkButton";
 import Pagination from "@/components/admin/table/Pagination";
@@ -14,14 +14,12 @@ interface Props {
   searchParams: Promise<SearchParams>;
 }
 
-const DEFAULT_PAGE = "1";
-
 const CarsPage = async ({ searchParams }: Props) => {
   const query = await searchParams;
 
   const cars = await getCars({
     page: query.page ?? DEFAULT_PAGE,
-    limit: PAGE_LIMIT.toString(),
+    limit: PAGE_LIMIT,
     search: query.q ?? "",
     status: query.status ?? "",
   });

@@ -10,6 +10,7 @@ import {
   uploadSellInquiryImages,
 } from "@/api/axios/sellInquiries";
 import { parseNumber } from "@/utils/inputFormatter";
+import { SellInquiry } from "@/lib/types/sellInquiry.types";
 import Button from "@/components/Button";
 import ImageUploader from "@/components/ImageUploader";
 import Spinner from "@/components/Spinner";
@@ -42,7 +43,7 @@ const SellForm = () => {
       mileage: parseNumber(data.mileage),
       price: parseNumber(data.price),
       year: parseNumber(data.year),
-    });
+    } as unknown as SellInquiry);
 
     const createdCar = response.data;
 
@@ -138,11 +139,11 @@ const SellForm = () => {
             {...register("condition")}
           >
             <option value="">Select condition</option>
-            <option value="excellent">Excellent</option>
-            <option value="very-good">Very Good</option>
-            <option value="good">Good</option>
-            <option value="fair">Fair</option>
-            <option value="poor">Poor</option>
+            <option value="Excellent">Excellent</option>
+            <option value="Very Good">Very Good</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Poor">Poor</option>
           </select>
         </div>
         <div>
