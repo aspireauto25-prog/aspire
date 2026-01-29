@@ -28,6 +28,9 @@ const Table = async ({ inquiries }: Props) => {
               Price
             </th>
             <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
+              Description
+            </th>
+            <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
               Owner&apos;s Info
             </th>
             <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
@@ -58,7 +61,7 @@ const Table = async ({ inquiries }: Props) => {
                     className="min-w-20 h-14 rounded-md bg-primary/5 flex items-center justify-center mr-4 object-cover"
                   />
                   <div>
-                    <p className="font-bold text-gray-800 dark:text-white whitespace-nowrap space-x-1">
+                    <p className="font-bold text-gray-800 dark:text-white space-x-1">
                       <span>{inquiry.brand}</span>
                       <span>{inquiry.model}</span>
                       <span>{inquiry.variant}</span>
@@ -82,6 +85,9 @@ const Table = async ({ inquiries }: Props) => {
                 <p className="font-bold text-gray-800 dark:text-white text-lg">
                   ${inquiry.price}
                 </p>
+              </td>
+              <td className="py-4 px-6 text-ellipsis">
+                <p className="text-sm">{inquiry.description}</p>
               </td>
               <td className="py-4 px-6">
                 <div className="space-y-1 whitespace-nowrap">
