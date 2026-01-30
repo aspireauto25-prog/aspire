@@ -1,4 +1,4 @@
-import { FaEdit } from "react-icons/fa";
+import { FaCog, FaEdit } from "react-icons/fa";
 import { isBefore } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,7 +39,9 @@ const Table = async ({ cars }: Props) => {
               Status
             </th>
             <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
-              Actions
+              <div className="flex justify-center">
+                <FaCog />
+              </div>
             </th>
           </tr>
         </thead>

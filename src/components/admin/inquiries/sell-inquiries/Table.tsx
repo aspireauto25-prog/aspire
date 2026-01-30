@@ -1,7 +1,8 @@
-import { FaEdit } from "react-icons/fa";
+import { FaCog, FaEye } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 
+import { SELL_INQUIRIES_ROUTE } from "@/constants/routes";
 import { SellInquiry } from "@/lib/types/sellInquiry.types";
 import EmptyTable from "../../EmptyTable";
 import SellInquiryStatus from "./Status";
@@ -36,8 +37,10 @@ const Table = async ({ inquiries }: Props) => {
             <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
               Status
             </th>
-            <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
-              Actions
+            <th className="text-right py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
+              <div className="flex justify-center">
+                <FaCog />
+              </div>
             </th>
           </tr>
         </thead>
@@ -86,8 +89,8 @@ const Table = async ({ inquiries }: Props) => {
                   ${inquiry.price}
                 </p>
               </td>
-              <td className="py-4 px-6 text-ellipsis">
-                <p className="text-sm">{inquiry.description}</p>
+              <td className="py-4 px-6 max-w-xs">
+                <p className="text-sm truncate">{inquiry.description}</p>
               </td>
               <td className="py-4 px-6">
                 <div className="space-y-1 whitespace-nowrap">
@@ -109,13 +112,12 @@ const Table = async ({ inquiries }: Props) => {
                 <SellInquiryStatus id={inquiry.id} status={inquiry.status} />
               </td>
               <td className="py-4 px-6">
-                <div className="flex space-x-1">
+                <div className="flex justify-center">
                   <Link
-                    href={`/admin/cars/${inquiry.id}/edit`}
+                    href={`${SELL_INQUIRIES_ROUTE}/${inquiry.id}`}
                     className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
-                    title="Edit"
                   >
-                    <FaEdit />
+                    <FaEye />
                   </Link>
                 </div>
               </td>

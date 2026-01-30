@@ -1,8 +1,11 @@
-import { FaEye, FaReply, FaUser } from "react-icons/fa";
+import { FaCog, FaEye, FaUser } from "react-icons/fa";
 import { format } from "date-fns";
 
+import { CONTACT_INQUIRIES_ROUTE } from "@/constants/routes";
 import { Inquiry } from "@/lib/types/contact.types";
+import ContactInquiryStatus from "./Status";
 import EmptyTable from "../../EmptyTable";
+import Link from "next/link";
 
 interface Props {
   inquiries: Inquiry[];
@@ -36,7 +39,9 @@ const ContactInquiryTable = ({ inquiries }: Props) => {
               Status
             </th>
             <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
-              Actions
+              <div className="flex justify-center">
+                <FaCog />
+              </div>
             </th>
           </tr>
         </thead>
@@ -72,29 +77,22 @@ const ContactInquiryTable = ({ inquiries }: Props) => {
                 {format(inquiry.created_at, "MMM dd, yyyy")}
               </td>
               <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300">
-                {inquiry.status}
+                <ContactInquiryStatus id={inquiry.id} status={inquiry.status} />
               </td>
               <td className="py-4 px-6">
-                <div className="flex space-x-2">
-                  <button
-                    className="p-2 text-primary hover:bg-primary/10 rounded-lg"
-                    title="Reply"
-                  >
-                    <FaReply />
-                  </button>
-                  <button
+                <div className="flex justify-center">
+                  <Link
+                    href={`${CONTACT_INQUIRIES_ROUTE}/${inquiry.id}`}
                     className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
-                    title="View Details"
                   >
                     <FaEye />
-                  </button>
+                  </Link>
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {/* Empty State (Hidden by default) */}
       {inquiries.length == 0 && <EmptyTable />}
     </div>
   );

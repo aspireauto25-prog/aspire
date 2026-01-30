@@ -21,11 +21,8 @@ const SellInquiresPage = async ({ searchParams }: Props) => {
     status: query.status ?? "",
   });
 
-  console.log(inquiries);
-
   return (
     <section>
-      {/* Filters and Actions */}
       <div className="mb-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 ">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between">
           <div className="mb-4 lg:mb-0">
@@ -39,7 +36,7 @@ const SellInquiresPage = async ({ searchParams }: Props) => {
 
           <Search />
         </div>
-        <Filters currentStatus={""} />
+        <Filters currentStatus={query.status ?? ""} />
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden ">

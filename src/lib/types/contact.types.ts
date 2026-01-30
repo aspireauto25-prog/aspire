@@ -6,7 +6,7 @@ export interface Inquiry {
   message: string;
   name: string;
   phone: string;
-  status: string;
+  status: number;
 }
 
 export interface PaginatedInquiries {
