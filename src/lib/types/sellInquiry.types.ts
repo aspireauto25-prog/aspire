@@ -1,6 +1,7 @@
 export interface SellInquiry {
   brand: string;
   condition: string;
+  created_at: string;
   description?: string;
   id: number;
   mileage?: number;
@@ -11,6 +12,7 @@ export interface SellInquiry {
   price?: number;
   sell_inquiry_images: SellInquiryImage[];
   status: number;
+  updated_at: string;
   variant?: string;
   year?: number;
 }

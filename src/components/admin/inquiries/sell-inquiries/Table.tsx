@@ -51,29 +51,31 @@ const Table = async ({ inquiries }: Props) => {
               className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
             >
               <td className="py-4 px-6">
-                <div className="flex items-center">
-                  <Image
-                    src={
-                      inquiry.sell_inquiry_images.length > 0
-                        ? inquiry.sell_inquiry_images[0].url
-                        : logoUrl
-                    }
-                    alt={inquiry.brand}
-                    height={80}
-                    width={100}
-                    className="min-w-20 h-14 rounded-md bg-primary/5 flex items-center justify-center mr-4 object-cover"
-                  />
-                  <div>
-                    <p className="font-bold text-gray-800 dark:text-white space-x-1">
-                      <span>{inquiry.brand}</span>
-                      <span>{inquiry.model}</span>
-                      <span>{inquiry.variant}</span>
-                    </p>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      Year: {inquiry.year}
-                    </p>
+                <Link href={`${SELL_INQUIRIES_ROUTE}/${inquiry.id}`}>
+                  <div className="flex items-center">
+                    <Image
+                      src={
+                        inquiry.sell_inquiry_images.length > 0
+                          ? inquiry.sell_inquiry_images[0].url
+                          : logoUrl
+                      }
+                      alt={inquiry.brand}
+                      height={80}
+                      width={100}
+                      className="min-w-20 h-14 rounded-md bg-primary/5 flex items-center justify-center mr-4 object-cover"
+                    />
+                    <div>
+                      <p className="font-bold text-gray-800 dark:text-white space-x-1">
+                        <span>{inquiry.brand}</span>
+                        <span>{inquiry.model}</span>
+                        <span>{inquiry.variant}</span>
+                      </p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                        Year: {inquiry.year}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </td>
               <td className="py-4 px-6">
                 <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium whitespace-nowrap">
