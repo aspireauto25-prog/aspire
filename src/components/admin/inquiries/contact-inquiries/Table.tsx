@@ -58,10 +58,10 @@ const ContactInquiryTable = ({ inquiries }: Props) => {
                   <p className="font-medium">{inquiry.name}</p>
                 </div>
               </td>
-              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300 hover:underline">
+              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300 hover:underline whitespace-nowrap">
                 <a href={`mailto:${inquiry.email}`}>{inquiry.email}</a>
               </td>
-              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300 hover:underline">
+              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300 hover:underline whitespace-nowrap">
                 <a href={`tel:${inquiry.phone}`}>{inquiry.phone}</a>
               </td>
               <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300">
@@ -72,7 +72,7 @@ const ContactInquiryTable = ({ inquiries }: Props) => {
                   {inquiry.message}
                 </p>
               </td>
-              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300">
+              <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">
                 {format(inquiry.created_at, "MMM dd, yyyy")}
               </td>
               <td className="py-4 px-6 text-sm text-gray-700 dark:text-gray-300">
