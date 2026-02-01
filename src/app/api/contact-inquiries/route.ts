@@ -1,5 +1,7 @@
 import { ZodError } from "zod";
 
+import { CONTACT_INQUIRY_PENDING } from "@/constants/contact";
+import { contactSchema } from "@/lib/schemas/contact.schema";
 import { formatZodErrors } from "@/utils/zod";
 import { PAGE_LIMIT } from "@/constants/pagination";
 import supabase from "@/config/database";
@@ -12,11 +14,11 @@ export const GET = async (req: Request) => {
   const search = searchParams.get("search");
   const status = searchParams.get("status");
 
-  const page = pageParam && parseInt(pageParam);
+  const page = (pageParam && parseInt(pageParam)) || 1;
   const limit = limitParam && parseInt(limitParam);
 
   let query = supabase
-    .from("contacts")
+    .from("contact_inquiries")
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false });
 
@@ -31,7 +33,7 @@ export const GET = async (req: Request) => {
 
   if (search) {
     query = query.or(
-      `name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,subject.ilike.%${search}%,message.ilike.%${search}%`
+      `name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,subject.ilike.%${search}%,message.ilike.%${search}%`,
     );
   }
 
@@ -47,7 +49,7 @@ export const GET = async (req: Request) => {
         total: count,
         totalPages: limit ? Math.ceil((count ?? 0) / limit) : PAGE_LIMIT,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     if (error instanceof ZodError) {
@@ -59,3 +61,33 @@ export const GET = async (req: Request) => {
     return Response.json({ error: "Internal Server Error" }, { status: 500 });
   }
 };
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+
+    const input = contactSchema.parse(body);
+
+    const { data, error } = await supabase
+      .from("contact_inquiries")
+      .insert([
+        {
+          ...input,
+          status: CONTACT_INQUIRY_PENDING,
+        },
+      ])
+      .select();
+
+    if (error) return Response.json({ error: error.message }, { status: 500 });
+
+    return Response.json(data[0], { status: 201 });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const formattedErrors = formatZodErrors(error);
+
+      return Response.json(formattedErrors, { status: 400 });
+    }
+
+    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}

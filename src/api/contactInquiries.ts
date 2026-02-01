@@ -2,24 +2,23 @@ import { cookies } from "next/headers";
 import type { SearchParams } from "next/dist/server/request/search-params";
 
 import { getFormattedQuery } from "@/utils/queryFormatter";
-import {
-  PaginatedSellInquiries,
-  SellInquiry,
-} from "@/lib/types/sellInquiry.types";
+import { ContactInquiry, PaginatedInquiries } from "@/lib/types/contact.types";
 import config from "@/config";
 
-export const getSellInquiries = async (
+export const getContactInquiries = async (
   searchParams?: SearchParams,
-): Promise<PaginatedSellInquiries> => {
+): Promise<PaginatedInquiries> => {
   const query = getFormattedQuery(searchParams);
 
-  const url = `${config.apiUrl}/api/sell-inquiries${query}`;
+  const url = `${config.apiUrl}/api/contact-inquiries${query}`;
+
+  const token = (await cookies()).get("token")?.value;
 
   const res = await fetch(url, {
-    cache: "no-store",
     headers: {
-      cookie: (await cookies()).toString(),
+      Cookie: `token=${token}`,
     },
+    cache: "no-store",
   });
 
   if (!res.ok) {
@@ -29,7 +28,9 @@ export const getSellInquiries = async (
   return res.json();
 };
 
-export const getSellInquiryById = async (id: string): Promise<SellInquiry> => {
+export const getContactInquiryById = async (
+  id: string,
+): Promise<ContactInquiry> => {
   const url = `${config.apiUrl}/api/sell-inquiries/${id}`;
 
   const res = await fetch(url, {
@@ -46,11 +47,11 @@ export const getSellInquiryById = async (id: string): Promise<SellInquiry> => {
   return res.json();
 };
 
-export const getSellInquiriesCount = async (): Promise<{
+export const getContactInquiriesCount = async (): Promise<{
   totalCount: number;
   pendingCount: number;
 }> => {
-  const url = `${config.apiUrl}/api/sell-inquiries/count`;
+  const url = `${config.apiUrl}/api/contact-inquiries/count`;
 
   const token = (await cookies()).get("token")?.value;
 

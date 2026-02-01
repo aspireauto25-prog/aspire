@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-import { CONTACT_STATUS_PENDING } from "@/constants/contact";
+import { CONTACT_INQUIRY_PENDING } from "@/constants/contact";
 import { TOKEN } from "@/constants/contants";
 import { User } from "@/lib/types/user.types";
 import { USER_ROLE_ADMIN } from "@/constants/user";
@@ -33,7 +33,7 @@ export const GET = async (req: Request, { params }: Params) => {
   }
 
   const { data, error } = await supabase
-    .from("contacts")
+    .from("contact_inquiries")
     .select(`*`)
     .eq("id", id)
     .single();
@@ -65,9 +65,9 @@ export const PATCH = async (request: Request, { params }: Params) => {
   const body = await request.json();
 
   const { data, error } = await supabase
-    .from("contacts")
+    .from("contact_inquiries")
     .update({
-      status: body?.status || CONTACT_STATUS_PENDING,
+      status: body?.status || CONTACT_INQUIRY_PENDING,
     })
     .select("*")
     .eq("id", id)

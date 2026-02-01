@@ -1,4 +1,4 @@
-export interface Inquiry {
+export interface ContactInquiry {
   created_at: string;
   email: string;
   id: number;
@@ -11,7 +11,7 @@ export interface Inquiry {
 
 export interface PaginatedInquiries {
   currentPage: number;
-  data: Inquiry[];
+  data: ContactInquiry[];
   total: number;
   totalPages: number;
 }

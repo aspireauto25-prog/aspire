@@ -1,6 +1,6 @@
 import { SearchParams } from "next/dist/server/request/search-params";
 
-import { getContactInquiries } from "@/api/contacts";
+import { getContactInquiries } from "@/api/contactInquiries";
 import { DEFAULT_PAGE, PAGE_LIMIT } from "@/constants/pagination";
 import ContactInquiryTable from "@/components/admin/inquiries/contact-inquiries/Table";
 import Filters from "@/components/admin/inquiries/contact-inquiries/Filters";

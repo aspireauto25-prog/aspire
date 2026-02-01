@@ -2,13 +2,13 @@ import { FaCog, FaEye, FaUser } from "react-icons/fa";
 import { format } from "date-fns";
 
 import { CONTACT_INQUIRIES_ROUTE } from "@/constants/routes";
-import { Inquiry } from "@/lib/types/contact.types";
+import { ContactInquiry } from "@/lib/types/contact.types";
 import ContactInquiryStatus from "./Status";
 import EmptyTable from "../../EmptyTable";
 import Link from "next/link";
 
 interface Props {
-  inquiries: Inquiry[];
+  inquiries: ContactInquiry[];
 }
 
 const ContactInquiryTable = ({ inquiries }: Props) => {

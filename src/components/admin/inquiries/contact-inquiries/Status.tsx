@@ -6,8 +6,8 @@ import { FaHeadset, FaSave } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 import {
-  CONTACT_STATUS_PENDING,
-  CONTACT_STATUS_RESPONDED,
+  CONTACT_INQUIRY_PENDING,
+  CONTACT_INQUIRY_RESPONDED,
 } from "@/constants/contact";
 import { parseNumber } from "@/utils/inputFormatter";
 import { updateContactInquiryStatus } from "@/api/axios/contactInquiries";
@@ -24,16 +24,16 @@ interface Props {
 const statuses = [
   {
     label: "Pending",
-    value: CONTACT_STATUS_PENDING,
+    value: CONTACT_INQUIRY_PENDING,
   },
   {
     label: "Responded",
-    value: CONTACT_STATUS_RESPONDED,
+    value: CONTACT_INQUIRY_RESPONDED,
   },
 ];
 
 const Status = ({ status }: Props) => {
-  if (status == CONTACT_STATUS_RESPONDED)
+  if (status == CONTACT_INQUIRY_RESPONDED)
     return (
       <span className="status-badge bg-green-100 text-green-700 hover:bg-green-200">
         Responded
