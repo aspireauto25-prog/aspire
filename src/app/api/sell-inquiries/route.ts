@@ -1,10 +1,9 @@
 import { cookies } from "next/headers";
 import { ZodError } from "zod";
 
-import { CAR_STATUS_AVAILABLE } from "@/constants/cars";
-import { carSchema } from "@/lib/schemas/car.schema";
 import { formatZodErrors } from "@/utils/zod";
 import { PAGE_LIMIT } from "@/constants/pagination";
+import { sellInquirySchema } from "@/lib/schemas/sellInquiry.schema";
 import { TOKEN } from "@/constants/contants";
 import { User } from "@/lib/types/user.types";
 import { USER_ROLE_ADMIN } from "@/constants/user";
@@ -12,6 +11,18 @@ import { verifyJWT } from "@/utils/jwt";
 import supabase from "@/config/database";
 
 export const GET = async (req: Request) => {
+  const authToken = (await cookies()).get(TOKEN)?.value;
+
+  if (!authToken) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const authUser = (await verifyJWT(authToken).catch((error) => error)) as User;
+
+  if (authUser?.role !== USER_ROLE_ADMIN) {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const { searchParams } = new URL(req.url);
 
   const pageParam = searchParams.get("page") ?? "1";
@@ -23,9 +34,8 @@ export const GET = async (req: Request) => {
   const limit = parseInt(limitParam);
 
   let query = supabase
-    .from("cars")
-    .select(`*, car_images (url,featured,created_at)`, { count: "exact" })
-    .is("deleted_at", null)
+    .from("sell_inquiries")
+    .select(`*, sell_inquiry_images (url,created_at)`, { count: "exact" })
     .order("created_at", { ascending: false });
 
   if (page && limit) {
@@ -39,7 +49,7 @@ export const GET = async (req: Request) => {
 
   if (search) {
     query = query.or(
-      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`
+      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%`,
     );
   }
 
@@ -55,7 +65,7 @@ export const GET = async (req: Request) => {
         total: count,
         totalPages: Math.ceil((count ?? 0) / limit),
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     if (error instanceof ZodError) {
@@ -70,34 +80,16 @@ export const GET = async (req: Request) => {
 
 export async function POST(request: Request) {
   try {
-    const authToken = (await cookies()).get(TOKEN)?.value;
-
-    if (!authToken) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const authUser = (await verifyJWT(authToken).catch(
-      (error) => error
-    )) as User;
-
-    if (authUser?.role !== USER_ROLE_ADMIN) {
-      return Response.json({ error: "Forbidden" }, { status: 403 });
-    }
-
     const body = await request.json();
 
-    const input = carSchema.parse(body);
+    const input = sellInquirySchema.parse(body);
 
     const { data, error } = await supabase
-      .from("cars")
-      .upsert(
-        {
-          ...input,
-          status: CAR_STATUS_AVAILABLE,
-          updated_at: new Date().toISOString(),
-        },
-        { onConflict: "license_plate" }
-      )
+      .from("sell_inquiries")
+      .insert({
+        ...input,
+        updated_at: new Date().toISOString(),
+      })
       .select();
 
     if (error) return Response.json({ error: error.message }, { status: 500 });

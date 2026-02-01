@@ -1,4 +1,4 @@
-import { FaCar, FaEdit } from "react-icons/fa";
+import { FaCar, FaCog, FaEdit } from "react-icons/fa";
 import Link from "next/link";
 
 import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
@@ -32,7 +32,9 @@ const Table = async ({ rentalCars }: Props) => {
               Status
             </th>
             <th className="text-left py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
-              Actions
+              <div className="flex justify-center">
+                <FaCog />
+              </div>
             </th>
           </tr>
         </thead>
@@ -44,11 +46,11 @@ const Table = async ({ rentalCars }: Props) => {
             >
               <td className="py-4 px-6">
                 <div className="flex items-center">
-                  <div className="min-w-16 h-12 rounded-md bg-linear-to-r from-primary to-red-700 flex items-center justify-center mr-4">
-                    <FaCar className="text-white text-2xl" />
+                  <div className="min-w-14 h-14 rounded-full bg-linear-to-r from-primary to-red-700 flex items-center justify-center mr-3 text-white">
+                    <FaCar className="text-2xl" />
                   </div>
                   <div>
-                    <p className="font-bold text-gray-800 dark:text-white space-x-1 whitespace-nowrap">
+                    <p className="font-bold text-gray-800 dark:text-white space-x-1">
                       <span>{rentalCar.brand}</span>
                       <span>{rentalCar.model}</span>
                       <span>{rentalCar.variant}</span>

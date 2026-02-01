@@ -1,1 +1,2 @@
-export const PAGE_LIMIT = 20;
+export const DEFAULT_PAGE = "1";
+export const PAGE_LIMIT = "20";

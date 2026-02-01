@@ -1,29 +1,28 @@
 import { ZodError } from "zod";
 
-import { CONTACT_STATUS_PENDING } from "@/constants/contact";
-import { contactSchema } from "@/lib/schemas/contact.schema";
 import { formatZodErrors } from "@/utils/zod";
+import { sellInquiryImageSchema } from "@/lib/schemas/sellInquiry.schema";
 import supabase from "@/config/database";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const input = contactSchema.parse(body);
+    const input = sellInquiryImageSchema.parse(body);
+
+    const inputImages = input.images.map((image) => ({
+      car_id: input.car_id,
+      ...image,
+    }));
 
     const { data, error } = await supabase
-      .from("contacts")
-      .insert([
-        {
-          ...input,
-          status: CONTACT_STATUS_PENDING,
-        },
-      ])
+      .from("sell_inquiry_images")
+      .insert(inputImages)
       .select();
 
     if (error) return Response.json({ error: error.message }, { status: 500 });
 
-    return Response.json(data[0], { status: 201 });
+    return Response.json(data, { status: 201 });
   } catch (error) {
     if (error instanceof ZodError) {
       const formattedErrors = formatZodErrors(error);

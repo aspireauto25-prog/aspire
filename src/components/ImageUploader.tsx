@@ -26,7 +26,7 @@ interface Props {
   folder?: string;
   id: string;
   multiple?: boolean;
-  setImageUrls: (_: string[]) => void;
+  setImageUrls: (urls: string[] | ((prev: string[]) => string[])) => void;
 }
 
 const ImageUploader = ({
@@ -114,7 +114,10 @@ const ImageUploader = ({
         ? response.data
         : [response.data];
 
-      setImageUrls(uploadedFiles.map((file) => file.url));
+      setImageUrls((prev: string[]) => [
+        ...prev,
+        ...uploadedFiles.map((file) => file.url as string),
+      ]);
       setUploadState(UPLOAD_SUCCESS);
     } catch (error) {
       if (axios.isCancel(error)) return;

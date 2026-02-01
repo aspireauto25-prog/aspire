@@ -15,8 +15,6 @@ function isTokenExpired(authToken: string) {
 
   if (!exp) return true;
 
-  console.log({ date: Date.now(), exp: exp * 1000 });
-
   return Date.now() >= exp * 1000;
 }
 

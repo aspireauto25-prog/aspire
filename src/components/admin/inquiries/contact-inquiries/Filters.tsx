@@ -1,9 +1,9 @@
 "use client";
 
 import {
-  CONTACT_STATUS_PENDING,
-  CONTACT_STATUS_RESPONDED,
-} from "@/constants/contact";
+  SELL_INQUIRY_PENDING,
+  SELL_INQUIRY_RESPONDED,
+} from "@/constants/sellInquiries";
 import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
 
 interface Props {
@@ -12,8 +12,8 @@ interface Props {
 
 const filters = [
   { label: "All", value: "" },
-  { label: "Pending", value: CONTACT_STATUS_PENDING },
-  { label: "Responded", value: CONTACT_STATUS_RESPONDED },
+  { label: "Pending", value: SELL_INQUIRY_PENDING },
+  { label: "Responded", value: SELL_INQUIRY_RESPONDED },
 ];
 
 const Filters = ({ currentStatus }: Props) => {
@@ -28,7 +28,7 @@ const Filters = ({ currentStatus }: Props) => {
       {filters.map((item) => (
         <button
           key={item.value}
-          onClick={() => filter(item.value)}
+          onClick={() => filter(item.value?.toString())}
           className={`px-3 py-1.5 text-sm rounded-lg font-medium cursor-pointer ${
             item.value == currentStatus
               ? "bg-primary text-white"

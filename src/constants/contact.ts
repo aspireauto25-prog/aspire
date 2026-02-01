@@ -1,5 +1,5 @@
-export const CONTACT_STATUS_PENDING = "PENDING";
-export const CONTACT_STATUS_RESPONDED = "RESPONDED";
+export const CONTACT_INQUIRY_PENDING = 1;
+export const CONTACT_INQUIRY_RESPONDED = 2;
 
 export const subjects = [
   "Car Rental Inquiry",

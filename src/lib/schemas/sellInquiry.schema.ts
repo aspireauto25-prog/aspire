@@ -1,0 +1,30 @@
+import { z } from "zod";
+
+export const sellInquirySchema = z.object({
+  brand: z
+    .string("Car brand is required.")
+    .trim()
+    .min(2, "Car brand is too short."),
+  condition: z.string().optional(),
+  description: z.string().optional(),
+  mileage: z.number().optional(),
+  model: z.string("Car model is required.").trim(),
+  owner_email: z.string("Owner's email is required."),
+  owner_name: z.string("Owner's name is required."),
+  owner_phone: z.string("Owner's phone is required."),
+  price: z.number().optional(),
+  variant: z.string().trim().optional(),
+  year: z.number({
+    error: (value) =>
+      value.input === undefined ? "Year is required." : "Invalid year value.",
+  }),
+});
+
+export const sellInquiryImageSchema = z.object({
+  car_id: z.number(),
+  images: z.array(
+    z.object({
+      url: z.string(),
+    }),
+  ),
+});

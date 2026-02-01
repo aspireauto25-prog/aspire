@@ -2,12 +2,14 @@
 
 import { FaPaperPlane } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 
+import { ContactInquiry } from "@/lib/types/contact.types";
+import { sendContactInquiry } from "@/api/axios/contactInquiries";
 import { subjects } from "@/constants/contact";
 import Button from "../Button";
-import { useState } from "react";
+import useRequest from "@/hooks/useRequest";
 
 interface FormData {
   email: string;
@@ -18,28 +20,27 @@ interface FormData {
 }
 
 const ContactForm = () => {
-  const [submitting, setSubmitting] = useState(false);
-
   const { handleSubmit, register, reset } = useForm<FormData>();
 
-  const submitForm = async (data: FormData) => {
-    setSubmitting(true);
+  const { error, loading, run, success } = useRequest((data) =>
+    sendContactInquiry(data as ContactInquiry),
+  );
 
-    try {
-      await axios.post("/api/contact", data);
-
+  useEffect(() => {
+    if (success) {
       toast.success("Message sent successfully!");
 
       reset();
-    } catch {
-      toast.error("Failed to send message.");
-    } finally {
-      setSubmitting(false);
     }
-  };
+
+    if (error) {
+      toast.error("Failed to send message.");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success, error]);
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit(submitForm)}>
+    <form className="space-y-6" onSubmit={handleSubmit(run)}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label
@@ -131,9 +132,9 @@ const ContactForm = () => {
         />
         <div id="message-error" className="text-red-500 text-sm mt-1" />
       </div>
-      <Button type="submit" className="w-full" disabled={submitting}>
+      <Button type="submit" className="w-full" disabled={loading}>
         <FaPaperPlane />
-        {submitting ? "Sending..." : "Send Message"}
+        {loading ? "Sending..." : "Send Message"}
       </Button>
     </form>
   );

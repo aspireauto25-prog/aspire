@@ -1,20 +1,83 @@
-import { FaCloudUploadAlt, FaPaperPlane } from "react-icons/fa";
+"use client";
 
+import { FaPaperPlane } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
+import {
+  createSellInquiry,
+  uploadSellInquiryImages,
+} from "@/api/axios/sellInquiries";
+import { parseNumber } from "@/utils/inputFormatter";
+import { SellInquiry } from "@/lib/types/sellInquiry.types";
 import Button from "@/components/Button";
+import ImageUploader from "@/components/ImageUploader";
+import Spinner from "@/components/Spinner";
+import useRequest from "@/hooks/useRequest";
+
+export interface FormInput {
+  brand: string;
+  condition: string;
+  description?: string;
+  mileage: string;
+  model: string;
+  owner_email: string;
+  owner_name: string;
+  owner_phone: string;
+  price: string;
+  variant?: string;
+  year: string;
+}
 
 const SellForm = () => {
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+
+  const { register, handleSubmit, reset } = useForm<FormInput>();
+
+  const { error, loading, run, success } = useRequest(sendInquiry);
+
+  async function sendInquiry(data: FormInput) {
+    const response = await createSellInquiry({
+      ...data,
+      mileage: parseNumber(data.mileage),
+      price: parseNumber(data.price),
+      year: parseNumber(data.year),
+    } as unknown as SellInquiry);
+
+    const createdCar = response.data;
+
+    const images = imageUrls.map((url) => ({ url }));
+
+    if (images.length > 0) await uploadSellInquiryImages(createdCar.id, images);
+  }
+
+  useEffect(() => {
+    if (success) {
+      toast.success("Sell inquiry sent successfully.");
+
+      setImageUrls([]);
+      reset();
+    }
+
+    if (error) {
+      toast.error("Sell inquiry failed. Please try again.");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success, error]);
+
   return (
-    <form id="sell-form" className="space-y-6">
+    <form id="sell-form" className="space-y-6" onSubmit={handleSubmit(run)}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
-            Car Make *
+            Car Brand *
           </label>
           <input
             type="text"
-            name="make"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("brand")}
           />
         </div>
         <div>
@@ -23,97 +86,100 @@ const SellForm = () => {
           </label>
           <input
             type="text"
-            name="model"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("model")}
           />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
-            Year *
+            Car Variant
           </label>
           <input
-            type="number"
-            name="year"
-            min={1990}
-            max={2024}
-            required
+            type="text"
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("variant")}
           />
         </div>
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
-            Mileage *
+            Year *
           </label>
           <input
             type="number"
-            name="mileage"
+            min={1990}
+            max={new Date().getFullYear()}
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("year")}
           />
         </div>
+        <div>
+          <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
+            Mileage (km) *
+          </label>
+          <input
+            type="number"
+            required
+            min={1}
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("mileage")}
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
             Condition *
           </label>
           <select
-            name="condition"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("condition")}
           >
-            <option>Select condition</option>
-            <option value="excellent">Excellent</option>
-            <option value="verygood">Very Good</option>
-            <option value="good">Good</option>
-            <option value="fair">Fair</option>
-            <option value="poor">Poor</option>
+            <option value="">Select condition</option>
+            <option value="Excellent">Excellent</option>
+            <option value="Very Good">Very Good</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Poor">Poor</option>
           </select>
         </div>
-      </div>
-      <div>
-        <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
-          Expected Price ($)
-        </label>
-        <input
-          type="number"
-          name="price"
-          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-        />
+        <div>
+          <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
+            Expected Price ($) *
+          </label>
+          <input
+            type="number"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            required
+            {...register("price")}
+          />
+        </div>
       </div>
       <div>
         <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
           Description *
         </label>
         <textarea
-          name="description"
           rows={4}
           required
           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
           defaultValue={""}
+          {...register("description")}
         />
       </div>
       <div>
         <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
           Upload Photos
         </label>
-        <div
-          id="image-preview"
-          className="image-upload-area border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors"
-        >
-          <div className="text-center flex flex-col items-center">
-            <FaCloudUploadAlt className="text-4xl text-gray-400 mb-2" />
-            <p className="text-gray-500">Click to upload car photos</p>
-            <p className="text-sm text-gray-400">Max 5MB per image</p>
-          </div>
-        </div>
-        <input
-          type="file"
-          id="car-images"
-          accept="image/*"
-          multiple
-          className="hidden"
+        <ImageUploader
+          folder="cars"
+          id="images"
+          multiple={true}
+          setImageUrls={setImageUrls}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -123,9 +189,9 @@ const SellForm = () => {
           </label>
           <input
             type="text"
-            name="name"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("owner_name")}
           />
         </div>
         <div>
@@ -134,9 +200,9 @@ const SellForm = () => {
           </label>
           <input
             type="tel"
-            name="phone"
             required
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            {...register("owner_phone")}
           />
         </div>
       </div>
@@ -146,13 +212,13 @@ const SellForm = () => {
         </label>
         <input
           type="email"
-          name="email"
           required
           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+          {...register("owner_email")}
         />
       </div>
-      <Button type="submit" className="w-full">
-        <FaPaperPlane /> Submit Car for Listing
+      <Button type="submit" className="w-full" disabled={loading}>
+        {loading ? <Spinner /> : <FaPaperPlane />} Submit Sell Inquiry
       </Button>
     </form>
   );

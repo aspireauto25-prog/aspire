@@ -40,8 +40,6 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
   const fullPrice = parseNumber(watch("full_price")) ?? 0;
   const discountPrice = parseNumber(watch("discount_price")) ?? 0;
 
-  console.log({ fullPrice, discountPrice });
-
   function upsertSaleCar(data: FormInput) {
     const input = {
       car_id: parseNumber(data.car_id)!,
