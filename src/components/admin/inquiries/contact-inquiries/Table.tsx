@@ -1,11 +1,10 @@
-import { FaCog, FaEye, FaUser } from "react-icons/fa";
+import { FaCog, FaUser } from "react-icons/fa";
 import { format } from "date-fns";
 
-import { CONTACT_INQUIRIES_ROUTE } from "@/constants/routes";
 import { ContactInquiry } from "@/lib/types/contact.types";
 import ContactInquiryStatus from "./Status";
 import EmptyTable from "../../EmptyTable";
-import Link from "next/link";
+import PreviewInquiryModal from "./Modal";
 
 interface Props {
   inquiries: ContactInquiry[];
@@ -80,14 +79,7 @@ const ContactInquiryTable = ({ inquiries }: Props) => {
                 <ContactInquiryStatus id={inquiry.id} status={inquiry.status} />
               </td>
               <td className="py-4 px-6">
-                <div className="flex justify-center">
-                  <Link
-                    href={`${CONTACT_INQUIRIES_ROUTE}/${inquiry.id}`}
-                    className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
-                  >
-                    <FaEye />
-                  </Link>
-                </div>
+                <PreviewInquiryModal {...inquiry} />
               </td>
             </tr>
           ))}
