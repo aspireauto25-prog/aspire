@@ -118,11 +118,12 @@ const SellForm = () => {
         </div>
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
-            Mileage *
+            Mileage (km) *
           </label>
           <input
             type="number"
             required
+            min={1}
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
             {...register("mileage")}
           />
@@ -148,11 +149,12 @@ const SellForm = () => {
         </div>
         <div>
           <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
-            Expected Price ($)
+            Expected Price ($) *
           </label>
           <input
             type="number"
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            required
             {...register("price")}
           />
         </div>
