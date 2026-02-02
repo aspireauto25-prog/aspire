@@ -1,6 +1,5 @@
 import {
   FaCarAlt,
-  FaCog,
   FaDollarSign,
   FaInbox,
   FaKey,
@@ -17,7 +16,6 @@ import {
   DASHBOARD_ROUTE,
   PROFILE_ROUTE,
   SELL_INQUIRIES_ROUTE,
-  SETTINGS_ROUTE,
 } from "./routes";
 
 export const dashboardMenu = [
@@ -60,11 +58,11 @@ export const inquiryMenu = [
 ];
 
 export const settingsMenu = [
-  {
-    Icon: FaCog,
-    route: SETTINGS_ROUTE,
-    label: "General Settings",
-  },
+  // {
+  //   Icon: FaCog,
+  //   route: SETTINGS_ROUTE,
+  //   label: "General Settings",
+  // },
   {
     Icon: FaUserCog,
     route: PROFILE_ROUTE,

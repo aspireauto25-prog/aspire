@@ -1,13 +1,14 @@
 "use client";
 
 import { FaInbox } from "react-icons/fa";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import Button from "../Button";
 
 const EmptyTable = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   function resetFilters() {
     router.replace(pathname);
@@ -21,14 +22,18 @@ const EmptyTable = () => {
       <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
         No data found
       </h3>
-      <p className="text-gray-500 dark:text-gray-400 mb-6">
-        All data have been processed or no data match your filters.
-      </p>
-      <div className="flex justify-center">
-        <Button size="md" onClick={resetFilters}>
-          Clear Filters
-        </Button>
-      </div>
+      {searchParams.size > 0 && (
+        <>
+          <p className="text-gray-500 dark:text-gray-400 mb-6">
+            All data have been processed or no data match your filters.
+          </p>
+          <div className="flex justify-center">
+            <Button size="md" onClick={resetFilters}>
+              Clear Filters
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
