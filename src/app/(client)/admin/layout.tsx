@@ -32,8 +32,8 @@ const AdminLayout = ({
     );
 
   return (
-    <section className="flex justify-center py-24">
-      <Spinner className="w-16 h-16 fill-primary" />
+    <section className="py-24 flex items-center justify-center w-full">
+      <Spinner className="h-16 w-16 fill-primary" />
     </section>
   );
 };
