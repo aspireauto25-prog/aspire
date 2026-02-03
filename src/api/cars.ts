@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import type { SearchParams } from "next/dist/server/request/search-params";
 
 import { Car, PaginatedCars } from "@/lib/types/car.types";
@@ -11,7 +12,12 @@ export const getCars = async (
 
   const url = `${config.apiUrl}/api/cars${query}`;
 
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url, {
+    cache: "no-store",
+    headers: {
+      cookie: (await cookies()).toString(),
+    },
+  });
 
   if (!res.ok) {
     throw new Error(res.statusText);

@@ -12,6 +12,18 @@ import { verifyJWT } from "@/utils/jwt";
 import supabase from "@/config/database";
 
 export const GET = async (req: Request) => {
+  const authToken = (await cookies()).get(TOKEN)?.value;
+
+  if (!authToken) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const authUser = (await verifyJWT(authToken).catch((error) => error)) as User;
+
+  if (authUser?.role !== USER_ROLE_ADMIN) {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const { searchParams } = new URL(req.url);
 
   const pageParam = searchParams.get("page") ?? "1";
@@ -39,7 +51,7 @@ export const GET = async (req: Request) => {
 
   if (search) {
     query = query.or(
-      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`
+      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`,
     );
   }
 
@@ -55,7 +67,7 @@ export const GET = async (req: Request) => {
         total: count,
         totalPages: Math.ceil((count ?? 0) / limit),
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     if (error instanceof ZodError) {
@@ -77,7 +89,7 @@ export async function POST(request: Request) {
     }
 
     const authUser = (await verifyJWT(authToken).catch(
-      (error) => error
+      (error) => error,
     )) as User;
 
     if (authUser?.role !== USER_ROLE_ADMIN) {
@@ -96,7 +108,7 @@ export async function POST(request: Request) {
           status: CAR_STATUS_AVAILABLE,
           updated_at: new Date().toISOString(),
         },
-        { onConflict: "license_plate" }
+        { onConflict: "license_plate" },
       )
       .select();
 

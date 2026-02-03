@@ -1,12 +1,29 @@
+import { cookies } from "next/headers";
 import { ZodError } from "zod";
 
 import { CONTACT_INQUIRY_PENDING } from "@/constants/contact";
 import { contactSchema } from "@/lib/schemas/contact.schema";
 import { formatZodErrors } from "@/utils/zod";
 import { PAGE_LIMIT } from "@/constants/pagination";
+import { TOKEN } from "@/constants/contants";
+import { User } from "@/lib/types/user.types";
+import { USER_ROLE_ADMIN } from "@/constants/user";
+import { verifyJWT } from "@/utils/jwt";
 import supabase from "@/config/database";
 
 export const GET = async (req: Request) => {
+  const authToken = (await cookies()).get(TOKEN)?.value;
+
+  if (!authToken) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const authUser = (await verifyJWT(authToken).catch((error) => error)) as User;
+
+  if (authUser?.role !== USER_ROLE_ADMIN) {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const { searchParams } = new URL(req.url);
 
   const isRecent = searchParams.get("recent") || false;

@@ -12,11 +12,9 @@ export const getContactInquiries = async (
 
   const url = `${config.apiUrl}/api/contact-inquiries${query}`;
 
-  const token = (await cookies()).get("token")?.value;
-
   const res = await fetch(url, {
     headers: {
-      Cookie: `token=${token}`,
+      cookie: (await cookies()).toString(),
     },
     cache: "no-store",
   });
