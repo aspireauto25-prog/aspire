@@ -8,7 +8,7 @@ import {
 import config from "@/config";
 
 export const getSaleCars = async (
-  searchParams?: SearchParams
+  searchParams?: SearchParams,
 ): Promise<PaginatedSaleCars> => {
   const query = getFormattedQuery(searchParams);
 
@@ -24,11 +24,11 @@ export const getSaleCars = async (
 };
 
 export const getSaleCarById = async (
-  id: string
+  id: string,
 ): Promise<SaleCarWithDetails> => {
   const url = `${config.apiUrl}/api/cars/sale/${id}`;
 
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: "no-store" });
 
   if (!res.ok) {
     throw new Error("Failed to fetch sale car.");

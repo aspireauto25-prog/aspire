@@ -1,9 +1,10 @@
-import { FaCog, FaEdit } from "react-icons/fa";
+import { FaCog, FaEdit, FaEye } from "react-icons/fa";
 import { isBefore } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Car } from "@/lib/types/car.types";
+import ActionMenu from "@/components/ActionMenu";
 import CarStatus from "./Status";
 import DeleteAction from "./DeleteAction";
 import EmptyTable from "../EmptyTable";
@@ -130,15 +131,26 @@ const Table = async ({ cars }: Props) => {
                 <CarStatus id={car.id} status={car.status} />
               </td>
               <td className="py-4 px-6">
-                <div className="flex space-x-1">
-                  <Link
-                    href={`/admin/cars/${car.id}/edit`}
-                    className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
-                    title="Edit"
-                  >
-                    <FaEdit />
-                  </Link>
-                  <DeleteAction id={car.id} />
+                <div className="flex justify-center">
+                  <ActionMenu>
+                    <Link
+                      href={`/admin/cars/${car.id}`}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                      title="Edit"
+                    >
+                      <FaEye />
+                      <span className="text-sm">View</span>
+                    </Link>
+                    <Link
+                      href={`/admin/cars/${car.id}/edit`}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                      title="Edit"
+                    >
+                      <FaEdit />
+                      <span className="text-sm">Edit</span>
+                    </Link>
+                    <DeleteAction id={car.id} />
+                  </ActionMenu>
                 </div>
               </td>
             </tr>

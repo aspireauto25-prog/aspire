@@ -52,13 +52,11 @@ export const getSellInquiriesCount = async (): Promise<{
 }> => {
   const url = `${config.apiUrl}/api/sell-inquiries/count`;
 
-  const token = (await cookies()).get("token")?.value;
-
   const res = await fetch(url, {
-    headers: {
-      Cookie: `token=${token}`,
-    },
     cache: "no-store",
+    headers: {
+      cookie: (await cookies()).toString(),
+    },
   });
 
   if (!res.ok) {

@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import type { SearchParams } from "next/dist/server/request/search-params";
 
 import { Car, PaginatedCars } from "@/lib/types/car.types";
@@ -14,9 +13,6 @@ export const getCars = async (
 
   const res = await fetch(url, {
     cache: "no-store",
-    headers: {
-      cookie: (await cookies()).toString(),
-    },
   });
 
   if (!res.ok) {
@@ -29,7 +25,7 @@ export const getCars = async (
 export const getCarById = async (id: string): Promise<Car> => {
   const url = `${config.apiUrl}/api/cars/${id}`;
 
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: "no-store" });
 
   if (!res.ok) {
     throw new Error("Failed to fetch car.");
@@ -43,7 +39,7 @@ export const getCountByStatus = async (): Promise<
 > => {
   const url = `${config.apiUrl}/api/cars/status`;
 
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: "no-store" });
 
   if (!res.ok) {
     throw new Error("Failed to fetch cars count.");

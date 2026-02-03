@@ -51,13 +51,12 @@ export const getContactInquiriesCount = async (): Promise<{
 }> => {
   const url = `${config.apiUrl}/api/contact-inquiries/count`;
 
-  const token = (await cookies()).get("token")?.value;
 
   const res = await fetch(url, {
-    headers: {
-      Cookie: `token=${token}`,
-    },
     cache: "no-store",
+    headers: {
+      cookie: (await cookies()).toString(),
+    },
   });
 
   if (!res.ok) {

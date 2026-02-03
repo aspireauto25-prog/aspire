@@ -79,7 +79,9 @@ const ContactInquiryTable = ({ inquiries }: Props) => {
                 <ContactInquiryStatus id={inquiry.id} status={inquiry.status} />
               </td>
               <td className="py-4 px-6">
-                <PreviewInquiryModal {...inquiry} />
+                <div className="flex justify-center space-x-1">
+                  <PreviewInquiryModal {...inquiry} />
+                </div>
               </td>
             </tr>
           ))}

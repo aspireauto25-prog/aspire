@@ -8,7 +8,7 @@ import {
 import config from "@/config";
 
 export const getRentalCars = async (
-  searchParams?: SearchParams
+  searchParams?: SearchParams,
 ): Promise<PaginatedRentalCars> => {
   const query = getFormattedQuery(searchParams);
 
@@ -24,11 +24,13 @@ export const getRentalCars = async (
 };
 
 export const getRentalCarById = async (
-  id: string
+  id: string,
 ): Promise<RentalCarWithDetails> => {
   const url = `${config.apiUrl}/api/cars/rent/${id}`;
 
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch rental car.");

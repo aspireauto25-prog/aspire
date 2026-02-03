@@ -27,7 +27,7 @@ const PreviewInquiryModal = ({
   return (
     <>
       <div
-        className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
+        className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         <FaEye />

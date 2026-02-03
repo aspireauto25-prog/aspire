@@ -1,10 +1,11 @@
-import { FaCar, FaCog, FaEdit } from "react-icons/fa";
+import { FaCar, FaCog, FaEdit, FaEye } from "react-icons/fa";
 import Link from "next/link";
 
 import { SaleCarWithDetails } from "@/lib/types/saleCar.types";
+import ActionMenu from "@/components/ActionMenu";
+import CarStatus from "../Status";
 import DeleteAction from "./DeleteAction";
 import EmptyTable from "../../EmptyTable";
-import CarStatus from "../Status";
 
 interface Props {
   saleCars: SaleCarWithDetails[];
@@ -103,15 +104,26 @@ const Table = async ({ saleCars }: Props) => {
                 <CarStatus id={saleCar.car_id} status={saleCar.status} />
               </td>
               <td className="py-4 px-6">
-                <div className="flex space-x-1">
-                  <Link
-                    href={`/admin/cars/sell/${saleCar.id}/edit`}
-                    className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
-                    title="Edit"
-                  >
-                    <FaEdit />
-                  </Link>
-                  <DeleteAction id={saleCar.id} />
+                <div className="flex justify-center">
+                  <ActionMenu>
+                    <Link
+                      href={`/admin/cars/sell/${saleCar.id}`}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                      title="Edit"
+                    >
+                      <FaEye />
+                      <span className="text-sm">View</span>
+                    </Link>
+                    <Link
+                      href={`/admin/cars/sell/${saleCar.id}/edit`}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                      title="Edit"
+                    >
+                      <FaEdit />
+                      <span className="text-sm">Edit</span>
+                    </Link>
+                    <DeleteAction id={saleCar.id} />
+                  </ActionMenu>
                 </div>
               </td>
             </tr>

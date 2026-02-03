@@ -1,10 +1,11 @@
-import { FaCar, FaCog, FaEdit } from "react-icons/fa";
+import { FaCar, FaCog, FaEdit, FaEye } from "react-icons/fa";
 import Link from "next/link";
 
 import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
+import ActionMenu from "@/components/ActionMenu";
+import CarStatus from "../Status";
 import DeleteAction from "./DeleteAction";
 import EmptyTable from "../../EmptyTable";
-import CarStatus from "../Status";
 
 interface Props {
   rentalCars: RentalCarWithDetails[];
@@ -105,15 +106,26 @@ const Table = async ({ rentalCars }: Props) => {
                 <CarStatus id={rentalCar.car_id} status={rentalCar.status} />
               </td>
               <td className="py-4 px-6">
-                <div className="flex space-x-1">
-                  <Link
-                    href={`/admin/cars/rent/${rentalCar.id}/edit`}
-                    className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
-                    title="Edit"
-                  >
-                    <FaEdit />
-                  </Link>
-                  <DeleteAction id={rentalCar.id} />
+                <div className="flex justify-center">
+                  <ActionMenu>
+                    <Link
+                      href={`/admin/cars/rent/${rentalCar.id}`}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                      title="Edit"
+                    >
+                      <FaEye />
+                      <span className="text-sm">View</span>
+                    </Link>
+                    <Link
+                      href={`/admin/cars/rent/${rentalCar.id}/edit`}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                      title="Edit"
+                    >
+                      <FaEdit />
+                      <span className="text-sm">Edit</span>
+                    </Link>
+                    <DeleteAction id={rentalCar.id} />
+                  </ActionMenu>
                 </div>
               </td>
             </tr>

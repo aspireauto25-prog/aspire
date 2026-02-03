@@ -12,18 +12,6 @@ import { verifyJWT } from "@/utils/jwt";
 import supabase from "@/config/database";
 
 export const GET = async (req: Request) => {
-  const authToken = (await cookies()).get(TOKEN)?.value;
-
-  if (!authToken) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const authUser = (await verifyJWT(authToken).catch((error) => error)) as User;
-
-  if (authUser?.role !== USER_ROLE_ADMIN) {
-    return Response.json({ error: "Forbidden" }, { status: 403 });
-  }
-
   const { searchParams } = new URL(req.url);
 
   const pageParam = searchParams.get("page") ?? "1";
