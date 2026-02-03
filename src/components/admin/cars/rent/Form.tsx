@@ -1,6 +1,6 @@
 "use client";
 
-import { FaCar, FaSave } from "react-icons/fa";
+import { FaCar, FaSave, FaPencilAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,7 @@ import { createRentalCar, updateRentalCar } from "@/api/axios/rentalCars";
 import { parseNumber } from "@/utils/inputFormatter";
 import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
 import Button from "@/components/Button";
+import LinkButton from "@/components/LinkButton";
 import SelectCar from "./SelectCar";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -23,11 +24,11 @@ interface FormInput {
 }
 
 interface Props {
-  isEditing?: boolean;
+  mode?: "create" | "edit" | "view";
   rentalCar?: RentalCarWithDetails;
 }
 
-const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
+const RentCarForm = ({ rentalCar, mode = "create" }: Props) => {
   const { register, handleSubmit, reset, setValue } = useForm<FormInput>({
     values: {
       car_id: rentalCar?.car_id.toString() ?? "",
@@ -45,7 +46,7 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
       monthly_rate: parseNumber(data.monthly_rate),
     };
 
-    if (isEditing) {
+    if (mode == "edit") {
       return updateRentalCar(rentalCar!.id, input);
     }
 
@@ -74,18 +75,29 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow dark:shadow-dark-900 overflow-hidden mb-8">
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center ">
-          <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
-            <FaCar />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center ">
+            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
+              <FaCar />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+                Add Rental Car
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Add a new car for renting
+              </p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-              Add Rental Car
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Add a new car for renting
-            </p>
-          </div>
+
+          {mode == "view" && (
+            <LinkButton
+              href={`${ADMIN_CAR_RENT_ROUTE}/${rentalCar?.id}/edit`}
+              size="sm"
+            >
+              <FaPencilAlt /> Edit
+            </LinkButton>
+          )}
         </div>
       </div>
       <form onSubmit={handleSubmit(run)}>
@@ -103,7 +115,7 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
                 Select Car *
               </label>
               <SelectCar
-                isEditing={isEditing}
+                mode={mode}
                 selectedRentalCar={rentalCar}
                 setCarId={(id) => setValue("car_id", id)}
               />
@@ -132,9 +144,10 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
                   id="dailyRate"
                   min={0}
                   step="0.01"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white disabled:bg-gray-100 dark:bg-gray-700 focus:outline-none transition-all"
                   placeholder="0.0"
                   required
+                  disabled={mode == "view"}
                   {...register("daily_rate")}
                 />
               </div>
@@ -155,8 +168,9 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
                   id="weeklyRate"
                   min={0}
                   step="0.01"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white disabled:bg-gray-100 dark:bg-gray-700 focus:outline-none transition-all"
                   placeholder="0.0"
+                  disabled={mode == "view"}
                   {...register("weekly_rate")}
                 />
               </div>
@@ -177,8 +191,9 @@ const RentCarForm = ({ rentalCar, isEditing = false }: Props) => {
                   id="monthlyRate"
                   min={0}
                   step="0.01"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white disabled:bg-gray-100 dark:bg-gray-700 focus:outline-none transition-all"
                   placeholder="0.0"
+                  disabled={mode == "view"}
                   {...register("monthly_rate")}
                 />
               </div>
