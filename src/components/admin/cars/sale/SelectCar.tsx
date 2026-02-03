@@ -1,18 +1,20 @@
 import { FaCar } from "react-icons/fa";
 import { useState } from "react";
 import AsyncSelect from "react-select/async";
+import Link from "next/link";
 
+import { ADMIN_CARS_ROUTE } from "@/constants/routes";
 import { getCars } from "@/api/cars";
 import { SaleCarWithDetails } from "@/lib/types/saleCar.types";
 import CarStatus from "../Status";
 
 interface Props {
-  isEditing?: boolean;
+  mode: "create" | "edit" | "view";
   selectedSaleCar?: SaleCarWithDetails;
   setCarId: (_: string) => void;
 }
 
-const SelectCar = ({ isEditing = false, selectedSaleCar, setCarId }: Props) => {
+const SelectCar = ({ mode, selectedSaleCar, setCarId }: Props) => {
   const defaultCar = selectedSaleCar
     ? {
         category: selectedSaleCar?.category,
@@ -54,7 +56,7 @@ const SelectCar = ({ isEditing = false, selectedSaleCar, setCarId }: Props) => {
         cacheOptions
         loadOptions={loadOptions}
         defaultOptions
-        isDisabled={isEditing}
+        isDisabled={mode != "create"}
         classNamePrefix="react-select"
         required
         onChange={(item) => {
@@ -69,14 +71,16 @@ const SelectCar = ({ isEditing = false, selectedSaleCar, setCarId }: Props) => {
               <FaCar className="text-white text-2xl" />
             </div>
             <div>
-              <h4 className="font-bold text-gray-800 dark:text-white">
-                {selectedCar.label}
-              </h4>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                <span>{selectedCar.category} • </span>
-                <span>{selectedCar.licensePlate} • </span>
-                <span>{selectedCar.chassisNumber}</span>
-              </div>
+              <Link href={`${ADMIN_CARS_ROUTE}/${selectedSaleCar?.car_id}`}>
+                <h4 className="font-bold text-gray-800 dark:text-white">
+                  {selectedCar.label}
+                </h4>
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <span>{selectedCar.category} • </span>
+                  <span>{selectedCar.licensePlate} • </span>
+                  <span>{selectedCar.chassisNumber}</span>
+                </div>
+              </Link>
               <div className="mt-1">
                 <CarStatus
                   id={selectedCar.id as number}

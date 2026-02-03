@@ -12,7 +12,7 @@ const EditCarPage = async ({ params }: Props) => {
 
   const car = await getCarById(id);
 
-  return <CarForm isEditing={true} car={car} />;
+  return <CarForm mode="edit" car={car} />;
 };
 
 export default EditCarPage;

@@ -4,6 +4,7 @@ import {
   FaCar,
   FaCogs,
   FaImages,
+  FaPencilAlt,
   FaSave,
   FaStar,
 } from "react-icons/fa";
@@ -12,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-import { ADMIN_CARS_LIST_ROUTE } from "@/constants/routes";
+import { ADMIN_CARS_LIST_ROUTE, ADMIN_CARS_ROUTE } from "@/constants/routes";
 import { Car } from "@/lib/types/car.types";
 import {
   categories,
@@ -29,6 +30,7 @@ import Button from "@/components/Button";
 import ImageUploader from "@/components/ImageUploader";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
+import LinkButton from "@/components/LinkButton";
 
 export interface FormInput {
   brand: string;
@@ -55,10 +57,10 @@ export interface FormInput {
 
 interface Props {
   car?: Car;
-  isEditing?: boolean;
+  mode?: "create" | "edit" | "view";
 }
 
-const CarForm = ({ car, isEditing }: Props) => {
+const CarForm = ({ car, mode = "create" }: Props) => {
   const [featuredImageUrl, setFeaturedImageUrl] = useState<string[]>([]);
   const [otherImageUrls, setOtherImageUrls] = useState<string[]>([]);
 
@@ -122,7 +124,10 @@ const CarForm = ({ car, isEditing }: Props) => {
   const { error, loading, run, success } = useRequest(createCarWithImages);
 
   async function createCarWithImages(data: FormInput) {
-    if (!isEditing && (!featuredImageUrl || featuredImageUrl.length == 0)) {
+    if (
+      mode == "create" &&
+      (!featuredImageUrl || featuredImageUrl.length == 0)
+    ) {
       throw { message: "Featured image is required." };
     }
 
@@ -172,18 +177,29 @@ const CarForm = ({ car, isEditing }: Props) => {
       <form onSubmit={handleSubmit(run)}>
         {/* Basic Information Section */}
         <div className="form-section p-6 border-b border-gray-100 dark:border-gray-700">
-          <div className="flex items-center mb-6">
-            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
-              <FaCar />
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center">
+              <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
+                <FaCar />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+                  Basic Information
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  Primary details about the car
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-                Basic Information
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Primary details about the car
-              </p>
-            </div>
+
+            {mode == "view" && (
+              <LinkButton
+                href={`${ADMIN_CARS_ROUTE}/${car?.id}/edit`}
+                size="sm"
+              >
+                <FaPencilAlt /> Edit
+              </LinkButton>
+            )}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {/* Brand */}
@@ -197,9 +213,10 @@ const CarForm = ({ car, isEditing }: Props) => {
               <input
                 type="text"
                 id="brand"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="e.g. Toyota, BMW, Tesla"
                 required
+                disabled={mode == "view"}
                 {...register("brand")}
               />
             </div>
@@ -214,9 +231,10 @@ const CarForm = ({ car, isEditing }: Props) => {
               <input
                 type="text"
                 id="model"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="e.g. Camry, Model 3, X5"
                 required
+                disabled={mode == "view"}
                 {...register("model")}
               />
             </div>
@@ -231,8 +249,9 @@ const CarForm = ({ car, isEditing }: Props) => {
               <input
                 type="text"
                 id="variant"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="e.g. SE, Limited, Performance"
+                disabled={mode == "view"}
                 {...register("variant")}
               />
             </div>
@@ -250,9 +269,10 @@ const CarForm = ({ car, isEditing }: Props) => {
                 max="2100"
                 step="1"
                 id="year"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="e.g. 2025"
                 required
+                disabled={mode == "view"}
                 {...register("year")}
               />
             </div>
@@ -266,8 +286,9 @@ const CarForm = ({ car, isEditing }: Props) => {
               </label>
               <select
                 id="category"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 required
+                disabled={mode == "view"}
                 {...register("category")}
               >
                 <option value="">Select Category</option>
@@ -295,8 +316,9 @@ const CarForm = ({ car, isEditing }: Props) => {
                   id="price"
                   min={0}
                   step="0.01"
+                  disabled={mode == "view"}
                   {...register("price")}
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                   placeholder="0.0"
                   required
                 />
@@ -314,9 +336,10 @@ const CarForm = ({ car, isEditing }: Props) => {
             <textarea
               id="description"
               rows={3}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
               placeholder="Provide a detailed description of the car..."
               defaultValue={""}
+              disabled={mode == "view"}
               {...register("description")}
             />
           </div>
@@ -351,7 +374,7 @@ const CarForm = ({ car, isEditing }: Props) => {
                 className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="License plate number"
                 required
-                disabled={isEditing}
+                disabled={mode != "create"}
                 {...register("license_plate")}
               />
               <p className="text-xs text-gray-500 mt-1">
@@ -369,9 +392,10 @@ const CarForm = ({ car, isEditing }: Props) => {
               <input
                 type="text"
                 id="chassisNumber"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="17-character VIN"
                 required
+                disabled={mode == "view"}
                 {...register("chassis_number")}
               />
               <p className="text-xs text-gray-500 mt-1">
@@ -389,8 +413,9 @@ const CarForm = ({ car, isEditing }: Props) => {
               <input
                 type="text"
                 id="engineNumber"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="Engine serial number"
+                disabled={mode == "view"}
                 {...register("engine_number")}
               />
             </div>
@@ -407,8 +432,9 @@ const CarForm = ({ car, isEditing }: Props) => {
                   type="number"
                   id="mileage"
                   min={0}
+                  disabled={mode == "view"}
                   {...register("mileage")}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                   placeholder="0"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -430,8 +456,9 @@ const CarForm = ({ car, isEditing }: Props) => {
                   id="engineCapacity"
                   min={0.0}
                   step="0.01"
+                  disabled={mode == "view"}
                   {...register("engine_capacity")}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                   placeholder="0.0"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -449,8 +476,9 @@ const CarForm = ({ car, isEditing }: Props) => {
               </label>
               <select
                 id="fuel"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 required
+                disabled={mode == "view"}
                 {...register("fuel_type")}
               >
                 <option value="">Select Fuel Type</option>
@@ -471,8 +499,9 @@ const CarForm = ({ car, isEditing }: Props) => {
               </label>
               <select
                 id="transmission"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 required
+                disabled={mode == "view"}
                 {...register("transmission_type")}
               >
                 <option value="">Select Transmission</option>
@@ -493,7 +522,8 @@ const CarForm = ({ car, isEditing }: Props) => {
               </label>
               <select
                 id="driveType"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
+                disabled={mode == "view"}
                 {...register("drive_type")}
               >
                 <option value="">Select Drive Type</option>
@@ -518,8 +548,9 @@ const CarForm = ({ car, isEditing }: Props) => {
                 min={2}
                 max={15}
                 step="1"
+                disabled={mode == "view"}
                 {...register("seat_capacity")}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="2"
               />
             </div>
@@ -534,8 +565,9 @@ const CarForm = ({ car, isEditing }: Props) => {
               <input
                 type="text"
                 id="color"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="e.g., Midnight Black, Pearl White"
+                disabled={mode == "view"}
                 {...register("color")}
               />
             </div>
@@ -567,6 +599,7 @@ const CarForm = ({ car, isEditing }: Props) => {
                     id={feature}
                     type="checkbox"
                     className="h-4 w-4 text-red-600 border-gray-300 dark:border-gray-700 rounded custom-checkbox"
+                    disabled={mode == "view"}
                     {...register("features")}
                     checked={features?.includes(feature)}
                     onChange={(e) =>
@@ -594,6 +627,7 @@ const CarForm = ({ car, isEditing }: Props) => {
                     id={feature}
                     type="checkbox"
                     className="h-4 w-4 text-red-600 border-gray-300 dark:border-gray-700 rounded custom-checkbox"
+                    disabled={mode == "view"}
                     {...register("features")}
                     checked={features?.includes(feature)}
                     onChange={(e) =>
@@ -621,6 +655,7 @@ const CarForm = ({ car, isEditing }: Props) => {
                     id={feature}
                     type="checkbox"
                     className="h-4 w-4 text-red-600 border-gray-300 dark:border-gray-700 rounded custom-checkbox"
+                    disabled={mode == "view"}
                     {...register("features")}
                     checked={features?.includes(feature)}
                     onChange={(e) =>
@@ -648,8 +683,9 @@ const CarForm = ({ car, isEditing }: Props) => {
             <input
               type="text"
               id="additionalFeatures"
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
               placeholder="e.g., panoramic roof, heated steering wheel, ambient lighting"
+              disabled={mode == "view"}
               {...register("other_features")}
             />
             <p className="text-xs text-gray-500 mt-1">
@@ -687,22 +723,20 @@ const CarForm = ({ car, isEditing }: Props) => {
             />
           </div>
           {/* Additional Images */}
-          {!isEditing && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Additional Images
-              </label>
-              <p className="text-sm text-gray-500 mb-4">
-                Upload multiple images showing different angles and features
-              </p>
-              <ImageUploader
-                folder="cars"
-                id="otherImages"
-                multiple={true}
-                setImageUrls={setOtherImageUrls}
-              />
-            </div>
-          )}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Additional Images
+            </label>
+            <p className="text-sm text-gray-500 mb-4">
+              Upload multiple images showing different angles and features
+            </p>
+            <ImageUploader
+              folder="cars"
+              id="otherImages"
+              multiple={true}
+              setImageUrls={setOtherImageUrls}
+            />
+          </div>
         </div>
         {/* Form Actions */}
         <div className="p-6">

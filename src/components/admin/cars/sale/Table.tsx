@@ -1,6 +1,7 @@
 import { FaCar, FaCog, FaEdit, FaEye } from "react-icons/fa";
 import Link from "next/link";
 
+import { ADMIN_CAR_SELL_ROUTE } from "@/constants/routes";
 import { SaleCarWithDetails } from "@/lib/types/saleCar.types";
 import ActionMenu from "@/components/ActionMenu";
 import CarStatus from "../Status";
@@ -46,25 +47,27 @@ const Table = async ({ saleCars }: Props) => {
               className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
             >
               <td className="py-4 px-6">
-                <div className="flex items-center">
-                  <div className="min-w-14 h-14 rounded-full bg-linear-to-r from-primary to-red-700 flex items-center justify-center mr-3 text-white">
-                    <FaCar className="text-2xl" />
+                <Link href={`${ADMIN_CAR_SELL_ROUTE}/${saleCar.id}`}>
+                  <div className="flex items-center">
+                    <div className="min-w-14 h-14 rounded-full bg-linear-to-r from-primary to-red-700 flex items-center justify-center mr-3 text-white">
+                      <FaCar className="text-2xl" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-800 dark:text-white space-x-1">
+                        <span>{saleCar.brand}</span>
+                        <span>{saleCar.model}</span>
+                        <span>{saleCar.variant}</span>
+                        <span>{saleCar.year}</span>
+                      </p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                        License: {saleCar.license_plate}
+                      </p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                        VIN: {saleCar.chassis_number}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-bold text-gray-800 dark:text-white space-x-1">
-                      <span>{saleCar.brand}</span>
-                      <span>{saleCar.model}</span>
-                      <span>{saleCar.variant}</span>
-                      <span>{saleCar.year}</span>
-                    </p>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      License: {saleCar.license_plate}
-                    </p>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      VIN: {saleCar.chassis_number}
-                    </p>
-                  </div>
-                </div>
+                </Link>
               </td>
               <td className="py-4 px-6">
                 <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium">
@@ -107,15 +110,15 @@ const Table = async ({ saleCars }: Props) => {
                 <div className="flex justify-center">
                   <ActionMenu>
                     <Link
-                      href={`/admin/cars/sell/${saleCar.id}`}
+                      href={`${ADMIN_CAR_SELL_ROUTE}/${saleCar.id}`}
                       className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
-                      title="Edit"
+                      title="View"
                     >
                       <FaEye />
                       <span className="text-sm">View</span>
                     </Link>
                     <Link
-                      href={`/admin/cars/sell/${saleCar.id}/edit`}
+                      href={`${ADMIN_CAR_SELL_ROUTE}/${saleCar.id}/edit`}
                       className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
                       title="Edit"
                     >

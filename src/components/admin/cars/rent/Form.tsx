@@ -144,7 +144,7 @@ const RentCarForm = ({ rentalCar, mode = "create" }: Props) => {
                   id="dailyRate"
                   min={0}
                   step="0.01"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white disabled:bg-gray-100 dark:bg-gray-700 focus:outline-none transition-all"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all disabled:bg-gray-100 dark:disabled:bg-gray-600 disabled:text-gray-400"
                   placeholder="0.0"
                   required
                   disabled={mode == "view"}
@@ -168,7 +168,7 @@ const RentCarForm = ({ rentalCar, mode = "create" }: Props) => {
                   id="weeklyRate"
                   min={0}
                   step="0.01"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white disabled:bg-gray-100 dark:bg-gray-700 focus:outline-none transition-all"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all disabled:bg-gray-100 dark:disabled:bg-gray-600 disabled:text-gray-400"
                   placeholder="0.0"
                   disabled={mode == "view"}
                   {...register("weekly_rate")}
@@ -191,7 +191,7 @@ const RentCarForm = ({ rentalCar, mode = "create" }: Props) => {
                   id="monthlyRate"
                   min={0}
                   step="0.01"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white disabled:bg-gray-100 dark:bg-gray-700 focus:outline-none transition-all"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all disabled:bg-gray-100 dark:disabled:bg-gray-600 disabled:text-gray-400"
                   placeholder="0.0"
                   disabled={mode == "view"}
                   {...register("monthly_rate")}
