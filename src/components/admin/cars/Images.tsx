@@ -4,57 +4,48 @@ import { useState } from "react";
 import Image from "next/image";
 
 import { CarImage } from "@/lib/types/car.types";
-import Modal from "@/components/Modal";
-import Spinner from "@/components/Spinner";
 
 interface Props {
-  carImages?: CarImage[];
-  isFeatured?: boolean;
+  carImages: CarImage[];
 }
 
-const CarImages = ({ carImages, isFeatured = false }: Props) => {
-  const [url, setUrl] = useState<string | boolean>();
+const CarImages = ({ carImages }: Props) => {
+  const [selectedImage, setSelectedImage] = useState(carImages[0]);
 
   if (carImages?.length == 0) return <></>;
 
   return (
-    <div className="flex items-center gap-4 pb-8">
-      {carImages
-        ?.filter((image) => (isFeatured ? image.featured : !image.featured))
-        .map((image, index) => (
-          <Image
-            key={index}
-            src={image.url}
-            alt=""
-            height={200}
-            width={200}
-            className="h-24 max-w-24 object-cover rounded-lg hover:outline-primary hover:outline-2"
-            onClick={() => {
-              setUrl(image.url);
-            }}
-          />
-        ))}
+    <section>
+      <div className="main-image-container rounded-2xl overflow-hidden shadow-2xl relative zoom-in max-w-5xl h-150 object-center mx-auto">
+        <Image
+          alt="Tesla Model 3"
+          src={selectedImage.url}
+          width={800}
+          height={550}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-      <Modal
-        setShow={(value) => setUrl(value)}
-        show={url ? true : false}
-        title="Car Image Preview"
-      >
-        {url ? (
-          <Image
-            src={(url as string) ?? ""}
-            alt=""
-            height={600}
-            width={800}
-            className="w-full h-auto rounded"
-          />
-        ) : (
-          <div className="flex items-center justify-center py-16">
-            <Spinner />
+      <div className="flex space-x-4 overflow-x-auto custom-scrollbar py-5 justify-center">
+        {carImages.map((image, index) => (
+          <div
+            key={index}
+            className={`thumbnail w-24 h-24 rounded-lg overflow-hidden cursor-pointer border-2 ${
+              selectedImage == image ? " border-primary" : "border-transparent"
+            }`}
+          >
+            <Image
+              src={image.url}
+              className="w-full h-full object-cover"
+              alt=""
+              width={100}
+              height={100}
+              onClick={() => setSelectedImage(image)}
+            />
           </div>
-        )}
-      </Modal>
-    </div>
+        ))}
+      </div>
+    </section>
   );
 };
 

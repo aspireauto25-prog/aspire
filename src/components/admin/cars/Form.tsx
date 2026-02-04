@@ -27,7 +27,6 @@ import {
 import { createCar, uploadCarImages } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
-import CarImages from "./Images";
 import ImageUploader from "@/components/ImageUploader";
 import LinkButton from "@/components/LinkButton";
 import Spinner from "@/components/Spinner";
@@ -724,10 +723,8 @@ const CarForm = ({ car, mode = "create" }: Props) => {
             />
           </div>
 
-          <CarImages carImages={car?.car_images ?? []} isFeatured />
-
           {/* Additional Images */}
-          <div className="mb-8">
+          <div  >
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Additional Images
             </label>
@@ -742,8 +739,6 @@ const CarForm = ({ car, mode = "create" }: Props) => {
               setImageUrls={setOtherImageUrls}
             />
           </div>
-
-          <CarImages carImages={car?.car_images ?? []} />
         </div>
         {/* Form Actions */}
         <div className="p-6">
