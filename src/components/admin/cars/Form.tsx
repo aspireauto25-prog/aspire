@@ -27,10 +27,11 @@ import {
 import { createCar, uploadCarImages } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
+import CarImages from "./Images";
 import ImageUploader from "@/components/ImageUploader";
+import LinkButton from "@/components/LinkButton";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
-import LinkButton from "@/components/LinkButton";
 
 export interface FormInput {
   brand: string;
@@ -149,10 +150,9 @@ const CarForm = ({ car, mode = "create" }: Props) => {
         featured: true,
       },
       ...otherImageUrls.map((url) => ({ url })),
-    ];
+    ].filter((image) => image.url != undefined);
 
-    if (featuredImageUrl.length > 0)
-      await uploadCarImages(createdCar.id, images);
+    await uploadCarImages(createdCar.id, images);
   }
 
   useEffect(() => {
@@ -723,8 +723,11 @@ const CarForm = ({ car, mode = "create" }: Props) => {
               setImageUrls={setFeaturedImageUrl}
             />
           </div>
+
+          <CarImages carImages={car?.car_images ?? []} isFeatured />
+
           {/* Additional Images */}
-          <div>
+          <div className="mb-8">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Additional Images
             </label>
@@ -739,6 +742,8 @@ const CarForm = ({ car, mode = "create" }: Props) => {
               setImageUrls={setOtherImageUrls}
             />
           </div>
+
+          <CarImages carImages={car?.car_images ?? []} />
         </div>
         {/* Form Actions */}
         <div className="p-6">
