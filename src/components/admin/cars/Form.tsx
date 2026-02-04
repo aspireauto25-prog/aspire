@@ -717,6 +717,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
               This will be the main image displayed for the car
             </p>
             <ImageUploader
+              disabled={mode == "view"}
               folder="cars"
               id="featuredImage"
               setImageUrls={setFeaturedImageUrl}
@@ -731,6 +732,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
               Upload multiple images showing different angles and features
             </p>
             <ImageUploader
+              disabled={mode == "view"}
               folder="cars"
               id="otherImages"
               multiple={true}

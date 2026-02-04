@@ -141,6 +141,7 @@ const ImageUploader = ({
               : "cursor-pointer"
           }
           ${isDragActive ? "ring-2 ring-primary/50" : ""}
+          ${disabled ? "bg-gray-50" : ""}
         `}
       >
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
