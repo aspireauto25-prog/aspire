@@ -16,7 +16,7 @@ const CarDetailsPage = async ({ params }: Props) => {
   return (
     <>
       <CarImages carImages={car.car_images ?? []} />
-      <CarForm mode="view" car={car} />
+      <CarForm car={car} mode="view" />
     </>
   );
 };

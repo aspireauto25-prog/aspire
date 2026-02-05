@@ -13,7 +13,7 @@ const DeleteAction = ({ id }: Props) => {
   const router = useRouter();
 
   function onDelete() {
-    if (confirm("Are you sure?")) {
+    if (confirm("Are you sure you want to delete?")) {
       deleteRentalCar(id);
 
       router.refresh();
