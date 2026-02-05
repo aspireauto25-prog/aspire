@@ -5,11 +5,11 @@ export function getPageNumbers(totalPages: number): number[] {
 }
 
 export function getCountFrom(currentPage: number): number {
-  return PAGE_LIMIT * (currentPage - 1) + 1;
+  return Number.parseInt(PAGE_LIMIT) * (currentPage - 1) + 1;
 }
 
 export function getCountTo(currentPage: number, total: number): number {
-  const countTo = PAGE_LIMIT * currentPage;
+  const countTo = Number.parseInt(PAGE_LIMIT) * currentPage;
 
   return countTo < total ? countTo : total;
 }
