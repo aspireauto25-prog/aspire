@@ -1,79 +1,66 @@
-import { FaCogs, FaGasPump, FaStar, FaUserFriends } from "react-icons/fa";
+import { FaCogs, FaGasPump, FaImage, FaUserFriends } from "react-icons/fa";
 import Image from "next/image";
 
 import { CONTACT_ROUTE, RENT_ROUTE } from "@/constants/routes";
 import Button from "../Button";
 import LinkButton from "../LinkButton";
 import OutlinedLinkButton from "../OutlinedLinkButton";
+import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
+import CarStatus from "../car/Status";
+import { CAR_STATUS_AVAILABLE } from "@/constants/cars";
 
-interface Props {
-  available: boolean;
-  category: string;
-  features: string[];
-  fuel: string;
-  id: number;
-  image: string;
-  name: string;
-  popular: boolean;
-  price: number;
-  rating: number;
-  seats: number;
-  transmission: string;
+interface Props extends RentalCarWithDetails {
+  imageUrl?: string;
 }
 
 const RentCard = ({
-  available,
+  brand,
   category,
+  daily_rate,
   features,
-  fuel,
+  fuel_type,
   id,
-  image,
-  name,
-  popular,
-  price,
-  rating,
-  seats,
-  transmission,
+  images,
+  model,
+  seat_capacity,
+  status,
+  transmission_type,
+  variant,
 }: Props) => {
+  const featuredImageUrl = images?.find((image) => image.featured)?.url;
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 slide-up">
       <div className="relative h-48 overflow-hidden">
-        <Image
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover"
-          width={500}
-          height={350}
-        />
-        {popular ? (
-          <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-bold">
-            Popular
+        {featuredImageUrl ? (
+          <Image
+            src={featuredImageUrl}
+            alt={brand}
+            className="w-full h-full object-cover"
+            width={500}
+            height={350}
+          />
+        ) : (
+          <div className="flex items-center justify-center h-full bg-gray-100 dark:bg-gray-900">
+            <FaImage className="text-7xl text-gray-300 dark:text-gray-700" />
           </div>
-        ) : null}
-        <div
-          className={`absolute top-4 right-4 ${
-            available
-              ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-              : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
-          } px-3 py-1 rounded-full text-sm font-bold`}
-        >
-          {available ? "Available" : "Unavailable"}
+        )}
+        <div className={`absolute top-4 right-4`}>
+          <CarStatus status={status} />
         </div>
       </div>
       <div className="p-6">
         <div className="flex justify-between items-start mb-4">
           <div>
-            <h3 className="text-xl font-bold mb-1">{name}</h3>
+            <h3 className="text-xl font-bold mb-1">
+              {brand} {model} {variant}
+            </h3>
             <p className="text-gray-500 dark:text-gray-400">{category}</p>
           </div>
           <div className="text-right">
             <div className="text-2xl font-bold text-primary">
-              {price}
+              {daily_rate}
               <span className="text-sm font-normal">/day</span>
-            </div>
-            <div className="flex items-center justify-end mt-1">
-              <FaStar className="text-yellow-400" />
-              <span className="ml-1 text-sm">{rating}</span>
             </div>
           </div>
         </div>
@@ -81,20 +68,20 @@ const RentCard = ({
         <div className="flex justify-between text-gray-600 dark:text-gray-400 mb-6">
           <div className="flex items-center">
             <FaUserFriends className="mr-2" />
-            <span>{seats} Seats</span>
+            <span>{seat_capacity} Seats</span>
           </div>
           <div className="flex items-center">
             <FaGasPump className="mr-2" />
-            <span>{fuel}</span>
+            <span>{fuel_type}</span>
           </div>
           <div className="flex items-center">
             <FaCogs className="mr-2" />
-            <span>{transmission}</span>
+            <span>{transmission_type}</span>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2 mb-6">
-          {features.map((feature) => (
+          {features?.slice(0, 4)?.map((feature) => (
             <span
               key={feature}
               className="px-3 py-1 bg-gray-100 dark:bg-gray-900 rounded-full text-sm"
@@ -108,7 +95,7 @@ const RentCard = ({
           <LinkButton size="md" href={`${RENT_ROUTE}/${id}`} className="flex-1">
             View Details
           </LinkButton>
-          {available ? (
+          {status == CAR_STATUS_AVAILABLE ? (
             <OutlinedLinkButton href={CONTACT_ROUTE} size="md">
               Book Now
             </OutlinedLinkButton>

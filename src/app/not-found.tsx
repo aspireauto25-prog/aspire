@@ -14,7 +14,7 @@ import {
   BUY_ROUTE,
   CONTACT_ROUTE,
   HOME_ROUTE,
-  RENT_ROUTE,
+  RENT_LIST_ROUTE,
   SELL_ROUTE,
 } from "@/constants/routes";
 import LinkButton from "@/components/LinkButton";
@@ -69,7 +69,7 @@ const NotFoundPage = () => {
                 <FaHome />
                 Go to Homepage
               </LinkButton>
-              <OutlinedLinkButton href={RENT_ROUTE}>
+              <OutlinedLinkButton href={RENT_LIST_ROUTE}>
                 <FaCar />
                 Browse Our Cars
               </OutlinedLinkButton>

@@ -1,18 +1,21 @@
 import { FaArrowDown, FaMagnifyingGlass } from "react-icons/fa6";
 
-import { features, rentCars } from "@/data/rent";
+import { features } from "@/data/rent";
 import Button from "@/components/Button";
 import Hero from "@/components/Hero";
 import OutlinedButton from "@/components/OutlinedButton";
-import RentCard from "@/components/rent/Card";
 import RentCTA from "@/components/rent/CTA";
 import RentFeature from "@/components/rent/Feature";
 
 import heroBg from "@/assets/images/rent-hero-bg.jpg";
 
-const RentPage = () => {
+const RentListLayout = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
   return (
-    <>
+    <main>
       {/* Hero Section */}
       <Hero
         title={
@@ -72,12 +75,9 @@ const RentPage = () => {
                   </div>
                 </div>
               </div>
-              {/* Cars Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {rentCars.map((data) => (
-                  <RentCard key={data.id} {...data} />
-                ))}
-              </div>
+
+              {children}
+
               {/* Load More (if needed) */}
               <div className="mt-12 text-center">
                 <OutlinedButton rounded className="mx-auto">
@@ -110,8 +110,8 @@ const RentPage = () => {
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 };
 
-export default RentPage;
+export default RentListLayout;

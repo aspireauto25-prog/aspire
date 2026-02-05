@@ -1,7 +1,7 @@
 import { FaBolt, FaCar, FaShieldAlt, FaStar } from "react-icons/fa";
 import Image from "next/image";
 
-import { RENT_ROUTE } from "@/constants/routes";
+import { RENT_LIST_ROUTE } from "@/constants/routes";
 import LinkButton from "../LinkButton";
 
 const Hero = () => {
@@ -34,7 +34,7 @@ const Hero = () => {
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
               <LinkButton
-                href={RENT_ROUTE}
+                href={RENT_LIST_ROUTE}
                 rounded
                 className="bounce-slow shadow-2xl"
               >

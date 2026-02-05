@@ -2,7 +2,7 @@ import {
   BUY_ROUTE,
   CONTACT_ROUTE,
   HOME_ROUTE,
-  RENT_ROUTE,
+  RENT_LIST_ROUTE,
   SERVICING_ROUTE,
 } from "./routes";
 
@@ -12,7 +12,7 @@ const navlinks = [
     label: "Home",
   },
   {
-    route: RENT_ROUTE,
+    route: RENT_LIST_ROUTE,
     label: "Our Fleet",
   },
   {

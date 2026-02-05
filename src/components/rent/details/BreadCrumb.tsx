@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { HOME_ROUTE, RENT_ROUTE } from "@/constants/routes";
+import { HOME_ROUTE, RENT_LIST_ROUTE } from "@/constants/routes";
 
 interface Props {
   car: string;
@@ -13,7 +13,7 @@ const RentDetailsBreadCrumb = ({ car }: Props) => {
         Home
       </Link>
       /
-      <Link href={RENT_ROUTE} className="hover:text-primary transition-colors">
+      <Link href={RENT_LIST_ROUTE} className="hover:text-primary transition-colors">
         Our Fleet
       </Link>
       /<span className="text-primary">{car}</span>
