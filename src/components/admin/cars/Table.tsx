@@ -1,9 +1,11 @@
-import { FaCog, FaEdit } from "react-icons/fa";
+import { FaCog, FaEdit, FaEye } from "react-icons/fa";
 import { isBefore } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 
+import { ADMIN_CARS_ROUTE } from "@/constants/routes";
 import { Car } from "@/lib/types/car.types";
+import ActionMenu from "@/components/ActionMenu";
 import CarStatus from "./Status";
 import DeleteAction from "./DeleteAction";
 import EmptyTable from "../EmptyTable";
@@ -52,35 +54,37 @@ const Table = async ({ cars }: Props) => {
               className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
             >
               <td className="py-4 px-6">
-                <div className="flex items-center">
-                  <Image
-                    src={
-                      car.car_images
-                        ?.sort((a, b) =>
-                          isBefore(a.created_at, b.created_at) ? 1 : -1,
-                        )
-                        .find((image) => image.featured)?.url ?? logoUrl
-                    }
-                    alt={car.brand}
-                    height={80}
-                    width={100}
-                    className="min-w-20 h-14 rounded-md bg-primary/5 flex items-center justify-center mr-4 object-cover"
-                  />
-                  <div>
-                    <p className="font-bold text-gray-800 dark:text-white space-x-1">
-                      <span>{car.brand}</span>
-                      <span>{car.model}</span>
-                      <span>{car.variant}</span>
-                      <span>{car.year}</span>
-                    </p>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      License: {car.license_plate}
-                    </p>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      VIN: {car.chassis_number}
-                    </p>
+                <Link href={`${ADMIN_CARS_ROUTE}/${car.id}`}>
+                  <div className="flex items-center">
+                    <Image
+                      src={
+                        car.car_images
+                          ?.sort((a, b) =>
+                            isBefore(a.created_at, b.created_at) ? 1 : -1,
+                          )
+                          .find((image) => image.featured)?.url ?? logoUrl
+                      }
+                      alt={car.brand}
+                      height={80}
+                      width={100}
+                      className="min-w-24 h-16 rounded-md bg-primary/5 flex items-center justify-center mr-4 object-cover"
+                    />
+                    <div>
+                      <p className="font-bold text-gray-800 dark:text-white space-x-1">
+                        <span>{car.brand}</span>
+                        <span>{car.model}</span>
+                        <span>{car.variant}</span>
+                        <span>{car.year}</span>
+                      </p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                        License: {car.license_plate}
+                      </p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                        VIN: {car.chassis_number}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </td>
               <td className="py-4 px-6">
                 <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium whitespace-nowrap">
@@ -130,15 +134,26 @@ const Table = async ({ cars }: Props) => {
                 <CarStatus id={car.id} status={car.status} />
               </td>
               <td className="py-4 px-6">
-                <div className="flex space-x-1">
-                  <Link
-                    href={`/admin/cars/${car.id}/edit`}
-                    className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
-                    title="Edit"
-                  >
-                    <FaEdit />
-                  </Link>
-                  <DeleteAction id={car.id} />
+                <div className="flex justify-center">
+                  <ActionMenu>
+                    <Link
+                      href={`${ADMIN_CARS_ROUTE}/${car.id}`}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                      title="View"
+                    >
+                      <FaEye />
+                      <span className="text-sm">View</span>
+                    </Link>
+                    <Link
+                      href={`${ADMIN_CARS_ROUTE}/${car.id}/edit`}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                      title="Edit"
+                    >
+                      <FaEdit />
+                      <span className="text-sm">Edit</span>
+                    </Link>
+                    <DeleteAction id={car.id} />
+                  </ActionMenu>
                 </div>
               </td>
             </tr>

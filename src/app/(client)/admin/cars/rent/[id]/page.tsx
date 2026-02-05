@@ -7,12 +7,12 @@ interface Props {
   }>;
 }
 
-const EditCarRentPage = async ({ params }: Props) => {
+const ViewCarRentPage = async ({ params }: Props) => {
   const id = (await params).id;
 
   const rentalCar = await getRentalCarById(id);
 
-  return <RentCarForm mode="edit" rentalCar={rentalCar} />;
+  return <RentCarForm mode="view" rentalCar={rentalCar} />;
 };
 
-export default EditCarRentPage;
+export default ViewCarRentPage;

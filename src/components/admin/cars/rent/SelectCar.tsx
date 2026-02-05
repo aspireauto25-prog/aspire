@@ -1,22 +1,20 @@
 import { FaCar } from "react-icons/fa";
 import { useState } from "react";
 import AsyncSelect from "react-select/async";
+import Link from "next/link";
 
 import { getCars } from "@/api/cars";
 import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
+import {ADMIN_CARS_ROUTE } from "@/constants/routes";
 import CarStatus from "../Status";
 
 interface Props {
-  isEditing?: boolean;
+  mode: "create" | "edit" | "view";
   selectedRentalCar?: RentalCarWithDetails;
   setCarId: (_: string) => void;
 }
 
-const SelectCar = ({
-  isEditing = false,
-  selectedRentalCar,
-  setCarId,
-}: Props) => {
+const SelectCar = ({ mode, selectedRentalCar, setCarId }: Props) => {
   const defaultCar = selectedRentalCar
     ? {
         category: selectedRentalCar?.category,
@@ -58,7 +56,7 @@ const SelectCar = ({
         cacheOptions
         loadOptions={loadOptions}
         defaultOptions
-        isDisabled={isEditing}
+        isDisabled={mode != "create"}
         classNamePrefix="react-select"
         required
         onChange={(item) => {
@@ -73,14 +71,18 @@ const SelectCar = ({
               <FaCar className="text-white text-2xl" />
             </div>
             <div>
-              <h4 className="font-bold text-gray-800 dark:text-white">
-                {selectedCar.label}
-              </h4>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                <span>{selectedCar.category} • </span>
-                <span>{selectedCar.licensePlate} • </span>
-                <span>{selectedCar.chassisNumber}</span>
-              </div>
+              <Link
+                href={`${ADMIN_CARS_ROUTE}/${selectedRentalCar?.car_id}`}
+              >
+                <h4 className="font-bold text-gray-800 dark:text-white">
+                  {selectedCar.label}
+                </h4>
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <span>{selectedCar.category} • </span>
+                  <span>{selectedCar.licensePlate} • </span>
+                  <span>{selectedCar.chassisNumber}</span>
+                </div>
+              </Link>
               <div className="mt-1">
                 <CarStatus
                   id={selectedCar.id as number}

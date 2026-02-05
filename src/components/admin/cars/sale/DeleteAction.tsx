@@ -13,7 +13,7 @@ const DeleteAction = ({ id }: Props) => {
   const router = useRouter();
 
   function onDelete() {
-    if (confirm("Are you sure?")) {
+    if (confirm("Are you sure you want to delete?")) {
       deleteSaleCar(id);
 
       router.refresh();
@@ -22,11 +22,12 @@ const DeleteAction = ({ id }: Props) => {
 
   return (
     <button
-      className="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg cursor-pointer"
+      className="px-4 py-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 flex items-center gap-2 cursor-pointer"
       title="Delete"
       onClick={onDelete}
     >
       <FaTrash />
+      <span className="text-sm">Delete</span>
     </button>
   );
 };

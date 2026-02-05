@@ -24,7 +24,7 @@ export const GET = async (req: Request) => {
 
   let query = supabase
     .from("cars")
-    .select(`*, car_images (url,featured,created_at)`, { count: "exact" })
+    .select(`*, car_images (id,url,featured,created_at)`, { count: "exact" })
     .is("deleted_at", null)
     .order("created_at", { ascending: false });
 
@@ -39,7 +39,7 @@ export const GET = async (req: Request) => {
 
   if (search) {
     query = query.or(
-      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`
+      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`,
     );
   }
 
@@ -55,7 +55,7 @@ export const GET = async (req: Request) => {
         total: count,
         totalPages: Math.ceil((count ?? 0) / limit),
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     if (error instanceof ZodError) {
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
     }
 
     const authUser = (await verifyJWT(authToken).catch(
-      (error) => error
+      (error) => error,
     )) as User;
 
     if (authUser?.role !== USER_ROLE_ADMIN) {
@@ -96,7 +96,7 @@ export async function POST(request: Request) {
           status: CAR_STATUS_AVAILABLE,
           updated_at: new Date().toISOString(),
         },
-        { onConflict: "license_plate" }
+        { onConflict: "license_plate" },
       )
       .select();
 

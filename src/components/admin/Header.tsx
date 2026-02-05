@@ -1,13 +1,13 @@
-import { FaBell } from "react-icons/fa";
-
 import Theme from "../Theme";
 
 interface Props {
+  username?: string;
   title?: string;
   subtitle?: string;
 }
 
 const AdminHeader = ({
+  username,
   title = "Aspire Automotive",
   subtitle = "Car Rental, Service & Sales",
 }: Props) => {
@@ -26,12 +26,12 @@ const AdminHeader = ({
 
           <div className="flex items-center gap-4">
             {/* Notifications */}
-            <div className="relative">
+            {/* <div className="relative">
               <button className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary/20 transition-colors cursor-pointer">
                 <FaBell className=" text-gray-600 dark:text-gray-400" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
               </button>
-            </div>
+            </div> */}
 
             <Theme />
 
@@ -42,7 +42,7 @@ const AdminHeader = ({
                   <span className="text-white font-bold text-sm">AU</span>
                 </div>
                 <span className="hidden md:inline font-medium text-gray-700 dark:text-gray-300">
-                  Admin User
+                  {username}
                 </span>
               </button>
             </div>

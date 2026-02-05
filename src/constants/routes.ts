@@ -15,12 +15,13 @@ export const REGISTER_ROUTE = "/auth/register";
 export const ADMIN_ROUTE = "/admin";
 export const DASHBOARD_ROUTE = "/admin/dashboard";
 
-export const ADD_CAR_ROUTE = "/admin/cars/add";
 export const ADD_CAR_RENT_ROUTE = "/admin/cars/rent/add";
+export const ADD_CAR_ROUTE = "/admin/cars/add";
 export const ADD_CAR_SELL_ROUTE = "/admin/cars/sell/add";
-export const ADMIN_CARS_LIST_ROUTE = "/admin/cars/list";
 export const ADMIN_CAR_RENT_ROUTE = "/admin/cars/rent";
 export const ADMIN_CAR_SELL_ROUTE = "/admin/cars/sell";
+export const ADMIN_CARS_LIST_ROUTE = "/admin/cars/list";
+export const ADMIN_CARS_ROUTE = "/admin/cars";
 
 export const CONTACT_INQUIRIES_ROUTE = "/admin/contact-inquiries";
 export const SELL_INQUIRIES_ROUTE = "/admin/sell-inquiries";

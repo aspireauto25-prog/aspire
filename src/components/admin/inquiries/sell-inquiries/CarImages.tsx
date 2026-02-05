@@ -14,7 +14,7 @@ const CarImages = ({ images }: Props) => {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow dark:shadow-gray-900 overflow-hidden">
-      <div className="p-6 border-b border-gray-300 dark:border-gray-700">
+      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
         <h3 className="text-xl font-bold text-gray-800 dark:text-white">
           Car Images
         </h3>

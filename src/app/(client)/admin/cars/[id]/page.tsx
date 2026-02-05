@@ -8,7 +8,7 @@ interface Props {
   }>;
 }
 
-const EditCarPage = async ({ params }: Props) => {
+const CarDetailsPage = async ({ params }: Props) => {
   const id = (await params).id;
 
   const car = await getCarById(id);
@@ -16,9 +16,9 @@ const EditCarPage = async ({ params }: Props) => {
   return (
     <>
       <CarImages carImages={car.car_images ?? []} />
-      <CarForm car={car} mode="edit" />
+      <CarForm car={car} mode="view" />
     </>
   );
 };
 
-export default EditCarPage;
+export default CarDetailsPage;

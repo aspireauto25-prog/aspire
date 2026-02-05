@@ -46,7 +46,7 @@ const SellInquiryDetailsPage = async ({ params }: Props) => {
 
           {/* Car Specifications */}
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow dark:shadow-gray-900 overflow-hidden">
-            <div className="p-6 border-b border-gray-300 dark:border-gray-700">
+            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
               <h3 className="text-xl font-bold text-gray-800 dark:text-white">
                 Car Specifications
               </h3>
@@ -61,7 +61,7 @@ const SellInquiryDetailsPage = async ({ params }: Props) => {
                     Basic Information
                   </h4>
                   <div className="space-y-4">
-                    <div className="flex justify-between py-3 border-b border-gray-300 dark:border-gray-700">
+                    <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
                       <span className="text-gray-600 dark:text-gray-400">
                         Brand
                       </span>
@@ -69,7 +69,7 @@ const SellInquiryDetailsPage = async ({ params }: Props) => {
                         {inquiry.brand}
                       </span>
                     </div>
-                    <div className="flex justify-between py-3 border-b border-gray-300 dark:border-gray-700">
+                    <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
                       <span className="text-gray-600 dark:text-gray-400">
                         Model
                       </span>
@@ -77,7 +77,7 @@ const SellInquiryDetailsPage = async ({ params }: Props) => {
                         {inquiry.model}
                       </span>
                     </div>
-                    <div className="flex justify-between py-3 border-b border-gray-300 dark:border-gray-700">
+                    <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
                       <span className="text-gray-600 dark:text-gray-400">
                         Variant
                       </span>
@@ -85,7 +85,7 @@ const SellInquiryDetailsPage = async ({ params }: Props) => {
                         {inquiry?.variant || "-"}
                       </span>
                     </div>
-                    <div className="flex justify-between py-3 border-b border-gray-300 dark:border-gray-700">
+                    <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
                       <span className="text-gray-600 dark:text-gray-400">
                         Year
                       </span>
@@ -101,7 +101,7 @@ const SellInquiryDetailsPage = async ({ params }: Props) => {
                     Pricing &amp; Details
                   </h4>
                   <div className="space-y-4">
-                    <div className="flex justify-between py-3 border-b border-gray-300 dark:border-gray-700">
+                    <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
                       <span className="text-gray-600 dark:text-gray-400">
                         Mileage
                       </span>
@@ -109,7 +109,7 @@ const SellInquiryDetailsPage = async ({ params }: Props) => {
                         {inquiry?.mileage || "-"} km
                       </span>
                     </div>
-                    <div className="flex justify-between py-3 border-b border-gray-300 dark:border-gray-700">
+                    <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
                       <span className="text-gray-600 dark:text-gray-400">
                         Condition
                       </span>
@@ -117,7 +117,7 @@ const SellInquiryDetailsPage = async ({ params }: Props) => {
                         {inquiry.condition}
                       </span>
                     </div>
-                    <div className="flex justify-between py-3 border-b border-gray-300 dark:border-gray-700">
+                    <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700">
                       <span className="text-gray-600 dark:text-gray-400">
                         Asking Price
                       </span>

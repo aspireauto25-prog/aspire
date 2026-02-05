@@ -1,4 +1,3 @@
-import React from "react";
 import InquiryStats from "@/components/admin/inquiries/Stats";
 
 const InquiresLayout = ({

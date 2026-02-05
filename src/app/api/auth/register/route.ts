@@ -10,7 +10,6 @@ import { USER_ROLE_ADMIN, USER_ROLE_CUSTOMER } from "@/constants/user";
 import { verifyJWT } from "@/utils/jwt";
 import supabase from "@/config/database";
 
-
 export const POST = async (req: Request) => {
   try {
     const body = await req.json();
@@ -24,7 +23,7 @@ export const POST = async (req: Request) => {
     }
 
     const authUser = (await verifyJWT(authToken).catch(
-      (error) => error
+      (error) => error,
     )) as User;
 
     if (authUser?.role !== USER_ROLE_ADMIN) {

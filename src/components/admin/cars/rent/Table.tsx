@@ -1,10 +1,12 @@
-import { FaCar, FaCog, FaEdit } from "react-icons/fa";
+import { FaCar, FaCog, FaEdit, FaEye } from "react-icons/fa";
 import Link from "next/link";
 
+import { ADMIN_CAR_RENT_ROUTE } from "@/constants/routes";
 import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
+import ActionMenu from "@/components/ActionMenu";
+import CarStatus from "../Status";
 import DeleteAction from "./DeleteAction";
 import EmptyTable from "../../EmptyTable";
-import CarStatus from "../Status";
 
 interface Props {
   rentalCars: RentalCarWithDetails[];
@@ -45,25 +47,27 @@ const Table = async ({ rentalCars }: Props) => {
               className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
             >
               <td className="py-4 px-6">
-                <div className="flex items-center">
-                  <div className="min-w-14 h-14 rounded-full bg-linear-to-r from-primary to-red-700 flex items-center justify-center mr-3 text-white">
-                    <FaCar className="text-2xl" />
+                <Link href={`${ADMIN_CAR_RENT_ROUTE}/${rentalCar.id}`}>
+                  <div className="flex items-center">
+                    <div className="min-w-14 h-14 rounded-full bg-linear-to-r from-primary to-red-700 flex items-center justify-center mr-3 text-white">
+                      <FaCar className="text-2xl" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-800 dark:text-white space-x-1">
+                        <span>{rentalCar.brand}</span>
+                        <span>{rentalCar.model}</span>
+                        <span>{rentalCar.variant}</span>
+                        <span>{rentalCar.year}</span>
+                      </p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                        License: {rentalCar.license_plate}
+                      </p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                        VIN: {rentalCar.chassis_number}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-bold text-gray-800 dark:text-white space-x-1">
-                      <span>{rentalCar.brand}</span>
-                      <span>{rentalCar.model}</span>
-                      <span>{rentalCar.variant}</span>
-                      <span>{rentalCar.year}</span>
-                    </p>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      License: {rentalCar.license_plate}
-                    </p>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">
-                      VIN: {rentalCar.chassis_number}
-                    </p>
-                  </div>
-                </div>
+                </Link>
               </td>
               <td className="py-4 px-6">
                 <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium">
@@ -105,15 +109,26 @@ const Table = async ({ rentalCars }: Props) => {
                 <CarStatus id={rentalCar.car_id} status={rentalCar.status} />
               </td>
               <td className="py-4 px-6">
-                <div className="flex space-x-1">
-                  <Link
-                    href={`/admin/cars/rent/${rentalCar.id}/edit`}
-                    className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
-                    title="Edit"
-                  >
-                    <FaEdit />
-                  </Link>
-                  <DeleteAction id={rentalCar.id} />
+                <div className="flex justify-center">
+                  <ActionMenu>
+                    <Link
+                      href={`${ADMIN_CAR_RENT_ROUTE}/${rentalCar.id}`}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                      title="View"
+                    >
+                      <FaEye />
+                      <span className="text-sm">View</span>
+                    </Link>
+                    <Link
+                      href={`${ADMIN_CAR_RENT_ROUTE}/${rentalCar.id}/edit`}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                      title="Edit"
+                    >
+                      <FaEdit />
+                      <span className="text-sm">Edit</span>
+                    </Link>
+                    <DeleteAction id={rentalCar.id} />
+                  </ActionMenu>
                 </div>
               </td>
             </tr>

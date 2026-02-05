@@ -1,6 +1,6 @@
 "use client";
 
-import { FaCar, FaSave } from "react-icons/fa";
+import { FaCar, FaPencilAlt, FaSave } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -14,6 +14,7 @@ import Button from "@/components/Button";
 import SelectCar from "./SelectCar";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
+import LinkButton from "@/components/LinkButton";
 
 interface FormInput {
   car_id: string;
@@ -22,11 +23,11 @@ interface FormInput {
 }
 
 interface Props {
-  isEditing?: boolean;
+  mode?: "create" | "edit" | "view";
   saleCar?: SaleCarWithDetails;
 }
 
-const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
+const SaleCarForm = ({ saleCar, mode = "create" }: Props) => {
   const { register, handleSubmit, reset, setValue, watch } = useForm<FormInput>(
     {
       values: {
@@ -47,7 +48,7 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
       discount_price: parseNumber(data.discount_price),
     };
 
-    if (isEditing) {
+    if (mode == "edit") {
       return updateSaleCar(saleCar!.id, input);
     }
 
@@ -76,18 +77,28 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow dark:shadow-dark-900 overflow-hidden mb-8">
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center ">
-          <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
-            <FaCar />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center ">
+            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
+              <FaCar />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+                Add Sale Car
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Add a new car for selling
+              </p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-              Add Sale Car
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Add a new car for selling
-            </p>
-          </div>
+          {mode == "view" && (
+            <LinkButton
+              href={`${ADMIN_CAR_SELL_ROUTE}/${saleCar?.id}/edit`}
+              size="sm"
+            >
+              <FaPencilAlt /> Edit
+            </LinkButton>
+          )}
         </div>
       </div>
       <form onSubmit={handleSubmit(run)}>
@@ -105,7 +116,7 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
                 Select Car *
               </label>
               <SelectCar
-                isEditing={isEditing}
+                mode={mode}
                 selectedSaleCar={saleCar}
                 setCarId={(id) => setValue("car_id", id)}
               />
@@ -134,9 +145,10 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
                   id="fullPrice"
                   min={0}
                   step="0.01"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all disabled:bg-gray-100 dark:disabled:bg-gray-600 disabled:text-gray-400"
                   placeholder="0.0"
                   required
+                  disabled={mode == "view"}
                   {...register("full_price")}
                 />
               </div>
@@ -157,8 +169,9 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
                   id="discountPrice"
                   min={0}
                   step="0.01"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary bg-white dark:bg-gray-700 focus:outline-none transition-all disabled:bg-gray-100 dark:disabled:bg-gray-600 disabled:text-gray-400"
                   placeholder="0.0"
+                  disabled={mode == "view"}
                   {...register("discount_price")}
                 />
               </div>
@@ -195,7 +208,11 @@ const SaleCarForm = ({ saleCar, isEditing = false }: Props) => {
               Fields marked with * are required.
             </div>
             <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-              <Button type="submit" size="md" disabled={loading}>
+              <Button
+                type="submit"
+                size="md"
+                disabled={loading || mode == "view"}
+              >
                 {loading ? <Spinner /> : <FaSave />}
                 Save Car Sale
               </Button>
