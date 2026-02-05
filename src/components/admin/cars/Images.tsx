@@ -24,6 +24,9 @@ const CarImages = ({ carImages }: Props) => {
           height={550}
           className="w-full h-full object-cover"
         />
+        {selectedImage.featured && (
+          <div className="absolute top-5 right-5 bg-primary text-white px-4 py-1 rounded-2xl">Featured</div>
+        )}
       </div>
 
       <div className="flex space-x-4 overflow-x-auto custom-scrollbar py-5 justify-center">
