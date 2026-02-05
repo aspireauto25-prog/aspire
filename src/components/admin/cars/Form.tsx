@@ -724,7 +724,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
           </div>
 
           {/* Additional Images */}
-          <div  >
+          <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Additional Images
             </label>
@@ -747,7 +747,11 @@ const CarForm = ({ car, mode = "create" }: Props) => {
               Fields marked with * are required.
             </div>
             <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-              <Button type="submit" size="md" disabled={loading}>
+              <Button
+                type="submit"
+                size="md"
+                disabled={loading || mode == "view"}
+              >
                 {loading ? <Spinner /> : <FaSave />}
                 Save Car
               </Button>

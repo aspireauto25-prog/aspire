@@ -207,7 +207,11 @@ const RentCarForm = ({ rentalCar, mode = "create" }: Props) => {
               Fields marked with * are required.
             </div>
             <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-              <Button type="submit" size="md" disabled={loading}>
+              <Button
+                type="submit"
+                size="md"
+                disabled={loading || mode == "view"}
+              >
                 {loading ? <Spinner /> : <FaSave />}
                 Save Car Rental
               </Button>
