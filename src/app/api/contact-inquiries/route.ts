@@ -102,11 +102,12 @@ export async function POST(request: Request) {
           status: CONTACT_INQUIRY_PENDING,
         },
       ])
-      .select();
+      .select()
+      .single();
 
     if (error) return Response.json({ error: error.message }, { status: 500 });
 
-    return Response.json(data[0], { status: 201 });
+    return Response.json(data, { status: 201 });
   } catch (error) {
     if (error instanceof ZodError) {
       const formattedErrors = formatZodErrors(error);

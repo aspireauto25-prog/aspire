@@ -19,44 +19,42 @@ export const POST = async (req: Request) => {
     const { data, error } = await supabase
       .from("users")
       .select("*")
-      .eq("email", input.email);
+      .eq("email", input.email)
+      .single();
 
     if (error) {
       return Response.json({ error }, { status: 500 });
     }
 
-    if (data?.length == 0) {
+    if (!data) {
       return Response.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    const isPasswordValid = bcrypt.compareSync(
-      input.password,
-      data[0]?.password
-    );
+    const isPasswordValid = bcrypt.compareSync(input.password, data?.password);
 
     if (!isPasswordValid) {
       return Response.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    if (data[0].status == USER_STATUS_INACTIVE) {
+    if (data.status == USER_STATUS_INACTIVE) {
       return Response.json(
         { error: "User account is inactive." },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
-    if (data[0].status == USER_STATUS_BLOCKED) {
+    if (data.status == USER_STATUS_BLOCKED) {
       return Response.json(
         { error: "User account is blocked." },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
-    delete data[0].password;
+    delete data.password;
 
-    const token = createJWT(data[0]);
+    const token = createJWT(data);
 
-    const response = NextResponse.json({ user: data[0], token });
+    const response = NextResponse.json({ user: data, token });
 
     response.cookies.set(TOKEN, token, {
       httpOnly: true,
