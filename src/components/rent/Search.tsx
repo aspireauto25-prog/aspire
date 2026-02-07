@@ -1,25 +1,23 @@
 "use client";
 
-import { FaMagnifyingGlass } from "react-icons/fa6";
-
-import Button from "../Button";
+import { FaMagnifyingGlass, FaXmark } from "react-icons/fa6";
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { FaTimes } from "react-icons/fa";
+
+import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
+import Button from "../Button";
 
 const RentalCarsSearch = () => {
-  const [query, setQuery] = useState<string>();
+  const [query, setQuery] = useState<string>("");
 
-  const pathname = usePathname();
-  const router = useRouter();
+  const updateParams = useUpdateQueryParams();
 
-  function searchRentalCars() {
-    router.push(`?q=${query}`);
+  function resetQuery() {
+    setQuery("");
+    updateParams({ q: "" });
   }
 
-  function resetFilters() {
-    setQuery("");
-    router.replace(pathname);
+  function search() {
+    if (query) updateParams({ q: query });
   }
 
   return (
@@ -32,15 +30,20 @@ const RentalCarsSearch = () => {
         placeholder="Search cars by name or category..."
         className="w-full pl-14 pr-6 py-4 bg-white/10 backdrop-blur-xs rounded-full border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(event) => {
+          if (event.key != "Enter") return;
+
+          search();
+        }}
+        onChange={(event) => setQuery(event.target.value)}
       />
       <div className="flex items-center gap-1 right-3 top-2.5 absolute">
         {query && (
-          <button onClick={resetFilters} className="cursor-pointer p-2">
-            <FaTimes />
+          <button onClick={resetQuery} className="cursor-pointer p-2">
+            <FaXmark />
           </button>
         )}
-        <Button onClick={searchRentalCars} className="" size="sm" rounded>
+        <Button onClick={search} className="" size="sm" rounded>
           Search
         </Button>
       </div>
