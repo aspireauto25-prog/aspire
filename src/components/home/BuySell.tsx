@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 
 import { BUY_ROUTE, RENT_ROUTE, SELL_ROUTE } from "@/constants/routes";
-import LinkButton from "../LinkButton";
+import Button from "../Button";
 import OutlinedLinkButton from "../OutlinedLinkButton";
 
 const BuySell = () => {
@@ -74,9 +74,9 @@ const BuySell = () => {
                       <span>5 seats</span>
                     </div>
                   </div>
-                  <LinkButton href={`${RENT_ROUTE}/1`} size="md">
+                  <Button href={`${RENT_ROUTE}/1`} size="md">
                     <FaEye /> View Details
-                  </LinkButton>
+                  </Button>
                 </div>
               </div>
               {/* Car 2 */}
@@ -116,9 +116,9 @@ const BuySell = () => {
                       <span>7 seats</span>
                     </div>
                   </div>
-                  <LinkButton href={`${RENT_ROUTE}/1`} size="md">
+                  <Button href={`${RENT_ROUTE}/1`} size="md">
                     <FaEye /> View Details
-                  </LinkButton>
+                  </Button>
                 </div>
               </div>
               {/* Car 3 */}
@@ -158,9 +158,9 @@ const BuySell = () => {
                       <span>5 seats</span>
                     </div>
                   </div>
-                  <LinkButton href={`${RENT_ROUTE}/1`} size="md">
+                  <Button href={`${RENT_ROUTE}/1`} size="md">
                     <FaEye /> View Details
-                  </LinkButton>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -215,9 +215,9 @@ const BuySell = () => {
         {/* CTA Buttons */}
         <div className="text-center mt-16">
           <div className="inline-flex flex-col sm:flex-row gap-6">
-            <LinkButton href={BUY_ROUTE}>
+            <Button href={BUY_ROUTE}>
               <FaCar /> Browse All Cars for Sale
-            </LinkButton>
+            </Button>
             <OutlinedLinkButton href={SELL_ROUTE}>
               <FaTag /> Start Selling Your Car
             </OutlinedLinkButton>

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { SELL_INQUIRIES_ROUTE } from "@/constants/routes";
 import { SellInquiry } from "@/lib/types/sellInquiry.types";
-import EmptyTable from "../../EmptyTable";
+import EmptyData from "../../../EmptyData";
 import SellInquiryStatus from "./Status";
 
 import logoUrl from "@/assets/images/logo.png";
@@ -127,7 +127,7 @@ const Table = async ({ inquiries }: Props) => {
           ))}
         </tbody>
       </table>
-      {inquiries.length == 0 && <EmptyTable />}
+      {inquiries.length == 0 && <EmptyData />}
     </div>
   );
 };

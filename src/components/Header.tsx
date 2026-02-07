@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import { ADMIN_ROUTE, CONTACT_ROUTE, HOME_ROUTE } from "@/constants/routes";
-import LinkButton from "./LinkButton";
+import Button from "./Button";
 import Logo from "./Logo";
 import navlinks from "@/constants/navlinks";
 import Theme from "./Theme";
@@ -57,7 +57,7 @@ const Header = () => {
           </nav>
           <div className="flex items-center gap-4">
             <Theme />
-            <LinkButton
+            <Button
               href={`${CONTACT_ROUTE}#contact-form`}
               size="md"
               rounded
@@ -65,7 +65,7 @@ const Header = () => {
             >
               <FaCalendarAlt />
               <span>Enquire Now</span>
-            </LinkButton>
+            </Button>
             <button className="lg:hidden">
               <FaBars className="text-xl" />
             </button>

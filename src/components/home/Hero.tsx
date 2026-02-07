@@ -2,7 +2,7 @@ import { FaBolt, FaCar, FaShieldAlt, FaStar } from "react-icons/fa";
 import Image from "next/image";
 
 import { RENT_LIST_ROUTE } from "@/constants/routes";
-import LinkButton from "../LinkButton";
+import Button from "../Button";
 
 const Hero = () => {
   return (
@@ -33,13 +33,13 @@ const Hero = () => {
               vehicle for every journey.
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-              <LinkButton
+              <Button
                 href={RENT_LIST_ROUTE}
                 rounded
                 className="bounce-slow shadow-2xl"
               >
                 <FaCar /> Explore Our Fleet
-              </LinkButton>
+              </Button>
             </div>
             {/* Floating stats */}
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">

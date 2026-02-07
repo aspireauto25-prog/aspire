@@ -13,8 +13,8 @@ import {
   maintenanceSchedule,
   servicePackages,
 } from "@/data/servicing";
+import Button from "@/components/Button";
 import Hero from "@/components/Hero";
-import LinkButton from "@/components/LinkButton";
 import MaintenanceSchedule from "@/components/servicing/MaintenanceSchedule";
 import ServicingFAQ from "@/components/servicing/FAQ";
 import ServicingPackage from "@/components/servicing/Package";
@@ -34,9 +34,9 @@ const ServicingPage = () => {
         subtitle="Keep your vehicle in perfect condition with our certified technicians and state-of-the-art equipment."
         backgroundImage={heroBg}
         action={
-          <LinkButton href={CONTACT_ROUTE}>
+          <Button href={CONTACT_ROUTE}>
             <FaCalendarCheck /> Book Service
-          </LinkButton>
+          </Button>
         }
       />
 

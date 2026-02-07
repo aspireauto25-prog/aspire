@@ -3,7 +3,6 @@ import Image from "next/image";
 
 import { CONTACT_ROUTE, RENT_ROUTE } from "@/constants/routes";
 import Button from "../Button";
-import LinkButton from "../LinkButton";
 import OutlinedLinkButton from "../OutlinedLinkButton";
 import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
 import CarStatus from "../car/Status";
@@ -26,6 +25,7 @@ const RentCard = ({
   status,
   transmission_type,
   variant,
+  weekly_rate,
 }: Props) => {
   const featuredImageUrl = images?.find((image) => image.featured)?.url;
 
@@ -50,7 +50,7 @@ const RentCard = ({
         </div>
       </div>
       <div className="p-6">
-        <div className="flex justify-between items-start mb-4">
+        <div className="flex justify-between items-start mb-4 gap-4">
           <div>
             <h3 className="text-xl font-bold mb-1">
               {brand} {model} {variant}
@@ -61,6 +61,10 @@ const RentCard = ({
             <div className="text-2xl font-bold text-primary">
               {daily_rate}
               <span className="text-sm font-normal">/day</span>
+            </div>
+            <div className="flex items-center justify-end mt-1">
+              <span className="font-semibold">{weekly_rate}</span>
+              <span className="text-xs">/week</span>
             </div>
           </div>
         </div>
@@ -92,9 +96,9 @@ const RentCard = ({
         </div>
 
         <div className="flex space-x-3">
-          <LinkButton size="md" href={`${RENT_ROUTE}/${id}`} className="flex-1">
+          <Button size="md" href={`${RENT_ROUTE}/${id}`} className="flex-1">
             View Details
-          </LinkButton>
+          </Button>
           {status == CAR_STATUS_AVAILABLE ? (
             <OutlinedLinkButton href={CONTACT_ROUTE} size="md">
               Book Now

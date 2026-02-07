@@ -14,7 +14,6 @@ import Button from "@/components/Button";
 import SelectCar from "./SelectCar";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
-import LinkButton from "@/components/LinkButton";
 
 interface FormInput {
   car_id: string;
@@ -92,12 +91,12 @@ const SaleCarForm = ({ saleCar, mode = "create" }: Props) => {
             </div>
           </div>
           {mode == "view" && (
-            <LinkButton
+            <Button
               href={`${ADMIN_CAR_SELL_ROUTE}/${saleCar?.id}/edit`}
               size="sm"
             >
               <FaPencilAlt /> Edit
-            </LinkButton>
+            </Button>
           )}
         </div>
       </div>

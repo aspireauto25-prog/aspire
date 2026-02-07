@@ -1,7 +1,7 @@
 import { FaMagnifyingGlass, FaTag } from "react-icons/fa6";
 
 import { BUY_ROUTE, SELL_ROUTE } from "@/constants/routes";
-import LinkButton from "../LinkButton";
+import Button from "../Button";
 
 const BuySellCTA = () => {
   return (
@@ -13,17 +13,17 @@ const BuySellCTA = () => {
           car transactions.
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
-          <LinkButton
+          <Button
             href={BUY_ROUTE}
             rounded
             theme="light"
             className="hover:scale-105"
           >
             <FaMagnifyingGlass /> Browse Cars
-          </LinkButton>
-          <LinkButton href={SELL_ROUTE} rounded>
+          </Button>
+          <Button href={SELL_ROUTE} rounded>
             <FaTag /> Sell Your Car
-          </LinkButton>
+          </Button>
         </div>
       </div>
     </section>

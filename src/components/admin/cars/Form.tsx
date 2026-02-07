@@ -28,7 +28,6 @@ import { createCar, uploadCarImages } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
 import ImageUploader from "@/components/ImageUploader";
-import LinkButton from "@/components/LinkButton";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
 
@@ -192,12 +191,12 @@ const CarForm = ({ car, mode = "create" }: Props) => {
             </div>
 
             {mode == "view" && (
-              <LinkButton
+              <Button
                 href={`${ADMIN_CARS_ROUTE}/${car?.id}/edit`}
                 size="sm"
               >
                 <FaPencilAlt /> Edit
-              </LinkButton>
+              </Button>
             )}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">

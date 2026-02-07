@@ -8,7 +8,7 @@ import { Car } from "@/lib/types/car.types";
 import ActionMenu from "@/components/ActionMenu";
 import CarStatus from "./Status";
 import DeleteAction from "./DeleteAction";
-import EmptyTable from "../EmptyTable";
+import EmptyData from "../../EmptyData";
 
 import logoUrl from "@/assets/images/logo.png";
 
@@ -160,7 +160,7 @@ const Table = async ({ cars }: Props) => {
           ))}
         </tbody>
       </table>
-      {cars.length == 0 && <EmptyTable />}
+      {cars.length == 0 && <EmptyData />}
     </div>
   );
 };

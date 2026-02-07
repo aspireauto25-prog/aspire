@@ -17,7 +17,7 @@ import {
   RENT_LIST_ROUTE,
   SELL_ROUTE,
 } from "@/constants/routes";
-import LinkButton from "@/components/LinkButton";
+import Button from "@/components/Button";
 import OutlinedLinkButton from "@/components/OutlinedLinkButton";
 
 const NotFoundPage = () => {
@@ -65,10 +65,10 @@ const NotFoundPage = () => {
               </p>
             </div>
             <div className="mt-10 flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
-              <LinkButton href={HOME_ROUTE}>
+              <Button href={HOME_ROUTE}>
                 <FaHome />
                 Go to Homepage
-              </LinkButton>
+              </Button>
               <OutlinedLinkButton href={RENT_LIST_ROUTE}>
                 <FaCar />
                 Browse Our Cars

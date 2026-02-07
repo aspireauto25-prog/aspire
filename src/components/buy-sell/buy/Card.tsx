@@ -2,7 +2,7 @@ import { FaCheck, FaMapMarkerAlt, FaShieldAlt } from "react-icons/fa";
 import Image from "next/image";
 
 import { CONTACT_ROUTE } from "@/constants/routes";
-import LinkButton from "@/components/LinkButton";
+import Button from "@/components/Button";
 import OutlinedButton from "@/components/OutlinedButton";
 
 interface Props {
@@ -109,9 +109,9 @@ const BuyCard = (props: Props) => {
           </div>
           <div className="flex space-x-2">
             <OutlinedButton size="sm">Details</OutlinedButton>
-            <LinkButton href={CONTACT_ROUTE} size="sm">
+            <Button href={CONTACT_ROUTE} size="sm">
               Contact
-            </LinkButton>
+            </Button>
           </div>
         </div>
       </div>

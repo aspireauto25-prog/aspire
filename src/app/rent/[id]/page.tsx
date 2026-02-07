@@ -14,7 +14,7 @@ import Image from "next/image";
 import { carData } from "@/data/carDetails";
 import { CONTACT_ROUTE } from "@/constants/routes";
 import { formatSpecKey } from "@/helpers/textFormatter";
-import LinkButton from "@/components/LinkButton";
+import Button from "@/components/Button";
 import RentCTA from "@/components/rent/CTA";
 import RentDetailsBreadCrumb from "@/components/rent/details/BreadCrumb";
 import SimilarCarsCard from "@/components/rent/details/Card";
@@ -229,9 +229,9 @@ const CarDetailsPage = () => {
               >
                 <h3 className="text-2xl font-bold mb-6">Book This Car</h3>
                 <div className="space-y-4">
-                  <LinkButton href={CONTACT_ROUTE}>
+                  <Button href={CONTACT_ROUTE}>
                     <FaLock /> Book Now
-                  </LinkButton>
+                  </Button>
                 </div>
               </div>
               {/* What's Included */}

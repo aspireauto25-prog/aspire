@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 import { ContactInquiry } from "@/lib/types/contact.types";
 import ContactInquiryStatus from "./Status";
-import EmptyTable from "../../EmptyTable";
+import EmptyData from "../../../EmptyData";
 import PreviewInquiryModal from "./Modal";
 
 interface Props {
@@ -87,7 +87,7 @@ const ContactInquiryTable = ({ inquiries }: Props) => {
           ))}
         </tbody>
       </table>
-      {inquiries.length == 0 && <EmptyTable />}
+      {inquiries.length == 0 && <EmptyData />}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import Image from "next/image";
 
 import { RENT_ROUTE } from "@/constants/routes";
-import LinkButton from "@/components/LinkButton";
+import Button from "@/components/Button";
 
 interface Props {
   category: string;
@@ -32,10 +32,10 @@ const SimilarCarsCard = (props: Props) => {
             ${props.price}
             <span className="text-sm font-normal">/day</span>
           </div>
-          <LinkButton href={`${RENT_ROUTE}/${props.id}`} size="md">
+          <Button href={`${RENT_ROUTE}/${props.id}`} size="md">
             View
             <FaArrowRight />
-          </LinkButton>
+          </Button>
         </div>
       </div>
     </div>
