@@ -44,11 +44,12 @@ export const PUT = async (req: Request, { params }: Params) => {
     .from("users")
     .update(input)
     .eq("id", id)
-    .select();
+    .select()
+    .single();
 
   if (error) return Response.json({ error }, { status: 500 });
 
-  delete data[0].password;
+  delete data.password;
 
-  return Response.json(data[0], { status: 200 });
+  return Response.json(data, { status: 200 });
 };

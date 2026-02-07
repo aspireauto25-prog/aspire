@@ -38,7 +38,7 @@ export const GET = async (req: Request) => {
 
   if (search) {
     query = query.or(
-      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`
+      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`,
     );
   }
 
@@ -54,7 +54,7 @@ export const GET = async (req: Request) => {
         total: count,
         totalPages: Math.ceil((count ?? 0) / limit),
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     if (error instanceof ZodError) {
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
     }
 
     const authUser = (await verifyJWT(authToken).catch(
-      (error) => error
+      (error) => error,
     )) as User;
 
     if (authUser?.role !== USER_ROLE_ADMIN) {
@@ -93,11 +93,12 @@ export async function POST(request: Request) {
         ...input,
         updated_at: new Date().toISOString(),
       })
-      .select();
+      .select()
+      .single();
 
     if (error) return Response.json({ error: error.message }, { status: 500 });
 
-    return Response.json(data[0], { status: 201 });
+    return Response.json(data, { status: 201 });
   } catch (error) {
     if (error instanceof ZodError) {
       const formattedErrors = formatZodErrors(error);

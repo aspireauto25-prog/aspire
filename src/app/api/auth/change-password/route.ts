@@ -15,7 +15,8 @@ export const POST = async (req: Request) => {
   const { data: currentData, error: currentError } = await supabase
     .from("users")
     .select("*")
-    .eq("id", body.id);
+    .eq("id", body.id)
+    .single();
 
   if (currentError) {
     return Response.json({ error: currentError }, { status: 500 });
@@ -23,7 +24,7 @@ export const POST = async (req: Request) => {
 
   const isPasswordValid = bcrypt.compareSync(
     input.currentPassword,
-    currentData[0]?.password
+    currentData?.password,
   );
 
   if (!isPasswordValid) {
@@ -42,6 +43,6 @@ export const POST = async (req: Request) => {
 
   return Response.json(
     { message: "Password updated successfully." },
-    { status: 200 }
+    { status: 200 },
   );
 };
