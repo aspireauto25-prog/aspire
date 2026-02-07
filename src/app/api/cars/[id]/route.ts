@@ -59,6 +59,20 @@ export const DELETE = async (req: Request, { params }: Params) => {
     .eq("id", id)
     .single();
 
+  await supabase
+    .from("rental_cars")
+    .update({
+      deleted_at: new Date().toISOString(),
+    })
+    .eq("car_id", id);
+
+  await supabase
+    .from("sale_cars")
+    .update({
+      deleted_at: new Date().toISOString(),
+    })
+    .eq("car_id", id);
+
   if (error) return Response.json({ error }, { status: 500 });
 
   return Response.json(data, { status: 200 });
