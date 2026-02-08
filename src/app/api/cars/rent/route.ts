@@ -50,29 +50,19 @@ export const GET = async (req: Request) => {
     );
   }
 
-  try {
-    const { data, error, count } = await query;
+  const { data, error, count } = await query;
 
-    if (error) return Response.json(error, { status: 500 });
+  if (error) return Response.json({ message: error.message }, { status: 500 });
 
-    return Response.json(
-      {
-        currentPage: page,
-        data,
-        total: count,
-        totalPages: Math.ceil((count ?? 0) / limit),
-      },
-      { status: 200 },
-    );
-  } catch (error) {
-    if (error instanceof ZodError) {
-      const formattedErrors = formatZodErrors(error);
-
-      return Response.json(formattedErrors, { status: 400 });
-    }
-
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
-  }
+  return Response.json(
+    {
+      currentPage: page,
+      data,
+      total: count,
+      totalPages: Math.ceil((count ?? 0) / limit),
+    },
+    { status: 200 },
+  );
 };
 
 export async function POST(request: Request) {
@@ -80,7 +70,7 @@ export async function POST(request: Request) {
     const authToken = (await cookies()).get(TOKEN)?.value;
 
     if (!authToken) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 });
+      return Response.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const authUser = (await verifyJWT(authToken).catch(
@@ -88,7 +78,7 @@ export async function POST(request: Request) {
     )) as User;
 
     if (authUser?.role !== USER_ROLE_ADMIN) {
-      return Response.json({ error: "Forbidden" }, { status: 403 });
+      return Response.json({ message: "Forbidden" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -104,16 +94,17 @@ export async function POST(request: Request) {
       .select()
       .single();
 
-    if (error) return Response.json({ error: error.message }, { status: 500 });
+    if (error)
+      return Response.json({ message: error.message }, { status: 500 });
 
     return Response.json(data, { status: 201 });
   } catch (error) {
     if (error instanceof ZodError) {
-      const formattedErrors = formatZodErrors(error);
+      const fieldErrors = formatZodErrors(error);
 
-      return Response.json(formattedErrors, { status: 400 });
+      return Response.json({ fieldErrors }, { status: 400 });
     }
 
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    return Response.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }

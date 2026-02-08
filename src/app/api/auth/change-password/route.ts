@@ -42,7 +42,7 @@ export const POST = async (req: Request) => {
     .eq("id", body.id)
     .select();
 
-  if (error) return Response.json({ error }, { status: 500 });
+  if (error) return Response.json({ message: error.message }, { status: 500 });
 
   return Response.json(
     { message: "Password updated successfully." },
