@@ -7,10 +7,12 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { ADMIN_CAR_SELL_ROUTE } from "@/constants/routes";
+import { AppError } from "@/helpers/errorNormalization";
 import { createSaleCar, updateSaleCar } from "@/api/axios/saleCars";
 import { parseNumber } from "@/utils/inputFormatter";
 import { SaleCarWithDetails } from "@/lib/types/saleCar.types";
 import Button from "@/components/Button";
+import ErrorModal from "@/components/Error";
 import SelectCar from "./SelectCar";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -42,10 +44,7 @@ const SaleCarForm = ({ saleCar, mode = "create" }: Props) => {
 
   function upsertSaleCar(data: FormInput) {
     if (fullPrice <= discountPrice) {
-      throw {
-        status: 400,
-        message: "Discount price must be less than full price.",
-      };
+      throw new AppError("Discount price must be less than full price.");
     }
 
     const input = {
@@ -75,7 +74,10 @@ const SaleCarForm = ({ saleCar, mode = "create" }: Props) => {
     }
 
     if (error) {
-      toast.error("Sale car save failed. Please try again.");
+      toast.error(
+        <ErrorModal defaultError="Sale car save failed!" error={error} />,
+        { icon: false },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);
