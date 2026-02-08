@@ -12,7 +12,7 @@ import Image from "next/image";
 import { CONTACT_ROUTE, RENT_ROUTE } from "@/constants/routes";
 import { cars } from "@/data/home";
 import Button from "../Button";
-import OutlinedLinkButton from "../OutlinedLinkButton";
+import OutlinedButton from "../OutlinedButton";
 
 interface Props {
   available: boolean;
@@ -93,9 +93,9 @@ const Card = (props: Props) => {
           <Button href={`${RENT_ROUTE}/${props.id}`} className="flex-1">
             <FaInfoCircle /> Details
           </Button>
-          <OutlinedLinkButton href={CONTACT_ROUTE}>
+          <OutlinedButton href={CONTACT_ROUTE}>
             <FaCheck /> Book
-          </OutlinedLinkButton>
+          </OutlinedButton>
         </div>
       </div>
     </div>

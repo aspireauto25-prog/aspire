@@ -18,7 +18,7 @@ import {
   SELL_ROUTE,
 } from "@/constants/routes";
 import Button from "@/components/Button";
-import OutlinedLinkButton from "@/components/OutlinedLinkButton";
+import OutlinedButton from "@/components/OutlinedButton";
 
 const NotFoundPage = () => {
   return (
@@ -69,10 +69,10 @@ const NotFoundPage = () => {
                 <FaHome />
                 Go to Homepage
               </Button>
-              <OutlinedLinkButton href={RENT_LIST_ROUTE}>
+              <OutlinedButton href={RENT_LIST_ROUTE}>
                 <FaCar />
                 Browse Our Cars
-              </OutlinedLinkButton>
+              </OutlinedButton>
             </div>
             <div className="mt-12">
               <p className="text-gray-600 mb-3">

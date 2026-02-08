@@ -13,9 +13,11 @@ import supabase from "@/config/database";
 export const GET = async (req: Request) => {
   const { searchParams } = new URL(req.url);
 
-  const pageParam = searchParams.get("page") ?? "1";
+  const category = searchParams.get("category");
   const limitParam = searchParams.get("limit") ?? PAGE_LIMIT;
+  const pageParam = searchParams.get("page") ?? "1";
   const search = searchParams.get("search");
+  const sort = searchParams.get("sort");
   const status = searchParams.get("status");
 
   const page = parseInt(pageParam);
@@ -24,8 +26,7 @@ export const GET = async (req: Request) => {
   let query = supabase
     .from("sale_cars_detail")
     .select("*", { count: "exact" })
-    .is("deleted_at", null)
-    .order("created_at", { ascending: false });
+    .is("deleted_at", null);
 
   if (page && limit) {
     const from = (page - 1) * limit;
@@ -34,7 +35,17 @@ export const GET = async (req: Request) => {
     query = query.range(from, to);
   }
 
+  if (sort) {
+    const sortBy = JSON.parse(sort);
+
+    query.order(sortBy.key, sortBy.order);
+  } else {
+    query.order("created_at", { ascending: false });
+  }
+
   if (status) query = query.eq("status", status);
+
+  if (category) query = query.ilike("category", `%${category}%`);
 
   if (search) {
     query = query.or(

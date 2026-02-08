@@ -12,7 +12,7 @@ import Image from "next/image";
 
 import { BUY_ROUTE, RENT_ROUTE, SELL_ROUTE } from "@/constants/routes";
 import Button from "../Button";
-import OutlinedLinkButton from "../OutlinedLinkButton";
+import OutlinedButton from "../OutlinedButton";
 
 const BuySell = () => {
   return (
@@ -218,9 +218,9 @@ const BuySell = () => {
             <Button href={BUY_ROUTE}>
               <FaCar /> Browse All Cars for Sale
             </Button>
-            <OutlinedLinkButton href={SELL_ROUTE}>
+            <OutlinedButton href={SELL_ROUTE}>
               <FaTag /> Start Selling Your Car
-            </OutlinedLinkButton>
+            </OutlinedButton>
           </div>
         </div>
       </div>

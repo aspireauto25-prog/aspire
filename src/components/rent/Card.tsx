@@ -1,8 +1,11 @@
 import {
+  FaCar,
   FaCheck,
   FaCogs,
   FaGasPump,
   FaImage,
+  FaRegCalendarAlt,
+  FaRoad,
   FaUserFriends,
 } from "react-icons/fa";
 import Image from "next/image";
@@ -12,11 +15,7 @@ import { CONTACT_ROUTE, RENT_ROUTE } from "@/constants/routes";
 import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
 import Button from "../Button";
 import CarStatus from "../car/Status";
-import OutlinedLinkButton from "../OutlinedLinkButton";
-
-interface Props extends RentalCarWithDetails {
-  imageUrl?: string;
-}
+import OutlinedButton from "../OutlinedButton";
 
 const RentCard = ({
   brand,
@@ -34,7 +33,7 @@ const RentCard = ({
   variant,
   weekly_rate,
   year,
-}: Props) => {
+}: RentalCarWithDetails) => {
   const featuredImageUrl = images?.find((image) => image.featured)?.url;
 
   return (
@@ -64,14 +63,17 @@ const RentCard = ({
               {brand} {model} {variant}
             </h3>
             <div className="flex flex-wrap gap-2 mb-4">
-              <span className="px-2 py-1 bg-gray-100 dark:bg-gray-900 rounded text-xs">
+              <span className="inline-flex gap-1 items-center px-2 py-1 bg-gray-100 dark:bg-gray-900 rounded text-xs">
+                <FaCar />
                 {category}
               </span>
-              <span className="px-2 py-1 bg-gray-100 dark:bg-gray-900 rounded text-xs">
+              <span className="inline-flex gap-1 items-center px-2 py-1 bg-gray-100 dark:bg-gray-900 rounded text-xs">
+                <FaRegCalendarAlt />
                 {year}
               </span>
               {mileage && (
-                <span className="px-2 py-1 bg-gray-100 dark:bg-gray-900 rounded text-xs">
+                <span className="inline-flex gap-1 items-center px-2 py-1 bg-gray-100 dark:bg-gray-900 rounded text-xs">
+                  <FaRoad />
                   {mileage} km
                 </span>
               )}
@@ -128,9 +130,9 @@ const RentCard = ({
             View Details
           </Button>
           {status == CAR_STATUS_AVAILABLE ? (
-            <OutlinedLinkButton href={CONTACT_ROUTE} size="md">
+            <OutlinedButton href={CONTACT_ROUTE} size="md">
               Book Now
-            </OutlinedLinkButton>
+            </OutlinedButton>
           ) : (
             <Button
               disabled={true}
