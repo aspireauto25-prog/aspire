@@ -7,7 +7,7 @@ export const POST = async (req: Request) => {
   const body = await req.json();
 
   if (!body.id) {
-    return Response.json({ error: "User id is required." }, { status: 400 });
+    return Response.json({ message: "User id is required." }, { status: 400 });
   }
 
   const input = changePasswordSchema.parse(body);
@@ -19,7 +19,10 @@ export const POST = async (req: Request) => {
     .single();
 
   if (currentError) {
-    return Response.json({ error: currentError }, { status: 500 });
+    return Response.json(
+      { message: "Error fetching user data." },
+      { status: 500 },
+    );
   }
 
   const isPasswordValid = bcrypt.compareSync(
@@ -28,7 +31,7 @@ export const POST = async (req: Request) => {
   );
 
   if (!isPasswordValid) {
-    return Response.json({ error: "Incorrect password." }, { status: 401 });
+    return Response.json({ message: "Incorrect password." }, { status: 401 });
   }
 
   const hashedPassword = bcrypt.hashSync(input.newPassword);

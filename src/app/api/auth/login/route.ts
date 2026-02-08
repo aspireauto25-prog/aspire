@@ -23,7 +23,10 @@ export const POST = async (req: Request) => {
       .maybeSingle();
 
     if (error) {
-      return Response.json({ error }, { status: 500 });
+      return Response.json(
+        { message: "Error fetching user data." },
+        { status: 500 },
+      );
     }
 
     if (!data) {
@@ -73,11 +76,11 @@ export const POST = async (req: Request) => {
     return response;
   } catch (error) {
     if (error instanceof ZodError) {
-      const formattedErrors = formatZodErrors(error);
+      const fieldErrors = formatZodErrors(error);
 
-      return Response.json(formattedErrors, { status: 400 });
+      return Response.json({ fieldErrors }, { status: 400 });
     }
 
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    return Response.json({ message: "Internal Server Error" }, { status: 500 });
   }
 };

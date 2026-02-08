@@ -19,7 +19,7 @@ export const POST = async (req: Request) => {
     const authToken = (await cookies()).get(TOKEN)?.value;
 
     if (!authToken) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 });
+      return Response.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const authUser = (await verifyJWT(authToken).catch(
@@ -27,7 +27,7 @@ export const POST = async (req: Request) => {
     )) as User;
 
     if (authUser?.role !== USER_ROLE_ADMIN) {
-      return Response.json({ error: "Forbidden" }, { status: 403 });
+      return Response.json({ message: "Forbidden" }, { status: 403 });
     }
 
     const hashedPassword = bcrypt.hashSync(input.password);
@@ -46,16 +46,20 @@ export const POST = async (req: Request) => {
       ])
       .select("*");
 
-    if (error) return Response.json({ error }, { status: 500 });
+    if (error)
+      return Response.json(
+        { message: "Error creating user." },
+        { status: 500 },
+      );
 
     return Response.json({ user: data }, { status: 201 });
   } catch (error) {
     if (error instanceof ZodError) {
-      const formattedErrors = formatZodErrors(error);
+      const fieldErrors = formatZodErrors(error);
 
-      return Response.json(formattedErrors, { status: 400 });
+      return Response.json({ fieldErrors }, { status: 400 });
     }
 
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    return Response.json({ message: "Internal Server Error" }, { status: 500 });
   }
 };

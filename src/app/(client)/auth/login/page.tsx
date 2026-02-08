@@ -84,9 +84,7 @@ const LoginPage = () => {
                     className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary pr-10"
                     placeholder="name@company.com"
                     required
-                    {...register("email", {
-                      required: "Email address is required.",
-                    })}
+                    {...register("email")}
                   />
                 </div>
                 <div>
@@ -96,12 +94,7 @@ const LoginPage = () => {
                   >
                     Password
                   </label>
-                  <PasswordInput
-                    required
-                    {...register("password", {
-                      required: "Password is required.",
-                    })}
-                  />
+                  <PasswordInput required {...register("password")} />
                 </div>
                 <Button
                   type="submit"
