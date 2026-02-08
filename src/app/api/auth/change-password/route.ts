@@ -16,7 +16,7 @@ export const POST = async (req: Request) => {
     .from("users")
     .select("*")
     .eq("id", body.id)
-    .single();
+    .maybeSingle();
 
   if (currentError) {
     return Response.json(

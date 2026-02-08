@@ -93,7 +93,7 @@ export async function POST(request: Request) {
         },
       ])
       .select()
-      .single();
+      .maybeSingle();
 
     if (error)
       return Response.json({ message: error.message }, { status: 500 });

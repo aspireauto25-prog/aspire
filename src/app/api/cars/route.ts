@@ -89,7 +89,7 @@ export async function POST(request: Request) {
         { onConflict: "license_plate" },
       )
       .select()
-      .single();
+      .maybeSingle();
 
     if (error)
       return Response.json({ message: error.message }, { status: 500 });

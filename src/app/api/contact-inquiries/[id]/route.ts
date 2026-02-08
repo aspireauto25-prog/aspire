@@ -39,7 +39,7 @@ export const GET = async (req: Request, { params }: Params) => {
     .from("contact_inquiries")
     .select(`*`)
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error) return Response.json({ message: error.message }, { status: 500 });
 
@@ -77,7 +77,7 @@ export const PATCH = async (request: Request, { params }: Params) => {
     })
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error) return Response.json({ message: error.message }, { status: 500 });
 

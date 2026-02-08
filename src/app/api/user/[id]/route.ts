@@ -45,7 +45,7 @@ export const PUT = async (req: Request, { params }: Params) => {
     .update(input)
     .eq("id", id)
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) return Response.json({ message: error.message }, { status: 500 });
 

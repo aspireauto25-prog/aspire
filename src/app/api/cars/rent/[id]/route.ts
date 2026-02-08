@@ -27,7 +27,7 @@ export const GET = async (req: Request, { params }: Params) => {
     .from("rental_cars_detail")
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error) return Response.json({ message: error.message }, { status: 500 });
 
@@ -68,7 +68,7 @@ export const PUT = async (request: Request, { params }: Params) => {
     })
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error) return Response.json({ message: error.message }, { status: 500 });
 
@@ -104,7 +104,7 @@ export const DELETE = async (req: Request, { params }: Params) => {
     })
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error) return Response.json({ message: error.message }, { status: 500 });
 

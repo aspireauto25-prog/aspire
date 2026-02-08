@@ -24,7 +24,7 @@ export const GET = async (req: Request, { params }: Params) => {
     .from("cars")
     .select(`*, car_images (id,url,featured,created_at)`)
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error) return Response.json({ message: error.message }, { status: 500 });
 
@@ -57,7 +57,7 @@ export const DELETE = async (req: Request, { params }: Params) => {
     })
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   await supabase
     .from("rental_cars")
@@ -110,7 +110,7 @@ export const PATCH = async (request: Request, { params }: Params) => {
     })
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error) return Response.json({ message: error.message }, { status: 500 });
 

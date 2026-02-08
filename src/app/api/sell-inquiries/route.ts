@@ -81,7 +81,7 @@ export async function POST(request: Request) {
         updated_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error)
       return Response.json({ message: error.message }, { status: 500 });
