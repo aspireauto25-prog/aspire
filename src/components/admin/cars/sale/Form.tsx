@@ -41,6 +41,13 @@ const SaleCarForm = ({ saleCar, mode = "create" }: Props) => {
   const discountPrice = parseNumber(watch("discount_price")) ?? 0;
 
   function upsertSaleCar(data: FormInput) {
+    if (fullPrice <= discountPrice) {
+      throw {
+        status: 400,
+        message: "Discount price must be less than full price.",
+      };
+    }
+
     const input = {
       car_id: parseNumber(data.car_id)!,
       full_price: parseNumber(data.full_price)!,
