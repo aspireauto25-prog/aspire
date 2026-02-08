@@ -15,7 +15,7 @@ const RentalCarsSort = ({ currentSort }: Props) => {
 
   return (
     <div className="flex items-center space-x-2">
-      <span className="text-gray-600 dark:text-gray-400">Sort by:</span>
+      <span className="text-gray-600 dark:text-gray-400">Sort:</span>
       <select
         className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2"
         name="sort"
@@ -28,7 +28,7 @@ const RentalCarsSort = ({ currentSort }: Props) => {
             order: { ascending: false },
           })}
         >
-          Default
+          Recommended
         </option>
         <option
           value={JSON.stringify({
@@ -48,19 +48,11 @@ const RentalCarsSort = ({ currentSort }: Props) => {
         </option>
         <option
           value={JSON.stringify({
-            key: "brand",
-            order: { ascending: true },
-          })}
-        >
-          Name: A - Z
-        </option>
-        <option
-          value={JSON.stringify({
-            key: "brand",
+            key: "year",
             order: { ascending: false },
           })}
         >
-          Name: Z - A
+          Year: Newest First
         </option>
       </select>
     </div>
