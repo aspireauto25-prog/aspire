@@ -11,11 +11,11 @@ import {
 import Link from "next/link";
 
 import {
-  BUY_ROUTE,
+  BUY_CAR_ROUTE,
   CONTACT_ROUTE,
   HOME_ROUTE,
   RENT_LIST_ROUTE,
-  SELL_ROUTE,
+  SELL_CAR_ROUTE,
 } from "@/constants/routes";
 import Button from "@/components/Button";
 import OutlinedButton from "@/components/OutlinedButton";
@@ -80,13 +80,13 @@ const NotFoundPage = () => {
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href={BUY_ROUTE}
+                  href={BUY_CAR_ROUTE}
                   className="px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-700 dark:text-gray-500 transition-colors"
                 >
                   Buy Premium Cars
                 </Link>
                 <Link
-                  href={SELL_ROUTE}
+                  href={SELL_CAR_ROUTE}
                   className="px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-700 dark:text-gray-500 transition-colors"
                 >
                   Sell Your Car

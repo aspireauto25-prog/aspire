@@ -78,3 +78,30 @@ export const transmissionTypes = [
   "Dual-Clutch",
   "Semi-Automatic",
 ];
+
+export const carStatuses = [
+  {
+    label: "Available",
+    value: CAR_STATUS_AVAILABLE,
+  },
+  {
+    label: "Booked",
+    value: CAR_STATUS_BOOKED,
+  },
+  {
+    label: "Rented",
+    value: CAR_STATUS_RENTED,
+  },
+  {
+    label: "Sold",
+    value: CAR_STATUS_SOLD,
+  },
+  {
+    label: "Maintenance",
+    value: CAR_STATUS_MAINTENANCE,
+  },
+  {
+    label: "Unavailable",
+    value: CAR_STATUS_UNAVAILABLE,
+  },
+];

@@ -6,12 +6,12 @@ import { FaCar, FaSave } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 import {
-  CAR_STATUS_AVAILABLE,
   CAR_STATUS_BOOKED,
   CAR_STATUS_MAINTENANCE,
   CAR_STATUS_RENTED,
   CAR_STATUS_SOLD,
   CAR_STATUS_UNAVAILABLE,
+  carStatuses,
 } from "@/constants/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import { updateCarStatus } from "@/api/axios/cars";
@@ -24,33 +24,6 @@ interface Props {
   id: number;
   status: number;
 }
-
-const statuses = [
-  {
-    label: "Available",
-    value: CAR_STATUS_AVAILABLE,
-  },
-  {
-    label: "Booked",
-    value: CAR_STATUS_BOOKED,
-  },
-  {
-    label: "Rented",
-    value: CAR_STATUS_RENTED,
-  },
-  {
-    label: "Sold",
-    value: CAR_STATUS_SOLD,
-  },
-  {
-    label: "Maintenance",
-    value: CAR_STATUS_MAINTENANCE,
-  },
-  {
-    label: "Unavailable",
-    value: CAR_STATUS_UNAVAILABLE,
-  },
-];
 
 const Status = ({ status }: Props) => {
   if (status == CAR_STATUS_UNAVAILABLE)
@@ -146,7 +119,7 @@ const CarStatus = ({ id, status }: Props) => {
           value={selectedStatus}
           onChange={(e) => setSelectedStatus(parseNumber(e.target.value))}
         >
-          {statuses.map((saleStatus) => (
+          {carStatuses.map((saleStatus) => (
             <option key={saleStatus.value} value={saleStatus.value}>
               {saleStatus.label}
             </option>

@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 
-import { CONTACT_ROUTE } from "@/constants/routes";
+import { BUY_ROUTE, CONTACT_ROUTE } from "@/constants/routes";
 import { SaleCarWithDetails } from "@/lib/types/saleCar.types";
 import Button from "@/components/Button";
 import OutlinedButton from "@/components/OutlinedButton";
@@ -99,7 +99,11 @@ const BuyCard = (props: SaleCarWithDetails) => {
           </div>
         )}
         <div className="flex space-x-3">
-          <Button size="md" href={`/${props.id}`} className="flex-1">
+          <Button
+            size="md"
+            href={`${BUY_ROUTE}/${props.id}`}
+            className="flex-1"
+          >
             View Details
           </Button>
           <OutlinedButton href={CONTACT_ROUTE} size="md">

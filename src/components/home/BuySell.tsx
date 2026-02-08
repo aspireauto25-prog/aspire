@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 
-import { BUY_ROUTE, RENT_ROUTE, SELL_ROUTE } from "@/constants/routes";
+import { BUY_CAR_ROUTE, RENT_ROUTE, SELL_CAR_ROUTE } from "@/constants/routes";
 import Button from "../Button";
 import OutlinedButton from "../OutlinedButton";
 
@@ -215,10 +215,10 @@ const BuySell = () => {
         {/* CTA Buttons */}
         <div className="text-center mt-16">
           <div className="inline-flex flex-col sm:flex-row gap-6">
-            <Button href={BUY_ROUTE}>
+            <Button href={BUY_CAR_ROUTE}>
               <FaCar /> Browse All Cars for Sale
             </Button>
-            <OutlinedButton href={SELL_ROUTE}>
+            <OutlinedButton href={SELL_CAR_ROUTE}>
               <FaTag /> Start Selling Your Car
             </OutlinedButton>
           </div>

@@ -5,7 +5,7 @@ import { Params } from "next/dist/server/request/params";
 import { carData } from "@/data/carDetails";
 import { carStatuses } from "@/constants/cars";
 import { CONTACT_ROUTE } from "@/constants/routes";
-import { getRentalCarById } from "@/api/rentalCars";
+import { getSaleCarById } from "@/api/saleCars";
 import Button from "@/components/Button";
 import CarImagePreview from "@/components/car/ImagePreview";
 import RentDetailsBreadCrumb from "@/components/rent/details/BreadCrumb";
@@ -17,7 +17,7 @@ interface Props {
 const CarDetailsPage = async ({ params }: Props) => {
   const id = (await params)?.id;
 
-  const car = await getRentalCarById(id as string);
+  const car = await getSaleCarById(id as string);
 
   const carName = `${car.brand} ${car.model} ${car.variant}`;
 
@@ -121,7 +121,7 @@ const CarDetailsPage = async ({ params }: Props) => {
             <div className="space-y-8">
               {/* Car Info Card */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right">
-                <div className="flex justify-between items-start mb-4 gap-2">
+                <div className="flex justify-between items-start mb-4 gap-4">
                   <div>
                     <h1 className="text-3xl font-bold mb-2">{carName}</h1>
                     <p
@@ -130,30 +130,16 @@ const CarDetailsPage = async ({ params }: Props) => {
                     >
                       {car.category}
                     </p>
-                    {/* <div className="flex items-center mb-4">
-                      <div
-                        id="car-rating"
-                        className="text-2xl font-bold mr-2 flex items-center gap-2"
-                      >
-                        {carData.rating}
-                        <FaStar className="text-yellow-400 text-3xl" />
-                      </div>
-                      <span
-                        id="car-review-count"
-                        className="text-gray-600 dark:text-gray-400"
-                      >
-                        ({carData.reviewCount} reviews)
-                      </span>
-                    </div> */}
                   </div>
                   <div className="text-right">
                     <div className="text-4xl font-bold text-primary mb-2">
-                      ${car.daily_rate}
-                      <span className="text-lg">/day</span>
+                      $
+                      {(
+                        car.full_price - (car.discount_price ?? 0)
+                      ).toLocaleString()}
                     </div>
-                    <div className="text-gray-600 dark:text-gray-400">
-                      ${car.weekly_rate}
-                      <span className="text-xs">/week</span>
+                    <div className="text-gray-600 dark:text-gray-400 line-through">
+                      ${car.full_price.toLocaleString()}
                     </div>
                   </div>
                 </div>
@@ -176,10 +162,10 @@ const CarDetailsPage = async ({ params }: Props) => {
                   </div>
                   <div className="text-center bg-gray-100 dark:bg-gray-900 p-3 rounded-xl">
                     <div className="text-gray-600 dark:text-gray-400 mb-1">
-                      Monthly rate
+                      Condition
                     </div>
                     <div id="car-condition" className="font-bold text-lg">
-                      {car.monthly_rate ? `$${car.monthly_rate}/month` : "-"}
+                      Excellent
                     </div>
                   </div>
                   <div className="text-center bg-gray-100 dark:bg-gray-900 p-3 rounded-xl">
@@ -203,10 +189,10 @@ const CarDetailsPage = async ({ params }: Props) => {
                 className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
                 style={{ animationDelay: "0.1s" }}
               >
-                <h3 className="text-2xl font-bold mb-6">Book This Car</h3>
+                <h3 className="text-2xl font-bold mb-6">Buy This Car</h3>
                 <div className="space-y-4">
                   <Button href={CONTACT_ROUTE}>
-                    <FaLock /> Book Now
+                    <FaLock /> Buy Now
                   </Button>
                 </div>
               </div>
