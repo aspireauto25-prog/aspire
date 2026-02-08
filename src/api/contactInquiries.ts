@@ -1,10 +1,10 @@
 import { cookies } from "next/headers";
 import type { SearchParams } from "next/dist/server/request/search-params";
 
-import { getFormattedQuery } from "@/utils/queryFormatter";
-import { ContactInquiry, PaginatedInquiries } from "@/lib/types/contact.types";
-import config from "@/config";
 import { AppError } from "@/helpers/errorNormalization";
+import { ContactInquiry, PaginatedInquiries } from "@/lib/types/contact.types";
+import { getFormattedQuery } from "@/utils/queryFormatter";
+import config from "@/config";
 
 export const getContactInquiries = async (
   searchParams?: SearchParams,
@@ -51,7 +51,6 @@ export const getContactInquiriesCount = async (): Promise<{
   pendingCount: number;
 }> => {
   const url = `${config.apiUrl}/api/contact-inquiries/count`;
-
 
   const res = await fetch(url, {
     cache: "no-store",
