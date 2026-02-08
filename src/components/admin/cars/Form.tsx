@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { ADMIN_CARS_LIST_ROUTE, ADMIN_CARS_ROUTE } from "@/constants/routes";
+import { AppError } from "@/helpers/errorNormalization";
 import { Car } from "@/lib/types/car.types";
 import {
   carConditions,
@@ -28,6 +29,7 @@ import {
 import { createCar, uploadCarImages } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
+import ErrorModal from "@/components/Error";
 import ImageUploader from "@/components/ImageUploader";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -130,7 +132,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
       mode == "create" &&
       (!featuredImageUrl || featuredImageUrl.length == 0)
     ) {
-      throw { message: "Featured image is required." };
+      throw new AppError("Featured image is required.");
     }
 
     const response = await createCar({
@@ -168,7 +170,12 @@ const CarForm = ({ car, mode = "create" }: Props) => {
     }
 
     if (error) {
-      toast.error("Car save failed. Please try again.");
+      toast.error(
+        <ErrorModal defaultError="Car save failed!" error={error} />,
+        {
+          icon: false,
+        },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);

@@ -20,32 +20,38 @@ export const POST = async (req: Request) => {
       .from("users")
       .select("*")
       .eq("email", input.email)
-      .single();
+      .maybeSingle();
 
     if (error) {
       return Response.json({ error }, { status: 500 });
     }
 
     if (!data) {
-      return Response.json({ error: "Invalid credentials" }, { status: 401 });
+      return Response.json(
+        { message: "Invalid credentials." },
+        { status: 401 },
+      );
     }
 
     const isPasswordValid = bcrypt.compareSync(input.password, data?.password);
 
     if (!isPasswordValid) {
-      return Response.json({ error: "Invalid credentials" }, { status: 401 });
+      return Response.json(
+        { message: "Invalid credentials." },
+        { status: 401 },
+      );
     }
 
     if (data.status == USER_STATUS_INACTIVE) {
       return Response.json(
-        { error: "User account is inactive." },
+        { message: "User account is inactive." },
         { status: 403 },
       );
     }
 
     if (data.status == USER_STATUS_BLOCKED) {
       return Response.json(
-        { error: "User account is blocked." },
+        { message: "User account is blocked." },
         { status: 403 },
       );
     }

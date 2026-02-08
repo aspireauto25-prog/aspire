@@ -9,7 +9,7 @@ interface Props {
 
 const ErrorModal = ({ defaultError, error }: Props) => {
   return (
-    <div>
+    <div className="flex flex-col w-full">
       <div className="text-red-500 mb-2 flex items-center gap-2">
         <FaExclamationCircle className="text-xl" />
         {defaultError ?? "Something went wrong!"}
