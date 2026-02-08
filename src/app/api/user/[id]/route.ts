@@ -18,19 +18,19 @@ export const PUT = async (req: Request, { params }: Params) => {
   const authToken = (await cookies()).get(TOKEN)?.value;
 
   if (!authToken) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
   }
 
   const authUser = (await verifyJWT(authToken).catch((error) => error)) as User;
 
   if (authUser?.role !== USER_ROLE_ADMIN && authUser.id != id) {
-    return Response.json({ error: "Forbidden" }, { status: 403 });
+    return Response.json({ message: "Forbidden" }, { status: 403 });
   }
 
   const body = await req.json();
 
   if (!id) {
-    return Response.json({ error: "User ID is required" }, { status: 400 });
+    return Response.json({ message: "User ID is required" }, { status: 400 });
   }
 
   const input = { updated_at: new Date().toISOString() } as User;
@@ -47,7 +47,7 @@ export const PUT = async (req: Request, { params }: Params) => {
     .select()
     .single();
 
-  if (error) return Response.json({ error }, { status: 500 });
+  if (error) return Response.json({ message: error.message }, { status: 500 });
 
   delete data.password;
 

@@ -12,24 +12,20 @@ export const POST = async (req: Request) => {
   const folder = formData.get("folder") as string;
 
   if (!files || files.length === 0) {
-    return Response.json({ error: "No file uploaded." }, { status: 400 });
+    return Response.json({ message: "No file uploaded." }, { status: 400 });
   }
 
   // Validate all files
   for (const file of files) {
     if (!ALLOWED_TYPES.includes(file.type)) {
       return Response.json(
-        { error: "Only image files are allowed." },
-        { status: 400 }
+        { message: "Only image files are allowed." },
+        { status: 400 },
       );
     }
   }
 
-  try {
-    const uploadedFiles = await uploadFile(files, folder);
+  const uploadedFiles = await uploadFile(files, folder);
 
-    return Response.json(uploadedFiles, { status: 201 });
-  } catch (error) {
-    return Response.json({ error }, { status: 500 });
-  }
+  return Response.json(uploadedFiles, { status: 201 });
 };

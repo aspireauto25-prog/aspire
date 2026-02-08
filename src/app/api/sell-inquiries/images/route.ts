@@ -20,16 +20,17 @@ export async function POST(request: Request) {
       .insert(inputImages)
       .select();
 
-    if (error) return Response.json({ error: error.message }, { status: 500 });
+    if (error)
+      return Response.json({ message: error.message }, { status: 500 });
 
     return Response.json(data, { status: 201 });
   } catch (error) {
     if (error instanceof ZodError) {
-      const formattedErrors = formatZodErrors(error);
+      const fieldErrors = formatZodErrors(error);
 
-      return Response.json(formattedErrors, { status: 400 });
+      return Response.json({ fieldErrors }, { status: 400 });
     }
 
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    return Response.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }
