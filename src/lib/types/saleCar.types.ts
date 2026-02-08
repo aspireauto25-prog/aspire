@@ -11,6 +11,7 @@ export interface SaleCarWithDetails extends SaleCar {
   category: string;
   chassis_number: string;
   color?: string;
+  condition?: string;
   created_at: number;
   description?: string;
   drive_type: string;

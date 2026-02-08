@@ -165,7 +165,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                       Condition
                     </div>
                     <div id="car-condition" className="font-bold text-lg">
-                      Excellent
+                      {car.condition ?? "-"}
                     </div>
                   </div>
                   <div className="text-center bg-gray-100 dark:bg-gray-900 p-3 rounded-xl">

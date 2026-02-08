@@ -11,6 +11,7 @@ export const carSchema = z.object({
     .trim()
     .min(2, "Chassis number is too short."),
   color: z.string().trim().optional(),
+  condition: z.string().trim().optional(),
   description: z.string().optional(),
   drive_type: z.string().trim().optional(),
   engine_capacity: z.number().optional(),

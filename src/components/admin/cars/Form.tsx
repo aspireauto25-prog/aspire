@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { ADMIN_CARS_LIST_ROUTE, ADMIN_CARS_ROUTE } from "@/constants/routes";
 import { Car } from "@/lib/types/car.types";
 import {
+  carConditions,
   categories,
   comfortFeatures,
   driveTypes,
@@ -36,6 +37,7 @@ export interface FormInput {
   category?: string;
   chassis_number: string;
   color?: string;
+  condition?: string;
   description?: string;
   drive_type: string;
   engine_capacity?: string;
@@ -70,6 +72,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
         category: car?.category ?? "",
         chassis_number: car?.chassis_number ?? "",
         color: car?.color ?? "",
+        condition: car?.condition ?? "",
         description: car?.description ?? "",
         drive_type: car?.drive_type ?? "",
         engine_capacity: car?.engine_capacity?.toString() ?? "",
@@ -191,10 +194,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
             </div>
 
             {mode == "view" && (
-              <Button
-                href={`${ADMIN_CARS_ROUTE}/${car?.id}/edit`}
-                size="sm"
-              >
+              <Button href={`${ADMIN_CARS_ROUTE}/${car?.id}/edit`} size="sm">
                 <FaPencilAlt /> Edit
               </Button>
             )}
@@ -568,6 +568,27 @@ const CarForm = ({ car, mode = "create" }: Props) => {
                 disabled={mode == "view"}
                 {...register("color")}
               />
+            </div>
+            <div>
+              <label
+                htmlFor="condition"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
+                Condition
+              </label>
+              <select
+                id="condition"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
+                disabled={mode == "view"}
+                {...register("condition")}
+              >
+                <option value="">Select Car Condition</option>
+                {carConditions.map((condition) => (
+                  <option key={condition} value={condition}>
+                    {condition}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>

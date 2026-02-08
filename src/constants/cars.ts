@@ -105,3 +105,5 @@ export const carStatuses = [
     value: CAR_STATUS_UNAVAILABLE,
   },
 ];
+
+export const carConditions = ["Excellent", "Very Good", "Good", "Fair", "Poor"];
