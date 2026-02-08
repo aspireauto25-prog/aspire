@@ -16,6 +16,7 @@ import {
 import { parseNumber } from "@/utils/inputFormatter";
 import { updateCarStatus } from "@/api/axios/cars";
 import Button from "@/components/Button";
+import ErrorModal from "@/components/Error";
 import Modal from "@/components/Modal";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -90,7 +91,10 @@ const CarStatus = ({ id, status }: Props) => {
     }
 
     if (error) {
-      toast.error("Status update failed.");
+      toast.error(
+        <ErrorModal defaultError="Status update failed!" error={error} />,
+        { icon: false },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);

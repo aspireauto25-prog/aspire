@@ -16,6 +16,7 @@ import Button from "@/components/Button";
 import ImageUploader from "@/components/ImageUploader";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
+import ErrorModal from "@/components/Error";
 
 export interface FormInput {
   brand: string;
@@ -62,7 +63,10 @@ const SellForm = () => {
     }
 
     if (error) {
-      toast.error("Sell inquiry failed. Please try again.");
+      toast.error(
+        <ErrorModal defaultError="Sell inquiry failed!" error={error} />,
+        { icon: false },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);

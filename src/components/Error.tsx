@@ -18,7 +18,7 @@ const ErrorModal = ({ defaultError, error }: Props) => {
       </div>
       <div className="bg-red-50 p-4 rounded-lg">
         <p className="text-sm text-gray-600 mb-2">Error Details:</p>
-        <p id="errorDetailsText" className="text-sm font-mono">
+        <div className="text-sm font-mono">
           {normalizedError.message}
 
           {normalizedError.fieldErrors &&
@@ -29,7 +29,7 @@ const ErrorModal = ({ defaultError, error }: Props) => {
                 </div>
               ),
             )}
-        </p>
+        </div>
       </div>
     </div>
   );

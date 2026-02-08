@@ -9,6 +9,7 @@ import { ContactInquiry } from "@/lib/types/contact.types";
 import { sendContactInquiry } from "@/api/axios/contactInquiries";
 import { subjects } from "@/constants/contact";
 import Button from "../Button";
+import ErrorModal from "../Error";
 import useRequest from "@/hooks/useRequest";
 
 interface FormData {
@@ -34,7 +35,10 @@ const ContactForm = () => {
     }
 
     if (error) {
-      toast.error("Failed to send message.");
+      toast.error(
+        <ErrorModal defaultError="Failed to send message!" error={error} />,
+        { icon: false },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);
