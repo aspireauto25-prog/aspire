@@ -12,7 +12,7 @@ import {
 } from "@/constants/sellInquiries";
 import { updateSellInquiryStatus } from "@/api/axios/sellInquiries";
 import Button from "@/components/Button";
-import ErrorModal from "@/components/Error";
+import ErrorComponent from "@/components/ErrorComponent";
 import Modal from "@/components/Modal";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -73,7 +73,7 @@ const SellInquiryStatus = ({ id, status }: Props) => {
 
     if (error) {
       toast.error(
-        <ErrorModal defaultError="Status update failed!" error={error} />,
+        <ErrorComponent defaultError="Status update failed!" error={error} />,
         { icon: false },
       );
     }

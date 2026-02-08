@@ -16,7 +16,7 @@ import Button from "@/components/Button";
 import ImageUploader from "@/components/ImageUploader";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
-import ErrorModal from "@/components/Error";
+import ErrorComponent from "@/components/ErrorComponent";
 
 export interface FormInput {
   brand: string;
@@ -64,7 +64,7 @@ const SellForm = () => {
 
     if (error) {
       toast.error(
-        <ErrorModal defaultError="Sell inquiry failed!" error={error} />,
+        <ErrorComponent defaultError="Sell inquiry failed!" error={error} />,
         { icon: false },
       );
     }

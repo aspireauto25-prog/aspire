@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { changePassword } from "@/api/axios/auth";
 import Button from "@/components/Button";
-import ErrorModal from "@/components/Error";
+import ErrorComponent from "@/components/ErrorComponent";
 import PasswordInput from "@/components/PasswordInput";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -41,7 +41,7 @@ const ChangePasswordForm = ({ id }: Props) => {
 
     if (error) {
       toast.error(
-        <ErrorModal defaultError="Password update failed!" error={error} />,
+        <ErrorComponent defaultError="Password update failed!" error={error} />,
         { icon: false },
       );
     }

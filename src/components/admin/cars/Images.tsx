@@ -9,7 +9,7 @@ import Image from "next/image";
 import { CarImage } from "@/lib/types/car.types";
 import { deleteCarImage } from "@/api/axios/carImages";
 import Modal from "@/components/Modal";
-import ErrorModal from "@/components/Error";
+import ErrorComponent from "@/components/ErrorComponent";
 
 interface Props {
   carImages: CarImage[];
@@ -33,7 +33,7 @@ const CarImages = ({ carImages }: Props) => {
         })
         .catch((error) => {
           toast.error(
-            <ErrorModal defaultError="Image delete failed!" error={error} />,
+            <ErrorComponent defaultError="Image delete failed!" error={error} />,
             { icon: false },
           );
         });

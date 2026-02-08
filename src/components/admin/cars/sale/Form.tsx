@@ -12,7 +12,7 @@ import { createSaleCar, updateSaleCar } from "@/api/axios/saleCars";
 import { parseNumber } from "@/utils/inputFormatter";
 import { SaleCarWithDetails } from "@/lib/types/saleCar.types";
 import Button from "@/components/Button";
-import ErrorModal from "@/components/Error";
+import ErrorComponent from "@/components/ErrorComponent";
 import SelectCar from "./SelectCar";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -75,7 +75,7 @@ const SaleCarForm = ({ saleCar, mode = "create" }: Props) => {
 
     if (error) {
       toast.error(
-        <ErrorModal defaultError="Sale car save failed!" error={error} />,
+        <ErrorComponent defaultError="Sale car save failed!" error={error} />,
         { icon: false },
       );
     }

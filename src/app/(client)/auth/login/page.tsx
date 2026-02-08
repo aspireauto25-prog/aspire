@@ -9,7 +9,7 @@ import { AppDispatch } from "@/redux/store";
 import { login } from "@/api/axios/auth";
 import { setUser } from "@/redux/auth/authSlice";
 import Button from "@/components/Button";
-import ErrorModal from "@/components/Error";
+import ErrorComponent from "@/components/ErrorComponent";
 import Hero from "@/components/Hero";
 import Logo from "@/components/Logo";
 import PasswordInput from "@/components/PasswordInput";
@@ -40,7 +40,7 @@ const LoginPage = () => {
     }
 
     if (error) {
-      toast.error(<ErrorModal defaultError="Login failed!" error={error} />, {
+      toast.error(<ErrorComponent defaultError="Login failed!" error={error} />, {
         icon: false,
       });
     }

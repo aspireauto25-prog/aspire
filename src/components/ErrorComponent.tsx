@@ -7,7 +7,7 @@ interface Props {
   error: AppError;
 }
 
-const ErrorModal = ({ defaultError, error }: Props) => {
+const ErrorComponent = ({ defaultError, error }: Props) => {
   const normalizedError = normalizeError(error);
 
   return (
@@ -19,7 +19,7 @@ const ErrorModal = ({ defaultError, error }: Props) => {
       <div className="bg-red-50 p-4 rounded-lg">
         <p className="text-sm text-gray-600 mb-2">Error Details:</p>
         <div className="text-sm font-mono">
-          {normalizedError.message}
+          <h5>{normalizedError.message}</h5>
 
           {normalizedError.fieldErrors &&
             Object.entries(normalizedError.fieldErrors).map(
@@ -35,4 +35,4 @@ const ErrorModal = ({ defaultError, error }: Props) => {
   );
 };
 
-export default ErrorModal;
+export default ErrorComponent;

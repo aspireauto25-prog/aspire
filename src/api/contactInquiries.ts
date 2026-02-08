@@ -4,6 +4,7 @@ import type { SearchParams } from "next/dist/server/request/search-params";
 import { getFormattedQuery } from "@/utils/queryFormatter";
 import { ContactInquiry, PaginatedInquiries } from "@/lib/types/contact.types";
 import config from "@/config";
+import { AppError } from "@/helpers/errorNormalization";
 
 export const getContactInquiries = async (
   searchParams?: SearchParams,
@@ -20,7 +21,7 @@ export const getContactInquiries = async (
   });
 
   if (!res.ok) {
-    throw new Error(res.statusText);
+    throw new AppError(res.statusText);
   }
 
   return res.json();

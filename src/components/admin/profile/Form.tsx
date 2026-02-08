@@ -10,7 +10,7 @@ import { updateUser } from "@/redux/auth/authSlice";
 import { updateUser as updateUserProfile } from "@/api/axios/user";
 import { User } from "@/lib/types/user.types";
 import Button from "@/components/Button";
-import ErrorModal from "@/components/Error";
+import ErrorComponent from "@/components/ErrorComponent";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
 
@@ -38,7 +38,7 @@ const ProfileForm = ({ user }: Props) => {
 
     if (error) {
       toast.error(
-        <ErrorModal defaultError="Profile update failed!" error={error} />,
+        <ErrorComponent defaultError="Profile update failed!" error={error} />,
         { icon: false },
       );
     }

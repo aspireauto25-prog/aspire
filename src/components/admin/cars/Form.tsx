@@ -29,7 +29,7 @@ import {
 import { createCar, uploadCarImages } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
-import ErrorModal from "@/components/Error";
+import ErrorComponent from "@/components/ErrorComponent";
 import ImageUploader from "@/components/ImageUploader";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -171,7 +171,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
 
     if (error) {
       toast.error(
-        <ErrorModal defaultError="Car save failed!" error={error} />,
+        <ErrorComponent defaultError="Car save failed!" error={error} />,
         {
           icon: false,
         },

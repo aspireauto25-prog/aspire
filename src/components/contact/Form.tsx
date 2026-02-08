@@ -9,7 +9,7 @@ import { ContactInquiry } from "@/lib/types/contact.types";
 import { sendContactInquiry } from "@/api/axios/contactInquiries";
 import { subjects } from "@/constants/contact";
 import Button from "../Button";
-import ErrorModal from "../Error";
+import ErrorComponent from "../ErrorComponent";
 import useRequest from "@/hooks/useRequest";
 
 interface FormData {
@@ -36,7 +36,7 @@ const ContactForm = () => {
 
     if (error) {
       toast.error(
-        <ErrorModal defaultError="Failed to send message!" error={error} />,
+        <ErrorComponent defaultError="Failed to send message!" error={error} />,
         { icon: false },
       );
     }
