@@ -1,23 +1,27 @@
+import { ButtonHTMLAttributes } from "react";
+import Link from "next/link";
+
 import {
   getOutlinedStylesByTheme,
   getStylesBySize,
 } from "@/helpers/buttonStyles";
-import { ButtonHTMLAttributes } from "react";
 
 interface Props {
   children: React.ReactNode;
   className?: string;
+  href?: string;
   onClick?: () => void;
+  props?: ButtonHTMLAttributes<HTMLButtonElement>;
   rounded?: boolean;
   size?: "sm" | "md" | "lg" | "xl";
   theme?: "primary" | "light" | "dark";
   type?: "submit" | "reset" | "button";
-  props?: ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 const OutlinedButton = ({
   children,
   className = "",
+  href,
   onClick,
   rounded = false,
   size = "lg",
@@ -34,6 +38,13 @@ const OutlinedButton = ({
     ? "opacity-70 cursor-not-allowed "
     : "cursor-pointer ";
   btnClass += className;
+
+  if (href)
+    return (
+      <Link href={href} className={btnClass}>
+        {children}
+      </Link>
+    );
 
   return (
     <button onClick={onClick} type={type} className={btnClass} {...props}>

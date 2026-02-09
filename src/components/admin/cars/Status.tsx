@@ -6,16 +6,17 @@ import { FaCar, FaSave } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 import {
-  CAR_STATUS_AVAILABLE,
   CAR_STATUS_BOOKED,
   CAR_STATUS_MAINTENANCE,
   CAR_STATUS_RENTED,
   CAR_STATUS_SOLD,
   CAR_STATUS_UNAVAILABLE,
+  carStatuses,
 } from "@/constants/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import { updateCarStatus } from "@/api/axios/cars";
 import Button from "@/components/Button";
+import ErrorComponent from "@/components/ErrorComponent";
 import Modal from "@/components/Modal";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -24,33 +25,6 @@ interface Props {
   id: number;
   status: number;
 }
-
-const statuses = [
-  {
-    label: "Available",
-    value: CAR_STATUS_AVAILABLE,
-  },
-  {
-    label: "Booked",
-    value: CAR_STATUS_BOOKED,
-  },
-  {
-    label: "Rented",
-    value: CAR_STATUS_RENTED,
-  },
-  {
-    label: "Sold",
-    value: CAR_STATUS_SOLD,
-  },
-  {
-    label: "Maintenance",
-    value: CAR_STATUS_MAINTENANCE,
-  },
-  {
-    label: "Unavailable",
-    value: CAR_STATUS_UNAVAILABLE,
-  },
-];
 
 const Status = ({ status }: Props) => {
   if (status == CAR_STATUS_UNAVAILABLE)
@@ -117,7 +91,10 @@ const CarStatus = ({ id, status }: Props) => {
     }
 
     if (error) {
-      toast.error("Status update failed.");
+      toast.error(
+        <ErrorComponent defaultError="Status update failed!" error={error} />,
+        { icon: false },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);
@@ -146,7 +123,7 @@ const CarStatus = ({ id, status }: Props) => {
           value={selectedStatus}
           onChange={(e) => setSelectedStatus(parseNumber(e.target.value))}
         >
-          {statuses.map((saleStatus) => (
+          {carStatuses.map((saleStatus) => (
             <option key={saleStatus.value} value={saleStatus.value}>
               {saleStatus.label}
             </option>

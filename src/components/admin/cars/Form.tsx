@@ -14,8 +14,10 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { ADMIN_CARS_LIST_ROUTE, ADMIN_CARS_ROUTE } from "@/constants/routes";
+import { AppError } from "@/helpers/errorNormalization";
 import { Car } from "@/lib/types/car.types";
 import {
+  carConditions,
   categories,
   comfortFeatures,
   driveTypes,
@@ -27,8 +29,8 @@ import {
 import { createCar, uploadCarImages } from "@/api/axios/cars";
 import { parseNumber } from "@/utils/inputFormatter";
 import Button from "@/components/Button";
+import ErrorComponent from "@/components/ErrorComponent";
 import ImageUploader from "@/components/ImageUploader";
-import LinkButton from "@/components/LinkButton";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
 
@@ -37,6 +39,7 @@ export interface FormInput {
   category?: string;
   chassis_number: string;
   color?: string;
+  condition?: string;
   description?: string;
   drive_type: string;
   engine_capacity?: string;
@@ -71,6 +74,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
         category: car?.category ?? "",
         chassis_number: car?.chassis_number ?? "",
         color: car?.color ?? "",
+        condition: car?.condition ?? "",
         description: car?.description ?? "",
         drive_type: car?.drive_type ?? "",
         engine_capacity: car?.engine_capacity?.toString() ?? "",
@@ -128,7 +132,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
       mode == "create" &&
       (!featuredImageUrl || featuredImageUrl.length == 0)
     ) {
-      throw { message: "Featured image is required." };
+      throw new AppError("Featured image is required.");
     }
 
     const response = await createCar({
@@ -166,7 +170,12 @@ const CarForm = ({ car, mode = "create" }: Props) => {
     }
 
     if (error) {
-      toast.error("Car save failed. Please try again.");
+      toast.error(
+        <ErrorComponent defaultError="Car save failed!" error={error} />,
+        {
+          icon: false,
+        },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);
@@ -192,12 +201,9 @@ const CarForm = ({ car, mode = "create" }: Props) => {
             </div>
 
             {mode == "view" && (
-              <LinkButton
-                href={`${ADMIN_CARS_ROUTE}/${car?.id}/edit`}
-                size="sm"
-              >
+              <Button href={`${ADMIN_CARS_ROUTE}/${car?.id}/edit`} size="sm">
                 <FaPencilAlt /> Edit
-              </LinkButton>
+              </Button>
             )}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -570,6 +576,27 @@ const CarForm = ({ car, mode = "create" }: Props) => {
                 {...register("color")}
               />
             </div>
+            <div>
+              <label
+                htmlFor="condition"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
+                Condition
+              </label>
+              <select
+                id="condition"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
+                disabled={mode == "view"}
+                {...register("condition")}
+              >
+                <option value="">Select Car Condition</option>
+                {carConditions.map((condition) => (
+                  <option key={condition} value={condition}>
+                    {condition}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
         {/* Features & Equipment Section */}
@@ -693,53 +720,53 @@ const CarForm = ({ car, mode = "create" }: Props) => {
           </div>
         </div>
         {/* Media & Images Section */}
-        <div className="form-section p-6 border-b border-gray-100 dark:border-gray-700">
-          <div className="flex items-center mb-6">
-            <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
-              <FaImages />
+        {mode != "view" && (
+          <div className="form-section p-6 border-b border-gray-100 dark:border-gray-700">
+            <div className="flex items-center mb-6">
+              <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
+                <FaImages />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+                  Media &amp; Images
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  Upload photos of the car
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-                Media &amp; Images
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Upload photos of the car
+            {/* Featured Image */}
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Featured Image *
+              </label>
+              <p className="text-sm text-gray-500 mb-4">
+                This will be the main image displayed for the car
               </p>
+              <ImageUploader
+                folder="cars"
+                id="featuredImage"
+                setImageUrls={setFeaturedImageUrl}
+              />
+            </div>
+
+            {/* Additional Images */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Additional Images
+              </label>
+              <p className="text-sm text-gray-500 mb-4">
+                Upload multiple images showing different angles and features
+              </p>
+              <ImageUploader
+                folder="cars"
+                id="otherImages"
+                multiple={true}
+                setImageUrls={setOtherImageUrls}
+              />
             </div>
           </div>
-          {/* Featured Image */}
-          <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Featured Image *
-            </label>
-            <p className="text-sm text-gray-500 mb-4">
-              This will be the main image displayed for the car
-            </p>
-            <ImageUploader
-              disabled={mode == "view"}
-              folder="cars"
-              id="featuredImage"
-              setImageUrls={setFeaturedImageUrl}
-            />
-          </div>
-
-          {/* Additional Images */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Additional Images
-            </label>
-            <p className="text-sm text-gray-500 mb-4">
-              Upload multiple images showing different angles and features
-            </p>
-            <ImageUploader
-              disabled={mode == "view"}
-              folder="cars"
-              id="otherImages"
-              multiple={true}
-              setImageUrls={setOtherImageUrls}
-            />
-          </div>
-        </div>
+        )}
         {/* Form Actions */}
         <div className="p-6">
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { changePassword } from "@/api/axios/auth";
 import Button from "@/components/Button";
+import ErrorComponent from "@/components/ErrorComponent";
 import PasswordInput from "@/components/PasswordInput";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -30,7 +31,7 @@ const ChangePasswordForm = ({ id }: Props) => {
   const newPassword = watch("newPassword");
 
   const { error, loading, run, success } = useRequest((data) =>
-    changePassword({ id, ...(data as Record<string, unknown>) })
+    changePassword({ id, ...(data as Record<string, unknown>) }),
   );
 
   useEffect(() => {
@@ -39,7 +40,10 @@ const ChangePasswordForm = ({ id }: Props) => {
     }
 
     if (error) {
-      toast.error("Password update failed. Please try again.");
+      toast.error(
+        <ErrorComponent defaultError="Password update failed!" error={error} />,
+        { icon: false },
+      );
     }
   }, [success, error]);
 

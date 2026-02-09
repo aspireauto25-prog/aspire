@@ -1,8 +1,9 @@
 import { cookies } from "next/headers";
 import type { SearchParams } from "next/dist/server/request/search-params";
 
-import { getFormattedQuery } from "@/utils/queryFormatter";
+import { AppError } from "@/helpers/errorNormalization";
 import { ContactInquiry, PaginatedInquiries } from "@/lib/types/contact.types";
+import { getFormattedQuery } from "@/utils/queryFormatter";
 import config from "@/config";
 
 export const getContactInquiries = async (
@@ -20,7 +21,7 @@ export const getContactInquiries = async (
   });
 
   if (!res.ok) {
-    throw new Error(res.statusText);
+    throw new AppError(res.statusText);
   }
 
   return res.json();
@@ -50,7 +51,6 @@ export const getContactInquiriesCount = async (): Promise<{
   pendingCount: number;
 }> => {
   const url = `${config.apiUrl}/api/contact-inquiries/count`;
-
 
   const res = await fetch(url, {
     cache: "no-store",

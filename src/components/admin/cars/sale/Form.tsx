@@ -7,14 +7,15 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { ADMIN_CAR_SELL_ROUTE } from "@/constants/routes";
+import { AppError } from "@/helpers/errorNormalization";
 import { createSaleCar, updateSaleCar } from "@/api/axios/saleCars";
 import { parseNumber } from "@/utils/inputFormatter";
 import { SaleCarWithDetails } from "@/lib/types/saleCar.types";
 import Button from "@/components/Button";
+import ErrorComponent from "@/components/ErrorComponent";
 import SelectCar from "./SelectCar";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
-import LinkButton from "@/components/LinkButton";
 
 interface FormInput {
   car_id: string;
@@ -42,6 +43,10 @@ const SaleCarForm = ({ saleCar, mode = "create" }: Props) => {
   const discountPrice = parseNumber(watch("discount_price")) ?? 0;
 
   function upsertSaleCar(data: FormInput) {
+    if (fullPrice <= discountPrice) {
+      throw new AppError("Discount price must be less than full price.");
+    }
+
     const input = {
       car_id: parseNumber(data.car_id)!,
       full_price: parseNumber(data.full_price)!,
@@ -69,7 +74,10 @@ const SaleCarForm = ({ saleCar, mode = "create" }: Props) => {
     }
 
     if (error) {
-      toast.error("Sale car save failed. Please try again.");
+      toast.error(
+        <ErrorComponent defaultError="Sale car save failed!" error={error} />,
+        { icon: false },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);
@@ -92,12 +100,12 @@ const SaleCarForm = ({ saleCar, mode = "create" }: Props) => {
             </div>
           </div>
           {mode == "view" && (
-            <LinkButton
+            <Button
               href={`${ADMIN_CAR_SELL_ROUTE}/${saleCar?.id}/edit`}
               size="sm"
             >
               <FaPencilAlt /> Edit
-            </LinkButton>
+            </Button>
           )}
         </div>
       </div>

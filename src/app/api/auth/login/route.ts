@@ -19,44 +19,51 @@ export const POST = async (req: Request) => {
     const { data, error } = await supabase
       .from("users")
       .select("*")
-      .eq("email", input.email);
+      .eq("email", input.email)
+      .maybeSingle();
 
     if (error) {
-      return Response.json({ error }, { status: 500 });
+      return Response.json(
+        { message: "Error fetching user data." },
+        { status: 500 },
+      );
     }
 
-    if (data?.length == 0) {
-      return Response.json({ error: "Invalid credentials" }, { status: 401 });
+    if (!data) {
+      return Response.json(
+        { message: "Invalid credentials." },
+        { status: 401 },
+      );
     }
 
-    const isPasswordValid = bcrypt.compareSync(
-      input.password,
-      data[0]?.password
-    );
+    const isPasswordValid = bcrypt.compareSync(input.password, data?.password);
 
     if (!isPasswordValid) {
-      return Response.json({ error: "Invalid credentials" }, { status: 401 });
-    }
-
-    if (data[0].status == USER_STATUS_INACTIVE) {
       return Response.json(
-        { error: "User account is inactive." },
-        { status: 403 }
+        { message: "Invalid credentials." },
+        { status: 401 },
       );
     }
 
-    if (data[0].status == USER_STATUS_BLOCKED) {
+    if (data.status == USER_STATUS_INACTIVE) {
       return Response.json(
-        { error: "User account is blocked." },
-        { status: 403 }
+        { message: "User account is inactive." },
+        { status: 403 },
       );
     }
 
-    delete data[0].password;
+    if (data.status == USER_STATUS_BLOCKED) {
+      return Response.json(
+        { message: "User account is blocked." },
+        { status: 403 },
+      );
+    }
 
-    const token = createJWT(data[0]);
+    delete data.password;
 
-    const response = NextResponse.json({ user: data[0], token });
+    const token = createJWT(data);
+
+    const response = NextResponse.json({ user: data, token });
 
     response.cookies.set(TOKEN, token, {
       httpOnly: true,
@@ -69,11 +76,11 @@ export const POST = async (req: Request) => {
     return response;
   } catch (error) {
     if (error instanceof ZodError) {
-      const formattedErrors = formatZodErrors(error);
+      const fieldErrors = formatZodErrors(error);
 
-      return Response.json(formattedErrors, { status: 400 });
+      return Response.json({ fieldErrors }, { status: 400 });
     }
 
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    return Response.json({ message: "Internal Server Error" }, { status: 500 });
   }
 };

@@ -6,7 +6,7 @@ import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
 import ActionMenu from "@/components/ActionMenu";
 import CarStatus from "../Status";
 import DeleteAction from "./DeleteAction";
-import EmptyTable from "../../EmptyTable";
+import EmptyData from "../../../EmptyData";
 
 interface Props {
   rentalCars: RentalCarWithDetails[];
@@ -135,7 +135,7 @@ const Table = async ({ rentalCars }: Props) => {
           ))}
         </tbody>
       </table>
-      {rentalCars.length == 0 && <EmptyTable />}
+      {rentalCars.length == 0 && <EmptyData />}
     </div>
   );
 };

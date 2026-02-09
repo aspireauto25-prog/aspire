@@ -6,7 +6,7 @@ import { SaleCarWithDetails } from "@/lib/types/saleCar.types";
 import ActionMenu from "@/components/ActionMenu";
 import CarStatus from "../Status";
 import DeleteAction from "./DeleteAction";
-import EmptyTable from "../../EmptyTable";
+import EmptyData from "../../../EmptyData";
 
 interface Props {
   saleCars: SaleCarWithDetails[];
@@ -133,7 +133,7 @@ const Table = async ({ saleCars }: Props) => {
           ))}
         </tbody>
       </table>
-      {saleCars.length == 0 && <EmptyTable />}
+      {saleCars.length == 0 && <EmptyData />}
     </div>
   );
 };

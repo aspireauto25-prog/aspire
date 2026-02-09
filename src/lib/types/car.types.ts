@@ -11,6 +11,7 @@ export interface Car {
   category: string;
   chassis_number: string;
   color?: string;
+  condition?: string;
   description?: string;
   drive_type: string;
   engine_capacity?: number;

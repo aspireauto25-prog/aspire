@@ -1,7 +1,7 @@
 import { FaCalendarAlt } from "react-icons/fa";
 
 import { CONTACT_ROUTE } from "@/constants/routes";
-import LinkButton from "../LinkButton";
+import Button from "../Button";
 
 const CTA = () => {
   return (
@@ -15,14 +15,14 @@ const CTA = () => {
           world-renowned brands.
         </p>
         <div className="text-center">
-          <LinkButton
+          <Button
             href={CONTACT_ROUTE}
             rounded
             theme="light"
             className="hover:scale-105 mx-auto w-max"
           >
             <FaCalendarAlt /> Book Your Ride Now
-          </LinkButton>
+          </Button>
         </div>
       </div>
     </section>

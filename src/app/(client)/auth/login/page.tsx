@@ -1,18 +1,20 @@
 "use client";
 
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { AppDispatch } from "@/redux/store";
-import { loginUser } from "@/redux/auth/authActions";
-import { RootState } from "@/redux/rootReducer";
+import { login } from "@/api/axios/auth";
+import { setUser } from "@/redux/auth/authSlice";
 import Button from "@/components/Button";
+import ErrorComponent from "@/components/ErrorComponent";
 import Hero from "@/components/Hero";
 import Logo from "@/components/Logo";
 import PasswordInput from "@/components/PasswordInput";
 import Spinner from "@/components/Spinner";
+import useRequest from "@/hooks/useRequest";
 
 import heroBg from "@/assets/images/servicing-hero-bg.jpg";
 
@@ -24,19 +26,25 @@ interface LoginFormInputs {
 const LoginPage = () => {
   const { register, handleSubmit } = useForm<LoginFormInputs>();
 
-  const { loading, error } = useSelector((state: RootState) => state.auth);
+  const { data, error, loading, run, success } = useRequest((data) =>
+    login(data as LoginFormInputs),
+  );
 
   const dispatch = useDispatch<AppDispatch>();
 
-  function submitForm(data: LoginFormInputs) {
-    dispatch(loginUser(data));
-  }
-
   useEffect(() => {
-    if (error) {
-      toast.error("Login failed. Please check your credentials.");
+    if (success) {
+      toast.success("Login successful!");
+
+      dispatch(setUser(data?.data));
     }
-  }, [error]);
+
+    if (error) {
+      toast.error(<ErrorComponent defaultError="Login failed!" error={error} />, {
+        icon: false,
+      });
+    }
+  }, [data?.data, dispatch, error, success]);
 
   return (
     <>
@@ -61,7 +69,7 @@ const LoginPage = () => {
               </h1>
               <form
                 className="space-y-4 md:space-y-6"
-                onSubmit={handleSubmit(submitForm)}
+                onSubmit={handleSubmit(run)}
               >
                 <div>
                   <label
@@ -76,9 +84,7 @@ const LoginPage = () => {
                     className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-700 form-input focus:outline-none focus:border-primary pr-10"
                     placeholder="name@company.com"
                     required
-                    {...register("email", {
-                      required: "Email address is required.",
-                    })}
+                    {...register("email")}
                   />
                 </div>
                 <div>
@@ -88,12 +94,7 @@ const LoginPage = () => {
                   >
                     Password
                   </label>
-                  <PasswordInput
-                    required
-                    {...register("password", {
-                      required: "Password is required.",
-                    })}
-                  />
+                  <PasswordInput required {...register("password")} />
                 </div>
                 <Button
                   type="submit"

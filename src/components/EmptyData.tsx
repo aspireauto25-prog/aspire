@@ -3,9 +3,9 @@
 import { FaInbox } from "react-icons/fa";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import Button from "../Button";
+import Button from "./Button";
 
-const EmptyTable = () => {
+const EmptyData = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -38,4 +38,4 @@ const EmptyTable = () => {
   );
 };
 
-export default EmptyTable;
+export default EmptyData;

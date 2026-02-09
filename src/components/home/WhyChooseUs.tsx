@@ -36,10 +36,7 @@ const reasons = [
 
 const Card = ({ Icon, description, label }: Props) => {
   return (
-    <div
-      className="service-card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center"
-      style={{ animationDelay: "0.1s" }}
-    >
+    <div className="service-card bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg text-center delay-100">
       <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
         <Icon className="text-2xl text-primary" />
       </div>
@@ -62,7 +59,7 @@ const WhyChooseUs = () => {
             customer-first approach.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
           {reasons.map((reason, index) => (
             <Card key={index} {...reason} />
           ))}

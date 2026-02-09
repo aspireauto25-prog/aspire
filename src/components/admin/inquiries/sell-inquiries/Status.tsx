@@ -12,6 +12,7 @@ import {
 } from "@/constants/sellInquiries";
 import { updateSellInquiryStatus } from "@/api/axios/sellInquiries";
 import Button from "@/components/Button";
+import ErrorComponent from "@/components/ErrorComponent";
 import Modal from "@/components/Modal";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
@@ -71,7 +72,10 @@ const SellInquiryStatus = ({ id, status }: Props) => {
     }
 
     if (error) {
-      toast.error("Status update failed.");
+      toast.error(
+        <ErrorComponent defaultError="Status update failed!" error={error} />,
+        { icon: false },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);

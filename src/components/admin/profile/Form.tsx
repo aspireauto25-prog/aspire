@@ -10,8 +10,9 @@ import { updateUser } from "@/redux/auth/authSlice";
 import { updateUser as updateUserProfile } from "@/api/axios/user";
 import { User } from "@/lib/types/user.types";
 import Button from "@/components/Button";
-import useRequest from "@/hooks/useRequest";
+import ErrorComponent from "@/components/ErrorComponent";
 import Spinner from "@/components/Spinner";
+import useRequest from "@/hooks/useRequest";
 
 interface Props {
   user?: User;
@@ -23,7 +24,7 @@ const ProfileForm = ({ user }: Props) => {
   });
 
   const { data, error, loading, run, success } = useRequest((data) =>
-    updateUserProfile(user?.id as number, data as User)
+    updateUserProfile(user?.id as number, data as User),
   );
 
   const dispatch = useDispatch<AppDispatch>();
@@ -36,7 +37,10 @@ const ProfileForm = ({ user }: Props) => {
     }
 
     if (error) {
-      toast.error("Profile update failed. Please try again.");
+      toast.error(
+        <ErrorComponent defaultError="Profile update failed!" error={error} />,
+        { icon: false },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);

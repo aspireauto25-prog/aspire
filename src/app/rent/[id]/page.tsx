@@ -1,93 +1,44 @@
-import {
-  FaCheck,
-  FaChevronLeft,
-  FaChevronRight,
-  FaHeart,
-  FaLock,
-  FaPrint,
-  FaShare,
-  FaStar,
-} from "react-icons/fa6";
+import { FaCheck, FaLock } from "react-icons/fa6";
 import { FaCheckCircle, FaInfoCircle } from "react-icons/fa";
-import Image from "next/image";
+import { Params } from "next/dist/server/request/params";
 
 import { carData } from "@/data/carDetails";
+import { CAR_STATUS_AVAILABLE, carStatuses } from "@/constants/cars";
 import { CONTACT_ROUTE } from "@/constants/routes";
-import { formatSpecKey } from "@/helpers/textFormatter";
-import LinkButton from "@/components/LinkButton";
-import RentCTA from "@/components/rent/CTA";
+import { getRentalCarById } from "@/api/rentalCars";
+import Button from "@/components/Button";
+import CarImagePreview from "@/components/car/ImagePreview";
 import RentDetailsBreadCrumb from "@/components/rent/details/BreadCrumb";
-import SimilarCarsCard from "@/components/rent/details/Card";
 
-const CarDetailsPage = () => {
+interface Props {
+  params: Promise<Params>;
+}
+
+const CarDetailsPage = async ({ params }: Props) => {
+  const id = (await params)?.id;
+
+  const car = await getRentalCarById(id as string);
+
+  const carName = `${car.brand} ${car.model} ${car.variant}`;
+
   return (
     <>
-      <RentDetailsBreadCrumb car="Tesla" />
+      <RentDetailsBreadCrumb car={carName} />
       {/* Car Details Section */}
       <section className="py-8">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column - Images & Videos */}
             <div className="lg:col-span-2">
-              {/* Main Image */}
-              <div className="main-image-container rounded-2xl overflow-hidden shadow-2xl relative zoom-in">
-                <Image
-                  id="main-image"
-                  alt="Tesla Model 3"
-                  src={carData.images[0]}
-                  width={800}
-                  height={550}
-                  className="w-full h-full object-cover"
-                />
-                <button className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors">
-                  <FaChevronLeft />
-                </button>
-                <button className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors">
-                  <FaChevronRight />
-                </button>
-                <div className="absolute top-4 right-4 flex space-x-2">
-                  <button className="w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors">
-                    <FaHeart id="favorite-heart" />
-                  </button>
-                  <button className="w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors">
-                    <FaShare />
-                  </button>
-                  <button className="w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors">
-                    <FaPrint />
-                  </button>
-                </div>
-              </div>
-              {/* Thumbnails */}
-              <div className="mt-4">
-                <div
-                  id="thumbnails"
-                  className="flex space-x-4 overflow-x-auto custom-scrollbar pb-2"
-                >
-                  {carData.images.map((image, index) => (
-                    <div
-                      key={index}
-                      className={`thumbnail w-24 h-24 rounded-lg overflow-hidden cursor-pointer border-2 ${
-                        index === 0 ? " border-primary" : "border-transparent"
-                      }`}
-                    >
-                      <Image
-                        src={image}
-                        className="w-full h-full object-cover"
-                        alt=""
-                        width={100}
-                        height={100}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <CarImagePreview carName={carName} images={car.images ?? []} />
+
               {/* Detailed Description */}
               <div className="mt-12 slide-up">
                 <h3 className="text-2xl font-bold mb-6">
                   Detailed Description
                 </h3>
                 <div className="prose prose-lg dark:prose-invert max-w-none">
-                  {carData.description}
+                  {car.description}
                 </div>
               </div>
               {/* Features */}
@@ -97,7 +48,7 @@ const CarDetailsPage = () => {
                   id="features-list"
                   className="grid grid-cols-1 md:grid-cols-2 gap-4"
                 >
-                  {carData.features.map((feature) => (
+                  {car.features?.map((feature) => (
                     <li key={feature} className="flex items-center mb-3">
                       <FaCheck className="text-primary mr-3" />
                       <span>{feature}</span>
@@ -114,37 +65,72 @@ const CarDetailsPage = () => {
                   id="specifications-list"
                   className="spec-table bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg"
                 >
-                  {Object.entries(carData.specifications).map(
-                    ([key, value], index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-800"
-                      >
-                        <span className="text-gray-600 dark:text-gray-400">
-                          {formatSpecKey(key)}
-                        </span>
-                        <span className="font-bold">{value}</span>
-                      </div>
-                    )
-                  )}
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-800">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Mileage
+                    </span>
+                    <span className="font-bold">
+                      {car?.mileage ? `${car.mileage} km` : "-"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-800">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Transmission Type
+                    </span>
+                    <span className="font-bold">
+                      {car?.transmission_type ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-800">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Engine Capacity
+                    </span>
+                    <span className="font-bold">
+                      {car?.engine_capacity ? `${car.engine_capacity} cc` : "-"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-800">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Fuel Type
+                    </span>
+                    <span className="font-bold">{car?.fuel_type ?? "-"}</span>
+                  </div>
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-800">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Drive Type
+                    </span>
+                    <span className="font-bold">{car.drive_type}</span>
+                  </div>
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-800">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Number of Seats
+                    </span>
+                    <span className="font-bold">
+                      {car?.seat_capacity ?? "-"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-800">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Color
+                    </span>
+                    <span className="font-bold">{car.color}</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="space-y-8">
               {/* Car Info Card */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right">
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex flex-col xl:flex-row justify-between items-start mb-4 gap-2">
                   <div>
-                    <h1 id="car-name" className="text-3xl font-bold mb-2">
-                      {carData.name}
-                    </h1>
+                    <h1 className="text-3xl font-bold mb-2">{carName}</h1>
                     <p
                       id="car-category"
                       className="text-gray-600 dark:text-gray-400 mb-4"
                     >
-                      {carData.category}
+                      {car.category}
                     </p>
-                    <div className="flex items-center mb-4">
+                    {/* <div className="flex items-center mb-4">
                       <div
                         id="car-rating"
                         className="text-2xl font-bold mr-2 flex items-center gap-2"
@@ -158,19 +144,17 @@ const CarDetailsPage = () => {
                       >
                         ({carData.reviewCount} reviews)
                       </span>
-                    </div>
+                    </div> */}
                   </div>
-                  <div className="text-right">
-                    <div
-                      id="car-price"
-                      className="text-4xl font-bold text-primary mb-2"
-                    >
-                      ${carData.price}
-                      <span className="text-lg">/day</span>
+                  <div className="xl:text-right">
+                    <div className="text-3xl font-bold text-primary mb-2">
+                      ${car.daily_rate}
+                      <span className="text-xl">/day</span>
                     </div>
-                    <span className="text-gray-600 dark:text-gray-400">
-                      Per day
-                    </span>
+                    <div className="text-gray-600 dark:text-gray-400">
+                      ${car.weekly_rate}
+                      <span className="text-xs">/week</span>
+                    </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4 mb-6">
@@ -179,7 +163,7 @@ const CarDetailsPage = () => {
                       Year
                     </div>
                     <div id="car-year" className="font-bold text-lg">
-                      {carData.year}
+                      {car.year}
                     </div>
                   </div>
                   <div className="text-center bg-gray-100 dark:bg-gray-900 p-3 rounded-xl">
@@ -187,15 +171,15 @@ const CarDetailsPage = () => {
                       Mileage
                     </div>
                     <div id="car-mileage" className="font-bold text-lg">
-                      {carData.mileage}
+                      {car.mileage} km
                     </div>
                   </div>
                   <div className="text-center bg-gray-100 dark:bg-gray-900 p-3 rounded-xl">
                     <div className="text-gray-600 dark:text-gray-400 mb-1">
-                      Condition
+                      Monthly rate
                     </div>
                     <div id="car-condition" className="font-bold text-lg">
-                      {carData.condition}
+                      {car.monthly_rate ? `$${car.monthly_rate}/month` : "-"}
                     </div>
                   </div>
                   <div className="text-center bg-gray-100 dark:bg-gray-900 p-3 rounded-xl">
@@ -204,41 +188,31 @@ const CarDetailsPage = () => {
                     </div>
                     <div
                       id="availability-badge"
-                      className={`px-4 py-2 rounded-full text-sm font-bold  ${
-                        carData.availability == "Available"
-                          ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-                          : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
-                      } `}
+                      className={`px-4 py-2 rounded-full text-sm font-bold car-status-${car.status}`}
                     >
-                      {carData.availability}
+                      {
+                        carStatuses.find((status) => status.value == car.status)
+                          ?.label
+                      }
                     </div>
                   </div>
                 </div>
-                <p
-                  id="car-description-short"
-                  className="text-gray-600 dark:text-gray-300 mb-6"
-                >
-                  Experience the future of driving with this all-electric luxury
-                  sedan.
-                </p>
               </div>
               {/* Booking Form */}
-              <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
-                style={{ animationDelay: "0.1s" }}
-              >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-100">
                 <h3 className="text-2xl font-bold mb-6">Book This Car</h3>
                 <div className="space-y-4">
-                  <LinkButton href={CONTACT_ROUTE}>
+                  <Button
+                    disabled={car.status != CAR_STATUS_AVAILABLE}
+                    href={CONTACT_ROUTE}
+                    className="w-full"
+                  >
                     <FaLock /> Book Now
-                  </LinkButton>
+                  </Button>
                 </div>
               </div>
               {/* What's Included */}
-              <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
-                style={{ animationDelay: "0.2s" }}
-              >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-200">
                 <h3 className="text-2xl font-bold mb-6">
                   What&apos;s Included
                 </h3>
@@ -252,10 +226,7 @@ const CarDetailsPage = () => {
                 </ul>
               </div>
               {/* Requirements */}
-              <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
-                style={{ animationDelay: "0.3s" }}
-              >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-300">
                 <h3 className="text-2xl font-bold mb-6">Rental Requirements</h3>
                 <ul id="requirements-list">
                   {carData.requirements.map((requirement, index) => (
@@ -267,25 +238,6 @@ const CarDetailsPage = () => {
                 </ul>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <RentCTA />
-      {/* Similar Cars Section */}
-      <section className="py-16 bg-gray-100 dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Similar Cars You Might Like
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Check out these similar vehicles in our premium fleet.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {carData.similarCars.map((car, index) => (
-              <SimilarCarsCard key={index} {...car} />
-            ))}
           </div>
         </div>
       </section>

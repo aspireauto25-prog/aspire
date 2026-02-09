@@ -4,8 +4,8 @@ import { SearchParams } from "next/dist/server/request/search-params";
 import { ADD_CAR_SELL_ROUTE } from "@/constants/routes";
 import { getSaleCars } from "@/api/saleCars";
 import { DEFAULT_PAGE, PAGE_LIMIT } from "@/constants/pagination";
+import Button from "@/components/Button";
 import Filters from "@/components/admin/cars/sale/Filters";
-import LinkButton from "@/components/LinkButton";
 import Pagination from "@/components/admin/table/Pagination";
 import Search from "@/components/admin/Search";
 import Table from "@/components/admin/cars/sale/Table";
@@ -41,10 +41,10 @@ const CarSalePage = async ({ searchParams }: Props) => {
         </div>
         <div className="mt-6 flex flex-col xl:flex-row xl:items-center items-start justify-between gap-4">
           <Filters currentStatus={query.status ?? ""} />
-          <LinkButton href={ADD_CAR_SELL_ROUTE} size="sm">
+          <Button href={ADD_CAR_SELL_ROUTE} size="sm">
             <FaPlus />
             Add New Sale Car
-          </LinkButton>
+          </Button>
         </div>
         {/* Quick Filters */}
       </div>

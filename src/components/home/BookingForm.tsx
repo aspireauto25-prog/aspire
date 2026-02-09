@@ -1,12 +1,3 @@
-import {
-  FaCalendarAlt,
-  FaCar,
-  FaCheckCircle,
-  FaMapMarkedAlt,
-} from "react-icons/fa";
-
-import Button from "../Button";
-
 const BookingForm = () => {
   return (
     <section
@@ -33,10 +24,7 @@ const BookingForm = () => {
         </div>
         {/* Booking Steps */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div
-            className="text-center p-8 rounded-2xl glass-effect backdrop-blur-sm slide-up"
-            style={{ animationDelay: "0.1s" }}
-          >
+          <div className="text-center p-8 rounded-2xl glass-effect backdrop-blur-sm slide-up delay-100">
             <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center text-3xl text-primary">
               1
             </div>
@@ -45,10 +33,7 @@ const BookingForm = () => {
               Select from our premium fleet of vehicles
             </p>
           </div>
-          <div
-            className="text-center p-8 rounded-2xl glass-effect backdrop-blur-sm slide-up"
-            style={{ animationDelay: "0.2s" }}
-          >
+          <div className="text-center p-8 rounded-2xl glass-effect backdrop-blur-sm slide-up delay-200">
             <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center text-3xl text-primary">
               2
             </div>
@@ -57,10 +42,7 @@ const BookingForm = () => {
               Pick your rental period and location
             </p>
           </div>
-          <div
-            className="text-center p-8 rounded-2xl glass-effect backdrop-blur-sm slide-up"
-            style={{ animationDelay: "0.3s" }}
-          >
+          <div className="text-center p-8 rounded-2xl glass-effect backdrop-blur-sm slide-up delay-300">
             <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center text-3xl text-primary">
               3
             </div>
@@ -69,7 +51,7 @@ const BookingForm = () => {
           </div>
         </div>
         {/* Booking Form */}
-        <div id="booking-section" className="max-w-4xl mx-auto">
+        {/* <div id="booking-section" className="max-w-4xl mx-auto">
           <div
             id="booking-form"
             className="bg-white/10 dark:bg-black/30 rounded-3xl p-8 backdrop-blur-lg border border-white/20 shadow-2xl zoom-in"
@@ -150,7 +132,7 @@ const BookingForm = () => {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

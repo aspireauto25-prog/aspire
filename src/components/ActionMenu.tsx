@@ -46,7 +46,9 @@ export default function ActionMenu({
           ref={menuRef}
           className="absolute right-0 mt-1 w-36 rounded-lg border border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-800 shadow-lg z-50 overflow-hidden"
         >
-          <div className="flex flex-col">{children}</div>
+          <div className="flex flex-col" onClick={() => setOpen(false)}>
+            {children}
+          </div>
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
 import { FaPhone } from "react-icons/fa";
 
 import { CONTACT_ROUTE } from "@/constants/routes";
-import LinkButton from "../LinkButton";
+import Button from "../Button";
 
 const RentCTA = () => {
   return (
@@ -14,14 +14,14 @@ const RentCTA = () => {
           Contact our team for special requests, custom packages, or corporate
           rates.
         </p>
-        <LinkButton
+        <Button
           href={CONTACT_ROUTE}
           theme="light"
           rounded
           className="mx-auto w-max hover:scale-105"
         >
           <FaPhone /> Contact Our Team
-        </LinkButton>
+        </Button>
       </div>
     </section>
   );

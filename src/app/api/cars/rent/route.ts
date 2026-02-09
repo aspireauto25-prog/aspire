@@ -13,9 +13,10 @@ import supabase from "@/config/database";
 export const GET = async (req: Request) => {
   const { searchParams } = new URL(req.url);
 
-  const pageParam = searchParams.get("page") ?? "1";
   const limitParam = searchParams.get("limit") ?? PAGE_LIMIT;
+  const pageParam = searchParams.get("page") ?? "1";
   const search = searchParams.get("search");
+  const sort = searchParams.get("sort");
   const status = searchParams.get("status");
 
   const page = parseInt(pageParam);
@@ -24,8 +25,7 @@ export const GET = async (req: Request) => {
   let query = supabase
     .from("rental_cars_detail")
     .select("*", { count: "exact" })
-    .is("deleted_at", null)
-    .order("created_at", { ascending: false });
+    .is("deleted_at", null);
 
   if (page && limit) {
     const from = (page - 1) * limit;
@@ -34,37 +34,35 @@ export const GET = async (req: Request) => {
     query = query.range(from, to);
   }
 
+  if (sort) {
+    const sortBy = JSON.parse(sort);
+
+    query.order(sortBy.key, sortBy.order);
+  } else {
+    query.order("created_at", { ascending: false });
+  }
+
   if (status) query = query.eq("status", status);
 
   if (search) {
     query = query.or(
-      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%`,
+      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%,category.ilike.%${search}%`,
     );
   }
 
-  try {
-    const { data, error, count } = await query;
+  const { data, error, count } = await query;
 
-    if (error) return Response.json(error, { status: 500 });
+  if (error) return Response.json({ message: error.message }, { status: 500 });
 
-    return Response.json(
-      {
-        currentPage: page,
-        data,
-        total: count,
-        totalPages: Math.ceil((count ?? 0) / limit),
-      },
-      { status: 200 },
-    );
-  } catch (error) {
-    if (error instanceof ZodError) {
-      const formattedErrors = formatZodErrors(error);
-
-      return Response.json(formattedErrors, { status: 400 });
-    }
-
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
-  }
+  return Response.json(
+    {
+      currentPage: page,
+      data,
+      total: count,
+      totalPages: Math.ceil((count ?? 0) / limit),
+    },
+    { status: 200 },
+  );
 };
 
 export async function POST(request: Request) {
@@ -72,7 +70,7 @@ export async function POST(request: Request) {
     const authToken = (await cookies()).get(TOKEN)?.value;
 
     if (!authToken) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 });
+      return Response.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const authUser = (await verifyJWT(authToken).catch(
@@ -80,7 +78,7 @@ export async function POST(request: Request) {
     )) as User;
 
     if (authUser?.role !== USER_ROLE_ADMIN) {
-      return Response.json({ error: "Forbidden" }, { status: 403 });
+      return Response.json({ message: "Forbidden" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -93,18 +91,20 @@ export async function POST(request: Request) {
         ...input,
         updated_at: new Date().toISOString(),
       })
-      .select();
+      .select()
+      .maybeSingle();
 
-    if (error) return Response.json({ error: error.message }, { status: 500 });
+    if (error)
+      return Response.json({ message: error.message }, { status: 500 });
 
-    return Response.json(data[0], { status: 201 });
+    return Response.json(data, { status: 201 });
   } catch (error) {
     if (error instanceof ZodError) {
-      const formattedErrors = formatZodErrors(error);
+      const fieldErrors = formatZodErrors(error);
 
-      return Response.json(formattedErrors, { status: 400 });
+      return Response.json({ fieldErrors }, { status: 400 });
     }
 
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    return Response.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }

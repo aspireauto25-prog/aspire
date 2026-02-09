@@ -1,17 +1,22 @@
-import { FaCogs, FaGasPump, FaImage, FaUserFriends } from "react-icons/fa";
+import {
+  FaCar,
+  FaCheck,
+  FaCogs,
+  FaGasPump,
+  FaImage,
+  FaInfoCircle,
+  FaRegCalendarAlt,
+  FaRoad,
+  FaUserFriends,
+} from "react-icons/fa";
 import Image from "next/image";
 
-import { CONTACT_ROUTE, RENT_ROUTE } from "@/constants/routes";
-import Button from "../Button";
-import LinkButton from "../LinkButton";
-import OutlinedLinkButton from "../OutlinedLinkButton";
-import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
-import CarStatus from "../car/Status";
 import { CAR_STATUS_AVAILABLE } from "@/constants/cars";
-
-interface Props extends RentalCarWithDetails {
-  imageUrl?: string;
-}
+import { CONTACT_ROUTE, RENT_ROUTE } from "@/constants/routes";
+import { RentalCarWithDetails } from "@/lib/types/rentalCar.types";
+import Button from "../Button";
+import CarStatus from "../car/Status";
+import OutlinedButton from "../OutlinedButton";
 
 const RentCard = ({
   brand,
@@ -21,12 +26,15 @@ const RentCard = ({
   fuel_type,
   id,
   images,
+  mileage,
   model,
   seat_capacity,
   status,
   transmission_type,
   variant,
-}: Props) => {
+  weekly_rate,
+  year,
+}: RentalCarWithDetails) => {
   const featuredImageUrl = images?.find((image) => image.featured)?.url;
 
   return (
@@ -50,17 +58,36 @@ const RentCard = ({
         </div>
       </div>
       <div className="p-6">
-        <div className="flex justify-between items-start mb-4">
+        <div className="flex justify-between items-start mb-4 gap-4">
           <div>
             <h3 className="text-xl font-bold mb-1">
               {brand} {model} {variant}
             </h3>
-            <p className="text-gray-500 dark:text-gray-400">{category}</p>
+            <div className="flex flex-wrap gap-2 mb-4">
+              <span className="inline-flex gap-1 items-center px-2 py-1 bg-gray-100 dark:bg-gray-900 rounded text-xs">
+                <FaCar />
+                {category}
+              </span>
+              <span className="inline-flex gap-1 items-center px-2 py-1 bg-gray-100 dark:bg-gray-900 rounded text-xs">
+                <FaRegCalendarAlt />
+                {year}
+              </span>
+              {mileage && (
+                <span className="inline-flex gap-1 items-center px-2 py-1 bg-gray-100 dark:bg-gray-900 rounded text-xs">
+                  <FaRoad />
+                  {mileage} km
+                </span>
+              )}
+            </div>
           </div>
           <div className="text-right">
             <div className="text-2xl font-bold text-primary">
               {daily_rate}
               <span className="text-sm font-normal">/day</span>
+            </div>
+            <div className="flex items-center justify-end mt-1">
+              <span className="font-semibold">{weekly_rate}</span>
+              <span className="text-xs">/week</span>
             </div>
           </div>
         </div>
@@ -80,25 +107,33 @@ const RentCard = ({
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-6">
-          {features?.slice(0, 4)?.map((feature) => (
-            <span
-              key={feature}
-              className="px-3 py-1 bg-gray-100 dark:bg-gray-900 rounded-full text-sm"
-            >
-              {feature}
-            </span>
-          ))}
-        </div>
+        {features && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {features?.slice(0, 2).map((feature, index) => (
+              <span
+                key={index}
+                className="px-2 py-1 bg-primary/10 text-primary rounded text-xs flex items-center"
+              >
+                <FaCheck className="fas fa-check mr-1" />
+                {feature}
+              </span>
+            ))}
+            {features?.length > 2 ? (
+              <span className="px-2 py-1 bg-gray-100 dark:bg-gray-900 rounded text-xs">
+                +{features?.length - 2} more
+              </span>
+            ) : null}
+          </div>
+        )}
 
         <div className="flex space-x-3">
-          <LinkButton size="md" href={`${RENT_ROUTE}/${id}`} className="flex-1">
-            View Details
-          </LinkButton>
+          <Button size="md" href={`${RENT_ROUTE}/${id}`} className="flex-1">
+            <FaInfoCircle className="text-xl" /> View Details
+          </Button>
           {status == CAR_STATUS_AVAILABLE ? (
-            <OutlinedLinkButton href={CONTACT_ROUTE} size="md">
+            <OutlinedButton href={CONTACT_ROUTE} size="md">
               Book Now
-            </OutlinedLinkButton>
+            </OutlinedButton>
           ) : (
             <Button
               disabled={true}

@@ -12,6 +12,7 @@ export interface RentalCarWithDetails extends RentalCar {
   category: string;
   chassis_number: string;
   color?: string;
+  condition?: string;
   created_at: number;
   description?: string;
   drive_type: string;

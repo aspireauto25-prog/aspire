@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { carConditions } from "@/constants/cars";
 import {
   createSellInquiry,
   uploadSellInquiryImages,
@@ -15,6 +16,7 @@ import Button from "@/components/Button";
 import ImageUploader from "@/components/ImageUploader";
 import Spinner from "@/components/Spinner";
 import useRequest from "@/hooks/useRequest";
+import ErrorComponent from "@/components/ErrorComponent";
 
 export interface FormInput {
   brand: string;
@@ -61,7 +63,10 @@ const SellForm = () => {
     }
 
     if (error) {
-      toast.error("Sell inquiry failed. Please try again.");
+      toast.error(
+        <ErrorComponent defaultError="Sell inquiry failed!" error={error} />,
+        { icon: false },
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success, error]);
@@ -140,11 +145,11 @@ const SellForm = () => {
             {...register("condition")}
           >
             <option value="">Select condition</option>
-            <option value="Excellent">Excellent</option>
-            <option value="Very Good">Very Good</option>
-            <option value="Good">Good</option>
-            <option value="Fair">Fair</option>
-            <option value="Poor">Poor</option>
+            {carConditions.map((condition) => (
+              <option key={condition} value={condition}>
+                {condition}
+              </option>
+            ))}
           </select>
         </div>
         <div>

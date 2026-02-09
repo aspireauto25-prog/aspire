@@ -2,7 +2,7 @@ import { FaCarCrash, FaOilCan, FaTools } from "react-icons/fa";
 import { IconType } from "react-icons";
 
 import { CONTACT_ROUTE } from "@/constants/routes";
-import LinkButton from "../LinkButton";
+import Button from "../Button";
 
 interface Props {
   description: string;
@@ -51,9 +51,9 @@ const Card = ({ description, info, label, price, Icon }: Props) => {
         <div className="card-back bg-primary rounded-3xl p-8 shadow-2xl flex flex-col justify-center items-center text-white">
           <h3 className="text-2xl font-bold mb-4">{price}</h3>
           <p className="text-center mb-6">{description}</p>
-          <LinkButton href={CONTACT_ROUTE} rounded theme="light">
+          <Button href={CONTACT_ROUTE} rounded theme="light">
             Book Now
-          </LinkButton>
+          </Button>
         </div>
       </div>
     </div>

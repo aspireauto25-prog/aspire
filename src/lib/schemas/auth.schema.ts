@@ -12,9 +12,7 @@ export const registerSchema = z.object({
   email: z
     .email({
       error: (value) =>
-        value.input === undefined
-          ? "Email address is required."
-          : "Invalid email address.",
+        value.input ? "Invalid email address." : "Email address is required.",
     })
     .toLowerCase(),
   name: z.string("Name is required.").trim().min(2),
@@ -27,9 +25,7 @@ export const loginSchema = z.object({
   email: z
     .email({
       error: (value) =>
-        value.input === undefined
-          ? "Email address is required."
-          : "Invalid email address.",
+        value.input ? "Invalid email address." : "Email address is required.",
     })
     .toLowerCase(),
   password: z.string("Password is required."),

@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 
 import { ContactInquiry } from "@/lib/types/contact.types";
-import LinkButton from "@/components/LinkButton";
+import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 
 const PreviewInquiryModal = ({
@@ -111,14 +111,14 @@ const PreviewInquiryModal = ({
           </div>
           <div className="mt-6 pt-6 border-t border-gray-300 dark:border-gray-800">
             <div className="grid grid-cols-2 gap-4">
-              <LinkButton href={`tel:${phone}`} size="md">
+              <Button href={`tel:${phone}`} size="md">
                 <FaPhone />
                 Call Owner
-              </LinkButton>
-              <LinkButton href={`mailto:${email}`} size="md" theme="light">
+              </Button>
+              <Button href={`mailto:${email}`} size="md" theme="light">
                 <FaEnvelope />
                 Email
-              </LinkButton>
+              </Button>
             </div>
           </div>
         </div>

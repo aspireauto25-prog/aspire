@@ -474,7 +474,8 @@ input[type="range"]::-moz-range-thumb {
 
 /* Background pattern */
 .bg-pattern {
-  background-image: radial-gradient(
+  background-image:
+    radial-gradient(
       circle at 25% 25%,
       rgba(255, 22, 22, 0.05) 0%,
       transparent 55%
@@ -487,7 +488,8 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .dark .bg-pattern {
-  background-image: radial-gradient(
+  background-image:
+    radial-gradient(
       circle at 25% 25%,
       rgba(255, 22, 22, 0.1) 0%,
       transparent 55%
@@ -672,12 +674,19 @@ input[type="range"]::-moz-range-thumb {
 
 @keyframes glow {
   from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff1616,
+    text-shadow:
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 30px #ff1616,
       0 0 40px #ff1616;
   }
   to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff1616, 0 0 40px #ff1616,
-      0 0 50px #ff1616, 0 0 60px #ff1616;
+    text-shadow:
+      0 0 20px #fff,
+      0 0 30px #ff1616,
+      0 0 40px #ff1616,
+      0 0 50px #ff1616,
+      0 0 60px #ff1616;
   }
 }
 
@@ -747,7 +756,9 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .card-hover:hover {
@@ -973,4 +984,30 @@ input[type="range"]::-moz-range-thumb {
 #react-select .react-select__menu .react-select__option--is-focused {
   background-color: var(--primary);
   color: var(--color-white);
+}
+
+/* Car status  */
+
+.car-status-1 {
+  @apply bg-green-100 text-green-700;
+}
+
+.car-status-2 {
+  @apply bg-amber-100 text-amber-700;
+}
+
+.car-status-3 {
+  @apply bg-blue-100 text-blue-700;
+}
+
+.car-status-4 {
+  @apply bg-purple-100 text-purple-700;
+}
+
+.car-status-5 {
+  @apply bg-gray-100 text-gray-700;
+}
+
+.car-status-6 {
+  @apply bg-red-100 text-red-700;
 }

@@ -18,6 +18,6 @@ export const GET = async () => {
 
     return Response.json({ totalCount, pendingCount }, { status: 200 });
   } catch {
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    return Response.json({ message: "Internal Server Error" }, { status: 500 });
   }
 };

@@ -1,6 +1,6 @@
 import { FaEnvelope, FaPhone, FaUser } from "react-icons/fa";
 
-import LinkButton from "@/components/LinkButton";
+import Button from "@/components/Button";
 
 interface Props {
   email: string;
@@ -63,14 +63,14 @@ const OwnerInfo = ({ email, name, phone }: Props) => {
         </div>
         <div className="mt-6 pt-6 border-t border-gray-300 dark:border-gray-700">
           <div className="grid grid-cols-2 gap-4">
-            <LinkButton href={`tel:${phone}`} size="md">
+            <Button href={`tel:${phone}`} size="md">
               <FaPhone />
               Call Owner
-            </LinkButton>
-            <LinkButton href={`mailto:${email}`} size="md" theme="light">
+            </Button>
+            <Button href={`mailto:${email}`} size="md" theme="light">
               <FaEnvelope />
               Email
-            </LinkButton>
+            </Button>
           </div>
         </div>
       </div>
