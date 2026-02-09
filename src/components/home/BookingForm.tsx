@@ -1,12 +1,3 @@
-import {
-  FaCalendarAlt,
-  FaCar,
-  FaCheckCircle,
-  FaMapMarkedAlt,
-} from "react-icons/fa";
-
-import Button from "../Button";
-
 const BookingForm = () => {
   return (
     <section
@@ -69,7 +60,7 @@ const BookingForm = () => {
           </div>
         </div>
         {/* Booking Form */}
-        <div id="booking-section" className="max-w-4xl mx-auto">
+        {/* <div id="booking-section" className="max-w-4xl mx-auto">
           <div
             id="booking-form"
             className="bg-white/10 dark:bg-black/30 rounded-3xl p-8 backdrop-blur-lg border border-white/20 shadow-2xl zoom-in"
@@ -150,7 +141,7 @@ const BookingForm = () => {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -22,10 +22,10 @@ const Hero = () => {
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               Aspire
-              <span className="gradient-text">Automotive</span>
+              <span className="inline-block gradient-text">Automotive</span>
               <br />
               Driven by
-              <span className="text-primary glow"> Excellence</span>
+              <span className="inline-block text-primary animate-glow">Excellence</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl">
               Experience luxury, performance, and reliability with our premium

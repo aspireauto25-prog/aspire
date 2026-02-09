@@ -4,6 +4,7 @@ import {
   FaCogs,
   FaGasPump,
   FaImage,
+  FaInfoCircle,
   FaRegCalendarAlt,
   FaRoad,
   FaUserFriends,
@@ -127,7 +128,7 @@ const RentCard = ({
 
         <div className="flex space-x-3">
           <Button size="md" href={`${RENT_ROUTE}/${id}`} className="flex-1">
-            View Details
+            <FaInfoCircle className="text-xl" /> View Details
           </Button>
           {status == CAR_STATUS_AVAILABLE ? (
             <OutlinedButton href={CONTACT_ROUTE} size="md">

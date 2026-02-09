@@ -1,20 +1,22 @@
-import {
-  FaCar,
-  FaEye,
-  FaFileContract,
-  FaGasPump,
-  FaSearch,
-  FaTachometerAlt,
-  FaTag,
-  FaUserFriends,
-} from "react-icons/fa";
-import Image from "next/image";
+import { FaCar, FaFileContract, FaSearch, FaTag } from "react-icons/fa";
 
-import { BUY_CAR_ROUTE, RENT_ROUTE, SELL_CAR_ROUTE } from "@/constants/routes";
+import { BUY_CAR_ROUTE, SELL_CAR_ROUTE } from "@/constants/routes";
+import { CAR_STATUS_AVAILABLE } from "@/constants/cars";
+import { getSaleCars } from "@/api/saleCars";
 import Button from "../Button";
+import BuyCard from "../buy-sell/buy/Card";
 import OutlinedButton from "../OutlinedButton";
 
-const BuySell = () => {
+const BuySell = async () => {
+  const saleCars = await getSaleCars({
+    status: CAR_STATUS_AVAILABLE.toString(),
+    limit: `${3}`,
+  });
+
+  if (saleCars.data?.length === 0) {
+    return null; // Return null if there are no cars to display
+  }
+
   return (
     <section className="py-16 dark:bg-gray-800">
       <div className="container mx-auto px-6">
@@ -36,133 +38,10 @@ const BuySell = () => {
         <div id="buy-content" className="space-y-12">
           {/* Featured Cars for Sale */}
           <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Car 1 */}
-              <div className="bg-white dark:bg-gray-900  rounded-2xl overflow-hidden shadow-lg card-hover relative">
-                <div className="buy-badge">FOR SALE</div>
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                    alt="Mercedes-Benz"
-                    className="w-full h-full object-cover"
-                    height={400}
-                    width={600}
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <h4 className="text-xl font-bold">Mercedes-Benz GLE</h4>
-                    <span className="text-2xl font-bold text-primary">
-                      $45,800
-                    </span>
-                  </div>
-                  <p className="text-gray-500 dark:text-gray-400 mb-4">
-                    2020 • 18,500 mi • Automatic • SUV
-                  </p>
-                  <div className="flex items-center justify-between text-gray-500 text-sm mb-6">
-                    <div className="flex items-center">
-                      <FaGasPump className="mr-2" />
-                      <span>Petrol</span>
-                    </div>
-                    <div className="flex items-center">
-                      <FaTachometerAlt className="mr-2" />
-                      <span>28,000 mi</span>
-                    </div>
-                    <div className="flex items-center">
-                      <FaUserFriends className="mr-2" />
-                      <span>5 seats</span>
-                    </div>
-                  </div>
-                  <Button href={`${RENT_ROUTE}/1`} size="md">
-                    <FaEye /> View Details
-                  </Button>
-                </div>
-              </div>
-              {/* Car 2 */}
-              <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg card-hover relative">
-                <div className="buy-badge">FOR SALE</div>
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                    alt="Audi"
-                    className="w-full h-full object-cover"
-                    height={400}
-                    width={600}
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <h4 className="text-xl font-bold">Audi Q7 Premium</h4>
-                    <span className="text-2xl font-bold text-primary">
-                      $52,300
-                    </span>
-                  </div>
-                  <p className="text-gray-500 dark:text-gray-400 mb-4">
-                    2021 • 12,000 mi • Automatic • Luxury SUV
-                  </p>
-                  <div className="flex items-center justify-between text-gray-500 text-sm mb-6">
-                    <div className="flex items-center">
-                      <FaGasPump className="mr-2" />
-                      <span>Diesel</span>
-                    </div>
-                    <div className="flex items-center">
-                      <FaTachometerAlt className="mr-2" />
-                      <span>12,000 mi</span>
-                    </div>
-                    <div className="flex items-center">
-                      <FaUserFriends className="mr-2" />
-                      <span>7 seats</span>
-                    </div>
-                  </div>
-                  <Button href={`${RENT_ROUTE}/1`} size="md">
-                    <FaEye /> View Details
-                  </Button>
-                </div>
-              </div>
-              {/* Car 3 */}
-              <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg card-hover relative">
-                <div className="sale-badge">HOT DEAL</div>
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                    alt="BMW"
-                    className="w-full h-full object-cover"
-                    height={400}
-                    width={600}
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <h4 className="text-xl font-bold">BMW X5 xDrive</h4>
-                    <span className="text-2xl font-bold text-primary">
-                      $48,900
-                    </span>
-                  </div>
-                  <p className="text-gray-500 dark:text-gray-400 mb-4">
-                    2019 • 24,500 mi • Automatic • Sports Activity
-                  </p>
-                  <div className="flex items-center justify-between text-gray-500 text-sm mb-6">
-                    <div className="flex items-center">
-                      <FaGasPump className="mr-2" />
-                      <span>Petrol</span>
-                    </div>
-                    <div className="flex items-center">
-                      <FaTachometerAlt className="mr-2" />
-                      <span>24,500 mi</span>
-                    </div>
-                    <div className="flex items-center">
-                      <FaUserFriends className="mr-2" />
-                      <span>5 seats</span>
-                    </div>
-                  </div>
-                  <Button href={`${RENT_ROUTE}/1`} size="md">
-                    <FaEye /> View Details
-                  </Button>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+              {saleCars.data?.map((car) => (
+                <BuyCard key={car.id} {...car} />
+              ))}
             </div>
           </div>
           {/* Buy Car Process */}

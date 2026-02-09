@@ -15,7 +15,7 @@ interface ErrorHandlerProps {
 
 const ErrorHandler = ({ error, reset }: ErrorHandlerProps) => {
   return (
-    <section className="py-16">
+    <section className="py-32">
       <div className="max-w-4xl mx-auto px-6">
         <ErrorComponent
           defaultError="Oops, Something went wrong!!!"
