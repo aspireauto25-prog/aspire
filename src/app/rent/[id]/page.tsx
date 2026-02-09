@@ -3,7 +3,7 @@ import { FaCheckCircle, FaInfoCircle } from "react-icons/fa";
 import { Params } from "next/dist/server/request/params";
 
 import { carData } from "@/data/carDetails";
-import { carStatuses } from "@/constants/cars";
+import { CAR_STATUS_AVAILABLE, carStatuses } from "@/constants/cars";
 import { CONTACT_ROUTE } from "@/constants/routes";
 import { getRentalCarById } from "@/api/rentalCars";
 import Button from "@/components/Button";
@@ -121,7 +121,7 @@ const CarDetailsPage = async ({ params }: Props) => {
             <div className="space-y-8">
               {/* Car Info Card */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right">
-                <div className="flex justify-between items-start mb-4 gap-2">
+                <div className="flex flex-col xl:flex-row justify-between items-start mb-4 gap-2">
                   <div>
                     <h1 className="text-3xl font-bold mb-2">{carName}</h1>
                     <p
@@ -146,10 +146,10 @@ const CarDetailsPage = async ({ params }: Props) => {
                       </span>
                     </div> */}
                   </div>
-                  <div className="text-right">
-                    <div className="text-4xl font-bold text-primary mb-2">
+                  <div className="xl:text-right">
+                    <div className="text-3xl font-bold text-primary mb-2">
                       ${car.daily_rate}
-                      <span className="text-lg">/day</span>
+                      <span className="text-xl">/day</span>
                     </div>
                     <div className="text-gray-600 dark:text-gray-400">
                       ${car.weekly_rate}
@@ -199,22 +199,20 @@ const CarDetailsPage = async ({ params }: Props) => {
                 </div>
               </div>
               {/* Booking Form */}
-              <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
-                style={{ animationDelay: "0.1s" }}
-              >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-100">
                 <h3 className="text-2xl font-bold mb-6">Book This Car</h3>
                 <div className="space-y-4">
-                  <Button href={CONTACT_ROUTE}>
+                  <Button
+                    disabled={car.status != CAR_STATUS_AVAILABLE}
+                    href={CONTACT_ROUTE}
+                    className="w-full"
+                  >
                     <FaLock /> Book Now
                   </Button>
                 </div>
               </div>
               {/* What's Included */}
-              <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
-                style={{ animationDelay: "0.2s" }}
-              >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-200">
                 <h3 className="text-2xl font-bold mb-6">
                   What&apos;s Included
                 </h3>
@@ -228,10 +226,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                 </ul>
               </div>
               {/* Requirements */}
-              <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
-                style={{ animationDelay: "0.3s" }}
-              >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-300">
                 <h3 className="text-2xl font-bold mb-6">Rental Requirements</h3>
                 <ul id="requirements-list">
                   {carData.requirements.map((requirement, index) => (

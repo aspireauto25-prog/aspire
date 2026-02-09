@@ -185,10 +185,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                 </div>
               </div>
               {/* Booking Form */}
-              <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
-                style={{ animationDelay: "0.1s" }}
-              >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-100">
                 <h3 className="text-2xl font-bold mb-6">Buy This Car</h3>
                 <div className="space-y-4">
                   <Button href={CONTACT_ROUTE}>
@@ -197,10 +194,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                 </div>
               </div>
               {/* What's Included */}
-              <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
-                style={{ animationDelay: "0.2s" }}
-              >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-200  ">
                 <h3 className="text-2xl font-bold mb-6">
                   What&apos;s Included
                 </h3>
@@ -214,10 +208,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                 </ul>
               </div>
               {/* Requirements */}
-              <div
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right"
-                style={{ animationDelay: "0.3s" }}
-              >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-300">
                 <h3 className="text-2xl font-bold mb-6">Rental Requirements</h3>
                 <ul id="requirements-list">
                   {carData.requirements.map((requirement, index) => (

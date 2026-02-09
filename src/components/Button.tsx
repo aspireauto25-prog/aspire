@@ -36,7 +36,7 @@ const Button = ({
     : "cursor-pointer ";
   btnClass += className;
 
-  if (href) {
+  if (href && !props?.disabled) {
     return (
       <Link href={href} className={btnClass}>
         {children}
