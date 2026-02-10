@@ -4,18 +4,21 @@ import { ZodError } from "zod";
 export class AppError extends Error {
   code?: string;
   fieldErrors?: Record<string, string>;
+  raw?: unknown;
 
   constructor(
     message: string,
     options?: {
       code?: string;
       fieldErrors?: Record<string, string>;
+      raw?: unknown;
     },
   ) {
     super(message);
     this.name = "AppError";
     this.code = options?.code;
     this.fieldErrors = options?.fieldErrors;
+    this.raw = options?.raw;
   }
 }
 
@@ -34,21 +37,22 @@ function normalizeError(error: unknown): AppError {
       fieldErrors,
       code: "VALIDATION_ERROR",
       raw: error,
+      name: "AppError",
     };
   }
 
   // 2. Axios error (API / network)
   if (error instanceof AxiosError) {
-    const data = error.response?.data as any;
+    const data = error.response?.data as Record<string, unknown> | undefined;
 
     return {
-      message:
-        data?.message ||
+      message: (data?.message ||
         error.message ||
-        "Something went wrong while communicating with the server!",
-      fieldErrors: data?.fieldErrors,
+        "Something went wrong while communicating with the server!") as string,
+      fieldErrors: data?.fieldErrors as Record<string, string> | undefined,
       code: String(error.response?.status),
       raw: error,
+      name: "AppError",
     };
   }
 
@@ -58,6 +62,7 @@ function normalizeError(error: unknown): AppError {
       message: error.message || "Unexpected error occurred!",
       code: "RUNTIME_ERROR",
       raw: error,
+      name: "",
     };
   }
 
@@ -67,6 +72,7 @@ function normalizeError(error: unknown): AppError {
       message: error,
       code: "STRING_ERROR",
       raw: error,
+      name: "AppError",
     };
   }
 
@@ -75,6 +81,7 @@ function normalizeError(error: unknown): AppError {
     message: "Something went wrong!",
     code: "UNKNOWN_ERROR",
     raw: error,
+    name: "AppError",
   };
 }
 
