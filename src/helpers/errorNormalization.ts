@@ -1,5 +1,4 @@
 import { AxiosError } from "axios";
-import { ZodError } from "zod";
 
 export class AppError extends Error {
   code?: string;
@@ -23,25 +22,7 @@ export class AppError extends Error {
 }
 
 function normalizeError(error: unknown): AppError {
-  // 1. Zod validation error
-  if (error instanceof ZodError) {
-    const fieldErrors: Record<string, string> = {};
-
-    error.errors.forEach((err) => {
-      const field = err.path.join(".");
-      fieldErrors[field] = err.message;
-    });
-
-    return {
-      message: "Please fix the highlighted fields!",
-      fieldErrors,
-      code: "VALIDATION_ERROR",
-      raw: error,
-      name: "AppError",
-    };
-  }
-
-  // 2. Axios error (API / network)
+  // Axios error (API / network)
   if (error instanceof AxiosError) {
     const data = error.response?.data as Record<string, unknown> | undefined;
 
@@ -56,7 +37,7 @@ function normalizeError(error: unknown): AppError {
     };
   }
 
-  // 3. Native Error (Next.js throw, runtime errors)
+  // Native Error (Next.js throw, runtime errors)
   if (error instanceof Error) {
     return {
       message: error.message || "Unexpected error occurred!",
@@ -66,7 +47,7 @@ function normalizeError(error: unknown): AppError {
     };
   }
 
-  // 4. String errors
+  // String errors
   if (typeof error === "string") {
     return {
       message: error,
@@ -76,7 +57,7 @@ function normalizeError(error: unknown): AppError {
     };
   }
 
-  // 5. Fallback (unknown garbage)
+  // Fallback (unknown garbage)
   return {
     message: "Something went wrong!",
     code: "UNKNOWN_ERROR",
