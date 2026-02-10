@@ -12,7 +12,7 @@ const AdminHeader = ({
   subtitle = "Car Rental, Service & Sales",
 }: Props) => {
   return (
-    <header className="sticky w-full top-0 z-10 bg-white dark:bg-gray-800 shadow-sm">
+    <header className="sticky w-full top-0 z-10 shadow-sm">
       <div className="px-6 py-4">
         <div className="flex flex-row md:items-center justify-between">
           <div>

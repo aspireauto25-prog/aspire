@@ -11,7 +11,7 @@ const Sidebar = () => {
   return (
     <>
       <aside
-        className={`${showSidebar ? "flex" : "hidden"} absolute h-full md:relative md:flex flex-col w-64 bg-white dark:bg-gray-800 shadow-lg z-40`}
+        className={`${showSidebar ? "flex" : "hidden"} absolute h-full md:relative md:flex flex-col w-64 bg-white dark:bg-gray-950 shadow-lg z-40`}
         onClick={() => setShowSidebar(false)}
       >
         <div className="py-4 px-6  border-gray-200 dark:border-gray-700">
