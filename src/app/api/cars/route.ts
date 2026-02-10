@@ -86,7 +86,7 @@ export async function POST(request: Request) {
           status: CAR_STATUS_AVAILABLE,
           updated_at: new Date().toISOString(),
         },
-        { onConflict: "license_plate" },
+        { onConflict: "id" },
       )
       .select()
       .maybeSingle();

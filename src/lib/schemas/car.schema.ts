@@ -28,6 +28,7 @@ export const carSchema = z.object({
         : [],
     ),
   fuel_type: z.string().trim().optional(),
+  id: z.number().optional(),
   license_plate: z
     .string("License plate is required.")
     .trim()

@@ -46,6 +46,7 @@ export interface FormInput {
   engine_number?: string;
   features?: string;
   fuel_type?: string;
+  id?: number;
   license_plate: string;
   mileage?: string;
   model: string;
@@ -88,6 +89,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
             )
             .join(",") ?? "",
         fuel_type: car?.fuel_type ?? "",
+        id: car?.id,
         license_plate: car?.license_plate ?? "",
         mileage: car?.mileage?.toString() ?? "",
         model: car?.model ?? "",
