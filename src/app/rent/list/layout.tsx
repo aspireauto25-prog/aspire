@@ -1,8 +1,11 @@
+import { Suspense } from "react";
+
 import { features } from "@/data/rent";
 import Hero from "@/components/Hero";
 import RentalCarsSearch from "@/components/rent/Search";
 import RentCTA from "@/components/rent/CTA";
 import RentFeature from "@/components/rent/Feature";
+import Spinner from "@/components/Spinner";
 
 import heroBg from "@/assets/images/rent-hero-bg.jpg";
 
@@ -22,7 +25,11 @@ const RentListLayout = ({
         }
         subtitle="Choose from our extensive collection of luxury, economy, and electric vehicles"
         backgroundImage={heroBg}
-        action={<RentalCarsSearch />}
+        action={
+          <Suspense fallback={<Spinner />}>
+            <RentalCarsSearch />
+          </Suspense>
+        }
       />
 
       {/* Main Content */}
