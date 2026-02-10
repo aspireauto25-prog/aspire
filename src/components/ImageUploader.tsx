@@ -63,6 +63,7 @@ const ImageUploader = ({
       "image/png": [],
       "image/jpeg": [],
       "image/jpg": [],
+      "image/webp": [],
     },
     multiple,
     disabled: disabled || uploadState === UPLOAD_PROGRESS,
@@ -165,7 +166,7 @@ const ImageUploader = ({
             <span className="pl-1">or drag and drop</span>
           </p>
           <p className="text-xs text-gray-500">
-            PNG, JPG, GIF up to {multiple ? "10 images (5 MB each)" : "5MB"}
+            PNG, JPG, WEBP up to {multiple ? "10 images (5 MB each)" : "5MB"}
           </p>
         </div>
         <input {...getInputProps()} id={`${id}_images`} />

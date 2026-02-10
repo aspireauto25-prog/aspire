@@ -86,7 +86,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                       Engine Capacity
                     </span>
                     <span className="font-bold">
-                      {car?.engine_capacity ? `${car.engine_capacity} cc` : "-"}
+                      {car?.engine_capacity ? `${car.engine_capacity} L` : "-"}
                     </span>
                   </div>
                   <div className="flex justify-between py-3 border-b border-gray-200 dark:border-gray-800">
@@ -132,7 +132,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                     </p>
                   </div>
                   <div className="text-right">
-                    <div className="text-4xl font-bold text-primary mb-2">
+                    <div className="text-3xl font-bold text-primary mb-2">
                       $
                       {(
                         car.full_price - (car.discount_price ?? 0)

@@ -379,7 +379,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
                 className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 font-mono disabled:bg-gray-100 dark:disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
                 placeholder="License plate number"
                 required
-                disabled={mode != "create"}
+                disabled={mode == "view"}
                 {...register("license_plate")}
               />
               <p className="text-xs text-gray-500 mt-1">
@@ -453,7 +453,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
                 htmlFor="engineCapacity"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
-                Engine Capacity
+                Engine Capacity (L)
               </label>
               <div className="relative">
                 <input

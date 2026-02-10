@@ -1,6 +1,7 @@
 import {
   FaCar,
   FaCheck,
+  FaExclamationCircle,
   FaImage,
   FaRegCalendarAlt,
   FaRoad,
@@ -104,7 +105,7 @@ const BuyCard = (props: SaleCarWithDetails) => {
             href={`${BUY_ROUTE}/${props.id}`}
             className="flex-1"
           >
-            View Details
+            <FaExclamationCircle className="text-xl" /> View Details
           </Button>
           <OutlinedButton href={CONTACT_ROUTE} size="md">
             Contact
