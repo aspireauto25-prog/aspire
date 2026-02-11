@@ -59,10 +59,10 @@ const ContactPage = () => {
                     <h3 className="text-xl font-bold mb-3">Business Hours</h3>
                     <div className="space-y-2">
                       <div className="flex items-center text-gray-600 dark:text-gray-400">
-                        Monday - Friday: 8:00 AM - 10:00 PM
+                        Monday - Friday: 8:00 AM - 5:00 PM
                       </div>
                       <div className="flex items-center text-gray-600 dark:text-gray-400">
-                        Saturday - Sunday: 9:00 AM - 8:00 PM
+                        Saturday - Sunday: Closed
                       </div>
                     </div>
                   </div>
@@ -94,7 +94,7 @@ const ContactPage = () => {
                       </p>
                     </div>
                   </div>
-                  <Button theme="light" className="w-full">
+                  <Button href="https://wa.me/0497790788" theme="light" className="w-full">
                     Start WhatsApp Chat
                   </Button>
                 </div>

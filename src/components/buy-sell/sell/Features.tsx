@@ -1,4 +1,4 @@
-import { FaBolt, FaChartLine, FaShield } from "react-icons/fa6";
+import { FaBolt, FaChartLine, FaShieldAlt } from "react-icons/fa";
 
 const SellFeatures = () => {
   return (
@@ -23,7 +23,7 @@ const SellFeatures = () => {
       </div>
       <div className="feature-card bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg">
         <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
-          <FaShield className="text-primary text-2xl" />
+          <FaShieldAlt className="text-primary text-2xl" />
         </div>
         <h3 className="text-xl font-bold mb-4">Secure Transaction</h3>
         <p className="text-gray-600 dark:text-gray-300">

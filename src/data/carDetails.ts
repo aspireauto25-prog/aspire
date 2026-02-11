@@ -10,7 +10,7 @@ export const carData = {
   rating: 4.8,
   reviewCount: 245,
   description:
-    "Experience the future of driving with the Tesla Model 3. This all-electric sedan combines impressive performance with zero emissions. With instant torque, autopilot capabilities, and a minimalist interior featuring a 15-inch touchscreen, the Model 3 offers a truly modern driving experience. Perfect for both city commuting and long-distance travel with up to 353 miles of range.",
+    "Experience the future of driving with the Tesla Model 3. This all-electric sedan combines impressive performance with zero emissions. With instant torque, autopilot capabilities, and a minimalist interior featuring a 15-inch touchscreen, the Model 3 offers a truly modern driving experience. Perfect for both city commuting and long-distance travel with up to 353 km of range.",
   detailedDescription: `
                 <p>The Tesla Model 3 represents a revolution in automotive technology. As Tesla's most affordable vehicle, it doesn't compromise on features or performance. The Model 3 delivers exhilarating acceleration, reaching 0-60 mph in just 3.1 seconds in Performance trim.</p>
                 <p class="mt-4">The minimalist interior is dominated by a 15-inch touchscreen that controls nearly all vehicle functions. Premium materials throughout the cabin create a sophisticated environment, while the glass roof provides an open, airy feeling.</p>
@@ -33,15 +33,15 @@ export const carData = {
     horsepower: "450 HP",
     acceleration: "3.1 sec 0-60 mph",
     topSpeed: "162 mph",
-    range: "353 miles",
+    range: "353 km",
     charging: "250 kW Supercharging",
     seating: "5 Adults",
     cargo: "15 cu ft",
     transmission: "Single Speed Automatic",
     driveType: "All-Wheel Drive",
     weight: "4,065 lbs",
-    warranty: "4 years / 50,000 miles",
-    battery: "8 years / 120,000 miles",
+    warranty: "4 years / 50,000 km",
+    battery: "8 years / 120,000 km",
   },
   images: [
     "https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",

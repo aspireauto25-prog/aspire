@@ -25,12 +25,16 @@ const Hero = () => {
               <span className="inline-block gradient-text">Automotive</span>
               <br />
               Driven by
-              <span className="inline-block text-primary animate-glow">Excellence</span>
+              <span className="inline-block text-primary animate-glow">
+                Excellence
+              </span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl">
-              Experience luxury, performance, and reliability with our premium
-              fleet. From compact city cars to luxury SUVs, we have the perfect
-              vehicle for every journey.
+              Drive smarter with our <strong>Hybrid Rental Fleet</strong> — combining Toyota
+              reliability, advanced hybrid technology, and outstanding fuel
+              economy. Enjoy lower fuel costs, reduced emissions, and a
+              comfortable driving experience, whether for daily commuting or
+              long-term hire.
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
               <Button

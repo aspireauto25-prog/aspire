@@ -52,7 +52,7 @@ export const faqData = [
   {
     question: "What are your business hours?",
     answer:
-      "Our main office is open Monday to Friday from 8:00 AM to 8:00 PM, and Saturday to Sunday from 9:00 AM to 6:00 PM. For 24/7 emergency roadside assistance, call our support line.",
+      "Our main office is open Monday to Friday from 8:00 AM to 5:00 PM. Saturday to Sunday closed.",
   },
   {
     question: "How quickly can I expect a response to my inquiry?",
