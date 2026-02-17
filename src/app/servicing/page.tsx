@@ -6,6 +6,7 @@ import {
   FaDollarSign,
   FaCar,
 } from "react-icons/fa6";
+import type { Metadata } from "next";
 
 import { CONTACT_ROUTE } from "@/constants/routes";
 import {
@@ -20,6 +21,25 @@ import ServicingFAQ from "@/components/servicing/FAQ";
 import ServicingPackage from "@/components/servicing/Package";
 
 import heroBg from "@/assets/images/servicing-hero-bg.jpg";
+
+export const metadata: Metadata = {
+  title: "Car Servicing",
+  description:
+    "Professional car servicing, oil change, brake repair, engine diagnostics and full vehicle maintenance. Book your car service today.",
+  keywords: [
+    "car servicing",
+    "auto repair",
+    "car repair workshop",
+    "vehicle maintenance",
+    "oil change service",
+    "brake repair",
+    "engine diagnostics",
+    "car service near me",
+  ],
+  alternates: {
+    canonical: "/service",
+  },
+};
 
 const ServicingPage = () => {
   return (
