@@ -11,7 +11,7 @@ const DashboardPage = async () => {
   });
 
   return (
-    <>
+    <section className="py-10">
       <CarStats />
       <div className="bg-white  dark:bg-gray-800 rounded-xl shadow">
         <h3 className="text-lg font-semibold px-6 py-4">
@@ -21,7 +21,7 @@ const DashboardPage = async () => {
           <ContactInquiryTable inquiries={inquiries.data} />
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

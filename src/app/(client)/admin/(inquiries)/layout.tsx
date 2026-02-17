@@ -6,7 +6,7 @@ const InquiresLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <section>
+    <section className="pb-10">
       <InquiryStats />
       {children}
     </section>

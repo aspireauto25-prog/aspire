@@ -14,7 +14,7 @@ const ProfilePage = () => {
   if (!user) return;
 
   return (
-    <section className="space-y-8 max-w-6xl mx-auto">
+    <section className="space-y-8 max-w-6xl mx-auto py-10">
       {/* Profile Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
         <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">

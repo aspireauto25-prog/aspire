@@ -6,8 +6,8 @@ const CarsLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <section>
-      <CarStats />
+    <section className="pb-10">
+        <CarStats />
       {children}
     </section>
   );
