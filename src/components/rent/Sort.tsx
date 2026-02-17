@@ -17,7 +17,7 @@ const RentalCarsSort = ({ currentSort }: Props) => {
     <div className="flex items-center space-x-2">
       <span className="text-gray-600 dark:text-gray-400">Sort:</span>
       <select
-        className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2"
+        className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 w-full"
         name="sort"
         defaultValue={currentSort}
         onChange={(event) => sort(event.target.value)}

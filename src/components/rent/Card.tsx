@@ -1,4 +1,5 @@
 import {
+  FaCalendarAlt,
   FaCar,
   FaCheck,
   FaCogs,
@@ -126,13 +127,13 @@ const RentCard = ({
           </div>
         )}
 
-        <div className="flex space-x-3">
+        <div className="flex flex-col md:flex-row gap-3">
           <Button size="md" href={`${RENT_ROUTE}/${id}`} className="flex-1">
             <FaInfoCircle className="text-xl" /> View Details
           </Button>
           {status == CAR_STATUS_AVAILABLE ? (
             <OutlinedButton href={CONTACT_ROUTE} size="md">
-              Book Now
+              <FaCalendarAlt /> Book Now
             </OutlinedButton>
           ) : (
             <Button

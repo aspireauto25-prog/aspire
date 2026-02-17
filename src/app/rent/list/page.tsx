@@ -37,7 +37,7 @@ const RentListPage = async ({ searchParams }: Props) => {
                   Select from our premium collection
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full md:w-auto">
                 <RentalCarsFilter currentStatus={query.status ?? ""} />
                 <RentalCarsSort currentSort={query.sort ?? ""} />
               </div>
