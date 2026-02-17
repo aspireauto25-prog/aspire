@@ -1,4 +1,5 @@
 import { FaBolt, FaClock, FaWhatsapp } from "react-icons/fa";
+import type { Metadata } from "next";
 
 import { contactInfo, socialLinks } from "@/data/contact";
 import { WHATSAPP_URL } from "@/constants/contact";
@@ -9,6 +10,15 @@ import Hero from "@/components/Hero";
 import heroBg from "@/assets/images/contact-hero-bg.jpg";
 import InfoCard from "@/components/contact/InfoCard";
 import SocialLink from "@/components/contact/SocialLink";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description:
+    "Get in touch with us for car rentals, car purchase inquiries or servicing appointments.",
+  alternates: {
+    canonical: "/contact",
+  },
+};
 
 const ContactPage = () => {
   return (
@@ -101,11 +111,7 @@ const ContactPage = () => {
                       </p>
                     </div>
                   </div>
-                  <Button
-                    href={WHATSAPP_URL}
-                    theme="light"
-                    className="w-full"
-                  >
+                  <Button href={WHATSAPP_URL} theme="light" className="w-full">
                     Start WhatsApp Chat
                   </Button>
                 </div>

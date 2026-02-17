@@ -1,5 +1,6 @@
 import { FaCheck, FaLock } from "react-icons/fa6";
 import { Params } from "next/dist/server/request/params";
+import type { Metadata } from "next";
 
 import { carStatuses } from "@/constants/cars";
 import { CONTACT_ROUTE } from "@/constants/routes";
@@ -10,6 +11,46 @@ import RentDetailsBreadCrumb from "@/components/rent/details/BreadCrumb";
 
 interface Props {
   params: Promise<Params>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = (await params)?.id;
+
+  const car = await getSaleCarById(id as string);
+
+  if (!car) {
+    return {
+      title: "Car Not Found",
+    };
+  }
+
+  return {
+    title: `${car.brand} ${car.model} ${car.year} - ${car.price}`,
+    description: car.description,
+    keywords: [
+      car.brand,
+      car.model,
+      car.year?.toString(),
+      car.category,
+      "buy car",
+      "used car",
+    ],
+    openGraph: {
+      title: `${car.brand} ${car.model}`,
+      description: car.description,
+      images: [
+        {
+          url: car.images && car.images.length > 0 ? car.images[0]?.url : "",
+          width: 1200,
+          height: 630,
+          alt: `${car.brand} ${car.model}`,
+        },
+      ],
+    },
+    alternates: {
+      canonical: `/buy/${car.id}`,
+    },
+  };
 }
 
 const CarDetailsPage = async ({ params }: Props) => {
