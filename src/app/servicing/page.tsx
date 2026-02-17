@@ -1,10 +1,10 @@
 import {
-  FaBolt,
   FaCalendarCheck,
   FaPhone,
-  FaShield,
   FaToolbox,
   FaUserCheck,
+  FaDollarSign,
+  FaCar,
 } from "react-icons/fa6";
 
 import { CONTACT_ROUTE } from "@/constants/routes";
@@ -73,7 +73,7 @@ const ServicingPage = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-12 fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Why Choose Our Servicing?
+              Why Choose Our Workshop?
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               We provide exceptional service with certified expertise and
@@ -85,37 +85,45 @@ const ServicingPage = () => {
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
                 <FaUserCheck className="feature-icon text-primary text-2xl" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Certified Technicians</h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <h3 className="text-xl font-bold mb-4">
+                Qualified and experienced technicians
+              </h3>
+              {/* <p className="text-gray-600 dark:text-gray-300">
                 Factory-trained experts with 10+ years experience
-              </p>
+              </p> */}
             </div>
             <div className="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg">
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
                 <FaToolbox className="feature-icon text-primary text-2xl" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Modern Equipment</h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <h3 className="text-xl font-bold mb-4">
+                Modern tyre and alignment equipment
+              </h3>
+              {/* <p className="text-gray-600 dark:text-gray-300">
                 Latest diagnostic tools and technology
-              </p>
+              </p> */}
             </div>
             <div className="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg">
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
-                <FaShield className="feature-icon text-primary text-2xl" />
+                <FaDollarSign className="feature-icon text-primary text-2xl" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Warranty Protected</h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <h3 className="text-xl font-bold mb-4">
+                Competitive pricing with transparent advice
+              </h3>
+              {/* <p className="text-gray-600 dark:text-gray-300">
                 12-month service warranty on all work
-              </p>
+              </p> */}
             </div>
             <div className="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg">
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
-                <FaBolt className="feature-icon text-primary text-2xl" />
+                <FaCar className="feature-icon text-primary text-2xl" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Quick Service</h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <h3 className="text-xl font-bold mb-4">
+                Suitable for passenger vehicles, SUVs, 4WDs, and fleet vehicles
+              </h3>
+              {/* <p className="text-gray-600 dark:text-gray-300">
                 Most services completed same day
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
