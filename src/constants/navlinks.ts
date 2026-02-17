@@ -1,4 +1,5 @@
 import {
+  ABOUT_ROUTE,
   BUY_CAR_ROUTE,
   CONTACT_ROUTE,
   HOME_ROUTE,
@@ -10,6 +11,10 @@ const navlinks = [
   {
     route: HOME_ROUTE,
     label: "Home",
+  },
+   {
+    route: ABOUT_ROUTE,
+    label: "About",
   },
   {
     route: RENT_LIST_ROUTE,
