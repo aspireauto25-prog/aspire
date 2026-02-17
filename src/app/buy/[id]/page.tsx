@@ -1,8 +1,7 @@
 import { FaCheck, FaLock } from "react-icons/fa6";
-import { FaCheckCircle, FaInfoCircle } from "react-icons/fa";
 import { Params } from "next/dist/server/request/params";
+import type { Metadata } from "next";
 
-import { carData } from "@/data/carDetails";
 import { carStatuses } from "@/constants/cars";
 import { CONTACT_ROUTE } from "@/constants/routes";
 import { getSaleCarById } from "@/api/saleCars";
@@ -12,6 +11,46 @@ import RentDetailsBreadCrumb from "@/components/rent/details/BreadCrumb";
 
 interface Props {
   params: Promise<Params>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = (await params)?.id;
+
+  const car = await getSaleCarById(id as string);
+
+  if (!car) {
+    return {
+      title: "Car Not Found",
+    };
+  }
+
+  return {
+    title: `${car.brand} ${car.model} ${car.year} - ${car.price}`,
+    description: car.description,
+    keywords: [
+      car.brand,
+      car.model,
+      car.year?.toString(),
+      car.category,
+      "buy car",
+      "used car",
+    ],
+    openGraph: {
+      title: `${car.brand} ${car.model}`,
+      description: car.description,
+      images: [
+        {
+          url: car.images && car.images.length > 0 ? car.images[0]?.url : "",
+          width: 1200,
+          height: 630,
+          alt: `${car.brand} ${car.model}`,
+        },
+      ],
+    },
+    alternates: {
+      canonical: `/buy/${car.id}`,
+    },
+  };
 }
 
 const CarDetailsPage = async ({ params }: Props) => {
@@ -194,7 +233,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                 </div>
               </div>
               {/* What's Included */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-200  ">
+              {/* <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-200  ">
                 <h3 className="text-2xl font-bold mb-6">
                   What&apos;s Included
                 </h3>
@@ -206,9 +245,9 @@ const CarDetailsPage = async ({ params }: Props) => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
               {/* Requirements */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-300">
+              {/* <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-300">
                 <h3 className="text-2xl font-bold mb-6">Rental Requirements</h3>
                 <ul id="requirements-list">
                   {carData.requirements.map((requirement, index) => (
@@ -218,7 +257,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

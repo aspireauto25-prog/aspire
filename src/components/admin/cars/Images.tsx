@@ -84,7 +84,7 @@ const CarImages = ({ carImages }: Props) => {
       </div>
 
       <Modal show={show} setShow={setShow} title="Preview Car Image">
-        <div className="rounded-2xl overflow-hidden shadow-2xl relative max-w-5xl h-150 object-center mx-auto">
+        <div className="rounded-xl overflow-hidden relative max-w-5xl h-150 object-center mx-auto">
           <Image
             alt="Tesla Model 3"
             src={selectedImage?.url ?? ""}

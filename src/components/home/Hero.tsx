@@ -25,12 +25,16 @@ const Hero = () => {
               <span className="inline-block gradient-text">Automotive</span>
               <br />
               Driven by
-              <span className="inline-block text-primary animate-glow">Excellence</span>
+              <span className="inline-block text-primary animate-glow">
+                Excellence
+              </span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl">
-              Experience luxury, performance, and reliability with our premium
-              fleet. From compact city cars to luxury SUVs, we have the perfect
-              vehicle for every journey.
+              Drive smarter with our <strong>Hybrid Rental Fleet</strong> —
+              combining Toyota reliability, advanced hybrid technology, and
+              outstanding fuel economy. Enjoy lower fuel costs, reduced
+              emissions, and a comfortable driving experience, whether for daily
+              commuting or long-term hire.
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
               <Button
@@ -42,36 +46,22 @@ const Hero = () => {
               </Button>
             </div>
             {/* Floating stats */}
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="text-center glass-effect p-6 rounded-2xl backdrop-blur-sm shadow-2xl shadow-primary/5 bg-gray-100">
-                <div
-                  className="text-3xl font-bold text-primary counter"
-                  data-target={250}
-                >
-                  50
+                <div className="text-3xl font-bold text-primary counter">
+                  10+
                 </div>
                 <div className="text-gray-600 dark:text-gray-400">Vehicles</div>
               </div>
               <div className="text-center glass-effect p-6 rounded-2xl backdrop-blur-sm shadow-2xl shadow-primary/5 bg-gray-100">
                 <div
                   className="text-3xl font-bold text-primary counter"
-                  data-target={50}
-                >
-                  8
-                </div>
-                <div className="text-gray-600 dark:text-gray-400">
-                  Locations
-                </div>
-              </div>
-              <div className="text-center glass-effect p-6 rounded-2xl backdrop-blur-sm shadow-2xl shadow-primary/5 bg-gray-100">
-                <div
-                  className="text-3xl font-bold text-primary counter"
                   data-target={98}
                 >
-                  98
+                  98%
                 </div>
                 <div className="text-gray-600 dark:text-gray-400">
-                  Satisfaction %
+                  Satisfaction rate
                 </div>
               </div>
               <div className="text-center glass-effect p-6 rounded-2xl backdrop-blur-sm shadow-2xl shadow-primary/5 bg-gray-100">
@@ -79,10 +69,10 @@ const Hero = () => {
                   className="text-3xl font-bold text-primary counter"
                   data-target={24}
                 >
-                  24
+                  24/7
                 </div>
                 <div className="text-gray-600 dark:text-gray-400">
-                  /7 Support
+                  Road side assistance
                 </div>
               </div>
             </div>

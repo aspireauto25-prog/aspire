@@ -17,7 +17,7 @@ const BuySellWhyChooseUs = () => {
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
               <FaSearch className="fas fa-search text-primary text-2xl" />
             </div>
-            <h3 className="text-xl font-bold mb-2">140-Point Inspection</h3>
+            <h3 className="text-xl font-bold mb-2">100-Point Inspection</h3>
             <p className="text-gray-600 dark:text-gray-400">
               Every car undergoes rigorous inspection
             </p>
@@ -26,9 +26,9 @@ const BuySellWhyChooseUs = () => {
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
               <FaShieldAlt className="fas fa-shield-alt text-primary text-2xl" />
             </div>
-            <h3 className="text-xl font-bold mb-2">3-Month Warranty</h3>
+            <h3 className="text-xl font-bold mb-2">1-3 Months Warranty</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Comprehensive warranty on all purchases
+              Extended warranty option available
             </p>
           </div>
           <div className="text-center p-6">
@@ -44,9 +44,9 @@ const BuySellWhyChooseUs = () => {
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
               <FaTruck className="fas fa-truck text-primary text-2xl" />
             </div>
-            <h3 className="text-xl font-bold mb-2">Nationwide Delivery</h3>
+            <h3 className="text-xl font-bold mb-2">Statewide Delivery</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Get your car delivered anywhere
+              Get your car delivered anywhere within the state
             </p>
           </div>
         </div>

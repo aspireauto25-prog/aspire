@@ -107,3 +107,18 @@ export const carStatuses = [
 ];
 
 export const carConditions = ["Excellent", "Very Good", "Good", "Fair", "Poor"];
+
+export const rentalIncludedItems = [
+  "Comprehensive Insurance",
+  "All maintenance",
+  "PTV",
+  "Registration fee",
+  "24/7 road side assistance",
+];
+
+export const rentalRequirements = [
+  "Valid Driver's License",
+  "Credit Card for Security Deposit",
+  "Minimum Age: 25",
+  "Insurance Documentation",
+];

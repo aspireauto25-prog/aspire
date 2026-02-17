@@ -11,7 +11,7 @@ import OutlinedButton from "../OutlinedButton";
 
 interface Props {
   duration: string;
-  features: string[];
+  features: (string | string[])[];
   name: string;
   popular?: boolean;
   price: number;
@@ -55,8 +55,21 @@ const ServicingPackage = ({
           <ul className="space-y-3 mb-8">
             {features.map((feature, index) => (
               <li key={index} className="flex items-center">
-                <FaCheck className="text-primary mr-3" />
-                <span>{feature}</span>
+                {Array.isArray(feature) ? (
+                  <ul className="ml-5">
+                    {feature.map((item) => (
+                      <li key={item} className="flex items-center ">
+                        <FaCheck className="text-primary mr-3 text-xs" />
+                        <span className="text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <>
+                    <FaCheck className="text-primary mr-3" />
+                    <span>{feature}</span>
+                  </>
+                )}
               </li>
             ))}
           </ul>

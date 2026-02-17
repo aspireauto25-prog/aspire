@@ -1,5 +1,6 @@
 import { FaArrowDown } from "react-icons/fa";
 import { SearchParams } from "next/dist/server/request/search-params";
+import type { Metadata } from "next";
 
 import { getRentalCars } from "@/api/rentalCars";
 import EmptyData from "@/components/EmptyData";
@@ -7,6 +8,21 @@ import OutlinedButton from "@/components/OutlinedButton";
 import RentalCarsFilter from "@/components/rent/Filter";
 import RentalCarsSort from "@/components/rent/Sort";
 import RentCard from "@/components/rent/Card";
+
+export const metadata: Metadata = {
+  title: "Rent a Car",
+  description:
+    "Browse our wide range of rental cars. Affordable daily, weekly and long-term car rental options available.",
+  keywords: [
+    "car rental near me",
+    "daily car rental",
+    "monthly car rental",
+    "cheap car rental",
+  ],
+  alternates: {
+    canonical: "/rent",
+  },
+};
 
 interface Props {
   searchParams: Promise<SearchParams>;
@@ -37,7 +53,7 @@ const RentListPage = async ({ searchParams }: Props) => {
                   Select from our premium collection
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full md:w-auto">
                 <RentalCarsFilter currentStatus={query.status ?? ""} />
                 <RentalCarsSort currentSort={query.sort ?? ""} />
               </div>

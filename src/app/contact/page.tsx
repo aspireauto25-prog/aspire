@@ -1,6 +1,8 @@
 import { FaBolt, FaClock, FaWhatsapp } from "react-icons/fa";
+import type { Metadata } from "next";
 
 import { contactInfo, socialLinks } from "@/data/contact";
+import { WHATSAPP_URL } from "@/constants/contact";
 import Button from "@/components/Button";
 import ContactFAQ from "@/components/contact/FAQ";
 import ContactForm from "@/components/contact/Form";
@@ -8,6 +10,15 @@ import Hero from "@/components/Hero";
 import heroBg from "@/assets/images/contact-hero-bg.jpg";
 import InfoCard from "@/components/contact/InfoCard";
 import SocialLink from "@/components/contact/SocialLink";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description:
+    "Get in touch with us for car rentals, car purchase inquiries or servicing appointments.",
+  alternates: {
+    canonical: "/contact",
+  },
+};
 
 const ContactPage = () => {
   return (
@@ -59,10 +70,16 @@ const ContactPage = () => {
                     <h3 className="text-xl font-bold mb-3">Business Hours</h3>
                     <div className="space-y-2">
                       <div className="flex items-center text-gray-600 dark:text-gray-400">
-                        Monday - Friday: 8:00 AM - 10:00 PM
+                        Monday - Friday: 8:00 AM - 6:00 PM
                       </div>
                       <div className="flex items-center text-gray-600 dark:text-gray-400">
-                        Saturday - Sunday: 9:00 AM - 8:00 PM
+                        Wednesday: 8:00 AM - 9:00 PM
+                      </div>
+                      <div className="flex items-center text-gray-600 dark:text-gray-400">
+                        Saturday: 8:00 AM - 1:00 PM
+                      </div>
+                      <div className="flex items-center text-gray-600 dark:text-gray-400">
+                        Sunday: Closed
                       </div>
                     </div>
                   </div>
@@ -94,7 +111,7 @@ const ContactPage = () => {
                       </p>
                     </div>
                   </div>
-                  <Button theme="light" className="w-full">
+                  <Button href={WHATSAPP_URL} theme="light" className="w-full">
                     Start WhatsApp Chat
                   </Button>
                 </div>

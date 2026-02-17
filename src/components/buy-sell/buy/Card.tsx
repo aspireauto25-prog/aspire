@@ -3,6 +3,7 @@ import {
   FaCheck,
   FaExclamationCircle,
   FaImage,
+  FaPhone,
   FaRegCalendarAlt,
   FaRoad,
 } from "react-icons/fa";
@@ -99,7 +100,7 @@ const BuyCard = (props: SaleCarWithDetails) => {
             ) : null}
           </div>
         )}
-        <div className="flex space-x-3">
+        <div className="flex flex-col md:flex-row gap-3">
           <Button
             size="md"
             href={`${BUY_ROUTE}/${props.id}`}
@@ -108,7 +109,7 @@ const BuyCard = (props: SaleCarWithDetails) => {
             <FaExclamationCircle className="text-xl" /> View Details
           </Button>
           <OutlinedButton href={CONTACT_ROUTE} size="md">
-            Contact
+            <FaPhone /> Contact
           </OutlinedButton>
         </div>
       </div>

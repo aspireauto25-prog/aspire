@@ -30,7 +30,7 @@ const reasons = [
     Icon: FaDollarSign,
     description:
       "Competitive rates with no hidden fees. Price match guarantee on all rentals.",
-    label: "Best Prices",
+    label: "Fair Pricing",
   },
 ];
 

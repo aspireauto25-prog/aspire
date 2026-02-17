@@ -24,9 +24,9 @@ const AdminLayout = ({
     return (
       <div className="flex h-screen">
         <Sidebar />
-        <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+        <div className="flex-1 overflow-y-auto text-gray-800 dark:text-gray-200">
           <AdminHeader username={user?.name} />
-          <main className="p-6">{children}</main>
+          <main className="p-6 h-full bg-gray-50 dark:bg-gray-900">{children}</main>
         </div>
       </div>
     );

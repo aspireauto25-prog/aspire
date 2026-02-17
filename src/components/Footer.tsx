@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ADMIN_ROUTE, HOME_ROUTE } from "@/constants/routes";
+import { EMAIL, LOCATION, PHONE } from "@/constants/contact";
 import { socialLinks } from "@/data/contact";
 import config from "@/config";
 import logoLight from "@/assets/images/logo-light.png";
@@ -43,6 +44,7 @@ const Footer = () => {
                 <a
                   key={index}
                   href={item.link}
+                  target="_blank"
                   className="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
                 >
                   <item.icon />
@@ -89,7 +91,7 @@ const Footer = () => {
                   href="#"
                   className="text-gray-400 hover:text-primary transition-colors"
                 >
-                  Corporate Leasing
+                  Buy/Sell Cars
                 </a>
               </li>
               <li>
@@ -115,17 +117,15 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <FaMapLocationDot className="text-primary mr-3" />
-                <span className="text-gray-400">
-                  29 Foxwood Way, Langford WA 6147
-                </span>
+                <span className="text-gray-400">{LOCATION}</span>
               </li>
               <li className="flex items-center">
                 <FaPhone className="text-primary mr-3" />
-                <span className="text-gray-400">0497790788</span>
+                <span className="text-gray-400">{PHONE}</span>
               </li>
               <li className="flex items-center">
                 <FaEnvelope className="text-primary mr-3" />
-                <span className="text-gray-400">info@aspireauto.com.au</span>
+                <span className="text-gray-400">{EMAIL}</span>
               </li>
             </ul>
           </div>
