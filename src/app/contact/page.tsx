@@ -1,6 +1,7 @@
 import { FaBolt, FaClock, FaWhatsapp } from "react-icons/fa";
 
 import { contactInfo, socialLinks } from "@/data/contact";
+import { WHATSAPP_URL } from "@/constants/contact";
 import Button from "@/components/Button";
 import ContactFAQ from "@/components/contact/FAQ";
 import ContactForm from "@/components/contact/Form";
@@ -101,7 +102,7 @@ const ContactPage = () => {
                     </div>
                   </div>
                   <Button
-                    href="https://wa.me/0497790788"
+                    href={WHATSAPP_URL}
                     theme="light"
                     className="w-full"
                   >

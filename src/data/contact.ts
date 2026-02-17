@@ -1,50 +1,54 @@
 import {
   FaEnvelope,
   FaFacebookF,
-  FaInstagram,
   FaMapPin,
   FaPhone,
   FaTiktok,
-  FaXTwitter,
+  FaWhatsapp,
 } from "react-icons/fa6";
+
+import {
+  EMAIL,
+  FACEBOOK_URL,
+  LOCATION,
+  PHONE,
+  TIKTOK_URL,
+  WHATSAPP_URL,
+} from "@/constants/contact";
 
 export const contactInfo = [
   {
     icon: FaPhone,
     subtitle: "Speak directly with our team",
     title: "Call Us",
-    value: "0497790788",
+    value: PHONE,
   },
   {
     icon: FaEnvelope,
     subtitle: "Send us your queries",
     title: "Email Us",
-    value: "info@aspireauto.com.au",
+    value: EMAIL,
   },
   {
     icon: FaMapPin,
     subtitle: "Come see us in person",
     title: "Visit Us",
-    value: "29 Foxwood Way, Langford WA 6147",
+    value: LOCATION,
   },
 ];
 
 export const socialLinks = [
   {
     icon: FaFacebookF,
-    link: "#",
+    link: FACEBOOK_URL,
   },
   {
     icon: FaTiktok,
-    link: "#",
+    link: TIKTOK_URL,
   },
   {
-    icon: FaInstagram,
-    link: "#",
-  },
-  {
-    icon: FaXTwitter,
-    link: "#",
+    icon: FaWhatsapp,
+    link: WHATSAPP_URL,
   },
 ];
 
