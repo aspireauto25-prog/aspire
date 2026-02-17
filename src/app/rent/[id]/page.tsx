@@ -2,8 +2,12 @@ import { FaCheck, FaLock } from "react-icons/fa6";
 import { FaCheckCircle, FaInfoCircle } from "react-icons/fa";
 import { Params } from "next/dist/server/request/params";
 
-import { carData } from "@/data/carDetails";
-import { CAR_STATUS_AVAILABLE, carStatuses } from "@/constants/cars";
+import {
+  CAR_STATUS_AVAILABLE,
+  carStatuses,
+  rentalIncludedItems,
+  rentalRequirements,
+} from "@/constants/cars";
 import { CONTACT_ROUTE } from "@/constants/routes";
 import { getRentalCarById } from "@/api/rentalCars";
 import Button from "@/components/Button";
@@ -217,7 +221,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                   What&apos;s Included
                 </h3>
                 <ul id="includes-list">
-                  {carData.includes.map((include, index) => (
+                  {rentalIncludedItems.map((include, index) => (
                     <li key={index} className="flex items-center mb-3 p-1">
                       <FaCheckCircle className="text-primary mr-3" />
                       <span>{include}</span>
@@ -229,7 +233,7 @@ const CarDetailsPage = async ({ params }: Props) => {
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-300">
                 <h3 className="text-2xl font-bold mb-6">Rental Requirements</h3>
                 <ul id="requirements-list">
-                  {carData.requirements.map((requirement, index) => (
+                  {rentalRequirements.map((requirement, index) => (
                     <li key={index} className="flex items-center mb-3 p-1">
                       <FaInfoCircle className="text-primary mr-3" />
                       <span>{requirement}</span>

@@ -1,8 +1,6 @@
 import { FaCheck, FaLock } from "react-icons/fa6";
-import { FaCheckCircle, FaInfoCircle } from "react-icons/fa";
 import { Params } from "next/dist/server/request/params";
 
-import { carData } from "@/data/carDetails";
 import { carStatuses } from "@/constants/cars";
 import { CONTACT_ROUTE } from "@/constants/routes";
 import { getSaleCarById } from "@/api/saleCars";
@@ -194,7 +192,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                 </div>
               </div>
               {/* What's Included */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-200  ">
+              {/* <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-200  ">
                 <h3 className="text-2xl font-bold mb-6">
                   What&apos;s Included
                 </h3>
@@ -206,9 +204,9 @@ const CarDetailsPage = async ({ params }: Props) => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
               {/* Requirements */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-300">
+              {/* <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-300">
                 <h3 className="text-2xl font-bold mb-6">Rental Requirements</h3>
                 <ul id="requirements-list">
                   {carData.requirements.map((requirement, index) => (
@@ -218,7 +216,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
