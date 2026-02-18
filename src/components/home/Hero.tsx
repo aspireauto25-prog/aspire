@@ -81,12 +81,11 @@ const Hero = () => {
             <div className="relative car-3d">
               {/* Main Car Display */}
               <div className="relative">
-                {/* Car 1 - Tesla Model 3 */}
                 <div className="hero-car relative">
                   <div className="relative">
                     <Image
-                      src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                      alt="Tesla Model 3"
+                      src="/images/toyota.jpg"
+                      alt="Toyota Corolla"
                       className="car-model w-full max-w-2xl rounded-3xl aspect-square object-cover"
                       height={800}
                       width={1200}
@@ -95,66 +94,14 @@ const Hero = () => {
                       <div className="text-center">
                         <div className="text-primary font-bold">FROM</div>
                         <div className="text-3xl font-bold">
-                          $89<span className="text-lg">/day</span>
+                          $59<span className="text-lg">/day</span>
                         </div>
                         <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                          Tesla Model 3
+                          Toyota Corolla
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                {/* Car 2 - BMW X5 */}
-                <div className="hero-car hidden relative">
-                  <div className="relative">
-                    <Image
-                      src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                      alt="BMW X5"
-                      className="car-model w-full max-w-2xl rounded-3xl aspect-square object-cover"
-                      height={800}
-                      width={1200}
-                    />
-                    <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-2xl">
-                      <div className="text-center">
-                        <div className="text-primary font-bold">FROM</div>
-                        <div className="text-3xl font-bold">
-                          $129<span className="text-lg">/day</span>
-                        </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                          BMW X5
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Car 3 - Porsche 911 */}
-                <div className="hero-car hidden relative">
-                  <div className="relative">
-                    <Image
-                      src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                      alt="Porsche 911"
-                      className="car-model w-full max-w-2xl rounded-3xl aspect-square object-cover"
-                      height={800}
-                      width={1200}
-                    />
-                    <div className="absolute -top-6 -right-6 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-2xl">
-                      <div className="text-center">
-                        <div className="text-primary font-bold">FROM</div>
-                        <div className="text-3xl font-bold">
-                          $199<span className="text-lg">/day</span>
-                        </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                          Porsche 911
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Car Indicators */}
-                <div className="flex justify-center space-x-3 mt-8">
-                  <div className="car-indicator active" />
-                  <div className="car-indicator" />
-                  <div className="car-indicator" />
                 </div>
               </div>
               {/* Floating elements around cars */}
