@@ -2,12 +2,15 @@ export const ABOUT_ROUTE = "/about";
 export const BUY_CAR_ROUTE = "/buy-sell/buy";
 export const BUY_ROUTE = "/buy";
 export const BUY_SELL_ROUTE = "/buy-sell";
+export const COMMUNITY_GUIDELINES_ROUTE = "/community-guidelines";
 export const CONTACT_ROUTE = "/contact";
 export const HOME_ROUTE = "/";
+export const PRIVACY_ROUTE = "/privacy-policy";
 export const RENT_LIST_ROUTE = "/rent/list";
 export const RENT_ROUTE = "/rent";
 export const SELL_CAR_ROUTE = "/buy-sell/sell";
 export const SERVICING_ROUTE = "/servicing";
+export const TERMS_CONDITIONS_ROUTE = "/terms-and-conditions";
 export const WANTED_ROUTE = "/buy-sell/wanted";
 
 // Auth routes

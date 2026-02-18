@@ -5,7 +5,13 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-import { ADMIN_ROUTE, HOME_ROUTE } from "@/constants/routes";
+import {
+  ADMIN_ROUTE,
+  COMMUNITY_GUIDELINES_ROUTE,
+  HOME_ROUTE,
+  PRIVACY_ROUTE,
+  TERMS_CONDITIONS_ROUTE,
+} from "@/constants/routes";
 import { EMAIL, LOCATION, PHONE } from "@/constants/contact";
 import { socialLinks } from "@/data/contact";
 import config from "@/config";
@@ -25,7 +31,7 @@ const Footer = () => {
       <div className="absolute top-0 left-0 w-64 h-64 bg-primary rounded-full opacity-5 -translate-x-32 -translate-y-32" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full opacity-5 translate-x-48 translate-y-48" />
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[2fr_1fr_1fr_1fr_2fr] gap-8 mb-12">
           <div>
             <div className="flex items-center space-x-3 mb-6">
               <Link href={HOME_ROUTE}>
@@ -113,6 +119,35 @@ const Footer = () => {
             </ul>
           </div>
           <div>
+            <h3 className="text-xl font-bold mb-6">Legal</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  href={TERMS_CONDITIONS_ROUTE}
+                  className="text-gray-400 hover:text-primary transition-colors"
+                >
+                  Terms &amp; Conditions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={PRIVACY_ROUTE}
+                  className="text-gray-400 hover:text-primary transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={COMMUNITY_GUIDELINES_ROUTE}
+                  className="text-gray-400 hover:text-primary transition-colors"
+                >
+                  Community Guidelines
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
             <h3 className="text-xl font-bold mb-6">Contact Info</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
@@ -132,7 +167,7 @@ const Footer = () => {
         </div>
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-500">
-            © 2025 {config.appName}. All rights reserved.
+            © {new Date().getFullYear()} {config.appName}. All rights reserved.
           </p>
         </div>
       </div>

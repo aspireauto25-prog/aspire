@@ -120,6 +120,7 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
+  height: 8px;
   width: 10px;
 }
 

@@ -85,8 +85,8 @@ const AboutPage = () => {
                 </div>
                 <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl">
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-primary">13+</div>
-                    <div className="font-bold">Years Experience</div>
+                    <div className="text-4xl font-bold text-primary">10+</div>
+                    <div className="font-bold">Premium Vehicles</div>
                   </div>
                 </div>
               </div>
@@ -95,7 +95,7 @@ const AboutPage = () => {
         </div>
       </section>
       {/* Stats Section */}
-      <section className="py-16 bg-linear-to-r from-primary to-red-600 text-white">
+      {/* <section className="py-16 bg-linear-to-r from-primary to-red-600 text-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center stat-card p-6">
@@ -116,7 +116,7 @@ const AboutPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* Mission & Values */}
       <section className="py-20 bg-gray-100 dark:bg-gray-900">
         <div className="container mx-auto px-6">

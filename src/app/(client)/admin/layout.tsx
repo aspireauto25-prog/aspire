@@ -26,7 +26,7 @@ const AdminLayout = ({
         <Sidebar />
         <div className="flex-1 overflow-y-auto text-gray-800 dark:text-gray-200">
           <AdminHeader username={user?.name} />
-          <main className="p-6 h-full bg-gray-50 dark:bg-gray-900">{children}</main>
+          <main className="py-6 px-3 md:px-6  h-full bg-gray-50 dark:bg-gray-900">{children}</main>
         </div>
       </div>
     );

@@ -187,7 +187,7 @@ const CarForm = ({ car, mode = "create" }: Props) => {
       <form onSubmit={handleSubmit(run)}>
         {/* Basic Information Section */}
         <div className="form-section p-6 border-b border-gray-100 dark:border-gray-700">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
             <div className="flex items-center">
               <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
                 <FaCar />

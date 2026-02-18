@@ -71,7 +71,7 @@ const Header = () => {
             </Button>
             <button
               className="lg:hidden cursor-pointer"
-              onClick={() => setShowMobileMenu(true)}
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
             >
               <FaBars className="text-xl" />
             </button>
@@ -79,7 +79,10 @@ const Header = () => {
         </div>
         {/* Mobile menu  */}
         {showMobileMenu && (
-          <div className="bg-white dark:bg-gray-950 px-4 pt-2 pb-4 rounded-2xl mt-2" onClick={() => setShowMobileMenu(false)}>
+          <div
+            className="bg-white dark:bg-gray-950 px-4 pt-2 pb-4 rounded-2xl mt-2"
+            onClick={() => setShowMobileMenu(false)}
+          >
             <nav className="flex flex-col lg:hidden">
               {navlinks.map((navlink, index) => {
                 const isActive = pathname === navlink.route;
