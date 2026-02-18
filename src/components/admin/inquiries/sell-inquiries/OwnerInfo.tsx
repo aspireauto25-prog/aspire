@@ -62,7 +62,7 @@ const OwnerInfo = ({ email, name, phone }: Props) => {
           </div>
         </div>
         <div className="mt-6 pt-6 border-t border-gray-300 dark:border-gray-700">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Button href={`tel:${phone}`} size="md">
               <FaPhone />
               Call Owner

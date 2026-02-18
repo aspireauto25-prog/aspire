@@ -7,7 +7,7 @@ const CarsLayout = ({
 }>) => {
   return (
     <section className="pb-10">
-        <CarStats />
+      <CarStats />
       {children}
     </section>
   );

@@ -85,7 +85,7 @@ const SaleCarForm = ({ saleCar, mode = "create" }: Props) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow dark:shadow-dark-900 overflow-hidden mb-8">
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center ">
             <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white mr-4">
               <FaCar />

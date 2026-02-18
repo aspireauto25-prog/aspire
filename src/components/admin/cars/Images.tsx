@@ -60,7 +60,7 @@ const CarImages = ({ carImages }: Props) => {
               height={100}
             />
 
-            <div className="px-2 absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+            <div className="px-2 absolute inset-0 bg-black/50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
               <button
                 onClick={() => {
                   setSelectedImage(image);
@@ -84,13 +84,13 @@ const CarImages = ({ carImages }: Props) => {
       </div>
 
       <Modal show={show} setShow={setShow} title="Preview Car Image">
-        <div className="rounded-xl overflow-hidden relative max-w-5xl h-150 object-center mx-auto">
+        <div className="rounded-xl overflow-hidden relative max-w-5xl h-auto md:h-150 object-center mx-auto">
           <Image
             alt="Tesla Model 3"
             src={selectedImage?.url ?? ""}
             width={800}
             height={550}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain md:object-cover"
           />
           {selectedImage?.featured && (
             <div className="absolute top-5 right-5 bg-primary text-white px-4 py-1 rounded-2xl">

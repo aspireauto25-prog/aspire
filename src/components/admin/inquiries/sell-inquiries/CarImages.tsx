@@ -28,7 +28,7 @@ const CarImages = ({ images }: Props) => {
           <div className="aspect-w-16 aspect-h-9 bg-gray-100 dark:bg-gray-700 rounded-xl overflow-hidden">
             <Image
               alt=""
-              className="w-full h-125 object-cover gallery-image"
+              className="w-full md:h-125 object-contain md:object-cover gallery-image"
               height={800}
               src={selectedImage}
               width={1200}
