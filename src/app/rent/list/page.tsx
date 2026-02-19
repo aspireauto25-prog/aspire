@@ -1,13 +1,12 @@
-import { FaArrowDown } from "react-icons/fa";
 import { SearchParams } from "next/dist/server/request/search-params";
 import type { Metadata } from "next";
 
 import { getRentalCars } from "@/api/rentalCars";
 import EmptyData from "@/components/EmptyData";
-import OutlinedButton from "@/components/OutlinedButton";
+import LoadMoreButton from "@/components/car/LoadMore";
+import RentCard from "@/components/rent/Card";
 import RentalCarsFilter from "@/components/rent/Filter";
 import RentalCarsSort from "@/components/rent/Sort";
-import RentCard from "@/components/rent/Card";
 
 export const metadata: Metadata = {
   title: "Rent a Car",
@@ -28,10 +27,13 @@ interface Props {
   searchParams: Promise<SearchParams>;
 }
 
+const LIMIT = "12";
+
 const RentListPage = async ({ searchParams }: Props) => {
   const query = await searchParams;
 
   const rentalCars = await getRentalCars({
+    limit: query.limit ?? LIMIT,
     search: query.q ?? "",
     sort: query.sort ?? "",
     status: query.status ?? "",
@@ -65,16 +67,7 @@ const RentListPage = async ({ searchParams }: Props) => {
               ))}
             </div>
 
-            {rentalCars.data?.length == 0 ? (
-              <EmptyData />
-            ) : (
-              <div className="mt-12 text-center">
-                <OutlinedButton rounded className="mx-auto">
-                  Load More Cars
-                  <FaArrowDown />
-                </OutlinedButton>
-              </div>
-            )}
+            {rentalCars.data?.length == 0 ? <EmptyData /> : <LoadMoreButton />}
           </div>
         </div>
       </div>

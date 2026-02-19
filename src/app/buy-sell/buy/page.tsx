@@ -1,4 +1,3 @@
-import { FaArrowDown } from "react-icons/fa";
 import { SearchParams } from "next/dist/server/request/search-params";
 import type { Metadata } from "next";
 
@@ -9,7 +8,7 @@ import BuyFilter from "@/components/buy-sell/buy/Filter";
 import BuySearch from "@/components/buy-sell/buy/Search";
 import BuySort from "@/components/buy-sell/buy/Sort";
 import EmptyData from "@/components/EmptyData";
-import OutlinedButton from "@/components/OutlinedButton";
+import LoadMoreButton from "@/components/car/LoadMore";
 
 export const metadata: Metadata = {
   title: "Buy Cars",
@@ -30,10 +29,13 @@ interface Props {
   searchParams: Promise<SearchParams>;
 }
 
+const LIMIT = "12";
+
 const BuyCarPage = async ({ searchParams }: Props) => {
   const query = await searchParams;
 
   const saleCars = await getSaleCars({
+    limit: query.limit ?? LIMIT,
     category: query.category ?? "",
     search: query.q ?? "",
     sort: query.sort ?? "",
@@ -67,16 +69,7 @@ const BuyCarPage = async ({ searchParams }: Props) => {
           ))}
         </div>
 
-        {saleCars.data?.length == 0 ? (
-          <EmptyData />
-        ) : (
-          <div className="mt-12 text-center">
-            <OutlinedButton rounded className="mx-auto">
-              Load More Cars
-              <FaArrowDown />
-            </OutlinedButton>
-          </div>
-        )}
+        {saleCars.data?.length == 0 ? <EmptyData /> : <LoadMoreButton />}
       </div>
     </section>
   );
