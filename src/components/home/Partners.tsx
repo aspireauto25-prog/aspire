@@ -1,68 +1,45 @@
 import Image, { StaticImageData } from "next/image";
 
-import audiLogo from "@/assets/images/partners/audi.png";
-import bmwLogo from "@/assets/images/partners/bmw.png";
-import ferrariLogo from "@/assets/images/partners/ferrari.png";
-import jaguarLogo from "@/assets/images/partners/jaguar.png";
-import landroverLogo from "@/assets/images/partners/land-rover.png";
-import mercedezLogo from "@/assets/images/partners/mercedez.svg";
-import porcheLogo from "@/assets/images/partners/porche.png";
-import teslaLogo from "@/assets/images/partners/tesla.png";
-
 interface Props {
-  brand: string;
-  image: StaticImageData;
-  info: string;
+  name: string;
+  image: string;
+  info?: string;
 }
 
 const partners = [
   {
-    brand: "Land Rover",
-    image: landroverLogo,
-    info: "Go Anywhere",
+    image: "/images/partners/repco.svg",
+    name: "Repco Australia",
   },
   {
-    brand: "Tesla",
-    image: teslaLogo,
-    info: "Electric Innovation",
+    image: "/images/partners/napa.gif",
+    name: "NAPA auto parts",
   },
   {
-    brand: "Mercedes-Benz",
-    image: mercedezLogo,
-    info: "German Luxury",
+    image: "/images/partners/veale.jpeg",
+    name: "Veale Auto Parts",
   },
   {
-    brand: "Audi",
-    image: audiLogo,
-    info: "Vorsprung durch Technik",
+    image: "/images/partners/tempe-tyres.png",
+    name: "Tempe Tyres",
   },
   {
-    brand: "Jaguar",
-    image: jaguarLogo,
-    info: "British Luxury",
-  },
-  {
-    brand: "Porsche",
-    image: porcheLogo,
-    info: "German Engineering",
-  },
-  {
-    brand: "Ferrari",
-    image: ferrariLogo,
-    info: "Italian Excellence",
-  },
-  {
-    brand: "BMW",
-    image: bmwLogo,
-    info: "Ultimate Driving",
+    image: "/images/partners/integrity.png",
+    name: "Integrity Extended Warranties",
   },
 ];
 
-const Card = ({ brand, image, info }: Props) => {
+const Card = ({ name, image, info }: Props) => {
   return (
     <div className="brand-card shrink-0 mx-4 w-64 h-48 glass-effect rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg">
-      <Image src={image} className="h-16 w-auto" alt={brand} />
-      <h4 className="text-xl font-bold mb-2">{brand}</h4>
+      <Image
+        src={image}
+        className="h-16 w-auto"
+        alt={name}
+        height={200}
+        width={200}
+      />
+      <h4 className="text-xl font-bold my-2 text-center">{name}</h4>
       <p className="text-gray-600 dark:text-gray-400 text-sm text-center">
         {info}
       </p>
@@ -79,25 +56,23 @@ const Partners = () => {
             <span className="text-primary font-bold">OUR PARTNERS</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Premium Car <span className="text-primary">Brands</span>
+            Trusted <span className="text-primary">Partners</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            We offer vehicles from the world&apos;s most prestigious and
-            reliable automotive manufacturers.
+            Collaborating with trusted brands and industry leaders to deliver
+            quality and reliability.
           </p>
         </div>
       </div>
       <div className="mb-12">
-        <div className="marquee-container overflow-x-hidden py-10 relative">
-          <div className="marquee-content flex marquee">
-            {partners.map((partner, index) => (
-              <Card key={index} {...partner} />
-            ))}
-          </div>
+        <div className="overflow-x-auto py-10 flex justify-evenly">
+          {partners.map((partner, index) => (
+            <Card key={index} {...partner} />
+          ))}
         </div>
       </div>
       {/* Brand Counter */}
-      <div className="mt-16 text-center">
+      {/* <div className="mt-16 text-center">
         <div className="inline-block px-8 py-6 rounded-2xl glass-effect backdrop-blur-sm">
           <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-5">
             <div className="text-center">
@@ -128,7 +103,7 @@ const Partners = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
