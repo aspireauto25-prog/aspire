@@ -72,7 +72,7 @@ const ServicingPage = () => {
               optimal vehicle performance.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {servicePackages.map((pkg) => (
               <ServicingPackage
                 duration={pkg.duration}
@@ -108,9 +108,10 @@ const ServicingPage = () => {
               <h3 className="text-xl font-bold mb-4">
                 Qualified and experienced technicians
               </h3>
-              {/* <p className="text-gray-600 dark:text-gray-300">
-                Factory-trained experts with 10+ years experience
-              </p> */}
+              <p className="text-gray-600 dark:text-gray-300">
+                Certified experts delivering precise diagnostics and reliable
+                repairs every time.
+              </p>
             </div>
             <div className="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg">
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
@@ -119,9 +120,10 @@ const ServicingPage = () => {
               <h3 className="text-xl font-bold mb-4">
                 Modern tyre and alignment equipment
               </h3>
-              {/* <p className="text-gray-600 dark:text-gray-300">
-                Latest diagnostic tools and technology
-              </p> */}
+              <p className="text-gray-600 dark:text-gray-300">
+                Advanced tools and technology ensuring accuracy, safety, and
+                optimal performance.
+              </p>
             </div>
             <div className="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg">
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
@@ -130,9 +132,10 @@ const ServicingPage = () => {
               <h3 className="text-xl font-bold mb-4">
                 Competitive pricing with transparent advice
               </h3>
-              {/* <p className="text-gray-600 dark:text-gray-300">
-                12-month service warranty on all work
-              </p> */}
+              <p className="text-gray-600 dark:text-gray-300">
+                Fair pricing with honest recommendations — no hidden costs,
+                ever.
+              </p>
             </div>
             <div className="feature-card bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg">
               <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
@@ -141,9 +144,10 @@ const ServicingPage = () => {
               <h3 className="text-xl font-bold mb-4">
                 Suitable for passenger vehicles, SUVs, 4WDs, and fleet vehicles
               </h3>
-              {/* <p className="text-gray-600 dark:text-gray-300">
-                Most services completed same day
-              </p> */}
+              <p className="text-gray-600 dark:text-gray-300">
+                Comprehensive servicing solutions tailored for private,
+                commercial, and fleet needs.
+              </p>
             </div>
           </div>
         </div>

@@ -56,7 +56,7 @@ export const faqData = [
   {
     question: "What are your business hours?",
     answer:
-      "Our main office is open Monday to Friday from 8:00 AM to 5:00 PM. Saturday to Sunday closed.",
+      "Our main office is open Monday to Saturday from 8:00 AM to 6:00 PM. Sunday closed.",
   },
   {
     question: "How quickly can I expect a response to my inquiry?",
