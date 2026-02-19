@@ -6,6 +6,7 @@ import {
   FaCrown,
 } from "react-icons/fa6";
 
+import { CONTACT_ROUTE } from "@/constants/routes";
 import Button from "../Button";
 import OutlinedButton from "../OutlinedButton";
 
@@ -80,11 +81,11 @@ const ServicingPackage = ({
             </p>
           </div>
           {popular ? (
-            <Button size="md" className="w-full">
+            <Button href={CONTACT_ROUTE} size="md" className="w-full">
               <FaCalendarCheck className="mr-2" /> Book This Service
             </Button>
           ) : (
-            <OutlinedButton size="md" className="w-full">
+            <OutlinedButton href={CONTACT_ROUTE} size="md" className="w-full">
               <FaCalendarCheck /> Book This Service
             </OutlinedButton>
           )}

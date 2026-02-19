@@ -24,8 +24,8 @@ const servicing = [
   {
     description: "Complete system scan and detailed report",
     Icon: FaTools,
-    info: "Advanced computer diagnostics",
-    label: "Diagnostic Services",
+    info: "Comprehensive service",
+    label: "Logbook Servicing",
     price: "Starting at $149",
   },
   {
