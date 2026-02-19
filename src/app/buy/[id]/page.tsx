@@ -7,7 +7,7 @@ import { CONTACT_ROUTE } from "@/constants/routes";
 import { getSaleCarById } from "@/api/saleCars";
 import Button from "@/components/Button";
 import CarImagePreview from "@/components/car/ImagePreview";
-import RentDetailsBreadCrumb from "@/components/rent/details/BreadCrumb";
+import SaleDetailsBreadCrumb from "@/components/buy-sell/buy/details/BreadCrumb";
 
 interface Props {
   params: Promise<Params>;
@@ -62,7 +62,7 @@ const CarDetailsPage = async ({ params }: Props) => {
 
   return (
     <>
-      <RentDetailsBreadCrumb car={carName} />
+      <SaleDetailsBreadCrumb car={carName} />
       {/* Car Details Section */}
       <section className="py-8">
         <div className="container mx-auto px-6">
@@ -227,7 +227,9 @@ const CarDetailsPage = async ({ params }: Props) => {
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl slide-in-right delay-100">
                 <h3 className="text-2xl font-bold mb-6">Buy This Car</h3>
                 <div className="space-y-4">
-                  <Button href={CONTACT_ROUTE}>
+                  <Button
+                    href={`${CONTACT_ROUTE}?subject=Car Purchase Inquiry&message=I would like to buy ${carName}`}
+                  >
                     <FaLock /> Buy Now
                   </Button>
                 </div>

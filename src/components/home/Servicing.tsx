@@ -51,7 +51,11 @@ const Card = ({ description, info, label, price, Icon }: Props) => {
         <div className="card-back bg-primary rounded-3xl p-8 shadow-2xl flex flex-col justify-center items-center text-white">
           <h3 className="text-2xl font-bold mb-4">{price}</h3>
           <p className="text-center mb-6">{description}</p>
-          <Button href={CONTACT_ROUTE} rounded theme="light">
+          <Button
+            href={`${CONTACT_ROUTE}?subject=Car Servicing and Maintenance&message=I would like to get ${label} for my car`}
+            rounded
+            theme="light"
+          >
             Book Now
           </Button>
         </div>

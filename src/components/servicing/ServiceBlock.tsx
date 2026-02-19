@@ -1,5 +1,8 @@
+import { FaCalendarAlt, FaCheck } from "react-icons/fa";
 import { IconType } from "react-icons";
-import { FaCheck } from "react-icons/fa6";
+
+import { CONTACT_ROUTE } from "@/constants/routes";
+import Button from "../Button";
 
 interface Props {
   service: {
@@ -60,6 +63,15 @@ const ServiceBlock = ({ service }: Props) => {
           ))}
         </div>
       )}
+
+      <div className="mt-8">
+        <Button
+          href={`${CONTACT_ROUTE}?subject=Car Servicing and Maintenance&message=I would like to get ${service.title} for my car`}
+          className="md:w-max"
+        >
+          <FaCalendarAlt /> Book This Service
+        </Button>
+      </div>
     </div>
   );
 };

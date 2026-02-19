@@ -132,7 +132,10 @@ const RentCard = ({
             <FaInfoCircle className="text-xl" /> View Details
           </Button>
           {status == CAR_STATUS_AVAILABLE ? (
-            <OutlinedButton href={CONTACT_ROUTE} size="md">
+            <OutlinedButton
+              href={`${CONTACT_ROUTE}?subject=Car Rental Inquiry&message=I would like to rent ${brand} ${model} ${variant}`}
+              size="md"
+            >
               <FaCalendarAlt /> Book Now
             </OutlinedButton>
           ) : (

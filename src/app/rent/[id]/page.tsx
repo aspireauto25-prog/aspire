@@ -208,7 +208,7 @@ const CarDetailsPage = async ({ params }: Props) => {
                 <div className="space-y-4">
                   <Button
                     disabled={car.status != CAR_STATUS_AVAILABLE}
-                    href={CONTACT_ROUTE}
+                    href={`${CONTACT_ROUTE}?subject=Car Rental Inquiry&message=I would like to rent ${carName}`}
                     className="w-full"
                   >
                     <FaLock /> Book Now

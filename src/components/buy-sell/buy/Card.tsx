@@ -108,7 +108,10 @@ const BuyCard = (props: SaleCarWithDetails) => {
           >
             <FaExclamationCircle className="text-xl" /> View Details
           </Button>
-          <OutlinedButton href={CONTACT_ROUTE} size="md">
+          <OutlinedButton
+            href={`${CONTACT_ROUTE}?subject=Car Purchase Inquiry&message=I would like to buy ${props.brand} ${props.model} ${props.variant}`}
+            size="md"
+          >
             <FaPhone /> Contact
           </OutlinedButton>
         </div>
