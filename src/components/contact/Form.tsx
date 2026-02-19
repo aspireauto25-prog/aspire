@@ -20,8 +20,19 @@ interface FormData {
   subject: string;
 }
 
-const ContactForm = () => {
-  const { handleSubmit, register, reset } = useForm<FormData>();
+interface Props {
+  message?: string;
+  subject?: string;
+}
+
+const ContactForm = ({ message = "", subject = "" }: Props) => {
+  console.log(subject)
+  const { handleSubmit, register, reset } = useForm<FormData>({
+    defaultValues: {
+      subject,
+      message,
+    },
+  });
 
   const { error, loading, run, success } = useRequest((data) =>
     sendContactInquiry(data as ContactInquiry),

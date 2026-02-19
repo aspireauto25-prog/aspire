@@ -1,4 +1,5 @@
 import { FaBolt, FaClock, FaWhatsapp } from "react-icons/fa";
+import { SearchParams } from "next/dist/server/request/search-params";
 import type { Metadata } from "next";
 
 import { contactInfo, socialLinks } from "@/data/contact";
@@ -20,7 +21,13 @@ export const metadata: Metadata = {
   },
 };
 
-const ContactPage = () => {
+interface Props {
+  searchParams: Promise<SearchParams>;
+}
+
+const ContactPage = async ({ searchParams }: Props) => {
+  const query = await searchParams;
+
   return (
     <>
       {/* Hero Image */}
@@ -56,7 +63,10 @@ const ContactPage = () => {
                 Fill out the form below and we&apos;ll get back to you as soon
                 as possible.
               </p>
-              <ContactForm />
+              <ContactForm
+                subject={query?.subject as string}
+                message={query.message as string}
+              />
             </div>
             {/* Map & Locations */}
             <div className="slide-in-right">

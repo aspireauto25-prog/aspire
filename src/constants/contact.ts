@@ -5,9 +5,9 @@ export const subjects = [
   "Car Rental Inquiry",
   "Car Purchase Inquiry",
   "Car Sale Inquiry",
-  "Car Servicing & Maintenance",
-  "Corporate & Business Services",
-  "Feedback & Suggestions",
+  "Car Servicing and Maintenance",
+  "Corporate and Business Services",
+  "Feedback and Suggestions",
   "Other Inquiry",
 ];
 
