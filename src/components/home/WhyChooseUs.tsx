@@ -11,26 +11,26 @@ const reasons = [
   {
     Icon: FaShieldAlt,
     description:
-      "All our vehicles come with comprehensive insurance coverage for your peace of mind.",
-    label: "Fully Insured",
+      "Buy, sell, or rent with confidence — complete automotive solutions under one roof.",
+    label: "Dual Expertise - Dealer & Rental",
   },
   {
     Icon: FaTools,
     description:
-      "Our certified technicians provide top-quality maintenance and repair services.",
-    label: "Expert Servicing",
+      "Transparent pricing, honest advice, and support that puts your needs first.",
+    label: "Customer-Focused Service",
   },
   {
     Icon: FaClock,
     description:
-      "Round-the-clock customer support to assist you anytime, anywhere.",
-    label: "24/7 Support",
+      "Fully inspected, sanitized, and prepared vehicles — on the road in just 15 minutes.",
+    label: "Clean & Ready to Drive",
   },
   {
     Icon: FaDollarSign,
     description:
       "Competitive rates with no hidden fees. Price match guarantee on all rentals.",
-    label: "Fair Pricing",
+    label: "Transparent & Fair Pricing",
   },
 ];
 
