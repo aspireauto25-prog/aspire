@@ -12,11 +12,13 @@ import { CONTACT_ROUTE } from "@/constants/routes";
 import {
   faqData,
   maintenanceSchedule,
+  moreServicesData,
   servicePackages,
 } from "@/data/servicing";
 import Button from "@/components/Button";
 import Hero from "@/components/Hero";
 import MaintenanceSchedule from "@/components/servicing/MaintenanceSchedule";
+import ServiceBlock from "@/components/servicing/ServiceBlock";
 import ServicingFAQ from "@/components/servicing/FAQ";
 import ServicingPackage from "@/components/servicing/Package";
 
@@ -153,21 +155,22 @@ const ServicingPage = () => {
         </div>
       </section>
 
-      {/* Maintenance Schedule */}
+      {/* More services */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12 fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Recommended Maintenance Schedule
+              More Services
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Follow our maintenance guide to keep your vehicle running smoothly
-              and efficiently.
+              We offer a comprehensive range of services to keep your vehicle
+              running smoothly and efficiently.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {maintenanceSchedule.map((item, index) => (
-              <MaintenanceSchedule key={index} {...item} />
+
+          <div className="flex flex-col gap-12">
+            {moreServicesData.map((service) => (
+              <ServiceBlock key={service.id} service={service} />
             ))}
           </div>
         </div>
@@ -189,6 +192,26 @@ const ServicingPage = () => {
             >
               <FaPhone className="mr-3" /> Call Now: 0497790788
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Maintenance Schedule */}
+      <section className="py-16 bg-gray-100 dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12 fade-in">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Recommended Maintenance Schedule
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Follow our maintenance guide to keep your vehicle running smoothly
+              and efficiently.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {maintenanceSchedule.map((item, index) => (
+              <MaintenanceSchedule key={index} {...item} />
+            ))}
           </div>
         </div>
       </section>

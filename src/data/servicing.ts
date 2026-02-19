@@ -1,3 +1,7 @@
+import { GiCarWheel } from "react-icons/gi";
+import { HiMiniPause } from "react-icons/hi2";
+import { MdOutlineAir } from "react-icons/md";
+
 export const servicePackages = [
   {
     id: 1,
@@ -127,5 +131,101 @@ export const faqData = [
     question: "Can I wait while my car is being serviced?",
     answer:
       "Yes! We have a comfortable waiting lounge with free WiFi, refreshments, and workstations. You can also track progress through our mobile app.",
+  },
+];
+
+export const moreServicesData = [
+  {
+    Icon: HiMiniPause,
+    id: "brake-service",
+    title: "Brake Services",
+    description:
+      "Keeping your car brakes in working order is essential for safety. Worn brakes mean longer stopping distances – and difficulty stopping quickly in emergency situations or wet conditions. If it’s been a while since your brakes were checked, put your safety first and book online.",
+    subsections: [
+      {
+        title: "What does a Brake Service include?",
+        content:
+          "This depends on what type of car brakes your vehicle has: disc brakes or drum brakes. Your mechanic will need to look at different components and maintenance areas on each of these as part of the service checklist.",
+      },
+      {
+        title: "Our Disc Brake Service includes:",
+        items: [
+          "High tech on-car disc machining (so brake pads fit flush against the disc rotors)",
+          "Brake pad replacement",
+          "Inspection and repacking of front wheel bearings (if applicable)",
+          "Full inspection of hydraulics",
+          "Disc Brake Service report",
+        ],
+      },
+      {
+        title: "Our Drum Brake Service includes:",
+        items: [
+          "Shoe replacement",
+          "Machining of brake drums",
+          "Full system inspection",
+          "Cleaning and adjustment of brake components",
+          "Bearings cleaned, inspected and repacked (if applicable)",
+        ],
+      },
+    ],
+  },
+  {
+    Icon: MdOutlineAir,
+    id: "air-conditioning",
+    title: "Air Conditioning Services",
+    description:
+      "Manufacturers recommend an air conditioning service every two years. A 're-gas' often solves issues, evacuating existing gas, refilling with new refrigerant, and replacing lubricating oil. Regular servicing helps avoid bad air flow, hot air, or unpleasant smells.",
+    subsections: [
+      {
+        title: "Fixing your car's Air Conditioning System",
+        content:
+          "If your AC isn't working, it could be a simple aircon regas or a sign of issues with the compressor, blower motor, expansion valve, or evaporator. Our technicians will diagnose and fix the issue efficiently.",
+      },
+      {
+        title: "Our Air Conditioning Services",
+        items: [
+          "Air conditioning regas and recharge",
+          "Refrigerant leak testing",
+          "Compressor and component inspection",
+          "Blower motor and expansion valve repair",
+          "Evaporator cleaning and maintenance",
+        ],
+      },
+    ],
+  },
+  {
+    Icon: GiCarWheel,
+    id: "tyre-replacement",
+    title: "Tyre Replacement Services",
+    description:
+      "We supply and install high-quality tyres to suit all vehicle types and budgets. Proper tyre replacement improves handling, braking, fuel efficiency, and overall safety.",
+    subsections: [
+      {
+        title: "Our tyre services include:",
+        items: [
+          "New tyre supply (economy, mid-range, and premium brands)",
+          "Removal and disposal of old tyres",
+          "Professional tyre fitting using modern equipment",
+          "Tyre pressure set to manufacturer specifications",
+          "Visual inspection for damage and uneven wear",
+        ],
+      },
+      {
+        title: "Wheel Balancing",
+        content:
+          "Ensures weight is evenly distributed. Unbalanced wheels cause vibration, uneven wear, and steering issues. Benefits include smooth driving and extended tyre life.",
+      },
+      {
+        title: "Wheel Alignment",
+        content:
+          "Ensures wheels are set to manufacturer specs (camber, caster, toe). Misaligned wheels cause rapid wear and affect stability.",
+        items: [
+          "Computerised alignment check",
+          "Adjustment of camber, caster, and toe angles",
+          "Steering wheel centring",
+          "Pre- and post-alignment measurement report",
+        ],
+      },
+    ],
   },
 ];
