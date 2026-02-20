@@ -8,6 +8,7 @@ import Link from "next/link";
 import {
   ADMIN_ROUTE,
   COMMUNITY_GUIDELINES_ROUTE,
+  DASHBOARD_ROUTE,
   HOME_ROUTE,
   PRIVACY_ROUTE,
   TERMS_CONDITIONS_ROUTE,
@@ -165,10 +166,22 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-800 pt-8 text-center">
-          <p className="text-gray-500">
-            © {new Date().getFullYear()} {config.appName}. All rights reserved.
-          </p>
+        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+          <div className="flex flex-col md:flex-row items-center gap-x-4 gap-y-2">
+            <p className="text-gray-500 text-sm ">
+              © {new Date().getFullYear()} {config.appName}. All rights
+              reserved.
+            </p>
+            <div className="text-[10px] uppercase tracking-wider text-gray-500 bg-gray-800/50 px-2 py-0.5 rounded border border-gray-700">
+              v{config.appVersion}
+            </div>
+          </div>
+          <Link
+            href={DASHBOARD_ROUTE}
+            className="text-sm text-gray-400 hover:text-primary transition-all duration-300 flex items-center gap-2 group"
+          >
+            Dashboard
+          </Link>
         </div>
       </div>
     </footer>
