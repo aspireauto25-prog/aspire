@@ -117,7 +117,7 @@ const Table = async ({ inquiries }: Props) => {
                 <div className="flex justify-center">
                   <Link
                     href={`${SELL_INQUIRIES_ROUTE}/${inquiry.id}`}
-                    className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg"
+                    className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-950 rounded-lg"
                   >
                     <FaEye />
                   </Link>

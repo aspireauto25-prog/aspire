@@ -12,7 +12,7 @@ const AboutLayout = ({
       <Hero
         title={
           <>
-            Driving <span className="gradient-text">Excellence</span> Since 2010
+            Driving <span className="gradient-text">Excellence</span>
           </>
         }
         subtitle="We're more than just a car rental company - we're your trusted

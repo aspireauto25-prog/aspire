@@ -21,26 +21,6 @@ const BuySellLayout = ({
             Buy &amp; Sell <span className="gradient-text">Premium</span> Cars
           </>
         }
-        action={
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-            <div className="text-center">
-              <div className="text-3xl font-bold mb-2">200+</div>
-              <div className="text-gray-300">Cars Listed</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold mb-2">98%</div>
-              <div className="text-gray-300">Satisfaction</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold mb-2">24h</div>
-              <div className="text-gray-300">Quick Sale</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold mb-2">100%</div>
-              <div className="text-gray-300">Verified</div>
-            </div>
-          </div>
-        }
       />
 
       <BuySellTabs />
