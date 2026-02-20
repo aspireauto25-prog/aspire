@@ -69,7 +69,11 @@ const BuyCarPage = async ({ searchParams }: Props) => {
           ))}
         </div>
 
-        {saleCars.data?.length == 0 ? <EmptyData /> : <LoadMoreButton />}
+        {saleCars.data?.length == 0 ? (
+          <EmptyData />
+        ) : (
+          <LoadMoreButton defaultLimit={LIMIT} />
+        )}
       </div>
     </section>
   );

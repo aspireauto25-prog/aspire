@@ -67,7 +67,11 @@ const RentListPage = async ({ searchParams }: Props) => {
               ))}
             </div>
 
-            {rentalCars.data?.length == 0 ? <EmptyData /> : <LoadMoreButton />}
+            {rentalCars.data?.length == 0 ? (
+              <EmptyData />
+            ) : (
+              <LoadMoreButton defaultLimit={LIMIT} />
+            )}
           </div>
         </div>
       </div>

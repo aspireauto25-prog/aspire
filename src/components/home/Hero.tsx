@@ -111,7 +111,7 @@ const Hero = () => {
               <div className="absolute -bottom-10 -right-10 w-20 h-20 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center float">
                 <FaShieldAlt className="text-primary text-2xl" />
               </div>
-              <div className="absolute top-1/2 -right-16 transform -translate-y-1/2 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-2xl bounce-slow">
+              <div className="absolute top-1/2 -right-6 xl:-right-16 transform -translate-y-1/2 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-2xl bounce-slow">
                 <div className="flex items-center">
                   <FaStar className="text-yellow-500 text-xl mr-2" />
                   <div>
