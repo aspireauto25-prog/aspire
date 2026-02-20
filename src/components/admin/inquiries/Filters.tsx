@@ -5,18 +5,20 @@ import {
   SELL_INQUIRY_RESPONDED,
 } from "@/constants/sellInquiries";
 import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
+import { useSearchParams } from "next/navigation";
 
 interface Props {
-  currentStatus?: string | string[];
+  filters: {
+    label: string;
+    value: number | string;
+  }[];
 }
 
-const filters = [
-  { label: "All", value: "" },
-  { label: "Pending", value: SELL_INQUIRY_PENDING },
-  { label: "Responded", value: SELL_INQUIRY_RESPONDED },
-];
+const Filters = ({ filters }: Props) => {
+  const searchParams = useSearchParams();
 
-const Filters = ({ currentStatus }: Props) => {
+  const currentStatus = searchParams.get("status") ?? "";
+
   const updateParams = useUpdateQueryParams();
 
   function filter(status: string) {
