@@ -37,11 +37,15 @@ const CarImages = ({ images }: Props) => {
         </div>
         {/* Thumbnail Gallery */}
         <div>
-          <div className="flex items-center justify-center gap-4">
-            {images?.map((image, index) => (
+          <div className="flex space-x-4 overflow-x-auto custom-scrollbar pb-2">
+            {images.map((image, index) => (
               <div
                 key={index}
-                className={`${image.url == selectedImage ? "outline-2 outline-primary" : ""} aspect-square h-28 w-auto object-center bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden cursor-pointer gallery-image`}
+                className={`min-w-24 max-w-24 h-24 rounded-lg overflow-hidden cursor-pointer border-2 hover:border-primary ${
+                  image.url == selectedImage
+                    ? " border-primary"
+                    : "border-transparent"
+                }`}
                 onClick={() => setSelectedImage(image.url)}
               >
                 <Image

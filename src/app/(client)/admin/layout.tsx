@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 
@@ -18,23 +19,29 @@ const AdminLayout = ({
 
   const { user } = useSelector((state: RootState) => state.auth);
 
-  if (!user) router.replace(LOGIN_ROUTE);
+  useEffect(() => {
+    if (!user) {
+      router.replace(LOGIN_ROUTE);
+    }
+  }, [user, router]);
 
-  if (user)
+  if (!user)
     return (
-      <div className="flex h-screen">
-        <Sidebar />
-        <div className="flex-1 overflow-y-auto text-gray-800 dark:text-gray-200">
-          <AdminHeader username={user?.name} />
-          <main className="py-6 px-3 md:px-6  h-full bg-gray-50 dark:bg-gray-900">{children}</main>
-        </div>
-      </div>
+      <section className="py-24 flex items-center justify-center w-full">
+        <Spinner className="h-16 w-16 fill-primary" />
+      </section>
     );
 
   return (
-    <section className="py-24 flex items-center justify-center w-full">
-      <Spinner className="h-16 w-16 fill-primary" />
-    </section>
+    <div className="flex h-screen">
+      <Sidebar />
+      <div className="flex-1 overflow-y-auto text-gray-800 dark:text-gray-200">
+        <AdminHeader username={user?.name} />
+        <main className="py-6 px-3 md:px-6  h-full bg-gray-50 dark:bg-gray-900">
+          {children}
+        </main>
+      </div>
+    </div>
   );
 };
 

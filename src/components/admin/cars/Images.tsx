@@ -33,7 +33,10 @@ const CarImages = ({ carImages }: Props) => {
         })
         .catch((error) => {
           toast.error(
-            <ErrorComponent defaultError="Image delete failed!" error={error} />,
+            <ErrorComponent
+              defaultError="Image delete failed!"
+              error={error}
+            />,
             { icon: false },
           );
         });
@@ -85,13 +88,15 @@ const CarImages = ({ carImages }: Props) => {
 
       <Modal show={show} setShow={setShow} title="Preview Car Image">
         <div className="rounded-xl overflow-hidden relative max-w-5xl h-auto md:h-150 object-center mx-auto">
-          <Image
-            alt="Tesla Model 3"
-            src={selectedImage?.url ?? ""}
-            width={800}
-            height={550}
-            className="w-full h-full object-contain md:object-cover"
-          />
+          {selectedImage?.url && (
+            <Image
+              alt="Tesla Model 3"
+              src={selectedImage?.url}
+              width={800}
+              height={550}
+              className="w-full h-full object-contain md:object-cover"
+            />
+          )}
           {selectedImage?.featured && (
             <div className="absolute top-5 right-5 bg-primary text-white px-4 py-1 rounded-2xl">
               Featured
