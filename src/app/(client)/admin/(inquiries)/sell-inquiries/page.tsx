@@ -1,9 +1,7 @@
 import { SearchParams } from "next/dist/server/request/search-params";
-import { Suspense } from "react";
 
 import { DEFAULT_PAGE, PAGE_LIMIT } from "@/constants/pagination";
 import { getSellInquiries } from "@/api/sellInquiries";
-import Loading from "./loading";
 import Pagination from "@/components/admin/table/Pagination";
 import Table from "@/components/admin/inquiries/sell-inquiries/Table";
 
@@ -12,14 +10,7 @@ interface Props {
 }
 
 const SellInquiresPage = async ({ searchParams }: Props) => {
-  const query = await searchParams;
-  const queryKey = JSON.stringify(query);
-
-  return (
-    <Suspense key={queryKey} fallback={<Loading />}>
-      <SellInquiriesList searchParams={searchParams} />
-    </Suspense>
-  );
+  return <SellInquiriesList searchParams={searchParams} />;
 };
 
 const SellInquiriesList = async ({
