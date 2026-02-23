@@ -1,4 +1,4 @@
-import { FaBolt, FaHeadset, FaLeaf, FaShieldAlt } from "react-icons/fa";
+import { FaBolt, FaLeaf, FaShieldAlt } from "react-icons/fa";
 
 export const features = [
   {
@@ -11,11 +11,11 @@ export const features = [
     Icon: FaBolt,
     label: "Quick Pickup",
   },
-  {
-    content: "Always available to help",
-    Icon: FaHeadset,
-    label: "24/7 Support",
-  },
+  // {
+  //   content: "Always available to help",
+  //   Icon: FaHeadset,
+  //   label: "24/7 Support",
+  // },
   {
     content: "40% electric fleet",
     Icon: FaLeaf,
