@@ -8,6 +8,7 @@ const config = {
   jwtSecret: process.env.JWT_SECRET || "",
   supabaseKey: process.env.SUPABASE_API_KEY || "",
   supabaseUrl: process.env.SUPABASE_URL || "",
+  tinymceKey: process.env.NEXT_PUBLIC_TINYMCE_API_KEY || "",
 };
 
 export default config;

@@ -32,16 +32,18 @@ export const ADMIN_CARS_ROUTE = "/admin/cars";
 export const CONTACT_INQUIRIES_ROUTE = "/admin/contact-inquiries";
 export const SELL_INQUIRIES_ROUTE = "/admin/sell-inquiries";
 
-export const SETTINGS_ROUTE = "/admin/settings";
+export const LEGAL_DOCUMENTS_ROUTE = "/admin/legal-documents";
 export const PROFILE_ROUTE = "/admin/profile";
+export const SETTINGS_ROUTE = "/admin/settings";
 
 export const ADMIN_ROUTES = [
-  DASHBOARD_ROUTE,
   ADD_CAR_ROUTE,
-  ADMIN_CARS_LIST_ROUTE,
   ADMIN_CAR_RENT_ROUTE,
   ADMIN_CAR_SELL_ROUTE,
+  ADMIN_CARS_LIST_ROUTE,
   CONTACT_INQUIRIES_ROUTE,
-  SETTINGS_ROUTE,
+  DASHBOARD_ROUTE,
+  LEGAL_DOCUMENTS_ROUTE,
   PROFILE_ROUTE,
+  SETTINGS_ROUTE,
 ];

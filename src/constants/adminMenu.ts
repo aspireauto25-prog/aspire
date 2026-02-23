@@ -7,6 +7,7 @@ import {
   FaTag,
   FaUserCog,
 } from "react-icons/fa";
+import { FaRegFileLines } from "react-icons/fa6";
 
 import {
   ADMIN_CARS_LIST_ROUTE,
@@ -14,6 +15,7 @@ import {
   ADMIN_CAR_SELL_ROUTE,
   CONTACT_INQUIRIES_ROUTE,
   DASHBOARD_ROUTE,
+  LEGAL_DOCUMENTS_ROUTE,
   PROFILE_ROUTE,
   SELL_INQUIRIES_ROUTE,
 } from "./routes";
@@ -58,11 +60,11 @@ export const inquiryMenu = [
 ];
 
 export const settingsMenu = [
-  // {
-  //   Icon: FaCog,
-  //   route: SETTINGS_ROUTE,
-  //   label: "General Settings",
-  // },
+  {
+    Icon: FaRegFileLines,
+    route: LEGAL_DOCUMENTS_ROUTE,
+    label: "Legal Documents",
+  },
   {
     Icon: FaUserCog,
     route: PROFILE_ROUTE,

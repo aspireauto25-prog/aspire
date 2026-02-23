@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography" {
+  classname: wysiwyg;
+}
 
 :root {
   --background: #f7f8fd;
@@ -1011,4 +1014,8 @@ input[type="range"]::-moz-range-thumb {
 
 .car-status-6 {
   @apply bg-red-100 text-red-700;
+}
+
+.wysiwyg ul li::marker {
+  color: var(--color-primary);
 }
