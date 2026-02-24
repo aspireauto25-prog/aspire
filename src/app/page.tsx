@@ -4,6 +4,7 @@ import CTA from "@/components/home/CTA";
 import Fleet from "@/components/home/Fleet";
 import Hero from "@/components/home/Hero";
 import Partners from "@/components/home/Partners";
+import Reviews from "@/components/home/Reviews";
 import Servicing from "@/components/home/Servicing";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 
@@ -18,6 +19,7 @@ export default function Home() {
       <BookingForm />
       <BuySell />
       <Servicing />
+      <Reviews />
     </>
   );
 }

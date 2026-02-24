@@ -26,7 +26,6 @@ interface Props {
 }
 
 const ContactForm = ({ message = "", subject = "" }: Props) => {
-  console.log(subject)
   const { handleSubmit, register, reset } = useForm<FormData>({
     defaultValues: {
       subject,

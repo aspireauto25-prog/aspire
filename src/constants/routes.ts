@@ -8,6 +8,7 @@ export const HOME_ROUTE = "/";
 export const PRIVACY_ROUTE = "/privacy-policy";
 export const RENT_LIST_ROUTE = "/rent/list";
 export const RENT_ROUTE = "/rent";
+export const REVIEWS_ROUTE = "/reviews";
 export const SELL_CAR_ROUTE = "/buy-sell/sell";
 export const SERVICING_ROUTE = "/servicing";
 export const TERMS_CONDITIONS_ROUTE = "/terms-and-conditions";
