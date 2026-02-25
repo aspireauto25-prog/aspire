@@ -33,7 +33,7 @@ export const GET = async (req: Request) => {
 
   if (search) {
     query = query.or(
-      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%`,
+      `name.ilike.%${search}%,email.ilike.%${search}%,service_used  .ilike.%${search}%,car.ilike.%${search}%`,
     );
   }
 
