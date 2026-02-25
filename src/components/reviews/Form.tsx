@@ -140,7 +140,7 @@ const ReviewsForm = () => {
           id="review"
           rows={5}
           required
-          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-red-200 dark:focus:ring-red-900 focus:border-primary dark:focus:border-primary bg-white dark:bg-gray-700 form-input-focus"
+          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl bg-light dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
           placeholder="Tell us about your experience..."
           defaultValue={""}
           {...register("review")}
@@ -161,7 +161,7 @@ const ReviewsForm = () => {
           I agree to the
           <Link
             href={TERMS_CONDITIONS_ROUTE}
-            className="text-primary hover:underline px-1"
+            className="text-primary hover:underline px-1 inline-flex"
           >
             Terms of Service
           </Link>

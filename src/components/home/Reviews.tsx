@@ -20,11 +20,16 @@ const Reviews = async () => {
   return (
     <div className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="text-center mb-16 fade-in">
+          <div className="inline-block px-6 py-2 rounded-full bg-primary/10 mb-4">
+            <span className="text-primary font-bold">
+              WHAT OUR CUSTOMERS SAY
+            </span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Featured <span className="text-primary">Testimonials</span>
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Hear from our satisfied customers about their experience with our
             car services
           </p>

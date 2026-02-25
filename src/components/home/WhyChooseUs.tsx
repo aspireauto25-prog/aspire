@@ -50,11 +50,11 @@ const WhyChooseUs = () => {
   return (
     <section id="why-choose-us" className="dark:bg-gray-900 py-16">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12 fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Why Choose Aspire Automotive?
+        <div className="text-center mb-16 fade-in">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Why Choose <span className="text-primary">Aspire Automotive?</span>
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             We provide exceptional car rental and servicing experience with our
             customer-first approach.
           </p>
