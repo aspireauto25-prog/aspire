@@ -1,5 +1,6 @@
 import {
   FaCarAlt,
+  FaComments,
   FaDollarSign,
   FaInbox,
   FaKey,
@@ -17,6 +18,7 @@ import {
   DASHBOARD_ROUTE,
   LEGAL_DOCUMENTS_ROUTE,
   PROFILE_ROUTE,
+  REVIEW_INQUIRIES_ROUTE,
   SELL_INQUIRIES_ROUTE,
 } from "./routes";
 
@@ -56,6 +58,11 @@ export const inquiryMenu = [
     Icon: FaDollarSign,
     route: SELL_INQUIRIES_ROUTE,
     label: "Sell Inquiries",
+  },
+  {
+    Icon: FaComments,
+    route: REVIEW_INQUIRIES_ROUTE,
+    label: "Review Inquiries",
   },
 ];
 

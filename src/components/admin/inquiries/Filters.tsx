@@ -1,9 +1,5 @@
 "use client";
 
-import {
-  SELL_INQUIRY_PENDING,
-  SELL_INQUIRY_RESPONDED,
-} from "@/constants/sellInquiries";
 import { useUpdateQueryParams } from "@/hooks/useUpdateQueryParams";
 import { useSearchParams } from "next/navigation";
 

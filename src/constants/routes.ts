@@ -31,6 +31,7 @@ export const ADMIN_CARS_LIST_ROUTE = "/admin/cars/list";
 export const ADMIN_CARS_ROUTE = "/admin/cars";
 
 export const CONTACT_INQUIRIES_ROUTE = "/admin/contact-inquiries";
+export const REVIEW_INQUIRIES_ROUTE = "/admin/review-inquiries";
 export const SELL_INQUIRIES_ROUTE = "/admin/sell-inquiries";
 
 export const LEGAL_DOCUMENTS_ROUTE = "/admin/legal-documents";

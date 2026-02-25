@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-import { REVIEWS_STATUS_DRAFT } from "@/constants/reviews";
+import { REVIEWS_STATUS_PENDING } from "@/constants/reviews";
 import { TOKEN } from "@/constants/contants";
 import { User } from "@/lib/types/user.types";
 import { USER_ROLE_ADMIN } from "@/constants/user";
@@ -73,7 +73,7 @@ export const PATCH = async (request: Request, { params }: Params) => {
   const { data, error } = await supabase
     .from("reviews")
     .update({
-      status: body?.status || REVIEWS_STATUS_DRAFT,
+      status: body?.status || REVIEWS_STATUS_PENDING,
       updated_at: new Date().toISOString(),
     })
     .select("*")

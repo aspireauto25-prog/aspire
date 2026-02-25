@@ -19,7 +19,7 @@ const Reviews = async () => {
 
   return (
     <div className="py-20 bg-gray-50 dark:bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 fade-in">
           <div className="inline-block px-6 py-2 rounded-full bg-primary/10 mb-4">
             <span className="text-primary font-bold">

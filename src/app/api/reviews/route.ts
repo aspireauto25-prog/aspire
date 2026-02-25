@@ -2,7 +2,7 @@ import { ZodError } from "zod";
 
 import { formatZodErrors } from "@/utils/zod";
 import { PAGE_LIMIT } from "@/constants/pagination";
-import { REVIEWS_STATUS_DRAFT } from "@/constants/reviews";
+import { REVIEWS_STATUS_PENDING } from "@/constants/reviews";
 import { reviewSchema } from "@/lib/schemas/review.schema";
 import supabase from "@/config/database";
 
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
       .from("reviews")
       .insert({
         ...input,
-        status: REVIEWS_STATUS_DRAFT,
+        status: REVIEWS_STATUS_PENDING,
         updated_at: new Date().toISOString(),
       })
       .select()
