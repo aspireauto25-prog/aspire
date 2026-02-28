@@ -57,7 +57,7 @@ export const servicePackages = [
         "Wheel rotation, nuts/bolts checked and re-torqued to specification.",
       ],
     ],
-    recommendedFor: "Comprehensive service every 20,000 km",
+    recommendedFor: "As per manufacturer's recommendation or around 15000 km.",
   },
   // {
   //   id: 3,
