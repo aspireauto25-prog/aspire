@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 interface Props {
   name: string;
@@ -26,6 +26,14 @@ const partners = [
   {
     image: "/images/partners/integrity.png",
     name: "Integrity Extended Warranties",
+  },
+  {
+    image: "/images/partners/castrol.png",
+    name: "Castrol",
+  },
+  {
+    image: "/images/partners/toyota.png",
+    name: "Toyota Genuine Parts",
   },
 ];
 
@@ -56,7 +64,7 @@ const Partners = () => {
             <span className="text-primary font-bold">OUR PARTNERS</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Trusted <span className="text-primary">Partners</span>
+            Our Trusted <span className="text-primary">Parts Supplier</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Collaborating with trusted brands and industry leaders to deliver

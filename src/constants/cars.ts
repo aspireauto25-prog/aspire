@@ -119,6 +119,6 @@ export const rentalIncludedItems = [
 export const rentalRequirements = [
   "Valid Driver's License",
   "Credit Card for Security Deposit",
-  "Minimum Age: 25",
+  "Minimum Age: 21",
   "Insurance Documentation",
 ];
