@@ -12,7 +12,7 @@ const MaintenanceSchedule = ({ mileage, services }: Props) => {
   return (
     <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg slide-up">
       <div className="flex items-start mb-4">
-        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
+        <div className="min-w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
           <FaTachometerAlt className="text-primary" />
         </div>
         <div>
@@ -30,7 +30,7 @@ const MaintenanceSchedule = ({ mileage, services }: Props) => {
         </div>
       </div>
       <Link
-        href={CONTACT_ROUTE}
+        href={`${CONTACT_ROUTE}?subject=Car Servicing and Maintenance`}
         className="text-primary hover:underline font-medium flex items-center gap-2"
       >
         <FaTools /> Schedule Service

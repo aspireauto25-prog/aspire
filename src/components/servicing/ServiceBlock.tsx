@@ -49,7 +49,7 @@ const ServiceBlock = ({ service }: Props) => {
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-5">
                   {sub.items.map((item, itemIdx) => (
                     <li key={itemIdx} className="flex items-start gap-3 group">
-                      <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <div className="mt-1 shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                         <FaCheck className="text-primary text-xs" />
                       </div>
                       <span className="text-gray-700 dark:text-gray-200">

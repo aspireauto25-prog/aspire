@@ -82,32 +82,50 @@ export const servicePackages = [
 
 export const maintenanceSchedule = [
   {
-    mileage: "Every 10,000 km / 6 months",
-    services: ["Oil & Filter Change", "Tire Rotation", "Brake Inspection"],
-  },
-  {
-    mileage: "Every 20,000 km / 12 months",
-    services: ["Spark Plugs", "Transmission Fluid", "Brake Fluid"],
-  },
-  {
-    mileage: "Every 40,000 km / 24 months",
-    services: ["Wheel Alignment", "Suspension Check", "Hybrid Fan Clean"],
-  },
-  {
-    mileage: "Every 100,000 km / 5 years",
+    mileage: "Every 45000 km",
     services: [
-      "Spark Plugs",
-      "Transmission Fluid Replacement",
-      "Suspension & Filters",
+      "Air filter replacement",
+      "Cabin (AC) filter replacement",
+      "Brake fluid condition check",
+      "Wheel balance (if required)",
+      "Suspension inspection",
+      "Drive belt inspection",
     ],
   },
   {
-    mileage: "Every 160,000 km / 8 years",
-    services: ["Timing Belt", "Coolant Check", "Major Service"],
+    mileage: "Every 60,000 km",
+    services: [
+      "Spark plug inspection/replacement",
+      "Fuel filter replacement and fuel system inspection ",
+      "Throttle body clean",
+      "Brake fluid replacement",
+      "Transmission oil inspection",
+      "Cooling system pressure test",
+    ],
   },
   {
-    mileage: "60,000-80,000 km (rental use)",
-    services: ["Air Filter", "Cabin Filter", "CVT Fluid"],
+    mileage: "Every 100,000 km",
+    services: [
+      "Timing chain or Timing belt replacement (if belt type engine)",
+      "Water pump replacement (recommended with timing belt)",
+      "Full engine inspection",
+      "Engine mount check",
+      "Comprehensive safety check",
+      "Transmission fluid replacement",
+      "Differential oil replacement (if applicable)",
+      "Coolant replacement",
+      "Power steering fluid check/replacement",
+      "Full suspension inspection.",
+    ],
+  },
+  {
+    mileage: "Additional Component Replacement",
+    services: [
+      "Brake Pads 30,000 - 60,000 km",
+      "Brake Rotors 60,000 - 100,000 km",
+      "Battery 2 - 4 years",
+      "Tyres 40,000 - 60,000 km",
+    ],
   },
 ];
 
