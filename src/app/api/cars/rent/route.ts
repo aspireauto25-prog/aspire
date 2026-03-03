@@ -45,9 +45,13 @@ export const GET = async (req: Request) => {
   if (status) query = query.eq("status", status);
 
   if (search) {
-    query = query.or(
-      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%,license_plate.ilike.%${search}%,chassis_number.ilike.%${search}%,category.ilike.%${search}%`,
-    );
+    const words = search.trim().split(/\s+/);
+
+    words.forEach((word) => {
+      query = query.or(
+        `brand.ilike.%${word}%,model.ilike.%${word}%,variant.ilike.%${word}%,license_plate.ilike.%${word}%,chassis_number.ilike.%${word}%,category.ilike.%${word}%`,
+      );
+    });
   }
 
   const { data, error, count } = await query;

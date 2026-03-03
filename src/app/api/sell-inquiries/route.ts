@@ -48,9 +48,13 @@ export const GET = async (req: Request) => {
   if (status) query = query.eq("status", status);
 
   if (search) {
-    query = query.or(
-      `brand.ilike.%${search}%,model.ilike.%${search}%,variant.ilike.%${search}%`,
-    );
+    const words = search.trim().split(/\s+/);
+
+    words.forEach((word) => {
+      query = query.or(
+        `brand.ilike.%${word}%,model.ilike.%${word}%,variant.ilike.%${word}%`,
+      );
+    });
   }
 
   const { data, error, count } = await query;

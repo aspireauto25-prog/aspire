@@ -58,9 +58,13 @@ export const GET = async (req: Request) => {
   }
 
   if (search) {
-    query = query.or(
-      `name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,subject.ilike.%${search}%,message.ilike.%${search}%`,
-    );
+    const words = search.trim().split(/\s+/);
+
+    words.forEach((word) => {
+      query = query.or(
+        `name.ilike.%${word}%,email.ilike.%${word}%,phone.ilike.%${word}%,subject.ilike.%${word}%,message.ilike.%${word}%`,
+      );
+    });
   }
 
   const { data, error, count } = await query;
