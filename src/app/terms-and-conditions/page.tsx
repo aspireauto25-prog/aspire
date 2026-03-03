@@ -48,7 +48,7 @@ const TermsAndConditionsPage = async () => {
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 md:p-12">
               <div className="mb-8 pb-6 border-b border-gray-200 dark:border-gray-700">
                 <p className="text-gray-500 dark:text-gray-400 text-sm">
-                  Last updated: {format(legalDocument?.updated_at, "MMMM yyyy")}
+                  Last updated: {format(legalDocument?.updated_at, "dd MMMM, yyyy")}
                 </p>
               </div>
 
