@@ -9,7 +9,7 @@ const BuySellCTA = () => {
       <div className="container mx-auto px-6 text-center">
         <h2 className="text-4xl font-bold mb-6">Ready to Buy or Sell?</h2>
         <p className="text-xl mb-8 max-w-2xl mx-auto">
-          Join thousands of satisfied customers who trust AutoElite for their
+          Join thousands of satisfied customers who trust Aspire Automotive for their
           car transactions.
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center">

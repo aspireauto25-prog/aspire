@@ -42,7 +42,7 @@ const RentListLayout = ({
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why Choose AutoElite?
+              Why Choose Aspire Automotive?
             </h2>
             <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               We make car rental simple, reliable, and premium
