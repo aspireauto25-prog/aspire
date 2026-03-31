@@ -9,6 +9,7 @@ const config = {
   supabaseKey: process.env.SUPABASE_API_KEY || "",
   supabaseUrl: process.env.SUPABASE_URL || "",
   tinymceKey: process.env.NEXT_PUBLIC_TINYMCE_API_KEY || "",
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP || "",
 };
 
 export default config;
