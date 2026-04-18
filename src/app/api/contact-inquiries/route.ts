@@ -9,6 +9,7 @@ import { TOKEN } from "@/constants/contants";
 import { User } from "@/lib/types/user.types";
 import { USER_ROLE_ADMIN } from "@/constants/user";
 import { verifyJWT } from "@/utils/jwt";
+import sendEmail, { getEmailTemplate } from "@/utils/email";
 import supabase from "@/config/database";
 
 export const GET = async (req: Request) => {
@@ -101,6 +102,20 @@ export async function POST(request: Request) {
 
     if (error)
       return Response.json({ message: error.message }, { status: 500 });
+
+    const html = getEmailTemplate("contact")
+      .replace("{{name}}", input.name)
+      .replace("{{email}}", input.email)
+      .replace("{{phone}}", input.phone || "N/A")
+      .replace("{{subject}}", input.subject)
+      .replace("{{message}}", input.message);
+
+    console.log(html);
+
+    sendEmail({
+      subject: "New contact form submission.",
+      html,
+    });
 
     return Response.json(data, { status: 201 });
   } catch (error) {

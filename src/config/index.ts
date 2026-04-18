@@ -6,6 +6,7 @@ const config = {
   cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
   cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME || "",
   emailFrom: process.env.EMAIL_FROM || "",
+  emailTo: process.env.EMAIL_TO || "",
   jwtSecret: process.env.JWT_SECRET || "",
   resendApiKey: process.env.RESEND_API_KEY || "",
   supabaseKey: process.env.SUPABASE_API_KEY || "",
