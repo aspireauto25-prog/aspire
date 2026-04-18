@@ -15,7 +15,7 @@ async function sendEmail({
 
   try {
     return await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>",
+      from: config.emailFrom,
       to,
       subject,
       html,
