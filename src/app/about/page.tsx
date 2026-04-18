@@ -77,7 +77,7 @@ const AboutPage = () => {
                 <div className="w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
                   <Image
                     src={heroBg}
-                    alt="AutoElite Showroom"
+                    alt="Aspire Automotive"
                     className="w-full h-full object-cover"
                     height={800}
                     width={1200}
@@ -125,7 +125,7 @@ const AboutPage = () => {
               Our Mission &amp; Values
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Guiding principles that drive everything we do at AutoElite
+              Guiding principles that drive everything we do at Aspire Automotive
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

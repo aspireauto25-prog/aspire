@@ -61,7 +61,7 @@ const Partners = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-12 slide-up">
           <div className="inline-block px-6 py-2 rounded-full bg-primary/10 mb-4">
-            <span className="text-primary font-bold">OUR PARTNERS</span>
+            <span className="text-primary font-bold">OUR SUPPLIERS</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Our Trusted <span className="text-primary">Parts Supplier</span>

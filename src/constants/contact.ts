@@ -1,3 +1,5 @@
+import config from "@/config";
+
 export const CONTACT_INQUIRY_PENDING = 1;
 export const CONTACT_INQUIRY_RESPONDED = 2;
 
@@ -14,7 +16,7 @@ export const subjects = [
 export const FACEBOOK_URL =
   "https://www.facebook.com/profile.php?id=61584306850096";
 export const TIKTOK_URL = "https://www.tiktok.com/@aspire.automotive";
-export const WHATSAPP_URL = "https://wa.me/0497790788";
+export const WHATSAPP_URL = `https://wa.me/${config.whatsapp}`;
 
 export const PHONE = "0497790788";
 export const EMAIL = "info@aspireauto.com.au";
