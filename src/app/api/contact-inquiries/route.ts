@@ -110,8 +110,6 @@ export async function POST(request: Request) {
       .replace("{{subject}}", input.subject)
       .replace("{{message}}", input.message);
 
-    console.log(html);
-
     sendEmail({
       subject: "New contact form submission.",
       html,
