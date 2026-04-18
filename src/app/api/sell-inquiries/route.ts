@@ -8,6 +8,7 @@ import { TOKEN } from "@/constants/contants";
 import { User } from "@/lib/types/user.types";
 import { USER_ROLE_ADMIN } from "@/constants/user";
 import { verifyJWT } from "@/utils/jwt";
+import sendEmail, { getEmailTemplate } from "@/utils/email";
 import supabase from "@/config/database";
 
 export const GET = async (req: Request) => {
@@ -89,6 +90,20 @@ export async function POST(request: Request) {
 
     if (error)
       return Response.json({ message: error.message }, { status: 500 });
+
+    const html = getEmailTemplate("sell-car")
+      .replace("{{name}}", input.owner_name)
+      .replace("{{email}}", input.owner_email)
+      .replace("{{phone}}", input.owner_phone || "N/A")
+      .replace("{{brand}}", input.brand)
+      .replace("{{model}}", input.model)
+      .replace("{{year}}", input.year.toString())
+      .replace("{{price}}", input.price?.toString() || "N/A");
+
+    sendEmail({
+      subject: "New car selling request.",
+      html,
+    });
 
     return Response.json(data, { status: 201 });
   } catch (error) {
