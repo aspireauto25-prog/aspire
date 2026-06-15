@@ -176,12 +176,6 @@ const Footer = () => {
               v{config.appVersion}
             </div>
           </div>
-          <Link
-            href={DASHBOARD_ROUTE}
-            className="text-sm text-gray-400 hover:text-primary transition-all duration-300 flex items-center gap-2 group"
-          >
-            Dashboard
-          </Link>
         </div>
       </div>
     </footer>
