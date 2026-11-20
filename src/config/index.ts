@@ -11,7 +11,6 @@ const config = {
   resendApiKey: process.env.RESEND_API_KEY || "",
   supabaseKey: process.env.SUPABASE_API_KEY || "",
   supabaseUrl: process.env.SUPABASE_URL || "",
-  tinymceKey: process.env.NEXT_PUBLIC_TINYMCE_API_KEY || "",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP || "",
 };
 

@@ -57,7 +57,7 @@ const LegalDocumentsPage = async ({ searchParams }: Props) => {
         </div>
       </div>
       <div className="py-8">
-        <TextEditor type={type} initialValue={legalDocument?.content ?? ""} />
+        <TextEditor key={type} type={type} initialValue={legalDocument?.content ?? ""} />
       </div>
     </>
   );
